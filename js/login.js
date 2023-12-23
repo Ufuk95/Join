@@ -14,13 +14,7 @@ function login() {
     }
 }
 
+function showpassword(){
 
-// const urlParams = new URLSearchParams(window.location.search);
-// const msg = urlParams.get('msg');
+}
 
-// if (msg) {
-//     msgBox = document.getElementById('msgBox');
-//     msgBox.innerHTML = msg
-// } else {
-//     // display: none;
-// }

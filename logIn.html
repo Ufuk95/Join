@@ -16,23 +16,31 @@
 <body>
 
     <header>
-        <img src="/assets/img/LogIn/Capa 1.png" alt="logo">
-        <div class="sign-up">
+        <img src="/assets/img/LogIn/Capa 1.png" alt="logo" class="join-logo join-logo-animation">
+        <div class="sign-up fading-animation">
             <span>Not a Join user?</span>
             <a href="#"><button>Sign up</button></a>
         </div>
     </header>
 
 
-    <div class="login-body">
+    <div class="login-body fading-animation">
         <div class="login-headline">
             <h1>Log In</h1>
             <img src="/assets/img/LogIn/Vector 5.png" alt="vector line">
         </div>
 
         <form onsubmit="login(); return false" class="login-area">
-            <input placeholder="email" type="email" required id="email">
-            <input placeholder="password" type="password" required id="password">
+            <input class="login-input mail-img" placeholder="Email" type="email" required id="email">
+            <div class="password-container">
+                <input class="login-input" placeholder="Password" type="password" required id="password">
+                <img src="/assets/img/LogIn/lock.png" id="img-lock" onclick="showPassword()">
+            </div>
+            
+            <div class="remember-container">
+                <input class="login-checkbox" type="checkbox" id="remember-checkbox">
+                <label class="login-checkbox-label" for="remember-checkbox">Remember me</label>
+            </div>
             <div class="Login-buttons">
                 <button type="submit" class="log-in-btn">Log in</button>
                 <button class="guest-log-in-btn">Guest Log in</button>
