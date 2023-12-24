@@ -96,6 +96,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 16px;
 }
 h1 {
   margin-block-end: 0;
@@ -126,7 +127,7 @@ h1 {
   font-weight: 400;
   border: 1px solid #d1d1d1;
   margin-bottom: 20px;
-  cursor: pointer;
+  cursor: auto;
 }
 
 #img-lock {
@@ -199,4 +200,11 @@ h1 {
 .login-checkbox-label {
   width: 110px;
   height: 19px;
+}
+
+#rectangle {
+  cursor: pointer;
+}
+#rectangle:hover{
+  box-shadow: 0 0 10px rgba(169, 169, 169, 0.6);
 }
