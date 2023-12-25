@@ -121,7 +121,6 @@ h1 {
   font-size: 20px;
   font-weight: 400;
   border: 1px solid #d1d1d1;
-  margin-bottom: 20px;
   cursor: auto;
 }
 
@@ -129,8 +128,7 @@ h1 {
   height: 24px;
   width: 24px;
   position: relative;
-  right: 10%;
-  top: 5%;
+  right: 40px;
   cursor: pointer;
 }
 .lock-img {
@@ -183,6 +181,11 @@ h1 {
   position: relative;
   left: 39px;
   gap: 8px;
+}
+.password-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .login-checkbox {
