@@ -76,8 +76,18 @@ body {
   background-color: #2A3647;
 }
 
+#sidebar-tabs{
+  color: #A8A8A8
+}
+
 #sidebar-tab {
-  height: fit-content;
+  box-sizing: border-box;
+  display: flex;
+  width: 232px;
+  height: 46px;
+  padding: 8px 56px;
+  align-items: center;
+  gap: 8px;
 }
 
 #legal-notice {
@@ -90,6 +100,6 @@ body {
   align-self: stretch;
 }
 
-#legal-notice > span{
+#legal-notice>span {
   color: #A8A8A8
 }
