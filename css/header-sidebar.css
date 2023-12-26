@@ -3,7 +3,7 @@
 @font-face {
   font-family: "inter";
   /* Gewünschter Name */
-  src: url("/Join/");
+  src: url("../assets/fonts/inter-font.ttf");
 }
 
 /************************* HEADER *************************/
