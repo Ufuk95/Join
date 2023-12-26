@@ -6,40 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
     <link rel="stylesheet" href="/css/text_info.css">
+    <link rel="stylesheet" href="css/header-sidebar.css">
+    <script src="script.js" defer></script>
 </head>
 
-<body>
+<body onload="includeHTML()">
 
-    <div class="main-text-body">
-        <div class="headline_with_arrow">
-            <h1>Privacy Policy</h1>
-            <img class="arrow-img" src="/assets/img/arrow/arrow-left-line.png" alt="arrow" onclick="goBack()">
-        </div>
+    <header id="header" w3-include-html="assets/templates/header.html"></header>
 
+    <div class="PP-container">
+        <div id="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
 
-        <div class="reading-area">
-            <div class="second-line">
-                <h2>Subtitle</h2>
-                <span class="text-field">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio
-                    felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in
-                    scelerisque nulla convallis. Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam
-                    mauris. Sed turpis ipsum, condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo,
-                    hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at
-                    ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet
-                    semper justo.
-                </span>
+        <div class="main-text-body">
+            <div class="headline_with_arrow">
+                <h1>Privacy Policy</h1>
+                <img class="arrow-img" src="/assets/img/arrow/arrow-left-line.png" alt="arrow" onclick="goBack()">
             </div>
 
-            <div class="third-line">
-                <h2>Subtitle</h2>
-                <span class="text-field">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio
-                    felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in
-                    scelerisque nulla convallis. Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam
-                    mauris. Sed turpis ipsum, condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo,
-                    hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at
-                    ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et, imperdiet
-                    semper justo.
-                </span>
+
+            <div class="reading-area">
+                <div class="second-line">
+                    <h2>Subtitle</h2>
+                    <span class="text-field">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio
+                        felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in
+                        scelerisque nulla convallis. Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam
+                        mauris. Sed turpis ipsum, condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo,
+                        hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at
+                        ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et,
+                        imperdiet
+                        semper justo.
+                    </span>
+                </div>
+
+                <div class="third-line">
+                    <h2>Subtitle</h2>
+                    <span class="text-field">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque odio
+                        felis, iaculis ut massa eget, ornare lacinia urna. In dignissim justo eu velit sagittis, in
+                        scelerisque nulla convallis. Vestibulum eros lorem, sollicitudin eget eros non, varius aliquam
+                        mauris. Sed turpis ipsum, condimentum quis nulla at, lobortis facilisis ipsum. Nunc erat justo,
+                        hendrerit vel enim vitae, feugiat mattis dui. In auctor dignissim luctus. Mauris ornare ipsum at
+                        ultrices eleifend. Praesent tempus congue magna. Quisque libero erat, pharetra a neque et,
+                        imperdiet
+                        semper justo.
+                    </span>
+                </div>
             </div>
         </div>
     </div>
