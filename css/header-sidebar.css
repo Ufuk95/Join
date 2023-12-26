@@ -6,12 +6,70 @@
   src: url("../assets/fonts/inter-font.ttf");
 }
 
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 /************************* HEADER *************************/
 
-#header{
+#header {
+  display: flex;
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  top: 0;
   font-family: inter;
   font-weight: 200;
+  height: 96px;
+  padding: 0 40px 0 348px;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+#header-text {
+  font-size: 20px;
+}
+
+#help-icon-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+#icon-help {
+  width: 32px;
+  height: 32px;
+}
+
+#circle {
+  width: 56px;
   height: 56px;
-  display:flex;
-  padding: 20px 40px 20px 348px; 
+  background-color: white;
+  border-radius: 50%;
+  border: solid #2A3647 2.5px
+}
+
+#high-element{
+  margin-top: 50px;
+  height: 2000px;
+}
+
+/************************* SIDEBAR *************************/
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  display: flex;
+  z-index: 999;
+  width: 232px;
+  height: 100%;
+  padding: 64px 0px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: #2A3647;
 }
