@@ -11,6 +11,8 @@ async function includeHTML() {
       element.innerHTML = 'Page not found';
     }
   }
+  let currentPage = document.body.id;
+  changeClickedTab(Number(currentPage))
 }
 
 let whiteImageCorrespondends = {
