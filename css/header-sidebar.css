@@ -12,6 +12,11 @@ body {
   font-family: inter;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 /************************* HEADER *************************/
 
 #header {
@@ -88,6 +93,10 @@ body {
   padding: 8px 56px;
   align-items: center;
   gap: 8px;
+}
+
+#sidebar-tab:hover{
+  background-color: #2A3D59;
 }
 
 #legal-notice {
