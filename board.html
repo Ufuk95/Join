@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/header-sidebar.css">
+    <link rel="stylesheet" href="/css/board.css">
+    <script src="script.js" defer></script>
+    <script src="/js/board.js"></script>
+</head>
+
+<body onload="includeHTML()">
+    <header id="header" w3-include-html="assets/templates/header.html"></header>
+
+    <div id="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
+
+    <div class="board-body start-position">
+        <div class="board-top">
+            <div class="board-header">
+                <h1>Board</h1>
+                <div class="board-active">
+                    <input placeholder="Find Task" type="text">
+                    <div class="input-img">
+                        <img src="/assets/img/board/Vector 3.png" alt="">
+                        <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="">
+                    </div>
+                    <button>Add task <img src="/assets/img/board/add.png" alt="plus"></button>
+                </div>
+            </div>
+            <div class="drag-drop-headline">
+                <div class="each_drag_drop">
+                    <span>To do</span>
+                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                </div>
+                <div class="each_drag_drop">
+                    <span>In progress</span>
+                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                </div>
+                <div class="each_drag_drop">
+                    <span>Await feedback</span>
+                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                </div>
+                <div class="each_drag_drop">
+                    <span>Done</span>
+                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
