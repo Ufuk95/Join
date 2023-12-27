@@ -21,7 +21,6 @@ let whiteImageCorrespondends = {
 }
 
 function changeClickedTab(i) {
-  console.log(i);
   let sideBarTabs = document.getElementById(`sidebar-tabs`);
   sideBarTabs.innerHTML = "";
   sideBarTabs.innerHTML = sideBarTabsHTML();
