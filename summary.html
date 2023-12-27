@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>summary</title>
   <link rel="stylesheet" href="css/header-sidebar.css">
-  <script src="script.js" defer></script>
+  <script src="./script.js" defer></script>
   <script src="./js/templates.js" defer></script>
-  <script src="/js/summary.js" defer></script>
+  <script src="./js/summary.js" defer></script>
 </head>
+
 <body onload="includeHTML()">
-  <header id="header" w3-include-html ="assets/templates/header.html"></header>
-  <div id="sidebar" w3-include-html ="assets/templates/sidebar.html"></div>
+  <div class="header-container">
+    <header id="header" w3-include-html="./assets/templates/header.html"></header>
+  </div>
+  <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+
+  <div class="wrapper">
+    <div class="high-element"></div>
+  </div>
 </body>
+
 </html>

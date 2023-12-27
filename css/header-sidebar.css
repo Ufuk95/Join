@@ -23,10 +23,12 @@ a {
   display: flex;
   position: fixed;
   box-sizing: border-box;
+  z-index: 999;
   width: 100%;
   top: 0;
   font-family: inter;
   font-weight: 200;
+  background-color: white;
   height: 96px;
   padding: 0 40px 0 348px;
   justify-content: space-between;
@@ -57,11 +59,16 @@ a {
   border: solid #2A3647 2.5px
 }
 
-#high-element {
-  margin-top: 50px;
-  height: 2000px;
+.high-element{
+  background-color: #29ABE2;
+  height: 3000px;
 }
 
+.header-container{
+  height: 96px; 
+  position:relative;
+  overflow-y: hidden;
+}
 /************************* SIDEBAR *************************/
 
 #sidebar {
