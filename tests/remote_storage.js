@@ -10,7 +10,6 @@ const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 /**
  * Sends key value pair to a backend
- * Simultaniously returns that data as an object/json
  */
 async function setItem(key, value) {
     const payload = { key, value, token: STORAGE_TOKEN };
@@ -28,3 +27,6 @@ async function myData(){
 }
 
 myData()
+setItem("color", "blue")
+
+getItem("color")
