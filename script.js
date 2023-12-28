@@ -1,3 +1,11 @@
+async function loadAll() {
+  await includeHTML();
+  let currentPage = document.body.id;
+  sideBarTabs = document.querySelector(`sidebar-tabs`)
+  console.log(sideBarTabs);
+  changeClickedTab(Number(currentPage));
+}
+
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
   for (let i = 0; i < includeElements.length; i++) {
@@ -11,24 +19,24 @@ async function includeHTML() {
       element.innerHTML = 'Page not found';
     }
   }
-  let currentPage = document.body.id;
-  changeClickedTab(Number(currentPage))
 }
+
 
 let whiteImageCorrespondends = {
   0: "./assets/img/header_sidebar/icon_summary_white.png",
   1: "./assets/img/header_sidebar/icon_add_task_white.png",
   2: "./assets/img/header_sidebar/icon_board_white.png",
   3: "./assets/img/header_sidebar/icon_contacts_white.png"
-}
+};
 
 function changeClickedTab(i) {
   let sideBarTabs = document.getElementById(`sidebar-tabs`);
+  console.log(sideBarTabs);
   sideBarTabs.innerHTML = "";
   sideBarTabs.innerHTML = sideBarTabsHTML();
   let clickedTab = document.querySelector(`.tab${i}`);
   clickedTab.style.color = "white";
-  clickedTab.style.backgroundColor =  "#091931"
+  clickedTab.style.backgroundColor = "#091931";
   let clickedTabImg = document.getElementById(`tab-img${i}`);
   clickedTabImg.src = whiteImageCorrespondends[i];
 }
