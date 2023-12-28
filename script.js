@@ -1,7 +1,7 @@
 async function loadAll() {
   await includeHTML();
   let currentPage = document.body.id;
-  sideBarTabs = document.querySelector(`sidebar-tabs`)
+  sideBarTabs = document.getElementById(`sidebar-tabs`)
   console.log(sideBarTabs);
   changeClickedTab(Number(currentPage));
 }
@@ -20,7 +20,6 @@ async function includeHTML() {
     }
   }
 }
-
 
 let whiteImageCorrespondends = {
   0: "./assets/img/header_sidebar/icon_summary_white.png",
