@@ -3,9 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="remote_storage.js" defer></script>
   <title>remote_storage</title>
 </head>
 <body>
-  
+  <form onsubmit="register(); return false">
+    <input required type="email" id="email">
+    <input type="password" id="password">
+    <button id="register-button"></button>
+  </form>
 </body>
 </html>
