@@ -1,19 +1,39 @@
 let board = [{
     'id': 0,
     'title': 'Putzen',
-    'category': 'todo'
+    'description': '',
+    'category': 'todo',
+    'date': '',
+    'priority': '',
+    'who': '',
+    'subtasks': '',
 }, {
     'id': 1,
-    'title': 'Kochen',
-    'category': 'in-progress'
+    'title': 'Kochwelt Page & Recipe Recommender',
+    'description': 'Build start page with recipe recommendation',
+    'category': 'in-progress',
+    'date': '',
+    'priority': '',
+    'who': '',
+    'subtasks': '',
 }, {
     'id': 2,
     'title': 'Einkaufen',
-    'category': 'await-feedback'
+    'description': '',
+    'category': 'await-feedback',
+    'date': '',
+    'priority': '',
+    'who': '',
+    'subtasks': '',
 }, {
     'id': 3,
     'title': 'Einkaufen',
-    'category': 'done'
+    'description': '',
+    'category': 'done',
+    'date': '',
+    'priority': '',
+    'who': '',
+    'subtasks': '',
 }];
 
 let currentDraggedElement;
@@ -25,7 +45,7 @@ function updateHTML() {
 
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTodoHTML(element);
+        document.getElementById('todo').innerHTML += generateTaskHTML(element);
     }
 
     let in_progress = board.filter(t => t['category'] == 'in-progress');
@@ -34,7 +54,7 @@ function updateHTML() {
 
     for (let index = 0; index < in_progress.length; index++) {
         const element = in_progress[index];
-        document.getElementById('in-progress').innerHTML += generateTodoHTML(element);
+        document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
     }
 
     let await_feedback = board.filter(t => t['category'] == 'await-feedback');
@@ -43,7 +63,7 @@ function updateHTML() {
 
     for (let index = 0; index < await_feedback.length; index++) {
         const element = await_feedback[index];
-        document.getElementById('await-feedback').innerHTML += generateTodoHTML(element);
+        document.getElementById('await-feedback').innerHTML += generateTaskHTML(element);
     }
 
     let done = board.filter(t => t['category'] == 'done');
@@ -52,7 +72,7 @@ function updateHTML() {
 
     for (let index = 0; index < done.length; index++) {
         const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
+        document.getElementById('done').innerHTML += generateTaskHTML(element);
     }
 }
 
@@ -60,8 +80,16 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
-function generateTodoHTML(element) {
-    return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
+function generateTaskHTML(element) {
+    return `
+    <div draggable="true" ondragstart="startDragging(${element['id']})" class="task">
+        <div>
+            <b>${element['title']}</b>
+        </div>
+        <div>
+            <p class="description-font">${element['description']}</p>
+        </div>
+    </div>`;
 }
 
 function allowDrop(ev) {

@@ -97,7 +97,7 @@ body {
   position: relative; /* Hinzugefügt: position relative für das z-index */
 }
 
-.each_drag_drop img {
+/* .each_drag_drop img {
   display: flex;
   padding: 3px;
   justify-content: center;
@@ -118,6 +118,38 @@ body {
   background: url(/assets/img/board/Capa1-blue.png) no-repeat 50%;
   border: 2px solid var(--Ligth-blue, #29abe2);
   object-fit: cover;
+} */
+
+.addTask {
+  position: relative;
+}
+
+.black-plus {
+  cursor: pointer;
+  display: flex;
+  padding: 3px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 2px solid #091931;
+}
+
+.blue-plus {
+  display: none;
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 8px;
+  border: 2px solid var(--Ligth-blue, #29abe2);
+  object-fit: cover;
+}
+
+.addTask:hover .blue-plus {
+  display: flex;
+}
+.addTask:hover .black-plus {
+  display: none;
 }
 
 .flex {
@@ -125,6 +157,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 90%;
+  margin-bottom: 15px;
 }
 
 /* drag and drop fläche */
@@ -137,16 +170,28 @@ body {
   margin-bottom: 50px;
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .drag-area-highlight {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.todo {
-  background-color: rgb(239, 83, 83);
+.task {
+  background-color: rgb(255, 255, 255);
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+  cursor: pointer;
+}
+
+.description-font {
+  align-self: stretch;
+  color: var(--icon, #a8a8a8);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
