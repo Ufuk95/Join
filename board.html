@@ -9,9 +9,15 @@
     <link rel="stylesheet" href="/css/board.css">
     <script src="script.js" defer></script>
     <script src="/js/board.js"></script>
+    <script defer>
+        function init(){
+            includeHTML();
+            updateHTML();
+        }
+    </script>
 </head>
 
-<body onload="includeHTML()">
+<body onload="init()">
     <header id="header" w3-include-html="assets/templates/header.html"></header>
 
     <div id="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
@@ -24,29 +30,48 @@
                     <input placeholder="Find Task" type="text">
                     <div class="input-img">
                         <img src="/assets/img/board/Vector 3.png" alt="">
-                        <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="">
+                        <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="searchTasks()">
                     </div>
                     <button>Add task <img src="/assets/img/board/add.png" alt="plus"></button>
                 </div>
             </div>
             <div class="drag-drop-headline">
                 <div class="each_drag_drop">
-                    <span>To do</span>
-                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                    <div class="flex">
+                        <span>To do</span>
+                        <img src="/assets/img/board/Capa1-black.png" alt="plus img" onclick="addToDo()">
+                    </div>
+                    <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
+                        ondragover="allowDrop(event); highlight('todo')"></div>
                 </div>
                 <div class="each_drag_drop">
-                    <span>In progress</span>
-                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                    <div class="flex">
+                        <span>In progress</span>
+                        <img src="/assets/img/board/Capa1-black.png" alt="plus img" onclick="addProgress()">
+                    </div>
+                    <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')"
+                        ondragleave="removeHighlight('in-progress')"
+                        ondragover="allowDrop(event); highlight('in-progress')"></div>
                 </div>
                 <div class="each_drag_drop">
-                    <span>Await feedback</span>
-                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                    <div class="flex">
+                        <span>Await feedback</span>
+                        <img src="/assets/img/board/Capa1-black.png" alt="plus img" onclick="addDragDrop()">
+                    </div>
+                    <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')"
+                        ondragleave="removeHighlight('await-feedback')"
+                        ondragover="allowDrop(event); highlight('await-feedback')"></div>
                 </div>
                 <div class="each_drag_drop">
                     <span>Done</span>
-                    <img src="/assets/img/board/plus button.png" alt="plus img">
+                    <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
+                        ondragover="allowDrop(event); highlight('done')"></div>
+
                 </div>
             </div>
+
+
+
         </div>
     </div>
 
