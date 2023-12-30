@@ -1,12 +1,12 @@
 // Tests for remote storage
 
 // generate tokens at  https://remote-storage.developerakademie.org/token-generator
-const STORAGE_TOKEN = '8RLSPP294RL2SQXQDY9KO3BLXKSMB4WUNVXGDP2S';
+const STORAGE_TOKEN = '6OT5NHLEZTIV1ASE5C02UCNNGQZH7TEB6HQPFP5F';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 /**
  * Sends key value pair to a backend
- */
+*/
 async function setItem(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
   return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
@@ -15,34 +15,43 @@ async function setItem(key, value) {
 
 /**
  * Takes a key, creates the right url
- * returns a json
- */
+ * returns 
+*/
 async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-  return fetch(url).then(res => res.json());
+  return fetch(url).then(res => res.json()).then(res => {
+      if (res.data) { 
+          return res.data.value;
+      } throw `Could not find data with key "${key}".`;
+  });
 }
 
-// Getting data from user email password sign in
+// -------------------------------------------- USER LOGIN GET DATA EXAMPLE -------------------------------------
 
-// Loading users from remote-storage into the array
-async function init(){
-  loadUsers()
-}
+
 
 let users = [];
 
-// By using the <form> tag IDs can be used in the onsubmit function.
-//    
+// Loading users from remote-storage into the array
+async function init() {
+  await loadUsers();
+}
+
+// loads users array onload
+async function loadUsers() {
+  users = JSON.parse(await getItem("usersCollection"));
+  console.log(users);
+}
+
+
+// By using the <form> tag IDs are recognized in the function.
 async function register() {
-  users.push({ email: email.value, password: password.value});
-  setItem("usersCollection", JSON.stringify(users))
+  users.push({ email: email.value, password: password.value });
+  await setItem("usersCollection", JSON.stringify(users));
 }
 
-
-async function getUsers(){
-  console.log(await getItem("usersCollection"));
+async function logUsers() {
+  console.log(users);
 }
 
-
-getUsers()
 
