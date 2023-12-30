@@ -38,6 +38,8 @@ let board = [{
 
 let currentDraggedElement;
 
+
+
 function updateHTML() {
     let todo = board.filter(t => t['category'] == 'todo');
 
@@ -80,17 +82,59 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
+
+
+
+// Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
+
+function updateProgressBar(taskId) {
+    const task = board.find(item => item.id === taskId);
+    const progressBar = document.querySelector(`.task[data-id="${taskId}"] .progressbar`);
+    
+    if (task && progressBar) {
+        const subtasksDone = task.subtasks.filter(subtask => subtask.done).length;
+        const subtasksTotal = task.subtasks.length;
+        
+        // Aktualisiere die Fortschrittsleiste
+        const progressPercentage = subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
+        progressBar.style.width = `${progressPercentage}%`;
+        
+        // Aktualisiere die Anzeige für Subtasks
+        const subtaskDisplay = document.querySelector(`.task[data-id="${taskId}"] .subtask-display`);
+        if (subtaskDisplay) {
+            subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
+        }
+    }
+}
+
 function generateTaskHTML(element) {
     return `
-    <div draggable="true" ondragstart="startDragging(${element['id']})" class="task">
+    <div data-id="${element['id']}" draggable="true" ondragstart="startDragging(${element['id']})" class="task">
         <div>
             <b>${element['title']}</b>
         </div>
         <div>
             <p class="description-font">${element['description']}</p>
         </div>
+        <div class="progress-task">
+            <div class="progressbar"></div>
+            <div class="subtask-display">0/0 Subtasks</div>
+        </div>
     </div>`;
 }
+
+// Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
+board[0].subtasks = [
+    { id: 1, title: 'Subtask 1', done: true },
+    { id: 2, title: 'Subtask 2', done: false },
+];
+
+// Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
+updateProgressBar(0);
+
+
+
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -107,4 +151,11 @@ function highlight(id) {
 
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
+}
+
+
+// render funktion wenn man eine neue task hinzufügen will
+
+function addTask(){
+
 }
