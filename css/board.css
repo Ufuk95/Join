@@ -205,7 +205,7 @@ body {
 
 /* ab hier kommt die add task card von html aus gesehen oben nach unten */
 /* header sektion */
-.add-task-header{
+.add-task-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -242,6 +242,61 @@ body {
 }
 
 /* mittlere sektion */
-.middle-task-body{
-  
+
+.middle-task-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 74px;
+  padding-top: 32px;
+  padding-right: 65.75px;
+}
+
+/* linke hälfte */
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+}
+.task-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 350px;
+}
+.font-line {
+  color: var(--Version-2-main-color, #2a3647);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+.task-title input {
+  display: flex;
+  padding: 12px 21px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid var(--Style, #d1d1d1);
+  background: #fff;
+  color: var(--Style, #d1d1d1);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+#description-input {
+  display: flex;
+  height: 120px;
+  padding: 18px 16px;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
 }
