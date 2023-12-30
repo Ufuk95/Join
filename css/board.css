@@ -3,6 +3,10 @@ body {
   background: #f6f7f8;
 }
 
+.d-none {
+  display: none;
+}
+
 .start-position {
   position: absolute;
   left: 232px;
@@ -78,9 +82,7 @@ body {
   border-radius: 20px;
   cursor: pointer;
 }
-/* .board-top {
 
-} */
 .drag-drop-headline {
   display: flex;
   padding: 0px 64px;
@@ -94,31 +96,8 @@ body {
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  position: relative; /* Hinzugefügt: position relative für das z-index */
-}
-
-/* .each_drag_drop img {
-  display: flex;
-  padding: 3px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 8px;
-  height: 8px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  border: 2px solid #091931;
-  object-fit: cover;
-}
-
-.each_drag_drop img:hover {
-  cursor: pointer;
-  z-index: 1;
   position: relative;
-  background: url(/assets/img/board/Capa1-blue.png) no-repeat 50%;
-  border: 2px solid var(--Ligth-blue, #29abe2);
-  object-fit: cover;
-} */
+}
 
 .addTask {
   position: relative;
@@ -194,4 +173,75 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+}
+
+/* progressbar */
+
+.progressbar {
+  display: flex;
+  width: 128px;
+  height: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 8px;
+  background: #f4f4f4;
+}
+.progress-task {
+  display: flex;
+  padding: 0px 6px 2px 0px;
+  align-items: center;
+  gap: 11px;
+}
+.subtask-display {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+/* ab hier kommt die add task card von html aus gesehen oben nach unten */
+/* header sektion */
+.add-task-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-left: 74px;
+  padding-top: 64px;
+  padding-right: 40px;
+}
+
+.task-card {
+  width: 1116px;
+  height: 870px;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.task-card-headline {
+  color: #000;
+  font-family: Inter;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+.task-close-X {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.task-close-X:hover {
+  background-color: rgb(220 217 217);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* mittlere sektion */
+.middle-task-body{
+  
 }

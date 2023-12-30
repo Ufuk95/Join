@@ -83,8 +83,85 @@
                         ondragover="allowDrop(event); highlight('done')"></div>
                 </div>
             </div>
+            <!-- ab hier kommt der add task bereich -->
+            <div class="task-card">
+                <header class="add-task-header">
+                    <span class="task-card-headline">Add Task</span>
+                    <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTask()">
+                </header>
 
+                <div class="middle-task-body">
+                    <div class="left-side">
+                        <div class="task-title">
+                            <span>Title<span>*</span></span>
+                            <input class="task-title-input" id="task-title-input" type="text"
+                                placeholder="Enter a title">
+                        </div>
+                        <div class="task-description">
+                            <span>Description</span>
+                            <input type="text" placeholder="Enter a Description">
+                        </div>
+                        <div class="task-contacts">
+                            <span>Assigned to</span>
+                            <div class="task-contact-input-area">
+                                <input type="text" value="Select contacts to assign">
+                                <img src="/assets/img/board/arrow_down.png" alt="arrow down"
+                                    onclick="showContactsInTasks()">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- einfache div für die trennung durch eine vektor linie -->
+                    <div class="vektor-line">
+                        <img src="/assets/img/board/vertical-line.png" alt="">
+                    </div>
+                    <!-- ----- -->
+                    <div class="right-side">
+                        <div>
+                            <span>Due Date<span>*</span></span>
+                            <div class="task-date-area">
+                                <input type="date" placeholder="dd/mm/yyyy">
+                                <img src="/assets/img/board/date.png" alt="Kalender logo">
+                            </div>
+                        </div>
 
+                        <div>
+                            <span>Prio</span>
+                            <div class="task-button-area">
+                                <button>Urgent<img src="/assets/img/board/Prio-red.png"></button>
+                                <button>Medium<img src="/assets/img/board/Prio-yellow.png"></button>
+                                <button>Low<img src="/assets/img/board/Prio-green.png"></button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span>Category<span>*</span></span>
+                            <div class="tast-category-area">
+                                <input type="text" id="" value="Select task category">
+                                <img src="/assets/img/board/arrow_down.png" alt="#">
+                            </div>
+                            <div class="task-select-category d-none">
+                                <div>Technical Task</div>
+                                <div>User Story</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span>Subtasks</span>
+                            <div>
+                                <input type="text" placeholder="Add new subtasks"><img
+                                    src="/assets/img/board/addforTask.png" alt="plus">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <span><span>*</span>This field is required</span>
+                    <div>
+                        <button>Cancel<img src="/assets/img/board/cancel.png"></button>
+                        <button>Create Task <img src="/assets/img/board/done.png"></button>
+                    </div>
+                </footer>
+            </div>
 
         </div>
     </div>
