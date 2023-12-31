@@ -3,7 +3,7 @@
 @font-face {
   font-family: "inter";
   /* Gewünschter Name */
-  src: url("../assets/fonts/inter-font.ttf");
+  src: url("/assets/fonts/inter-font.ttf");
 }
 
 body {
@@ -18,7 +18,6 @@ a {
 }
 
 /************************* HEADER *************************/
-
 #header {
   display: flex;
   position: fixed;
