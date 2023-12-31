@@ -5,6 +5,10 @@
   src: url("/assets/fonts/inter-font.ttf");
 }
 
+* {
+  box-sizing: border-box;
+}
+
 /************************* HEADER *************************/
 #summary-header {
   position: absolute;
@@ -33,11 +37,51 @@
   line-height: 120%;
 }
 
-#metrics-box{
-display: flex;
-width: 560px;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-gap: 28px; 
+#metrics-box {
+  position: absolute;
+  top: 335px;
+  left: 328px;
+  display: flex;
+  width: 560px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+#todo-done-frame {
+  display: flex;
+  width: 560px;
+  height: 168px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+#pencil-number-frame {
+  display: flex;
+  width: 264px;
+  height: 168px;
+  padding: 38px 19px;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+#checkmark-number-frame {
+  display: flex;
+  width: 264px;
+  height: 168px;
+  padding: 38px 58px;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10)
 }
