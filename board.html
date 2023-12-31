@@ -91,18 +91,19 @@
                 </header>
 
                 <div class="middle-task-body">
+                    <!-- linke seite -->
                     <div class="left-side">
                         <div class="task-title">
-                            <span>Title<span>*</span></span>
-                            <input class="task-title-input" id="task-title-input" type="text"
+                            <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
+                            <input required class="task-title-input" id="task-title-input" type="text"
                                 placeholder="Enter a title">
                         </div>
-                        <div class="task-description">
-                            <span>Description</span>
-                            <input type="text" placeholder="Enter a Description">
+                        <div class="task-title">
+                            <span class="font-line">Description</span>
+                            <input id="description-input" type="text" placeholder="Enter a Description">
                         </div>
-                        <div class="task-contacts">
-                            <span>Assigned to</span>
+                        <div class="task-title">
+                            <span class="font-line">Assigned to</span>
                             <div class="task-contact-input-area">
                                 <input type="text" value="Select contacts to assign">
                                 <img src="/assets/img/board/arrow_down.png" alt="arrow down"
@@ -117,15 +118,15 @@
                     <!-- ----- -->
                     <div class="right-side">
                         <div>
-                            <span>Due Date<span>*</span></span>
+                            <span class="font-line">Due Date<span style="color: #FF8190;">*</span></span></span>
                             <div class="task-date-area">
-                                <input type="date" placeholder="dd/mm/yyyy">
+                                <input required type="date" placeholder="dd/mm/yyyy">
                                 <img src="/assets/img/board/date.png" alt="Kalender logo">
                             </div>
                         </div>
 
                         <div>
-                            <span>Prio</span>
+                            <span class="font-line">Prio</span>
                             <div class="task-button-area">
                                 <button>Urgent<img src="/assets/img/board/Prio-red.png"></button>
                                 <button>Medium<img src="/assets/img/board/Prio-yellow.png"></button>
@@ -134,9 +135,9 @@
                         </div>
 
                         <div>
-                            <span>Category<span>*</span></span>
+                            <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                             <div class="tast-category-area">
-                                <input type="text" id="" value="Select task category">
+                                <input required type="text" id="" value="Select task category">
                                 <img src="/assets/img/board/arrow_down.png" alt="#">
                             </div>
                             <div class="task-select-category d-none">
@@ -146,7 +147,7 @@
                         </div>
 
                         <div>
-                            <span>Subtasks</span>
+                            <span class="font-line">Subtasks</span>
                             <div>
                                 <input type="text" placeholder="Add new subtasks"><img
                                     src="/assets/img/board/addforTask.png" alt="plus">
@@ -155,7 +156,7 @@
                     </div>
                 </div>
                 <footer>
-                    <span><span>*</span>This field is required</span>
+                    <span class="font-line"><span style="color: #FF8190;">* </span></span> This field is required</span>
                     <div>
                         <button>Cancel<img src="/assets/img/board/cancel.png"></button>
                         <button>Create Task <img src="/assets/img/board/done.png"></button>
