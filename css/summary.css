@@ -5,6 +5,10 @@
   src: url("/assets/fonts/inter-font.ttf");
 }
 
+body {
+  background-color: #F6F7F8;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -37,6 +41,7 @@
   line-height: 120%;
 }
 
+/************************* METRICS BOX *************************/
 #metrics-box {
   position: absolute;
   top: 335px;
@@ -84,4 +89,40 @@
   border-radius: 30px;
   background: var(--white, #FFF);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10)
+}
+
+.number-do-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.do-styling {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+#todo {
+  color: #2A3647;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+/************************* URGENCY SUMMARY *************************/
+#urgency-frame {
+  display: flex;
+  width: 560px;
+  height: 168px;
+  padding: 28px 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 61px;
 }

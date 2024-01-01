@@ -11,24 +11,37 @@
   <script src="./js/summary.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
-<!-------------------------- TEMPLATES --------------------------> 
+
+  <!-------------------------- TEMPLATES -------------------------->
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-<!-------------------------- HEADER -------------------------->
+  <!-------------------------- HEADER -------------------------->
   <header id="summary-header">
     <h1 id="join-360">Join 360</h1>
     <img src="./assets/img/summary/vertical_divider_blue.png" alt="">
     <span id="metrics-glance">Key Metrics at a Glance</span>
   </header>
-<!-------------------------- METRICS-FRAME -------------------------->
+  <!-------------------------- METRICS-FRAME -------------------------->
   <div id="metrics-box">
     <div id="todo-done-frame">
       <div id="pencil-number-frame">
+        <img src="./assets/img/summary/icon_pencil_grey.png" alt="">
+        <div class="number-do-box">
+          <span class="do-styling" id="todo-count">1</span>
+          <span id="todo">To-do</span>
+        </div>
       </div>
       <div id="checkmark-number-frame">
-        
+        <img src="assets/img/summary/icon_checkmark_grey.png" alt="">
+        <div class="number-do-box">
+          <span class="do-styling" id="done-count">1</span>
+          <span id="todo">Done</span>
+        </div>
       </div>
+    </div>
+    <div id="urgency-frame">
+      
     </div>
   </div>
 
