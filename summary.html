@@ -12,7 +12,8 @@
   <script src="./script.js" defer></script>
 </head>
 
-  <!-------------------------- TEMPLATES -------------------------->
+<!-------------------------- TEMPLATES -------------------------->
+
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
@@ -23,7 +24,8 @@
     <span id="metrics-glance">Key Metrics at a Glance</span>
   </header>
   <!-------------------------- METRICS-FRAME -------------------------->
-  <div id="metrics-box">
+  <div id="metrics-frame">
+
     <div id="todo-done-frame">
       <div id="pencil-number-frame">
         <img src="./assets/img/summary/icon_pencil_grey.png" alt="">
@@ -40,10 +42,22 @@
         </div>
       </div>
     </div>
+
     <div id="urgency-frame">
-      
+      <div id="urgency-counter-icon-frame">
+        <div id="urgency-icon-box">
+          <img id="urgent-eclipse" src="assets/img/summary/icon_urgent_eclipse.png" alt="Bottom Icon">
+          <img id="urgent-arrows" src="assets/img/summary/icon_urgent_arrow.png" alt="Top Icon">
+        </div>
+        <div id="counter-urgent-box">
+          <span id="urgent-counter">1</span>
+          <span id="urgent">Urgent</span>
+        </div>
+
+      </div>
+
     </div>
-  </div>
+
 
 </body>
 

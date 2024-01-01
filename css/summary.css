@@ -42,7 +42,7 @@ body {
 }
 
 /************************* METRICS BOX *************************/
-#metrics-box {
+#metrics-frame {
   position: absolute;
   top: 335px;
   left: 328px;
@@ -125,4 +125,57 @@ body {
   justify-content: center;
   align-items: center;
   gap: 61px;
+  border-radius: 30px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
+
+#urgency-icon-box {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+#urgent-eclipse,
+#urgent-arrows {
+  position: absolute;
+}
+
+#urgent-arrows {
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#urgency-counter-icon-frame {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+#counter-urgent-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#urgent-counter {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+#urgent {
+  color: #2A3647;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
