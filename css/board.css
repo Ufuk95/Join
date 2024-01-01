@@ -266,7 +266,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   gap: 8px;
-  width: 350px;
+  width: 440px;
 }
 .font-line {
   color: var(--Version-2-main-color, #2a3647);
@@ -278,19 +278,13 @@ body {
 }
 .task-title input {
   display: flex;
-  padding: 12px 21px;
+  width: 440px;
+  padding: 12px 16px;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  align-self: stretch;
   border-radius: 10px;
   border: 1px solid var(--Style, #d1d1d1);
-  background: #fff;
-  color: var(--Style, #d1d1d1);
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
+  background: var(--white, #fff);
 }
 #description-input {
   display: flex;
@@ -299,4 +293,61 @@ body {
   align-items: flex-start;
   gap: 10px;
   align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid var(--Style, #d1d1d1);
+  background: #fff;
+  width: 440px;
+}
+.task-contact-input-area {
+  display: flex;
+  align-items: center;
+}
+.Assigned-img {
+  position: relative;
+  right: 32px;
+  cursor: pointer;
+}
+
+.right-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.task-button-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.prio-btn {
+  display: flex;
+  padding: 16px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 10px;
+  background: var(--white, #fff);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  border-color: white;
+  cursor: pointer;
+}
+
+.add-task-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.add-task-footer-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+.add-task-footer-btn button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
