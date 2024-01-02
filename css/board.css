@@ -307,6 +307,10 @@ body {
   right: 32px;
   cursor: pointer;
 }
+.Assigned-img:hover {
+  background-color: #c9d7dc;
+  border-radius: 20px;
+}
 
 .right-side {
   display: flex;
@@ -334,11 +338,37 @@ body {
   border-color: white;
   cursor: pointer;
 }
+.prio-btn:hover {
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3), -1px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.task-select-category {
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3), -1px 3px 5px rgba(0, 0, 0, 0.3);
+  margin-top: -8px;
+  border-radius: 10px;
+}
+
+.selected-task {
+  display: flex;
+  width: 440px;
+  padding: 12px 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+.selected-task:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+/* für addTask ab hier footer bereich */
 
 .add-task-footer {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  position: relative;
+  top: 180px;
 }
 .add-task-footer-btn {
   display: flex;
@@ -346,8 +376,31 @@ body {
   align-items: center;
   gap: 25px;
 }
-.add-task-footer-btn button {
+.task-button {
   display: flex;
-  justify-content: space-around;
+  padding: 16px;
+  justify-content: center;
   align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--Version-2-main-color, #2a3647);
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background-color: transparent;
+}
+.cancel-btn:hover {
+  border: 1px solid var(--Ligth-blue, #29abe2);
+  color: var(--Ligth-blue, #29abe2);
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.3), -2px 5px 8px rgba(0, 0, 0, 0.3);
+}
+.create-btn {
+  background: #2a3647;
+  color: white;
+}
+.create-btn:hover {
+  background-color: var(--Ligth-blue, #29abe2);
+  border: 1px solid var(--Ligth-blue, #29abe2);
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.3), -2px 5px 8px rgba(0, 0, 0, 0.3);
 }

@@ -159,3 +159,33 @@ function removeHighlight(id) {
 function addTask(){
 
 }
+
+
+// Funktion für addTask um Category auszuwählen
+
+function showTaskSelect(selectedOption) {
+    let taskSelectCategory = document.getElementById('task-select-category');
+    let arrowDownImg = document.getElementById('arrow_down');
+    let arrowUpImg = document.getElementById('arrow_up');
+    let taskCategoryInput = document.getElementById('task-category-input');
+
+    // Überprüfe, ob der Container bereits sichtbar ist
+    let isVisible = !taskSelectCategory.classList.contains('d-none');
+
+    // Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
+    taskSelectCategory.classList.toggle('d-none');
+
+    // Füge oder entferne die 'd-none'-Klasse für die Pfeilbilder
+    arrowDownImg.classList.toggle('d-none', !isVisible);
+    arrowUpImg.classList.toggle('d-none', isVisible);
+
+    // Extrahiere den ausgewählten Text aus dem angeklickten Element
+    let selectedText = selectedOption.innerText;
+
+    // Setze den ausgewählten Text in die Input-Fläche
+    taskCategoryInput.value = selectedText;
+}
+
+
+
+
