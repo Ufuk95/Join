@@ -135,15 +135,17 @@
 
                         <div class="task-title">
                             <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
-                            <div class="task-contact-input-area">
-                                <input required type="text" id="" placeholder="Select task category">
-                                <img class="Assigned-img" src="/assets/img/board/arrow_down.png" alt="#">
+                            <div class="task-contact-input-area" onclick="showTaskSelect()">
+                                <input required type="text" id="task-category-input" placeholder="Select task category">
+                                <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png" alt="#">
+                                <img id="arrow_up" class="Assigned-img d-none" src="/assets/img/board/arrow_up.png" alt="#">
                             </div>
-                            <div class="task-select-category d-none">
-                                <div>Technical Task</div>
-                                <div>User Story</div>
+                            <div id="task-select-category" class="task-select-category d-none">
+                                <span id="technicalTask" class="selected-task" onclick="showTaskSelect(this)">Technical Task</span>
+                                <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
                             </div>
                         </div>
+                        
 
                         <div class="task-title">
                             <span class="font-line">Subtasks</span>
@@ -160,8 +162,8 @@
                         required</span>
                     </div>
                     <div class="add-task-footer-btn">
-                        <button>Cancel<img src="/assets/img/board/close.png"></button>
-                        <button>Create Task <img src="/assets/img/board/footerCheckBtn.png"></button>
+                        <button class="task-button cancel-btn">Cancel<img style="width: 25px; height: 24px;" src="/assets/img/board/close.png"></button>
+                        <button class="task-button create-btn">Create Task <img src="/assets/img/board/footerCheckBtn.png"></button>
                     </div>
                 </footer>
             </div>
