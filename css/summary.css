@@ -320,11 +320,11 @@ body {
   }
 
   #metrics-frame {
-    left: 48px;
+    left: 16px;
   }
 
   #summary-header {
-    left: 48px;
+    left: 16px;
   }
 
   #header-text {
@@ -340,6 +340,9 @@ body {
   #logo-join-header {
     display: none;
   }
+  #horizontal-stroke-blue{
+    display: none;
+  }
 }
 
 @media (max-width: 717px) {
@@ -347,19 +350,23 @@ body {
     padding: 20px 16px;
   }
 
-  #help-icon-box{
+  #help-icon-box {
     width: 100%;
     justify-content: space-between;
   }
 
   #summary-header {
     flex-direction: column;
-    top: 48px;
+    top: 128px;
     left: 16px;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   #join-360 {
     font-size: 41px;
+    line-height: normal;
   }
 
   #circle {
@@ -369,5 +376,13 @@ body {
 
   #icon-help {
     display: none;
+  }
+
+  #blue-divider{
+    display: none;
+  }
+
+  #metrics-glance{
+    font-size: 20px;
   }
 }
