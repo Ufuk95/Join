@@ -7,6 +7,7 @@
 
 body {
   background-color: #F6F7F8;
+  margin: 0;
 }
 
 * {
@@ -284,4 +285,89 @@ body {
   font-style: normal;
   font-weight: 700;
   line-height: 120%;
+}
+
+/************************* NAV-FOOTER *************************/
+#nav-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0px 16px;
+  background-color: #2A3647;
+  width: 100%;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/************************* RESPONSIVNESS *************************/
+@media (max-width: 1310px) {
+  #good-morning-name-frame {
+    display: none
+  }
+}
+
+@media (min-width: 975px) {
+  #nav-footer {
+    display: none
+  }
+}
+
+@media (max-width: 975px) {
+  #sidebar {
+    display: none
+  }
+
+  #metrics-frame {
+    left: 48px;
+  }
+
+  #summary-header {
+    left: 48px;
+  }
+
+  #header-text {
+    display: none;
+  }
+
+  #header {
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 717px) {
+  #logo-join-header {
+    display: none;
+  }
+}
+
+@media (max-width: 717px) {
+  #header {
+    padding: 20px 16px;
+  }
+
+  #help-icon-box{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #summary-header {
+    flex-direction: column;
+    top: 48px;
+    left: 16px;
+  }
+
+  #join-360 {
+    font-size: 41px;
+  }
+
+  #circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  #icon-help {
+    display: none;
+  }
 }

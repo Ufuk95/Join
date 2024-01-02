@@ -7,29 +7,36 @@
   <title>summary</title>
   <link rel="stylesheet" href="css/header-sidebar.css">
   <link rel="stylesheet" href="./css/summary.css">
+  <link rel="stylesheet" href="./css/display_classes.css">
   <script src="./js/templates.js" defer></script>
   <script src="./js/summary.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
 
 <!-------------------------- TEMPLATES -------------------------->
-
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+
   <!-------------------------- HEADER -------------------------->
   <header id="summary-header">
     <h1 id="join-360">Join 360</h1>
     <img src="./assets/img/summary/vertical_divider_blue.png" alt="">
     <span id="metrics-glance">Key Metrics at a Glance</span>
   </header>
-  <!-------------------------- METRICS-FRAME -------------------------->
+  <!-------------------------- NAV FOOTER -------------------------->
+  <div id="nav-footer">
+    <img src="./assets/img/header_sidebar/icon_summary_grey.png" alt="">
+    <img src="./assets/img/header_sidebar/icon_board_grey.png" alt="">
+  </div>
+  <!-------------------------- GOOD-MORNING-FRAME -------------------------->
   <div id="good-morning-name-frame">
     <span id="good-morning">Good morning,</span>
     <span id="person-name">Peter</span>
   </div> 
-  <div id="metrics-frame">
 
+  <!-------------------------- METRICS-FRAME -------------------------->
+  <div id="metrics-frame">
     <div id="todo-done-frame">
       <div id="pencil-number-frame">
         <img src="./assets/img/summary/icon_pencil_grey.png" alt="">
