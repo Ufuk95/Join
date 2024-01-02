@@ -258,3 +258,30 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+
+/************************* GOOD MORNING FRAME *************************/
+#good-morning-name-frame {
+  position: absolute;
+  top: 548px;
+  left: 968px;
+  width: 365px;
+  height: 136px;
+}
+
+#good-morning {
+  color: #2A3647;
+  font-family: Inter;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+}
+
+#person-name {
+  color: var(--Light-blue, #29ABE2);
+  font-family: Inter;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
