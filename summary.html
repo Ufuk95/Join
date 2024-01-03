@@ -14,17 +14,20 @@
 </head>
 
 <!-------------------------- TEMPLATES -------------------------->
+
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
   <!-------------------------- HEADER -------------------------->
-  <header id="summary-header">
-    <span id="join-360">Join 360</span>
-    <img src="./assets/img/summary/vertical_divider_blue.png" id="blue-divider" alt="">
-    <span id="metrics-glance">Key Metrics at a Glance</span>
-    <img src="./assets/img/summary/horizontal_stroke_blue.png" id="horizontal-stroke-blue" alt="">
-  </header>
+  <div id="summary-header-wrapper">
+    <header id="summary-header">
+      <span id="join-360">Join 360</span>
+      <img src="./assets/img/summary/vertical_divider_blue.png" id="blue-divider" alt="">
+      <span id="metrics-glance">Key Metrics at a Glance</span>
+      <img src="./assets/img/summary/horizontal_stroke_blue.png" id="horizontal-stroke-blue" alt="">
+    </header>
+  </div>
   <!-------------------------- NAV FOOTER -------------------------->
   <div id="nav-footer">
     <img src="./assets/img/header_sidebar/icon_summary_grey.png" alt="">
@@ -34,67 +37,69 @@
   <div id="good-morning-name-frame">
     <span id="good-morning">Good morning,</span>
     <span id="person-name">Peter</span>
-  </div> 
+  </div>
 
   <!-------------------------- METRICS-FRAME -------------------------->
-  <div id="metrics-frame">
-    <div id="todo-done-frame">
-      <div id="pencil-number-frame" class="todos-frame different-padding">
-        <img src="./assets/img/summary/icon_pencil_grey.png" class="metrics-icon" alt="">
-        <div class="number-do-box">
-          <span class="do-styling count-n" id="todo-count">1</span>
-          <span id="todo" class="count-text">To-do</span>
+  <div id="metric-frame-wrapper">
+    <div id="metrics-frame">
+      <div id="todo-done-frame">
+        <div class="todos-frame different-padding">
+          <img src="./assets/img/summary/icon_pencil_grey.png" class="metrics-icon" alt="">
+          <div class="number-do-box">
+            <span class="do-styling count-n" id="todo-count">1</span>
+            <span id="todo" class="count-text">To-do</span>
+          </div>
+        </div>
+        <div class="todos-frame">
+          <img src="assets/img/summary/icon_checkmark_grey.png" class="metrics-icon" alt="">
+          <div class="number-do-box">
+            <span class="do-styling count-n" id="done-count">1</span>
+            <span id="done" class="count-text">Done</span>
+          </div>
         </div>
       </div>
-      <div id="checkmark-number-frame" class="todos-frame">
-        <img src="assets/img/summary/icon_checkmark_grey.png" class="metrics-icon" alt="">
-        <div class="number-do-box">
-          <span class="do-styling count-n" id="done-count">1</span>
-          <span id="done" class="count-text">Done</span>
-        </div>
-      </div>
-    </div>
 
-    <div id="urgency-frame">
-      <div id="urgency-counter-icon-frame">
-        <div id="urgency-icon-box">
-          <img class="urgent-eclipse metrics-icon" src="assets/img/summary/icon_urgent_eclipse.png"  alt="Bottom Icon">
-          <img class="urgent-arrows" src="assets/img/summary/icon_urgent_arrow.png" alt="Top Icon">
+
+      <div id="urgency-frame">
+        <div id="urgency-counter-icon-frame">
+          <div id="urgency-icon-box">
+            <img class="urgent-eclipse metrics-icon" src="assets/img/summary/icon_urgent_eclipse.png" alt="Bottom Icon">
+            <img class="urgent-arrows" src="assets/img/summary/icon_urgent_arrow.png" alt="Top Icon">
+          </div>
+          <div id="counter-urgent-box">
+            <span class="urgent-counter count-n">1</span>
+            <span id="urgent" class="count-text">Urgent</span>
+          </div>
         </div>
-        <div id="counter-urgent-box">
-          <span class="urgent-counter count-n">1</span>
-          <span id="urgent" class="count-text">Urgent</span>
-        </div>
-      </div>
         <img src="./assets/img/summary/vertical_divider_grey.png" id="grey-divider" alt="">
-  
+
         <div id="deadline-date-box">
           <span id="deadline-date">Month Day, Year</span>
           <span id="deadline-text" class="count-text">Upcoming Deadline</span>
         </div>
-    </div>
+      </div>
 
-    <div id="counters-squares-frame">
-      <div class="square-frame">
-        <div class="count-text-box">
-          <div class="count-number count-n" id="count-tasks">1</div>
-          <div class="count-text">Tasks in <br> Board</div>
+      <div id="counters-squares-frame">
+        <div class="square-frame">
+          <div class="count-text-box">
+            <div class="count-number count-n" id="count-tasks">1</div>
+            <div class="count-text">Tasks in <br> Board</div>
+          </div>
         </div>
-      </div>
-      <div class="square-frame">
-        <div class="count-text-box">
-          <div class="count-number count-n" id="count-in-progress">2</div>
-          <div class="count-text">Tasks in <br> Progress</div>
+        <div class="square-frame">
+          <div class="count-text-box">
+            <div class="count-number count-n" id="count-in-progress">2</div>
+            <div class="count-text">Tasks in <br> Progress</div>
+          </div>
         </div>
-      </div>
-      <div class="square-frame">
-        <div class="count-text-box">
-          <div class="count-number count-n" id="count-await-feedback">3</div>
-          <div class="count-text">Awaiting<br>Feedback</div>
+        <div class="square-frame">
+          <div class="count-text-box">
+            <div class="count-number count-n" id="count-await-feedback">3</div>
+            <div class="count-text">Awaiting<br>Feedback</div>
+          </div>
         </div>
       </div>
     </div>
->
 
 
 </body>

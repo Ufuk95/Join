@@ -15,12 +15,16 @@ body {
 }
 
 /************************* HEADER *************************/
+#summary-header-wrapper{
+  margin-left: 328px;
+  margin-top: 206px;
+}
+
 #summary-header {
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   gap: 30px;
-  left: 328px;
-  top: 206px;
+  margin-right: auto;
   font-family: Inter;
   display: flex;
   align-items: center;
@@ -42,17 +46,20 @@ body {
   line-height: 120%;
 }
 
-/************************* METRICS BOX *************************/
+/************************* METRICS FRAME *************************/
+#metric-frame-wrapper{
+  margin-top: 49px;
+  margin-left: 328px;
+}
+
 #metrics-frame {
-  position: absolute;
-  top: 335px;
-  left: 328px;
   display: flex;
   width: 560px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 28px;
+  border: orange solid
 }
 
 #todo-done-frame {
@@ -67,7 +74,7 @@ body {
 .todos-frame {
   display: flex;
   width: 264px;
-  height: 168px;
+  height: 100%;
   padding: 38px 58px;
   justify-content: center;
   align-items: center;
@@ -269,7 +276,29 @@ body {
   #good-morning-name-frame {
     display: none
   }
+
+  #summary-header-wrapper{
+    margin-left: 232px;
+  }
+
+  #summary-header{
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  #metric-frame-wrapper{
+    margin-left: 232px;
+  }
+
+  #metrics-frame{
+    width: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
+
+
 
 @media (min-width: 975px) {
   #nav-footer {
@@ -286,8 +315,12 @@ body {
     left: 16px;
   }
 
-  #summary-header {
-    left: 16px;
+  #summary-header-wrapper {
+    margin-left:0;
+  }
+  
+  #metric-frame-wrapper{
+    margin-left:0;
   }
 
   #header-text {
@@ -319,6 +352,23 @@ body {
   .urgent-arrows {
     width: 23.2px;
     height: 16.6px;
+  }
+
+  #metrics-frame > * {
+    width: 396px;
+    height: 110px;
+  }
+
+  #todo-done-frame {
+    width: 396px;
+    height: 110px;
+    flex-shrink: 0;
+    gap: 24px;
+    border: solid red; 
+  }
+
+  .todos-frame{
+    width: 186px;
   }
 }
 
