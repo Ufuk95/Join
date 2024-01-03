@@ -190,8 +190,9 @@ body {
 
 .square-frame {
   display: flex;
+  flex: 1;
   width: 168px;
-  height: 168px;
+  height: 100%;
   padding: 25px 0px;
   flex-direction: column;
   justify-content: center;
@@ -364,11 +365,15 @@ body {
     height: 110px;
     flex-shrink: 0;
     gap: 24px;
-    border: solid red; 
   }
 
   .todos-frame{
     width: 186px;
+  }
+
+  .square-frame{
+    flex: 1;
+    height: 100%;
   }
 }
 
