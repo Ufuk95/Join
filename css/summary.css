@@ -64,21 +64,7 @@ body {
   gap: 32px;
 }
 
-#pencil-number-frame {
-  display: flex;
-  width: 264px;
-  height: 168px;
-  padding: 38px 19px;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  flex-shrink: 0;
-  border-radius: 30px;
-  background: var(--white, #FFF);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
-}
-
-#checkmark-number-frame {
+.todos-frame {
   display: flex;
   width: 264px;
   height: 168px;
@@ -90,6 +76,10 @@ body {
   border-radius: 30px;
   background: var(--white, #FFF);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10)
+}
+
+.different-padding {
+  padding: 38px 19px;
 }
 
 .number-do-box {
@@ -108,14 +98,6 @@ body {
   line-height: 120%;
 }
 
-#todo {
-  color: #2A3647;
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-}
 
 /************************* URGENCY SUMMARY *************************/
 #urgency-frame {
@@ -137,12 +119,12 @@ body {
   height: 60px;
 }
 
-#urgent-eclipse,
-#urgent-arrows {
+.urgent-eclipse,
+.urgent-arrows {
   position: absolute;
 }
 
-#urgent-arrows {
+.urgent-arrows {
   z-index: 1;
   top: 50%;
   left: 50%;
@@ -162,7 +144,7 @@ body {
   align-items: center;
 }
 
-#urgent-counter {
+.urgent-counter {
   color: #000;
   text-align: center;
   font-family: Inter;
@@ -171,16 +153,6 @@ body {
   font-weight: 600;
   line-height: 120%;
 }
-
-#urgent {
-  color: #2A3647;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-}
-
 
 
 #deadline-date-box {
@@ -196,15 +168,6 @@ body {
   font-size: 21px;
   font-style: normal;
   font-weight: 700;
-  line-height: 120%;
-}
-
-#deadline-text {
-  color: #2A3647;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
   line-height: 120%;
 }
 
@@ -250,7 +213,7 @@ body {
   line-height: 120%;
 }
 
-.square-text {
+.count-text {
   color: #2A3647;
   text-align: center;
   font-family: Inter;
@@ -334,13 +297,37 @@ body {
   #header {
     justify-content: flex-end;
   }
+
+  .count-n {
+    font-size: 47px;
+  }
+
+  .count-text {
+    font-size: 14px;
+  }
+
+  #urgency-icon-box {
+    width: 40px;
+    height: 40px;
+  }
+
+  .metrics-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .urgent-arrows {
+    width: 23.2px;
+    height: 16.6px;
+  }
 }
 
 @media (min-width: 717px) {
   #logo-join-header {
     display: none;
   }
-  #horizontal-stroke-blue{
+
+  #horizontal-stroke-blue {
     display: none;
   }
 }
@@ -378,11 +365,11 @@ body {
     display: none;
   }
 
-  #blue-divider{
+  #blue-divider {
     display: none;
   }
 
-  #metrics-glance{
+  #metrics-glance {
     font-size: 20px;
   }
 }
