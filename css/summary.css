@@ -21,7 +21,6 @@ body {
 }
 
 #summary-header {
-  /* position: absolute; */
   display: flex;
   gap: 30px;
   margin-right: auto;
@@ -55,11 +54,11 @@ body {
 #metrics-frame {
   display: flex;
   width: 560px;
+  height: fit-content;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 28px;
-  border: orange solid
 }
 
 #todo-done-frame {
@@ -260,7 +259,7 @@ body {
 
 /************************* NAV-FOOTER *************************/
 #nav-footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   padding: 0px 16px;
@@ -305,6 +304,11 @@ body {
   #nav-footer {
     display: none
   }
+
+  #divider-grey-mobile{
+    display: none;
+  }
+
 }
 
 @media (max-width: 975px) {
@@ -340,10 +344,15 @@ body {
     font-size: 14px;
   }
 
+  #urgency-frame{
+    gap: 20px;
+  }
+
   #urgency-icon-box {
     width: 40px;
     height: 40px;
   }
+
 
   .metrics-icon {
     width: 40px;
@@ -353,6 +362,14 @@ body {
   .urgent-arrows {
     width: 23.2px;
     height: 16.6px;
+  }
+
+  #grey-divider{
+    display: none;
+  }
+
+  #deadline-date{
+    font-size: 16px;
   }
 
   #metrics-frame > * {
@@ -385,6 +402,7 @@ body {
   #horizontal-stroke-blue {
     display: none;
   }
+
 }
 
 @media (max-width: 717px) {
@@ -399,8 +417,8 @@ body {
 
   #summary-header {
     flex-direction: column;
-    top: 128px;
-    left: 16px;
+    /* top: 128px;
+    left: 16px; */
     justify-content: center;
     align-items: flex-start;
     gap: 8px;
@@ -426,5 +444,65 @@ body {
 
   #metrics-glance {
     font-size: 20px;
+  }
+}
+
+@media(max-width: 420px){
+  body{
+    height: 100vh;
+    width: 100%;
+  }
+
+  #summary-header-wrapper{
+    margin-top: 120px;
+    margin-left: 16px;
+  }
+
+  #summary-header{
+    margin-left:0;
+    margin-right: auto;
+  }
+
+  .todos-frame{
+    padding: 8px; 
+    width: 100%;
+  }
+
+  #todo-done-frame{
+    flex-direction: column;
+    flex:1;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  #metric-frame-wrapper{
+    width: 100%;
+  }
+
+  #metrics-frame{
+    width: 100%;
+  }
+
+  #urgency-frame{
+    flex-direction: column;
+    width: 80%;
+    flex: 1;
+    margin: 0 auto;
+  }
+
+  #divider-grey-mobile{
+    display: none;
+  }
+
+  #counters-squares-frame{
+    gap: 4px;
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  #counters-squares-frame{
+    /* padding-bottom: 80px; */
+
+    
   }
 }
