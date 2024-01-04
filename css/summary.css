@@ -15,7 +15,7 @@ body {
 }
 
 /************************* HEADER *************************/
-#summary-header-wrapper{
+#summary-header-wrapper {
   margin-left: 328px;
   margin-top: 206px;
 }
@@ -46,7 +46,7 @@ body {
 }
 
 /************************* METRICS FRAME *************************/
-#metric-frame-wrapper{
+#metric-frame-wrapper {
   margin-top: 49px;
   margin-left: 328px;
 }
@@ -62,12 +62,14 @@ body {
 }
 
 #todo-done-frame {
+  position: relative;
   display: flex;
   width: 560px;
   height: 168px;
   justify-content: center;
   align-items: flex-start;
   gap: 32px;
+  border: solid red;
 }
 
 .todos-frame {
@@ -78,7 +80,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 18px;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   border-radius: 30px;
   background: var(--white, #FFF);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10)
@@ -277,21 +279,21 @@ body {
     display: none
   }
 
-  #summary-header-wrapper{
+  #summary-header-wrapper {
     margin-left: 232px;
   }
 
-  #summary-header{
+  #summary-header {
     width: fit-content;
     margin-right: auto;
     margin-left: auto;
   }
 
-  #metric-frame-wrapper{
+  #metric-frame-wrapper {
     margin-left: 232px;
   }
 
-  #metrics-frame{
+  #metrics-frame {
     width: fit-content;
     margin-right: auto;
     margin-left: auto;
@@ -305,9 +307,22 @@ body {
     display: none
   }
 
-  #divider-grey-mobile{
+  #divider-grey-mobile {
     display: none;
   }
+
+  /* .todo:hover{
+    position:absolute;
+    top: 0;
+    left: 0;
+    height: 109%;
+    width: 273px;
+  }
+  
+  .done{
+    margin-left: auto;
+    margin-right: 2px;
+  } */
 
 }
 
@@ -321,11 +336,11 @@ body {
   }
 
   #summary-header-wrapper {
-    margin-left:0;
+    margin-left: 0;
   }
-  
-  #metric-frame-wrapper{
-    margin-left:0;
+
+  #metric-frame-wrapper {
+    margin-left: 0;
   }
 
   #header-text {
@@ -344,7 +359,7 @@ body {
     font-size: 14px;
   }
 
-  #urgency-frame{
+  #urgency-frame {
     gap: 20px;
   }
 
@@ -357,6 +372,7 @@ body {
   .metrics-icon {
     width: 40px;
     height: 40px;
+    /* filter: invert(1); */
   }
 
   .urgent-arrows {
@@ -364,15 +380,15 @@ body {
     height: 16.6px;
   }
 
-  #grey-divider{
+  #grey-divider {
     display: none;
   }
 
-  #deadline-date{
+  #deadline-date {
     font-size: 16px;
   }
 
-  #metrics-frame > * {
+  #metrics-frame>* {
     width: 396px;
     height: 110px;
   }
@@ -380,15 +396,14 @@ body {
   #todo-done-frame {
     width: 396px;
     height: 110px;
-    flex-shrink: 0;
     gap: 24px;
   }
 
-  .todos-frame{
+  .todos-frame {
     width: 186px;
   }
 
-  .square-frame{
+  .square-frame {
     flex: 1;
     height: 100%;
   }
@@ -417,8 +432,6 @@ body {
 
   #summary-header {
     flex-direction: column;
-    /* top: 128px;
-    left: 16px; */
     justify-content: center;
     align-items: flex-start;
     gap: 8px;
@@ -447,62 +460,60 @@ body {
   }
 }
 
-@media(max-width: 420px){
-  body{
+@media(max-width: 420px) {
+  body {
     height: 100vh;
     width: 100%;
   }
 
-  #summary-header-wrapper{
+  #summary-header-wrapper {
     margin-top: 120px;
     margin-left: 16px;
   }
 
-  #summary-header{
-    margin-left:0;
+  #summary-header {
+    margin-left: 0;
     margin-right: auto;
   }
 
-  .todos-frame{
-    padding: 8px; 
+  .todos-frame {
+    padding: 8px;
     width: 100%;
   }
 
-  #todo-done-frame{
+  #todo-done-frame {
     flex-direction: column;
-    flex:1;
+    flex: 1;
     width: 80%;
     margin: 0 auto;
   }
 
-  #metric-frame-wrapper{
+  #metric-frame-wrapper {
     width: 100%;
   }
 
-  #metrics-frame{
+  #metrics-frame {
     width: 100%;
   }
 
-  #urgency-frame{
+  #urgency-frame {
     flex-direction: column;
     width: 80%;
     flex: 1;
     margin: 0 auto;
   }
 
-  #divider-grey-mobile{
+  #divider-grey-mobile {
     display: none;
   }
 
-  #counters-squares-frame{
+  #counters-squares-frame {
     gap: 4px;
     width: 300px;
     margin: 0 auto;
   }
 
-  #counters-squares-frame{
-    /* padding-bottom: 80px; */
-
-    
+  #mobile-wrapper {
+    padding-bottom: 90px;
   }
 }

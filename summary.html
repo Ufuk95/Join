@@ -18,6 +18,7 @@
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+  <div id="mobile-wrapper">
 
   <!-------------------------- HEADER -------------------------->
   <div id="summary-header-wrapper">
@@ -39,14 +40,14 @@
   <div id="metric-frame-wrapper">
     <div id="metrics-frame">
       <div id="todo-done-frame">
-        <div class="todos-frame different-padding">
+        <div class="todos-frame todo different-padding">
           <img src="./assets/img/summary/icon_pencil_grey.png" class="metrics-icon" alt="">
           <div class="number-do-box">
             <span class="do-styling count-n" id="todo-count">1</span>
             <span id="todo" class="count-text">To-do</span>
           </div>
         </div>
-        <div class="todos-frame">
+        <div class="todos-frame done">
           <img src="assets/img/summary/icon_checkmark_grey.png" class="metrics-icon" alt="">
           <div class="number-do-box">
             <span class="do-styling count-n" id="done-count">1</span>
@@ -102,6 +103,7 @@
     <img src="./assets/img/header_sidebar/icon_summary_grey.png" alt="">
     <img src="./assets/img/header_sidebar/icon_board_grey.png" alt="">
   </div>
+</div>
 
 </body>
 
