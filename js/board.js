@@ -169,23 +169,70 @@ function showTaskSelect(selectedOption) {
     let arrowUpImg = document.getElementById('arrow_up');
     let taskCategoryInput = document.getElementById('task-category-input');
 
-    // Überprüfe, ob der Container bereits sichtbar ist
-    let isVisible = !taskSelectCategory.classList.contains('d-none');
-
-    // Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
-    taskSelectCategory.classList.toggle('d-none');
+    let isVisible = !taskSelectCategory.classList.contains('d-none');// Überprüfe, ob der Container bereits sichtbar ist
+    taskSelectCategory.classList.toggle('d-none');// Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
 
     // Füge oder entferne die 'd-none'-Klasse für die Pfeilbilder
     arrowDownImg.classList.toggle('d-none', !isVisible);
     arrowUpImg.classList.toggle('d-none', isVisible);
 
-    // Extrahiere den ausgewählten Text aus dem angeklickten Element
-    let selectedText = selectedOption.innerText;
-
-    // Setze den ausgewählten Text in die Input-Fläche
-    taskCategoryInput.value = selectedText;
+    let selectedText = selectedOption.innerText;  // Extrahiere den ausgewählten Text aus dem angeklickten Element
+    taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 
 
 
+// Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
+function addSubtask() {
+    // Input-Feld und Subtask-Div abrufen
+    let inputSubtasks = document.getElementById('input-subtasks');
+    let ulElement = document.getElementById('unsorted-list');
+
+    // Wert des Input-Felds abrufen
+    let subtaskText = inputSubtasks.value.trim();
+
+    // Wenn das Input-Feld nicht leer ist
+    if (subtaskText !== '') {
+        // Neues LI-Element erstellen und den Subtask-Text einfügen
+        let liElement = document.createElement('li');
+        liElement.textContent = subtaskText;
+
+        // Container für Bearbeiten und Löschen erstellen
+        let actionContainer = document.createElement('div');
+        actionContainer.classList.add('subtask-img');
+
+        // Bilder für Bearbeiten und Löschen erstellen
+        let editImg = document.createElement('img');
+        editImg.src = "/assets/img/board/editforSubtask.png";
+        editImg.alt = "Edit";
+        editImg.onclick = editSubtask;
+
+        let deleteImg = document.createElement('img');
+        deleteImg.src = "/assets/img/board/trashforsubtasks.png";
+        deleteImg.alt = "Delete";
+        deleteImg.onclick = deleteSubtask;
+
+        // Bilder dem Container hinzufügen
+        actionContainer.appendChild(editImg);
+        actionContainer.appendChild(deleteImg);
+
+        // LI-Element dem UL-Element hinzufügen
+        liElement.appendChild(actionContainer);
+        ulElement.appendChild(liElement);
+
+        // Input-Feld leeren
+        inputSubtasks.value = '';
+    }
+}
+
+// Funktion zum Testen, um Subtasks zu löschen
+function deleteSubtask() {
+    let liElement = this.closest('li'); // Das übergeordnete LI-Element finden
+    liElement.parentNode.removeChild(liElement);
+}
+
+// Funktion zum Testen, um Subtasks zu bearbeiten
+function editSubtask() {
+
+}
