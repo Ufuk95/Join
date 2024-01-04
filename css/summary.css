@@ -61,6 +61,10 @@ body {
   gap: 28px;
 }
 
+#metrics-frame >*:hover{
+  cursor: pointer;
+}
+
 #todo-done-frame {
   position: relative;
   display: flex;
@@ -69,7 +73,6 @@ body {
   justify-content: center;
   align-items: flex-start;
   gap: 32px;
-  border: solid red;
 }
 
 .todos-frame {
@@ -311,19 +314,17 @@ body {
     display: none;
   }
 
-  /* .todo:hover{
-    position:absolute;
-    top: 0;
-    left: 0;
-    height: 109%;
-    width: 273px;
+  .todos-frame:hover{
+    transform: scale(1.07)
+  }
+
+  #urgency-frame:hover{
+    transform: scale(1.07)
   }
   
-  .done{
-    margin-left: auto;
-    margin-right: 2px;
-  } */
-
+  .square-frame:hover{
+    transform: scale(1.07)
+  }
 }
 
 @media (max-width: 975px) {
