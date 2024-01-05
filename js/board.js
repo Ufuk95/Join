@@ -270,6 +270,20 @@ function editSubtask() {
     subtaskTextElement.appendChild(acceptButton);
 }
 
-function createTask(){
-    
+
+function createTask() {
+    let taskcard = document.getElementById('full-task-card');
+    taskcard.classList.remove('d-none');
+    setTimeout(function() {
+      taskcard.classList.add('open'); 
+    }, 0);
+  }
+  
+  function closeTask() {
+    let taskcard = document.getElementById('full-task-card');
+    taskcard.classList.remove('open'); 
+    setTimeout(function() {
+      taskcard.classList.add('d-none');
+    }, 500); 
+  
 }
