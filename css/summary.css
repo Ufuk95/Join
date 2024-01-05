@@ -276,6 +276,18 @@ body {
   align-items: center;
 }
 
+.footer-squares{
+  display: flex;
+width: 80px;
+height: 76px;
+padding: 8px 1px;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-shrink: 0; 
+}
+
 /************************* RESPONSIVNESS *************************/
 @media (max-width: 1310px) {
   #good-morning-name-frame {
