@@ -361,6 +361,18 @@ body {
   cursor: pointer;
 }
 
+.unsorted-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  padding: 6px 16px;
+}
+.unsorted-list li:hover{
+  background-color: lightgrey;
+  border-radius: 16px;
+}
+
 /* für addTask ab hier footer bereich */
 
 .add-task-footer {

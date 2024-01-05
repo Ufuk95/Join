@@ -146,12 +146,14 @@
                             </div>
                         </div>
                         
-
                         <div class="task-title">
                             <span class="font-line">Subtasks</span>
                             <div class="task-contact-input-area">
-                                <input type="text" placeholder="Add new subtasks">
-                                <img class="Assigned-img" src="/assets/img/board/addTaskAdd.png" alt="plus">
+                                <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                                <img onclick="addSubtask()" class="Assigned-img" src="/assets/img/board/addTaskAdd.png" alt="plus">
+                            </div>
+                            <div class="subtaskDiv">
+                                <ul class="unsorted-list" id="unsorted-list"></ul>
                             </div>
                         </div>
                     </div>
