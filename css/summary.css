@@ -61,7 +61,7 @@ body {
   gap: 28px;
 }
 
-#metrics-frame >*:hover{
+#metrics-frame>*:hover {
   cursor: pointer;
 }
 
@@ -314,17 +314,36 @@ body {
     display: none;
   }
 
-  .todos-frame:hover{
+  .todos-frame:hover {
     transform: scale(1.07)
   }
 
-  #urgency-frame:hover{
+  #urgency-frame:hover {
     transform: scale(1.07)
   }
-  
-  .square-frame:hover{
+
+  .square-frame:hover {
     transform: scale(1.07)
   }
+
+  .todos-frame:hover .pencil-svg circle {
+    fill: #F6F7F8;
+  }
+
+  .todos-frame:hover .pencil-svg path {
+    fill: #2A3647;
+  }
+
+  .todos-frame:hover {
+    background-color: #2A3647;
+  }
+
+  .todo-frame:hover .count-n,
+  .todo-frame:hover #todo {
+    color: #F6F7F8
+  }
+
+
 }
 
 @media (max-width: 975px) {
