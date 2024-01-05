@@ -202,6 +202,14 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+.subtask-img img{
+  cursor: pointer;
+  padding: 2px;
+}
+.subtask-img img:hover{
+  background-color: white;
+  border-radius: 15px;
+}
 
 /* ab hier kommt die add task card von html aus gesehen oben nach unten */
 /* header sektion */

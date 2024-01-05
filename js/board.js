@@ -234,5 +234,42 @@ function deleteSubtask() {
 
 // Funktion zum Testen, um Subtasks zu bearbeiten
 function editSubtask() {
+    // Den Text des ausgewählten Subtasks abrufen
+    let subtaskTextElement = this.parentNode.parentNode;
+    let subtaskText = subtaskTextElement.firstChild.nodeValue;
 
+    // Einen neuen Input für die Bearbeitung erstellen
+    let inputElement = document.createElement('input');
+    inputElement.type = 'text';
+    inputElement.value = subtaskText;
+
+    // Einen Button zum Akzeptieren der Bearbeitung erstellen
+    let acceptButton = document.createElement('img');
+    acceptButton.src = "/assets/img/board/done.png";
+    acceptButton.style = "cursor: pointer; background-color: white; border-radius: 15px;";
+    acceptButton.alt = "Done";
+    acceptButton.onclick = function () {
+        // Den bearbeiteten Text übernehmen
+        subtaskTextElement.firstChild.nodeValue = inputElement.value;
+
+        // Bilder für Bearbeiten und Löschen wieder anzeigen
+        let subtaskImgContainer = subtaskTextElement.querySelector('.subtask-img');
+        subtaskImgContainer.classList.remove('d-none');
+
+        // Das Eingabefeld und den "Done"-Button entfernen
+        subtaskTextElement.removeChild(inputElement);
+        subtaskTextElement.removeChild(acceptButton);
+    };
+
+    // Bilder für Bearbeiten und Löschen ausblenden
+    let subtaskImgContainer = subtaskTextElement.querySelector('.subtask-img');
+    subtaskImgContainer.classList.add('d-none');
+
+    // Das Eingabefeld und den "Done"-Button dem Subtask-Element hinzufügen
+    subtaskTextElement.appendChild(inputElement);
+    subtaskTextElement.appendChild(acceptButton);
+}
+
+function createTask(){
+    
 }
