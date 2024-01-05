@@ -326,6 +326,7 @@ body {
     transform: scale(1.07)
   }
 
+  .todos-frame:hover .checkmark-svg circle,
   .todos-frame:hover .pencil-svg circle {
     fill: #F6F7F8;
   }
@@ -334,16 +335,34 @@ body {
     fill: #2A3647;
   }
 
-  .todos-frame:hover {
+  .todos-frame:hover .checkmark-svg path {
+    stroke: #2A3647;
+  }
+
+  .todos-frame:hover,
+  #urgency-frame:hover,
+  .square-1:hover,
+  .square-2:hover,
+  .square-3:hover {
     background-color: #2A3647;
   }
 
+  .done-frame:hover #done-count,
+  .done-frame:hover #done,
   .todo-frame:hover .count-n,
-  .todo-frame:hover #todo {
+  .todo-frame:hover #todo,
+  .square-1:hover .count-text-box>*,
+  .square-2:hover .count-text-box>*,
+  .square-3:hover .count-text-box>* {
     color: #F6F7F8
   }
 
-
+  #urgency-frame:hover .urgent-counter,
+  #urgency-frame:hover #urgent,
+  #urgency-frame:hover #deadline-text,
+  #urgency-frame:hover #deadline-date {
+    color: white;
+  }
 }
 
 @media (max-width: 975px) {
