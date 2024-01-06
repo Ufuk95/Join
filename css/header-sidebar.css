@@ -81,7 +81,7 @@ a {
   color: #A8A8A8
 }
 
-#sidebar-tabs>a{
+#sidebar-tabs>a {
   text-decoration: none;
   color: #A8A8A8;
 }
@@ -123,3 +123,80 @@ a {
 }
 
 /************************* FOOTER *************************/
+
+#nav-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0px 16px;
+  background-color: #2A3647;
+  width: 100%;
+  display: flex;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-square {
+  display: flex;
+  width: 80px;
+  height: 76px;
+  padding: 8px 1px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 16px;
+}
+
+.icon-text-box {
+  display: flex;
+  width: 76px;
+  height: 76px;
+  padding: 15px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.footer-square-text {
+  color: var(--white, #FFF);
+  font-family: Open Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+/************************* RESPONSIVNESS *************************/
+@media (max-width: 975px) {
+  #sidebar {
+    display: none
+  }
+}
+
+@media (min-width: 975px) {
+  #nav-footer {
+    display: none
+  }
+}
+
+@media (max-width: 717px) {
+  #header {
+    padding: 20px 16px;
+  }
+}
+
+@media(max-width: 420px) {
+  #nav-footer {
+    padding: 0;
+  }
+
+  .footer-square {
+    width: 73px;
+  }
+
+}

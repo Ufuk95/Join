@@ -15,7 +15,7 @@ async function setItem(key, value) {
 
 /**
  * Takes a key, creates the right url
- * returns 
+ * returns response as a json
 */
 async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
@@ -27,7 +27,6 @@ async function getItem(key) {
 }
 
 // -------------------------------------------- USER LOGIN GET DATA EXAMPLE -------------------------------------
-
 
 
 let users = [];

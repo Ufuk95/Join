@@ -1,0 +1,18 @@
+/************************* GLOBAL SELECTORS *************************/
+body{
+  background-color: #F6F7F8;
+  margin: 0;
+}
+
+/************************* HEADER *************************/
+#join-logo{
+  margin-top: 80px;
+  margin-left: 77px;
+  width: 100.03px;
+  height: 121.97px;
+}
+
+/************************* SIGN-UP-FRAME *************************/
+#sign-up-frame{
+  
+}
