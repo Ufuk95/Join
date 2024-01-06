@@ -14,13 +14,13 @@
 </head>
 
 <!-------------------------- TEMPLATES -------------------------->
-
 <body onload="loadAll()" id="0">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-  <div id="mobile-wrapper">
+  <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
 
-    <!-------------------------- HEADER -------------------------->
+<!-------------------------- HEADER -------------------------->
+  <div id="mobile-wrapper">
     <div id="summary-header-wrapper">
       <header id="summary-header">
         <span id="join-360">Join 360</span>
@@ -30,13 +30,13 @@
       </header>
     </div>
 
-    <!-------------------------- GOOD-MORNING-FRAME -------------------------->
+<!-------------------------- GOOD-MORNING-FRAME -------------------------->
     <div id="good-morning-name-frame">
       <span id="good-morning">Good morning,</span>
       <span id="person-name">Peter</span>
     </div>
 
-    <!-------------------------- METRICS-FRAME -------------------------->
+<!-------------------------- METRICS-FRAME -------------------------->
     <div id="metric-frame-wrapper">
       <div id="metrics-frame">
         <div id="todo-done-frame">
@@ -72,8 +72,6 @@
             </div>
           </div>
         </div>
-
-
         <div id="urgency-frame">
           <div id="urgency-counter-icon-frame">
             <div id="urgency-icon-box">
@@ -94,7 +92,6 @@
             <span id="deadline-text" class="count-text">Upcoming Deadline</span>
           </div>
         </div>
-
         <div id="counters-squares-frame">
           <div class="square-frame square-1">
             <div class="count-text-box">
@@ -113,33 +110,6 @@
               <div class="count-number count-n" id="count-await-feedback">3</div>
               <div class="count-text">Awaiting<br>Feedback</div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-------------------------- NAV FOOTER -------------------------->
-      <div id="nav-footer">
-        <div class="footer-square">
-          <div class="icon-text-box">
-            <img src="./assets/img/header_sidebar/icon_summary_grey.png" alt="">
-            <span class="footer-square-text">Summary</span>
-          </div>
-        </div>
-        <div class="footer-square">
-          <div class="icon-text-box">
-            <img src="./assets/img/header_sidebar/icon_board_grey.png" alt="">
-            <span class="footer-square-text">Board</span>
-          </div>
-        </div>
-        <div class="footer-square">
-          <div class="icon-text-box">
-            <img src="./assets/img/header_sidebar/icon_add_task_grey.png" alt="">
-            <span class="footer-square-text">Add-Task</span>
-          </div>
-        </div>
-        <div class="footer-square">
-          <div class="icon-text-box">
-            <img src="./assets/img/header_sidebar/icon_contacts_grey.png" alt="">
-            <span class="footer-square-text">Summary</span>
           </div>
         </div>
       </div>

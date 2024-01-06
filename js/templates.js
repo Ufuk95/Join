@@ -24,5 +24,33 @@ function sideBarTabsHTML(){
       <span id="sidebar-text">Contacts</span>
     </div>
   </a>
+
+  <div id="nav-footer">
+  <div class="footer-square">
+    <div class="icon-text-box">
+      <img src="./assets/img/header_sidebar/icon_summary_grey.png" alt="">
+      <span class="footer-square-text">Summary</span>
+    </div>
+  </div>
+  <div class="footer-square">
+    <div class="icon-text-box">
+      <img src="./assets/img/header_sidebar/icon_board_grey.png" alt="">
+      <span class="footer-square-text">Board</span>
+    </div>
+  </div>
+  <div class="footer-square">
+    <div class="icon-text-box">
+      <img src="./assets/img/header_sidebar/icon_add_task_grey.png" alt="">
+      <span class="footer-square-text">Add-Task</span>
+    </div>
+  </div>
+  <div class="footer-square">
+    <div class="icon-text-box">
+      <img src="./assets/img/header_sidebar/icon_contacts_grey.png" alt="">
+      <span class="footer-square-text">Summary</span>
+    </div>
+  </div>
+</div>
+
   `
 }
