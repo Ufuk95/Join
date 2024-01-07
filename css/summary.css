@@ -354,6 +354,9 @@ body {
     left: 16px;
   }
 
+  .todos-frame{
+    padding: 0
+  }
   #summary-header-wrapper {
     margin-left: 0;
   }
