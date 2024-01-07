@@ -1,50 +1,62 @@
-let board = [
+const tasks = [
   {
     id: 0,
-    title: "Putzen",
+    title: "",
     description: "",
-    category: "todo",
+    field: "",
     date: "",
     priority: "",
     who: "",
-    subtasks: "",
+    subtasks: [],
   },
   {
     id: 1,
     title: "Kochwelt Page & Recipe Recommender",
     description: "Build start page with recipe recommendation",
-    category: "in-progress",
+    field: "in-progress",
     date: "",
     priority: "",
     who: "",
-    subtasks: "",
+    subtasks: [],
   },
   {
     id: 2,
     title: "Einkaufen",
     description: "",
-    category: "await-feedback",
+    field: "await-feedback",
     date: "",
     priority: "",
     who: "",
-    subtasks: "",
+    subtasks: [],
   },
   {
     id: 3,
     title: "Einkaufen",
     description: "",
-    category: "done",
+    field: "done",
     date: "",
     priority: "",
     who: "",
-    subtasks: "",
+    subtasks: [],
   },
 ];
+
 
 let currentDraggedElement;
 
 function updateHTML() {
-  let todo = board.filter((t) => t["category"] == "todo");
+  ToDoArea();
+  inProgressArea();
+  awaitFeedbackArea();
+  doneArea()
+}
+
+function startDragging(id) {
+  currentDraggedElement = id;
+}
+
+function ToDoArea(){
+  let todo = tasks.filter((t) => t["field"] == "todo");
 
   document.getElementById("todo").innerHTML = "";
 
@@ -52,8 +64,10 @@ function updateHTML() {
     const element = todo[index];
     document.getElementById("todo").innerHTML += generateTaskHTML(element);
   }
+}
 
-  let in_progress = board.filter((t) => t["category"] == "in-progress");
+function inProgressArea(){
+  let in_progress = tasks.filter((t) => t["field"] == "in-progress");
 
   document.getElementById("in-progress").innerHTML = "";
 
@@ -62,8 +76,10 @@ function updateHTML() {
     document.getElementById("in-progress").innerHTML +=
       generateTaskHTML(element);
   }
+}
 
-  let await_feedback = board.filter((t) => t["category"] == "await-feedback");
+function awaitFeedbackArea(){
+  let await_feedback = tasks.filter((t) => t["field"] == "await-feedback");
 
   document.getElementById("await-feedback").innerHTML = "";
 
@@ -72,8 +88,10 @@ function updateHTML() {
     document.getElementById("await-feedback").innerHTML +=
       generateTaskHTML(element);
   }
+}
 
-  let done = board.filter((t) => t["category"] == "done");
+function doneArea(){
+  let done = tasks.filter((t) => t["field"] == "done");
 
   document.getElementById("done").innerHTML = "";
 
@@ -83,16 +101,28 @@ function updateHTML() {
   }
 }
 
-function startDragging(id) {
-  currentDraggedElement = id;
+function generateTaskHTML(element) {
+  return `
+    <div data-id="${element["id"]}" draggable="true" ondragstart="startDragging(${element["id"]})" class="task">
+        <div>
+            <b>${element["title"]}</b>
+        </div>
+        <div>
+            <p class="description-font">${element["description"]}</p>
+        </div>
+        <div class="progress-task">
+            <div class="progressbar"></div>
+            <div class="subtask-display">0/0 Subtasks</div>
+        </div>
+    </div>`;
 }
 
 // Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
 
 function updateProgressBar(taskId) {
-  const task = board.find((item) => item.id === taskId);
+  const task = tasks.find((item) => item.id === taskId);
   const progressBar = document.querySelector(
-    `.task[data-id="${taskId}"] .progressbar`
+    `.tasks[data-id="${taskId}"].progressbar`
   );
 
   if (task && progressBar) {
@@ -114,24 +144,8 @@ function updateProgressBar(taskId) {
   }
 }
 
-function generateTaskHTML(element) {
-  return `
-    <div data-id="${element["id"]}" draggable="true" ondragstart="startDragging(${element["id"]})" class="task">
-        <div>
-            <b>${element["title"]}</b>
-        </div>
-        <div>
-            <p class="description-font">${element["description"]}</p>
-        </div>
-        <div class="progress-task">
-            <div class="progressbar"></div>
-            <div class="subtask-display">0/0 Subtasks</div>
-        </div>
-    </div>`;
-}
-
 // Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
-board[0].subtasks = [
+tasks[0].subtasks = [
   { id: 1, title: "Subtask 1", done: true },
   { id: 2, title: "Subtask 2", done: false },
 ];
@@ -143,8 +157,8 @@ function allowDrop(ev) {
   ev.preventDefault();
 }
 
-function moveTo(category) {
-  board[currentDraggedElement]["category"] = category;
+function moveTo(field) {
+  tasks[currentDraggedElement]["field"] = field;
   updateHTML();
 }
 
@@ -175,7 +189,7 @@ function showTaskSelect(selectedOption) {
   arrowDownImg.classList.toggle("d-none", !isVisible);
   arrowUpImg.classList.toggle("d-none", isVisible);
 
-  let selectedText = selectedOption.innerText; // Extrahiere den ausgewählten Text aus dem angeklickten Element
+  let selectedText = selectedOption ? selectedOption.innerText : '';  // Extrahiere den ausgewählten Text aus dem angeklickten Element
   taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 

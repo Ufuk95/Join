@@ -150,14 +150,17 @@ body {
 /* drag and drop fläche */
 
 .drag-area {
-  height: 100vh;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 1px dashed black;
-  margin-bottom: 50px;
   display: flex;
-  align-items: flex-start;
+  min-height: 48px;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px dashed var(--icon, #a8a8a8);
+  background: #e7e7e7;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
 }
 
 .drag-area-highlight {
@@ -312,6 +315,7 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%; /* 24px */
+  color: var(--Style, #D1D1D1);
 }
 #description-input {
   display: flex;
@@ -386,7 +390,9 @@ body {
   margin-top: -8px;
   border-radius: 10px;
 }
-
+#task-category-input{
+  color: black;
+}
 .selected-task {
   display: flex;
   width: 440px;
@@ -399,7 +405,12 @@ body {
   background-color: lightgrey;
   cursor: pointer;
 }
-
+#input-subtasks{
+  color: black;
+}
+.unsorted-list {
+  padding-inline-start: 0;
+}
 .unsorted-list li {
   display: flex;
   justify-content: space-between;
