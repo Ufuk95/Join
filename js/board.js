@@ -1,120 +1,127 @@
-let board = [{
-    'id': 0,
-    'title': 'Putzen',
-    'description': '',
-    'category': 'todo',
-    'date': '',
-    'priority': '',
-    'who': '',
-    'subtasks': '',
-}, {
-    'id': 1,
-    'title': 'Kochwelt Page & Recipe Recommender',
-    'description': 'Build start page with recipe recommendation',
-    'category': 'in-progress',
-    'date': '',
-    'priority': '',
-    'who': '',
-    'subtasks': '',
-}, {
-    'id': 2,
-    'title': 'Einkaufen',
-    'description': '',
-    'category': 'await-feedback',
-    'date': '',
-    'priority': '',
-    'who': '',
-    'subtasks': '',
-}, {
-    'id': 3,
-    'title': 'Einkaufen',
-    'description': '',
-    'category': 'done',
-    'date': '',
-    'priority': '',
-    'who': '',
-    'subtasks': '',
-}];
+let board = [
+  {
+    id: 0,
+    title: "Putzen",
+    description: "",
+    category: "todo",
+    date: "",
+    priority: "",
+    who: "",
+    subtasks: "",
+  },
+  {
+    id: 1,
+    title: "Kochwelt Page & Recipe Recommender",
+    description: "Build start page with recipe recommendation",
+    category: "in-progress",
+    date: "",
+    priority: "",
+    who: "",
+    subtasks: "",
+  },
+  {
+    id: 2,
+    title: "Einkaufen",
+    description: "",
+    category: "await-feedback",
+    date: "",
+    priority: "",
+    who: "",
+    subtasks: "",
+  },
+  {
+    id: 3,
+    title: "Einkaufen",
+    description: "",
+    category: "done",
+    date: "",
+    priority: "",
+    who: "",
+    subtasks: "",
+  },
+];
 
 let currentDraggedElement;
 
-
-
 function updateHTML() {
-    let todo = board.filter(t => t['category'] == 'todo');
+  let todo = board.filter((t) => t["category"] == "todo");
 
-    document.getElementById('todo').innerHTML = '';
+  document.getElementById("todo").innerHTML = "";
 
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTaskHTML(element);
-    }
+  for (let index = 0; index < todo.length; index++) {
+    const element = todo[index];
+    document.getElementById("todo").innerHTML += generateTaskHTML(element);
+  }
 
-    let in_progress = board.filter(t => t['category'] == 'in-progress');
+  let in_progress = board.filter((t) => t["category"] == "in-progress");
 
-    document.getElementById('in-progress').innerHTML = '';
+  document.getElementById("in-progress").innerHTML = "";
 
-    for (let index = 0; index < in_progress.length; index++) {
-        const element = in_progress[index];
-        document.getElementById('in-progress').innerHTML += generateTaskHTML(element);
-    }
+  for (let index = 0; index < in_progress.length; index++) {
+    const element = in_progress[index];
+    document.getElementById("in-progress").innerHTML +=
+      generateTaskHTML(element);
+  }
 
-    let await_feedback = board.filter(t => t['category'] == 'await-feedback');
+  let await_feedback = board.filter((t) => t["category"] == "await-feedback");
 
-    document.getElementById('await-feedback').innerHTML = '';
+  document.getElementById("await-feedback").innerHTML = "";
 
-    for (let index = 0; index < await_feedback.length; index++) {
-        const element = await_feedback[index];
-        document.getElementById('await-feedback').innerHTML += generateTaskHTML(element);
-    }
+  for (let index = 0; index < await_feedback.length; index++) {
+    const element = await_feedback[index];
+    document.getElementById("await-feedback").innerHTML +=
+      generateTaskHTML(element);
+  }
 
-    let done = board.filter(t => t['category'] == 'done');
+  let done = board.filter((t) => t["category"] == "done");
 
-    document.getElementById('done').innerHTML = '';
+  document.getElementById("done").innerHTML = "";
 
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTaskHTML(element);
-    }
+  for (let index = 0; index < done.length; index++) {
+    const element = done[index];
+    document.getElementById("done").innerHTML += generateTaskHTML(element);
+  }
 }
 
 function startDragging(id) {
-    currentDraggedElement = id;
+  currentDraggedElement = id;
 }
-
-
-
 
 // Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
 
 function updateProgressBar(taskId) {
-    const task = board.find(item => item.id === taskId);
-    const progressBar = document.querySelector(`.task[data-id="${taskId}"] .progressbar`);
-    
-    if (task && progressBar) {
-        const subtasksDone = task.subtasks.filter(subtask => subtask.done).length;
-        const subtasksTotal = task.subtasks.length;
-        
-        // Aktualisiere die Fortschrittsleiste
-        const progressPercentage = subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
-        progressBar.style.width = `${progressPercentage}%`;
-        
-        // Aktualisiere die Anzeige für Subtasks
-        const subtaskDisplay = document.querySelector(`.task[data-id="${taskId}"] .subtask-display`);
-        if (subtaskDisplay) {
-            subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
-        }
+  const task = board.find((item) => item.id === taskId);
+  const progressBar = document.querySelector(
+    `.task[data-id="${taskId}"] .progressbar`
+  );
+
+  if (task && progressBar) {
+    const subtasksDone = task.subtasks.filter((subtask) => subtask.done).length;
+    const subtasksTotal = task.subtasks.length;
+
+    // Aktualisiere die Fortschrittsleiste
+    const progressPercentage =
+      subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
+    progressBar.style.width = `${progressPercentage}%`;
+
+    // Aktualisiere die Anzeige für Subtasks
+    const subtaskDisplay = document.querySelector(
+      `.task[data-id="${taskId}"] .subtask-display`
+    );
+    if (subtaskDisplay) {
+      subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
     }
+  }
 }
 
 function generateTaskHTML(element) {
-    return `
-    <div data-id="${element['id']}" draggable="true" ondragstart="startDragging(${element['id']})" class="task">
+  return `
+    <div data-id="${element["id"]}" draggable="true" ondragstart="startDragging(${element["id"]})" class="task">
         <div>
-            <b>${element['title']}</b>
+            <b>${element["title"]}</b>
         </div>
         <div>
-            <p class="description-font">${element['description']}</p>
+            <p class="description-font">${element["description"]}</p>
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
@@ -125,165 +132,253 @@ function generateTaskHTML(element) {
 
 // Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
 board[0].subtasks = [
-    { id: 1, title: 'Subtask 1', done: true },
-    { id: 2, title: 'Subtask 2', done: false },
+  { id: 1, title: "Subtask 1", done: true },
+  { id: 2, title: "Subtask 2", done: false },
 ];
 
 // Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
 updateProgressBar(0);
 
-
-
-
-
 function allowDrop(ev) {
-    ev.preventDefault();
+  ev.preventDefault();
 }
 
 function moveTo(category) {
-    board[currentDraggedElement]['category'] = category;
-    updateHTML();
+  board[currentDraggedElement]["category"] = category;
+  updateHTML();
 }
 
 function highlight(id) {
-    document.getElementById(id).classList.add('drag-area-highlight');
+  document.getElementById(id).classList.add("drag-area-highlight");
 }
 
 function removeHighlight(id) {
-    document.getElementById(id).classList.remove('drag-area-highlight');
+  document.getElementById(id).classList.remove("drag-area-highlight");
 }
-
 
 // render funktion wenn man eine neue task hinzufügen will
 
-function addTask(){
-
-}
-
+function addTask() {}
 
 // Funktion für addTask um Category auszuwählen
 
 function showTaskSelect(selectedOption) {
-    let taskSelectCategory = document.getElementById('task-select-category');
-    let arrowDownImg = document.getElementById('arrow_down');
-    let arrowUpImg = document.getElementById('arrow_up');
-    let taskCategoryInput = document.getElementById('task-category-input');
+  let taskSelectCategory = document.getElementById("task-select-category");
+  let arrowDownImg = document.getElementById("arrow_down");
+  let arrowUpImg = document.getElementById("arrow_up");
+  let taskCategoryInput = document.getElementById("task-category-input");
 
-    let isVisible = !taskSelectCategory.classList.contains('d-none');// Überprüfe, ob der Container bereits sichtbar ist
-    taskSelectCategory.classList.toggle('d-none');// Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
+  let isVisible = !taskSelectCategory.classList.contains("d-none"); // Überprüfe, ob der Container bereits sichtbar ist
+  taskSelectCategory.classList.toggle("d-none"); // Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
 
-    // Füge oder entferne die 'd-none'-Klasse für die Pfeilbilder
-    arrowDownImg.classList.toggle('d-none', !isVisible);
-    arrowUpImg.classList.toggle('d-none', isVisible);
+  // Füge oder entferne die 'd-none'-Klasse für die Pfeilbilder
+  arrowDownImg.classList.toggle("d-none", !isVisible);
+  arrowUpImg.classList.toggle("d-none", isVisible);
 
-    let selectedText = selectedOption.innerText;  // Extrahiere den ausgewählten Text aus dem angeklickten Element
-    taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
+  let selectedText = selectedOption.innerText; // Extrahiere den ausgewählten Text aus dem angeklickten Element
+  taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
-
-
 
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
 function addSubtask() {
-    // Input-Feld und Subtask-Div abrufen
-    let inputSubtasks = document.getElementById('input-subtasks');
-    let ulElement = document.getElementById('unsorted-list');
+  // Input-Feld und Subtask-Div abrufen
+  let inputSubtasks = document.getElementById("input-subtasks");
+  let ulElement = document.getElementById("unsorted-list");
 
-    // Wert des Input-Felds abrufen
-    let subtaskText = inputSubtasks.value.trim();
+  // Wert des Input-Felds abrufen
+  let subtaskText = inputSubtasks.value.trim();
 
-    // Wenn das Input-Feld nicht leer ist
-    if (subtaskText !== '') {
-        // Neues LI-Element erstellen und den Subtask-Text einfügen
-        let liElement = document.createElement('li');
-        liElement.textContent = subtaskText;
+  // Wenn das Input-Feld nicht leer ist
+  if (subtaskText !== "") {
+    // Neues LI-Element erstellen und den Subtask-Text einfügen
+    let liElement = document.createElement("li");
+    liElement.textContent = subtaskText;
 
-        // Container für Bearbeiten und Löschen erstellen
-        let actionContainer = document.createElement('div');
-        actionContainer.classList.add('subtask-img');
+    // Container für Bearbeiten und Löschen erstellen
+    let actionContainer = document.createElement("div");
+    actionContainer.classList.add("subtask-img");
 
-        // Bilder für Bearbeiten und Löschen erstellen
-        let editImg = document.createElement('img');
-        editImg.src = "/assets/img/board/editforSubtask.png";
-        editImg.alt = "Edit";
-        editImg.onclick = editSubtask;
+    // Bilder für Bearbeiten und Löschen erstellen
+    let editImg = document.createElement("img");
+    editImg.src = "/assets/img/board/editforSubtask.png";
+    editImg.alt = "Edit";
+    editImg.onclick = editSubtask;
 
-        let deleteImg = document.createElement('img');
-        deleteImg.src = "/assets/img/board/trashforsubtasks.png";
-        deleteImg.alt = "Delete";
-        deleteImg.onclick = deleteSubtask;
+    let deleteImg = document.createElement("img");
+    deleteImg.src = "/assets/img/board/trashforsubtasks.png";
+    deleteImg.alt = "Delete";
+    deleteImg.onclick = deleteSubtask;
 
-        // Bilder dem Container hinzufügen
-        actionContainer.appendChild(editImg);
-        actionContainer.appendChild(deleteImg);
+    // Bilder dem Container hinzufügen
+    actionContainer.appendChild(editImg);
+    actionContainer.appendChild(deleteImg);
 
-        // LI-Element dem UL-Element hinzufügen
-        liElement.appendChild(actionContainer);
-        ulElement.appendChild(liElement);
+    // LI-Element dem UL-Element hinzufügen
+    liElement.appendChild(actionContainer);
+    ulElement.appendChild(liElement);
 
-        // Input-Feld leeren
-        inputSubtasks.value = '';
-    }
+    // Input-Feld leeren
+    inputSubtasks.value = "";
+  }
 }
 
 // Funktion zum Testen, um Subtasks zu löschen
 function deleteSubtask() {
-    let liElement = this.closest('li'); // Das übergeordnete LI-Element finden
-    liElement.parentNode.removeChild(liElement);
+  let liElement = this.closest("li"); // Das übergeordnete LI-Element finden
+  liElement.parentNode.removeChild(liElement);
 }
 
 // Funktion zum Testen, um Subtasks zu bearbeiten
 function editSubtask() {
-    // Den Text des ausgewählten Subtasks abrufen
-    let subtaskTextElement = this.parentNode.parentNode;
-    let subtaskText = subtaskTextElement.firstChild.nodeValue;
+  // Den Text des ausgewählten Subtasks abrufen
+  let subtaskTextElement = this.parentNode.parentNode;
+  let subtaskText = subtaskTextElement.firstChild.nodeValue;
 
-    // Einen neuen Input für die Bearbeitung erstellen
-    let inputElement = document.createElement('input');
-    inputElement.type = 'text';
-    inputElement.value = subtaskText;
+  // Einen neuen Input für die Bearbeitung erstellen
+  let inputElement = document.createElement("input");
+  inputElement.type = "text";
+  inputElement.value = subtaskText;
 
-    // Einen Button zum Akzeptieren der Bearbeitung erstellen
-    let acceptButton = document.createElement('img');
-    acceptButton.src = "/assets/img/board/done.png";
-    acceptButton.style = "cursor: pointer; background-color: white; border-radius: 15px;";
-    acceptButton.alt = "Done";
-    acceptButton.onclick = function () {
-        // Den bearbeiteten Text übernehmen
-        subtaskTextElement.firstChild.nodeValue = inputElement.value;
+  // Einen Button zum Akzeptieren der Bearbeitung erstellen
+  let acceptButton = document.createElement("img");
+  acceptButton.src = "/assets/img/board/done.png";
+  acceptButton.style =
+    "cursor: pointer; background-color: white; border-radius: 15px;";
+  acceptButton.alt = "Done";
+  acceptButton.onclick = function () {
+    // Den bearbeiteten Text übernehmen
+    subtaskTextElement.firstChild.nodeValue = inputElement.value;
 
-        // Bilder für Bearbeiten und Löschen wieder anzeigen
-        let subtaskImgContainer = subtaskTextElement.querySelector('.subtask-img');
-        subtaskImgContainer.classList.remove('d-none');
+    // Bilder für Bearbeiten und Löschen wieder anzeigen
+    let subtaskImgContainer = subtaskTextElement.querySelector(".subtask-img");
+    subtaskImgContainer.classList.remove("d-none");
 
-        // Das Eingabefeld und den "Done"-Button entfernen
-        subtaskTextElement.removeChild(inputElement);
-        subtaskTextElement.removeChild(acceptButton);
-    };
+    // Das Eingabefeld und den "Done"-Button entfernen
+    subtaskTextElement.removeChild(inputElement);
+    subtaskTextElement.removeChild(acceptButton);
+  };
 
-    // Bilder für Bearbeiten und Löschen ausblenden
-    let subtaskImgContainer = subtaskTextElement.querySelector('.subtask-img');
-    subtaskImgContainer.classList.add('d-none');
+  // Bilder für Bearbeiten und Löschen ausblenden
+  let subtaskImgContainer = subtaskTextElement.querySelector(".subtask-img");
+  subtaskImgContainer.classList.add("d-none");
 
-    // Das Eingabefeld und den "Done"-Button dem Subtask-Element hinzufügen
-    subtaskTextElement.appendChild(inputElement);
-    subtaskTextElement.appendChild(acceptButton);
+  // Das Eingabefeld und den "Done"-Button dem Subtask-Element hinzufügen
+  subtaskTextElement.appendChild(inputElement);
+  subtaskTextElement.appendChild(acceptButton);
+}
+
+function createTask() {
+  let taskcard = document.getElementById("full-task-card");
+  taskcard.classList.remove("d-none");
+  setTimeout(function () {
+    taskcard.classList.add("open");
+  }, 0);
+}
+
+function closeTask() {
+  let taskcard = document.getElementById("full-task-card");
+  taskcard.classList.remove("open");
+  setTimeout(function () {
+    taskcard.classList.add("d-none");
+  }, 500);
+}
+
+// farben für die prio Buttons ändern
+
+
+let currentColor = null;
+
+function resetAllButtons() {
+  // Reset red button
+  const redImg = document.getElementById("prio-red");
+  const redBtn = document.getElementById("prio-btn-red");
+  redImg.src = "/assets/img/board/Prio-red.png";
+  redBtn.style.backgroundColor = "white";
+  redBtn.style.color = "black";
+  redBtn.style.borderColor = "white";
+
+  // Reset yellow button
+  const yellowImg = document.getElementById("prio-yellow");
+  const yellowBtn = document.getElementById("prio-btn-yellow");
+  yellowImg.src = "/assets/img/board/Prio-yellow.png";
+  yellowBtn.style.backgroundColor = "white";
+  yellowBtn.style.color = "black";
+  yellowBtn.style.borderColor = "white";
+
+  // Reset green button
+  const greenImg = document.getElementById("prio-green");
+  const greenBtn = document.getElementById("prio-btn-green");
+  greenImg.src = "/assets/img/board/Prio-green.png";
+  greenBtn.style.backgroundColor = "white";
+  greenBtn.style.color = "black";
+  greenBtn.style.borderColor = "white";
+}
+
+function changeBtnColor(color) {
+  resetAllButtons();
+  if (currentColor !== color) {
+    currentColor = color;
+    if (color === 'red') {
+      colorChangeToRed();
+    } else if (color === 'yellow') {
+      colorChangeToYellow();
+    } else if (color === 'green') {
+      colorChangeToGreen();
+    }
+  } else {
+    currentColor = null;
+  }
 }
 
 
-function createTask() {
-    let taskcard = document.getElementById('full-task-card');
-    taskcard.classList.remove('d-none');
-    setTimeout(function() {
-      taskcard.classList.add('open'); 
-    }, 0);
+function colorChangeToRed() {
+  redImg = document.getElementById("prio-red");
+  redBtn = document.getElementById("prio-btn-red");
+
+  if (redImg.src.endsWith("/assets/img/board/Prio-red.png")) {
+    redImg.src = "/assets/img/board/prio-red-white.png";
+    redBtn.style.backgroundColor = "rgb(255,61,0)";
+    redBtn.style.color = "white";
+    redBtn.style.borderColor = "rgb(255,61,0)";
+  } else {
+    redImg.src = "/assets/img/board/Prio-red.png";
+    redBtn.style.backgroundColor = "white";
+    redBtn.style.color = "black";
+    redBtn.style.borderColor = "white";
   }
-  
-  function closeTask() {
-    let taskcard = document.getElementById('full-task-card');
-    taskcard.classList.remove('open'); 
-    setTimeout(function() {
-      taskcard.classList.add('d-none');
-    }, 500); 
-  
+}
+
+function colorChangeToYellow() {
+  yellowImg = document.getElementById("prio-yellow");
+  yellowBtn = document.getElementById("prio-btn-yellow");
+
+  if (yellowImg.src.endsWith("/assets/img/board/Prio-yellow.png")) {
+    yellowImg.src = "/assets/img/board/prio-yellow-white.png";
+    yellowBtn.style.backgroundColor = "rgb(255,168,0)";
+    yellowBtn.style.color = "white";
+    yellowBtn.style.borderColor = "rgb(255,168,0)";
+  } else {
+    yellowImg.src = "/assets/img/board/Prio-yellow.png";
+    yellowBtn.style.backgroundColor = "white";
+    yellowBtn.style.color = "black";
+    yellowBtn.style.borderColor = "white";
+  }
+}
+
+function colorChangeToGreen() {
+  greenImg = document.getElementById("prio-green");
+  greenBtn = document.getElementById("prio-btn-green");
+
+  if (greenImg.src.endsWith("/assets/img/board/Prio-green.png")) {
+    greenImg.src = "/assets/img/board/prio-green-white.png";
+    greenBtn.style.backgroundColor = "rgb(122,226,40)";
+    greenBtn.style.color = "white";
+    greenBtn.style.borderColor = "rgb(122,226,40)";
+  } else {
+    greenImg.src = "/assets/img/board/Prio-green.png";
+    greenBtn.style.backgroundColor = "white";
+    greenBtn.style.color = "black";
+    greenBtn.style.borderColor = "white";
+  }
 }

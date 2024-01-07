@@ -129,10 +129,15 @@
                             <div class="task-title">
                                 <span class="font-line">Prio</span>
                                 <div class="task-button-area">
-                                    <button class="prio-btn">Urgent<img src="/assets/img/board/Prio-red.png"></button>
-                                    <button class="prio-btn">Medium<img
+                                    <button id="prio-btn-red" class="prio-btn"
+                                        onclick="changeBtnColor('red')">Urgent<img id="prio-red"
+                                            src="/assets/img/board/Prio-red.png"></button>
+                                    <button id="prio-btn-yellow" class="prio-btn"
+                                        onclick="changeBtnColor('yellow')">Medium<img id="prio-yellow"
                                             src="/assets/img/board/Prio-yellow.png"></button>
-                                    <button class="prio-btn">Low<img src="/assets/img/board/Prio-green.png"></button>
+                                    <button id="prio-btn-green" class="prio-btn"
+                                        onclick="changeBtnColor('green')">Low<img id="prio-green"
+                                            src="/assets/img/board/Prio-green.png"></button>
                                 </div>
                             </div>
 
@@ -149,8 +154,7 @@
                                 <div id="task-select-category" class="task-select-category d-none">
                                     <span id="technicalTask" class="selected-task"
                                         onclick="showTaskSelect(this)">Technical Task</span>
-                                    <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
-                                        Story</span>
+                                    <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
                                 </div>
                             </div>
 
@@ -173,8 +177,8 @@
                             required</span>
                         </div>
                         <div class="add-task-footer-btn">
-                            <button class="task-button cancel-btn" onclick="closeTask()">Cancel<img style="width: 25px; height: 24px;"
-                                    src="/assets/img/board/close.png"></button>
+                            <button class="task-button cancel-btn" onclick="closeTask()">Cancel<img
+                                    style="width: 25px; height: 24px;" src="/assets/img/board/close.png"></button>
                             <button class="task-button create-btn">Create Task <img
                                     src="/assets/img/board/footerCheckBtn.png"></button>
                         </div>
