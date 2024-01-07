@@ -38,3 +38,6 @@ function changeClickedTab(i) {
   let clickedTabImg = document.getElementById(`tab-img${i}`);
   clickedTabImg.src = whiteImageCorrespondends[i];
 }
+
+
+board[0]
