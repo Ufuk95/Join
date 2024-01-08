@@ -1,8 +1,8 @@
 async function loadAll() {
   await includeHTML();
   let currentPage = document.body.id;
-  sideBarTabs = document.getElementById(`sidebar-tabs`)
-  console.log(sideBarTabs);
+  tabsFrame = document.getElementById(`sidebar-tabs`)
+  console.log(tabsFrame);
   changeClickedTab(Number(currentPage));
 }
 
@@ -34,10 +34,10 @@ let whiteImageCorrespondends = {
  * @param {number} i - Index of the clicked tab.
  */
 function changeClickedTab(i) {
-  let sideBarTabs = document.getElementById(`sidebar-tabs`);
-  console.log(sideBarTabs);
-  sideBarTabs.innerHTML = "";
-  sideBarTabs.innerHTML = sideBarTabsHTML();
+  let tabsFrame = document.getElementById(`sidebar-tabs`);
+  console.log(tabsFrame);
+  tabsFrame.innerHTML = "";
+  tabsFrame.innerHTML = tabsFrameHTML();
   let clickedTab = document.querySelector(`.tab${i}`);
   clickedTab.style.color = "white";
   clickedTab.style.backgroundColor = "#091931";

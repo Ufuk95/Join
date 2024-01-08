@@ -1,4 +1,4 @@
-function sideBarTabsHTML(){
+function tabsFrameHTML(){
   return `
   <a href="./summary.html">
     <div id="sidebar-tab" class="tab0" onclick="changeClickedTab(0)">
