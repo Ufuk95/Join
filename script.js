@@ -27,6 +27,12 @@ let whiteImageCorrespondends = {
   3: "./assets/img/header_sidebar/icon_contacts_white.png"
 };
 
+
+/**
+ * Changes the appearance of the clicked tab and updates the sidebar content.
+ * d
+ * @param {number} i - Index of the clicked tab.
+ */
 function changeClickedTab(i) {
   let sideBarTabs = document.getElementById(`sidebar-tabs`);
   console.log(sideBarTabs);
@@ -40,4 +46,3 @@ function changeClickedTab(i) {
 }
 
 
-board[0]
