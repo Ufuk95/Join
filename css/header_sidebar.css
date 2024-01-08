@@ -12,6 +12,10 @@ body {
   font-family: inter;
 }
 
+*{
+  box-sizing: border-box;
+}
+
 a {
   text-decoration: none;
   /* color: inherit; */
@@ -181,6 +185,12 @@ a {
 @media (min-width: 975px) {
   #nav-footer {
     display: none
+  }
+}
+
+@media (min-width: 717px) {
+  #logo-join-header {
+    display: none;
   }
 }
 
