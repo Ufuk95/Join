@@ -1,5 +1,6 @@
 const tasks = [];
 let currentDraggedElement;
+let currentPriority = null;
 
 function updateHTML() {
   ["todo", "in-progress", "await-feedback", "done"].forEach(updateArea);
@@ -28,10 +29,10 @@ function generateTaskHTML(element) {
             <div class="progressbar"></div>
             <div class="subtask-display">0/0 Subtasks</div>
         </div>
-        <!-- <div>
-            <span>${element.contacts}</span>
-            <img src="${element.priority}" alt="prio-btn">
-        </div> -->
+        <div>
+        <!-- <span>${element.contacts}</span> -->
+            <img id="priority" src="${element.priority}" alt="Priority">
+        </div> 
     </div>`;
 }
 
@@ -89,6 +90,14 @@ function removeHighlight(id) {
 }
 
 function createTask() {
+  var form = document.getElementById("task-form");
+
+  if (form.checkValidity() === false) {
+    alert("Bitte füllen Sie alle erforderlichen Felder aus");
+    return;
+  }
+
+  
   let titleInput = document.getElementById("task-title-input");
   let descriptionInput = document.getElementById("description-input");
   let dateInput = document.getElementById("date");
@@ -117,7 +126,7 @@ function createTask() {
     title: title,
     description: description,
     date: date,
-    priority: "",
+    priority: getPriorityImagePath(currentPriority),
     contacts: "?",
     subtasks: subtasks,
   };
@@ -129,8 +138,21 @@ function createTask() {
 
   let closeTask = document.getElementById("full-task-card");
   closeTask.classList.add("d-none");
-}
 
+  resetAllButtons();
+  currentPriority = null;
+}
+function getPriorityImagePath(priority) {
+  if (priority === "red") {
+    return "/assets/img/board/Prio-red.png";
+  } else if (priority === "yellow") {
+    return "/assets/img/board/Prio-yellow.png";
+  } else if (priority === "green") {
+    return "/assets/img/board/Prio-green.png";
+  } else {
+    return "/assets/img/board/Prio-red.png";
+  }
+}
 // Funktion für addTask um Category auszuwählen
 
 function showTaskSelect(selectedOption) {
@@ -292,6 +314,8 @@ function changeBtnColor(color) {
   resetAllButtons();
   if (currentColor !== color) {
     currentColor = color;
+    // Speichern Sie die ausgewählte Priorität
+    currentPriority = color;
     if (color === "red") {
       colorChangeToRed();
     } else if (color === "yellow") {
@@ -301,6 +325,8 @@ function changeBtnColor(color) {
     }
   } else {
     currentColor = null;
+    // Wenn kein Button ausgewählt ist, setze die currentPriority zurück
+    currentPriority = null;
   }
 }
 

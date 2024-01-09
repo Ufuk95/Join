@@ -86,105 +86,108 @@
             <!-- ab hier kommt der add task bereich -->
             <div class="full-task-body d-none" id="full-task-card">
                 <input type="hidden" id="task-field" value="" />
-                <div class="task-card">
-                    <header class="add-task-header">
-                        <span class="task-card-headline">Add Task</span>
-                        <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTask()">
-                    </header>
+                <form id="task-form" onsubmit="event.preventDefault(); createTask();">
+                    <div class="task-card">
+                        <header class="add-task-header">
+                            <span class="task-card-headline">Add Task</span>
+                            <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTask()">
+                        </header>
 
-                    <div class="middle-task-body">
-                        <!-- linke seite -->
-                        <div class="left-side">
-                            <div class="task-title">
-                                <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                                <input required class="task-title-input" id="task-title-input" type="text"
-                                    placeholder="Enter a title">
+                        <div class="middle-task-body">
+                            <!-- linke seite -->
+                            <div class="left-side">
+                                <div class="task-title">
+                                    <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
+                                    <input required class="task-title-input" id="task-title-input" type="text"
+                                        placeholder="Enter a title">
+                                </div>
+                                <div class="task-title">
+                                    <span class="font-line">Description</span>
+                                    <textarea id="description-input" cols="30" rows="10"
+                                        placeholder="Enter a Description"></textarea>
+                                </div>
+                                <div class="task-title">
+                                    <span class="font-line">Assigned to</span>
+                                    <div class="task-contact-input-area">
+                                        <input type="text" placeholder="Select contacts to assign">
+                                        <img class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                                            alt="arrow down" onclick="showContactsInTasks()">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="task-title">
-                                <span class="font-line">Description</span>
-                                <textarea id="description-input" cols="30" rows="10"
-                                    placeholder="Enter a Description"></textarea>
+                            <!-- einfache div für die trennung durch eine vektor linie -->
+                            <div class="vektor-line">
+                                <img src="/assets/img/board/vertical-line.png" alt="">
                             </div>
-                            <div class="task-title">
-                                <span class="font-line">Assigned to</span>
-                                <div class="task-contact-input-area">
-                                    <input type="text" placeholder="Select contacts to assign">
-                                    <img class="Assigned-img" src="/assets/img/board/arrow_down.png" alt="arrow down"
-                                        onclick="showContactsInTasks()">
+                            <!-- ----- -->
+                            <div class="right-side">
+                                <div class="task-title">
+                                    <span class="font-line">Due Date<span style="color: #FF8190;">*</span></span></span>
+                                    <div class="task-date-area">
+                                        <input required type="date" id="date" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+
+                                <div class="task-title">
+                                    <span class="font-line">Prio</span>
+                                    <div class="task-button-area">
+                                        <button id="prio-btn-red" class="prio-btn"
+                                            onclick="changeBtnColor('red')">Urgent<img id="prio-red"
+                                                src="/assets/img/board/Prio-red.png"></button>
+                                        <button id="prio-btn-yellow" class="prio-btn"
+                                            onclick="changeBtnColor('yellow')">Medium<img id="prio-yellow"
+                                                src="/assets/img/board/Prio-yellow.png"></button>
+                                        <button id="prio-btn-green" class="prio-btn"
+                                            onclick="changeBtnColor('green')">Low<img id="prio-green"
+                                                src="/assets/img/board/Prio-green.png"></button>
+                                    </div>
+                                </div>
+
+                                <div class="task-title">
+                                    <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
+                                    <div class="task-contact-input-area" onclick="showTaskSelect()">
+                                        <input required type="text" id="task-category-input"
+                                            placeholder="Select task category">
+                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                                            alt="#">
+                                        <img id="arrow_up" class="Assigned-img d-none"
+                                            src="/assets/img/board/arrow_up.png" alt="#">
+                                    </div>
+                                    <div id="task-select-category" class="task-select-category d-none">
+                                        <span id="technicalTask" class="selected-task"
+                                            onclick="showTaskSelect(this)">Technical Task</span>
+                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
+                                            Story</span>
+                                    </div>
+                                </div>
+
+                                <div class="task-title">
+                                    <span class="font-line">Subtasks</span>
+                                    <div class="task-contact-input-area">
+                                        <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                                        <img onclick="addSubtask()" class="Assigned-img"
+                                            src="/assets/img/board/addTaskAdd.png" alt="plus">
+                                    </div>
+                                    <ul class="unsorted-list" id="unsorted-list"></ul>
                                 </div>
                             </div>
                         </div>
-                        <!-- einfache div für die trennung durch eine vektor linie -->
-                        <div class="vektor-line">
-                            <img src="/assets/img/board/vertical-line.png" alt="">
-                        </div>
-                        <!-- ----- -->
-                        <div class="right-side">
-                            <div class="task-title">
-                                <span class="font-line">Due Date<span style="color: #FF8190;">*</span></span></span>
-                                <div class="task-date-area">
-                                    <input required type="date" id="date" placeholder="dd/mm/yyyy">
-                                </div>
+                        <footer class="add-task-footer">
+                            <div>
+                                <span class="font-line"><span style="color: #FF8190;">* </span></span> This field is
+                                required</span>
                             </div>
-
-                            <div class="task-title">
-                                <span class="font-line">Prio</span>
-                                <div class="task-button-area">
-                                    <button id="prio-btn-red" class="prio-btn"
-                                        onclick="changeBtnColor('red')">Urgent<img id="prio-red"
-                                            src="/assets/img/board/Prio-red.png"></button>
-                                    <button id="prio-btn-yellow" class="prio-btn"
-                                        onclick="changeBtnColor('yellow')">Medium<img id="prio-yellow"
-                                            src="/assets/img/board/Prio-yellow.png"></button>
-                                    <button id="prio-btn-green" class="prio-btn"
-                                        onclick="changeBtnColor('green')">Low<img id="prio-green"
-                                            src="/assets/img/board/Prio-green.png"></button>
-                                </div>
+                            <div class="add-task-footer-btn">
+                                <button class="task-button cancel-btn" onclick="closeTask()">
+                                    Cancel<img style="width: 25px; height: 24px;" src="/assets/img/board/close.png">
+                                </button>
+                                <button class="task-button create-btn" onclick="createTask()">
+                                    Create Task <img src="/assets/img/board/footerCheckBtn.png">
+                                </button>
                             </div>
-
-                            <div class="task-title">
-                                <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
-                                <div class="task-contact-input-area" onclick="showTaskSelect()">
-                                    <input required type="text" id="task-category-input"
-                                        placeholder="Select task category">
-                                    <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png"
-                                        alt="#">
-                                    <img id="arrow_up" class="Assigned-img d-none" src="/assets/img/board/arrow_up.png"
-                                        alt="#">
-                                </div>
-                                <div id="task-select-category" class="task-select-category d-none">
-                                    <span id="technicalTask" class="selected-task"
-                                        onclick="showTaskSelect(this)">Technical Task</span>
-                                    <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
-                                </div>
-                            </div>
-
-                            <div class="task-title">
-                                <span class="font-line">Subtasks</span>
-                                <div class="task-contact-input-area">
-                                    <input id="input-subtasks" type="text" placeholder="Add new subtasks">
-                                    <img onclick="addSubtask()" class="Assigned-img"
-                                        src="/assets/img/board/addTaskAdd.png" alt="plus">
-                                </div>
-                                <ul class="unsorted-list" id="unsorted-list"></ul>
-                            </div>
-                        </div>
+                        </footer>
                     </div>
-                    <footer class="add-task-footer">
-                        <div>
-                            <span class="font-line"><span style="color: #FF8190;">* </span></span> This field is
-                            required</span>
-                        </div>
-                        <div class="add-task-footer-btn">
-                            <button class="task-button cancel-btn" onclick="closeTask()">
-                                Cancel<img style="width: 25px; height: 24px;" src="/assets/img/board/close.png">
-                            </button>
-                            <button class="task-button create-btn" onclick="createTask()">
-                                Create Task <img src="/assets/img/board/footerCheckBtn.png">
-                            </button>
-                        </div>
-                    </footer>
-                </div>
+                </form>
             </div>
 
         </div>
