@@ -3,7 +3,7 @@ async function loadAll() {
   let currentPage = document.body.id;
   tabsFrame = document.getElementById(`sidebar-tabs`)
   console.log(tabsFrame);
-  changeClickedTab(Number(currentPage));
+  changeClickedTab(Number(currentPage), "sidebar-tabs", tabsFrameHTML);
 }
 
 async function includeHTML() {
@@ -28,20 +28,25 @@ let whiteImageCorrespondends = {
 };
 
 
-/**
- * Changes the appearance of the clicked tab and updates the sidebar content.
- * d
- * @param {number} i - Index of the clicked tab.
- */
-function changeClickedTab(i) {
-  let tabsFrame = document.getElementById(`sidebar-tabs`);
+function renderTabsFrame(tabsFrameID, tabsFrameHTML){
+  let tabsFrame = document.getElementById(tabsFrameID);
   console.log(tabsFrame);
   tabsFrame.innerHTML = "";
   tabsFrame.innerHTML = tabsFrameHTML();
-  let clickedTab = document.querySelector(`.tab${i}`);
+}
+
+
+/**
+ * Changes the appearance of the clicked tab and updates the sidebar content..
+ * d
+ * @param {number} i - Index of the clicked tab.
+ */
+function changeClickedTab(tabIndex, tabsFrameID, tabsFrameHTML) {
+  renderTabsFrame(tabsFrameID, tabsFrameHTML)
+  let clickedTab = document.querySelector(`.tab${tabIndex}`);
   clickedTab.style.color = "white";
   clickedTab.style.backgroundColor = "#091931";
-  let clickedTabImg = document.getElementById(`tab-img${i}`);
+  let clickedTabImg = document.querySelector(`.tab-img${tabIndex}`);
   clickedTabImg.src = whiteImageCorrespondends[i];
 }
 

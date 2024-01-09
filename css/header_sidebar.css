@@ -90,7 +90,7 @@ a {
   color: #A8A8A8;
 }
 
-#sidebar-tab {
+.sidebar-tab {
   box-sizing: border-box;
   display: flex;
   width: 232px;
@@ -100,7 +100,7 @@ a {
   gap: 8px;
 }
 
-#sidebar-tab:hover {
+.sidebar-tab:hover {
   background-color: #2A3D59;
   cursor: pointer;
 }
