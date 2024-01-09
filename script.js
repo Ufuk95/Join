@@ -1,9 +1,14 @@
+let mobileView = false
+
 async function loadAll() {
   await includeHTML();
   let currentPage = document.body.id;
   tabsFrame = document.getElementById(`sidebar-tabs`)
-  console.log(tabsFrame);
-  changeClickedTab(Number(currentPage), "sidebar-tabs", tabsFrameHTML);
+  if(mobileView){
+    changeClickedTab(Number(currentPage) + 4, "nav-footer", footerFrameHTML, true)
+  }else{
+    changeClickedTab(Number(currentPage), "sidebar-tabs", tabsFrameHTML, false);
+  }
 }
 
 async function includeHTML() {
@@ -30,7 +35,6 @@ let whiteImageCorrespondends = {
 
 function renderTabsFrame(tabsFrameID, tabsFrameHTML){
   let tabsFrame = document.getElementById(tabsFrameID);
-  console.log(tabsFrame);
   tabsFrame.innerHTML = "";
   tabsFrame.innerHTML = tabsFrameHTML();
 }
@@ -38,16 +42,18 @@ function renderTabsFrame(tabsFrameID, tabsFrameHTML){
 
 /**
  * Changes the appearance of the clicked tab and updates the sidebar content..
- * d
  * @param {number} i - Index of the clicked tab.
  */
-function changeClickedTab(tabIndex, tabsFrameID, tabsFrameHTML) {
+function changeClickedTab(tabIndex, tabsFrameID, tabsFrameHTML, mobileViewState) {
+  mobileView = mobileViewState
   renderTabsFrame(tabsFrameID, tabsFrameHTML)
   let clickedTab = document.querySelector(`.tab${tabIndex}`);
+  console.log(tabIndex);
+  console.log(clickedTab);
   clickedTab.style.color = "white";
   clickedTab.style.backgroundColor = "#091931";
   let clickedTabImg = document.querySelector(`.tab-img${tabIndex}`);
-  clickedTabImg.src = whiteImageCorrespondends[i];
+  clickedTabImg.src = whiteImageCorrespondends[tabIndex];
 }
 
 
