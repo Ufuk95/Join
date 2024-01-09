@@ -45,7 +45,7 @@
                         <div class="addTask">
                             <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
                             <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
-                                onclick="addTask()">
+                                onclick="addTask('todo')">
                         </div>
                     </div>
                     <div class="drag-area" id="todo" ondrop="moveTo('todo')" ondragleave="removeHighlight('todo')"
@@ -57,7 +57,7 @@
                         <div class="addTask">
                             <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
                             <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
-                                onclick="boardTask()">
+                                onclick="addTask('in-progress')">
                         </div>
                     </div>
                     <div class="drag-area" id="in-progress" ondrop="moveTo('in-progress')"
@@ -70,7 +70,7 @@
                         <div class="addTask">
                             <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
                             <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
-                                onclick="boardTask()">
+                                onclick="addTask('await-feedback')">
                         </div>
                     </div>
                     <div class="drag-area" id="await-feedback" ondrop="moveTo('await-feedback')"
@@ -85,6 +85,7 @@
             </div>
             <!-- ab hier kommt der add task bereich -->
             <div class="full-task-body d-none" id="full-task-card">
+                <input type="hidden" id="task-field" value="" />
                 <div class="task-card">
                     <header class="add-task-header">
                         <span class="task-card-headline">Add Task</span>

@@ -18,7 +18,7 @@ function startDragging(id) {
 function generateTaskHTML(element) {
   return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
-        <div>
+        <div class="kanban-title">
             <b>${element.title}</b>
         </div>
         <div>
@@ -28,6 +28,10 @@ function generateTaskHTML(element) {
             <div class="progressbar"></div>
             <div class="subtask-display">0/0 Subtasks</div>
         </div>
+        <!-- <div>
+            <span>${element.contacts}</span>
+            <img src="${element.priority}" alt="prio-btn">
+        </div> -->
     </div>`;
 }
 
@@ -85,59 +89,47 @@ function removeHighlight(id) {
 }
 
 function createTask() {
-  let titleInput = document.getElementById('task-title-input');
-  let descriptionInput = document.getElementById('description-input');
-  let dateInput = document.getElementById('date');
-  let subtasksInput = document.getElementById('input-subtasks');
+  let titleInput = document.getElementById("task-title-input");
+  let descriptionInput = document.getElementById("description-input");
+  let dateInput = document.getElementById("date");
+  let subtasksInput = document.getElementById("input-subtasks");
+  let fieldInput = document.getElementById("task-field");
 
   // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
   let title = titleInput.value;
   let description = descriptionInput.value;
   let date = dateInput.value;
   let subtasks = subtasksInput.value;
+  let field = fieldInput.value;
 
   // Erstelle eine eindeutige ID für die Aufgabe
   let taskId = tasks.length;
 
   // Setze die Werte auf leer mit Platzhalter zurück
-  titleInput.value = '';
-  descriptionInput.value = '';
-  dateInput.value = '';
-  subtasksInput.value = '';
+  titleInput.value = "";
+  descriptionInput.value = "";
+  dateInput.value = "";
+  subtasksInput.value = "";
 
   let task = {
-    "id": taskId,
-    "field": "todo",
-    "title": title,
-    "description": description,
-    "date": date,
-    "priority": "?",
-    "who": "?",
-    "subtasks": subtasks,
+    id: taskId,
+    field: field,
+    title: title,
+    description: description,
+    date: date,
+    priority: "",
+    contacts: "?",
+    subtasks: subtasks,
   };
 
   tasks.push(task);
   console.log(tasks);
 
-  let taskHTML = generateTaskHTML(task);
-
-  // Füge das generierte HTML zur "To do"-Spalte hinzu
-  addToDoColumn(taskHTML);
   updateHTML();
 
-  let closeTask = document.getElementById('full-task-card');
-  closeTask.classList.add('d-none');
+  let closeTask = document.getElementById("full-task-card");
+  closeTask.classList.add("d-none");
 }
-
-
-function addToDoColumn(taskHTML) {
-  const todoColumn = document.getElementById('todo');
-  const taskElement = document.createElement('div');
-  taskElement.innerHTML = taskHTML;
-  todoColumn.appendChild(taskElement.firstChild);
-}
-
-
 
 // Funktion für addTask um Category auszuwählen
 
@@ -154,7 +146,7 @@ function showTaskSelect(selectedOption) {
   arrowDownImg.classList.toggle("d-none", !isVisible);
   arrowUpImg.classList.toggle("d-none", isVisible);
 
-  let selectedText = selectedOption ? selectedOption.innerText : '';  // Extrahiere den ausgewählten Text aus dem angeklickten Element
+  let selectedText = selectedOption ? selectedOption.innerText : ""; // Extrahiere den ausgewählten Text aus dem angeklickten Element
   taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 
@@ -247,12 +239,15 @@ function editSubtask() {
   subtaskTextElement.appendChild(acceptButton);
 }
 
-function addTask() {
+function addTask(field) {
   let taskcard = document.getElementById("full-task-card");
   taskcard.classList.remove("d-none");
   setTimeout(function () {
     taskcard.classList.add("open");
   }, 0);
+
+  // Setze das gewünschte Feld
+  document.getElementById("task-field").value = field;
 }
 
 function closeTask() {
@@ -264,7 +259,6 @@ function closeTask() {
 }
 
 // farben für die prio Buttons ändern
-
 
 let currentColor = null;
 
@@ -298,18 +292,17 @@ function changeBtnColor(color) {
   resetAllButtons();
   if (currentColor !== color) {
     currentColor = color;
-    if (color === 'red') {
+    if (color === "red") {
       colorChangeToRed();
-    } else if (color === 'yellow') {
+    } else if (color === "yellow") {
       colorChangeToYellow();
-    } else if (color === 'green') {
+    } else if (color === "green") {
       colorChangeToGreen();
     }
   } else {
     currentColor = null;
   }
 }
-
 
 function colorChangeToRed() {
   redImg = document.getElementById("prio-red");
