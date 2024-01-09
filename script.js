@@ -57,3 +57,7 @@ function changeClickedTab(tabIndex, tabsFrameID, tabsFrameHTML, mobileViewState)
 }
 
 
+// <<<<<<< HEAD
+// =======
+// // board[0]
+// >>>>>>> 8064923 (drop)

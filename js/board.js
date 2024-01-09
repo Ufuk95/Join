@@ -1,119 +1,38 @@
-const tasks = [
-  {
-    id: 0,
-    title: "",
-    description: "",
-    field: "",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 1,
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation",
-    field: "in-progress",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 2,
-    title: "Einkaufen",
-    description: "",
-    field: "await-feedback",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 3,
-    title: "Einkaufen",
-    description: "",
-    field: "done",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-];
-
-
+const tasks = [];
 let currentDraggedElement;
+let currentPriority = null;
 
 function updateHTML() {
-  ToDoArea();
-  inProgressArea();
-  awaitFeedbackArea();
-  doneArea()
+  ["todo", "in-progress", "await-feedback", "done"].forEach(updateArea);
+}
+
+function updateArea(field) {
+  const filteredTasks = tasks.filter((t) => t["field"] === field);
+  const areaElement = document.getElementById(field);
+  areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
 }
 
 function startDragging(id) {
   currentDraggedElement = id;
 }
 
-function ToDoArea(){
-  let todo = tasks.filter((t) => t["field"] == "todo");
-
-  document.getElementById("todo").innerHTML = "";
-
-  for (let index = 0; index < todo.length; index++) {
-    const element = todo[index];
-    document.getElementById("todo").innerHTML += generateTaskHTML(element);
-  }
-}
-
-function inProgressArea(){
-  let in_progress = tasks.filter((t) => t["field"] == "in-progress");
-
-  document.getElementById("in-progress").innerHTML = "";
-
-  for (let index = 0; index < in_progress.length; index++) {
-    const element = in_progress[index];
-    document.getElementById("in-progress").innerHTML +=
-      generateTaskHTML(element);
-  }
-}
-
-function awaitFeedbackArea(){
-  let await_feedback = tasks.filter((t) => t["field"] == "await-feedback");
-
-  document.getElementById("await-feedback").innerHTML = "";
-
-  for (let index = 0; index < await_feedback.length; index++) {
-    const element = await_feedback[index];
-    document.getElementById("await-feedback").innerHTML +=
-      generateTaskHTML(element);
-  }
-}
-
-function doneArea(){
-  let done = tasks.filter((t) => t["field"] == "done");
-
-  document.getElementById("done").innerHTML = "";
-
-  for (let index = 0; index < done.length; index++) {
-    const element = done[index];
-    document.getElementById("done").innerHTML += generateTaskHTML(element);
-  }
-}
-
 function generateTaskHTML(element) {
   return `
-    <div data-id="${element["id"]}" draggable="true" ondragstart="startDragging(${element["id"]})" class="task">
-        <div>
-            <b>${element["title"]}</b>
+    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
+        <div class="kanban-title">
+            <b>${element.title}</b>
         </div>
         <div>
-            <p class="description-font">${element["description"]}</p>
+            <p class="description-font">${element.description}</p>
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
             <div class="subtask-display">0/0 Subtasks</div>
         </div>
+        <div>
+        <!-- <span>${element.contacts}</span> -->
+            <img id="priority" src="${element.priority}" alt="Priority">
+        </div> 
     </div>`;
 }
 
@@ -145,7 +64,7 @@ function updateProgressBar(taskId) {
 }
 
 // Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
-tasks[0].subtasks = [
+tasks.subtasks = [
   { id: 1, title: "Subtask 1", done: true },
   { id: 2, title: "Subtask 2", done: false },
 ];
@@ -153,13 +72,13 @@ tasks[0].subtasks = [
 // Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
 updateProgressBar(0);
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
 function moveTo(field) {
   tasks[currentDraggedElement]["field"] = field;
   updateHTML();
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
 }
 
 function highlight(id) {
@@ -170,10 +89,70 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-// render funktion wenn man eine neue task hinzufügen will
+function createTask() {
+  var form = document.getElementById("task-form");
 
-function addTask() {}
+  if (form.checkValidity() === false) {
+    alert("Bitte füllen Sie alle erforderlichen Felder aus");
+    return;
+  }
 
+  
+  let titleInput = document.getElementById("task-title-input");
+  let descriptionInput = document.getElementById("description-input");
+  let dateInput = document.getElementById("date");
+  let subtasksInput = document.getElementById("input-subtasks");
+  let fieldInput = document.getElementById("task-field");
+
+  // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
+  let title = titleInput.value;
+  let description = descriptionInput.value;
+  let date = dateInput.value;
+  let subtasks = subtasksInput.value;
+  let field = fieldInput.value;
+
+  // Erstelle eine eindeutige ID für die Aufgabe
+  let taskId = tasks.length;
+
+  // Setze die Werte auf leer mit Platzhalter zurück
+  titleInput.value = "";
+  descriptionInput.value = "";
+  dateInput.value = "";
+  subtasksInput.value = "";
+
+  let task = {
+    id: taskId,
+    field: field,
+    title: title,
+    description: description,
+    date: date,
+    priority: getPriorityImagePath(currentPriority),
+    contacts: "?",
+    subtasks: subtasks,
+  };
+
+  tasks.push(task);
+  console.log(tasks);
+
+  updateHTML();
+
+  let closeTask = document.getElementById("full-task-card");
+  closeTask.classList.add("d-none");
+
+  resetAllButtons();
+  currentPriority = null;
+}
+function getPriorityImagePath(priority) {
+  if (priority === "red") {
+    return "/assets/img/board/Prio-red.png";
+  } else if (priority === "yellow") {
+    return "/assets/img/board/Prio-yellow.png";
+  } else if (priority === "green") {
+    return "/assets/img/board/Prio-green.png";
+  } else {
+    return "/assets/img/board/Prio-red.png";
+  }
+}
 // Funktion für addTask um Category auszuwählen
 
 function showTaskSelect(selectedOption) {
@@ -189,7 +168,7 @@ function showTaskSelect(selectedOption) {
   arrowDownImg.classList.toggle("d-none", !isVisible);
   arrowUpImg.classList.toggle("d-none", isVisible);
 
-  let selectedText = selectedOption ? selectedOption.innerText : '';  // Extrahiere den ausgewählten Text aus dem angeklickten Element
+  let selectedText = selectedOption ? selectedOption.innerText : ""; // Extrahiere den ausgewählten Text aus dem angeklickten Element
   taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 
@@ -282,12 +261,15 @@ function editSubtask() {
   subtaskTextElement.appendChild(acceptButton);
 }
 
-function createTask() {
+function addTask(field) {
   let taskcard = document.getElementById("full-task-card");
   taskcard.classList.remove("d-none");
   setTimeout(function () {
     taskcard.classList.add("open");
   }, 0);
+
+  // Setze das gewünschte Feld
+  document.getElementById("task-field").value = field;
 }
 
 function closeTask() {
@@ -299,7 +281,6 @@ function closeTask() {
 }
 
 // farben für die prio Buttons ändern
-
 
 let currentColor = null;
 
@@ -333,18 +314,21 @@ function changeBtnColor(color) {
   resetAllButtons();
   if (currentColor !== color) {
     currentColor = color;
-    if (color === 'red') {
+    // Speichern Sie die ausgewählte Priorität
+    currentPriority = color;
+    if (color === "red") {
       colorChangeToRed();
-    } else if (color === 'yellow') {
+    } else if (color === "yellow") {
       colorChangeToYellow();
-    } else if (color === 'green') {
+    } else if (color === "green") {
       colorChangeToGreen();
     }
   } else {
     currentColor = null;
+    // Wenn kein Button ausgewählt ist, setze die currentPriority zurück
+    currentPriority = null;
   }
 }
-
 
 function colorChangeToRed() {
   redImg = document.getElementById("prio-red");

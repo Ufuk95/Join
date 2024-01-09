@@ -315,7 +315,7 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%; /* 24px */
-  color: var(--Style, #D1D1D1);
+  color: var(--Style, #d1d1d1);
 }
 #description-input {
   display: flex;
@@ -390,7 +390,7 @@ body {
   margin-top: -8px;
   border-radius: 10px;
 }
-#task-category-input{
+#task-category-input {
   color: black;
 }
 .selected-task {
@@ -405,7 +405,7 @@ body {
   background-color: lightgrey;
   cursor: pointer;
 }
-#input-subtasks{
+#input-subtasks {
   color: black;
 }
 .unsorted-list {
@@ -496,3 +496,9 @@ body {
 .full-task-body.open {
   left: 0; /* Endposition für das Öffnen des Containers */
 }
+
+/***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
+
+/* .kanban-title{
+
+} */
