@@ -1,114 +1,28 @@
-const tasks = [
-  {
-    id: 0,
-    title: "",
-    description: "",
-    field: "",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 1,
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation",
-    field: "in-progress",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 2,
-    title: "Einkaufen",
-    description: "",
-    field: "await-feedback",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-  {
-    id: 3,
-    title: "Einkaufen",
-    description: "",
-    field: "done",
-    date: "",
-    priority: "",
-    who: "",
-    subtasks: [],
-  },
-];
-
-
+const tasks = [];
 let currentDraggedElement;
 
 function updateHTML() {
-  ToDoArea();
-  inProgressArea();
-  awaitFeedbackArea();
-  doneArea()
+  ["todo", "in-progress", "await-feedback", "done"].forEach(updateArea);
+}
+
+function updateArea(field) {
+  const filteredTasks = tasks.filter((t) => t["field"] === field);
+  const areaElement = document.getElementById(field);
+  areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
 }
 
 function startDragging(id) {
   currentDraggedElement = id;
 }
 
-function ToDoArea(){
-  let todo = tasks.filter((t) => t["field"] == "todo");
-
-  document.getElementById("todo").innerHTML = "";
-
-  for (let index = 0; index < todo.length; index++) {
-    const element = todo[index];
-    document.getElementById("todo").innerHTML += generateTaskHTML(element);
-  }
-}
-
-function inProgressArea(){
-  let in_progress = tasks.filter((t) => t["field"] == "in-progress");
-
-  document.getElementById("in-progress").innerHTML = "";
-
-  for (let index = 0; index < in_progress.length; index++) {
-    const element = in_progress[index];
-    document.getElementById("in-progress").innerHTML +=
-      generateTaskHTML(element);
-  }
-}
-
-function awaitFeedbackArea(){
-  let await_feedback = tasks.filter((t) => t["field"] == "await-feedback");
-
-  document.getElementById("await-feedback").innerHTML = "";
-
-  for (let index = 0; index < await_feedback.length; index++) {
-    const element = await_feedback[index];
-    document.getElementById("await-feedback").innerHTML +=
-      generateTaskHTML(element);
-  }
-}
-
-function doneArea(){
-  let done = tasks.filter((t) => t["field"] == "done");
-
-  document.getElementById("done").innerHTML = "";
-
-  for (let index = 0; index < done.length; index++) {
-    const element = done[index];
-    document.getElementById("done").innerHTML += generateTaskHTML(element);
-  }
-}
-
 function generateTaskHTML(element) {
   return `
-    <div data-id="${element["id"]}" draggable="true" ondragstart="startDragging(${element["id"]})" class="task">
+    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
         <div>
-            <b>${element["title"]}</b>
+            <b>${element.title}</b>
         </div>
         <div>
-            <p class="description-font">${element["description"]}</p>
+            <p class="description-font">${element.description}</p>
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
@@ -145,7 +59,7 @@ function updateProgressBar(taskId) {
 }
 
 // Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
-tasks[0].subtasks = [
+tasks.subtasks = [
   { id: 1, title: "Subtask 1", done: true },
   { id: 2, title: "Subtask 2", done: false },
 ];
@@ -153,13 +67,13 @@ tasks[0].subtasks = [
 // Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
 updateProgressBar(0);
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
 function moveTo(field) {
   tasks[currentDraggedElement]["field"] = field;
   updateHTML();
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
 }
 
 function highlight(id) {
@@ -170,9 +84,60 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-// render funktion wenn man eine neue task hinzufügen will
+function createTask() {
+  let titleInput = document.getElementById('task-title-input');
+  let descriptionInput = document.getElementById('description-input');
+  let dateInput = document.getElementById('date');
+  let subtasksInput = document.getElementById('input-subtasks');
 
-function addTask() {}
+  // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
+  let title = titleInput.value;
+  let description = descriptionInput.value;
+  let date = dateInput.value;
+  let subtasks = subtasksInput.value;
+
+  // Erstelle eine eindeutige ID für die Aufgabe
+  let taskId = tasks.length;
+
+  // Setze die Werte auf leer mit Platzhalter zurück
+  titleInput.value = '';
+  descriptionInput.value = '';
+  dateInput.value = '';
+  subtasksInput.value = '';
+
+  let task = {
+    "id": taskId,
+    "field": "todo",
+    "title": title,
+    "description": description,
+    "date": date,
+    "priority": "?",
+    "who": "?",
+    "subtasks": subtasks,
+  };
+
+  tasks.push(task);
+  console.log(tasks);
+
+  let taskHTML = generateTaskHTML(task);
+
+  // Füge das generierte HTML zur "To do"-Spalte hinzu
+  addToDoColumn(taskHTML);
+  updateHTML();
+
+  let closeTask = document.getElementById('full-task-card');
+  closeTask.classList.add('d-none');
+}
+
+
+function addToDoColumn(taskHTML) {
+  const todoColumn = document.getElementById('todo');
+  const taskElement = document.createElement('div');
+  taskElement.innerHTML = taskHTML;
+  todoColumn.appendChild(taskElement.firstChild);
+}
+
+
 
 // Funktion für addTask um Category auszuwählen
 
@@ -282,7 +247,7 @@ function editSubtask() {
   subtaskTextElement.appendChild(acceptButton);
 }
 
-function createTask() {
+function addTask() {
   let taskcard = document.getElementById("full-task-card");
   taskcard.classList.remove("d-none");
   setTimeout(function () {
