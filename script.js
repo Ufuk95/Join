@@ -26,11 +26,18 @@ let whiteImageCorrespondends = {
   3: "./assets/img/header_sidebar/icon_contacts_white.png"
 };
 
+/**
+ * Resets the tab styling for the sidebar-tabs and the footer-tabs
+ */
 function clearTabStyles() {
   let tabList = document.querySelectorAll(`.single-tab`);
   tabList.forEach(tab => { tab.style.color = "#CDCDCD", tab.style.backgroundColor = "#2A3647"; });
 }
 
+/**
+ * Changes the styling of a clicked tab. 
+ * @param {number} tabIndex index of the clicked tab.  
+ */
 function changeClickedTab(tabIndex) {
   let clickedTab = document.querySelectorAll(`.tab${tabIndex}`);
   clickedTab.forEach(tab => {tab.style.color = "white", tab.style.backgroundColor = "#091931"} )
@@ -38,19 +45,6 @@ function changeClickedTab(tabIndex) {
   tabImg.forEach(img => {img.src = whiteImageCorrespondends[tabIndex]})
 }
 
-/**
- * Changes the appearance of the clicked tab and updates the sidebar content..
- * @param {number} i - Index of the clicked tab.
- */
-// function changeClickedTab(tabIndex) {
-//   let clickedTab = document.querySelector(`.tab${tabIndex}`);
-//   console.log(tabIndex);
-//   console.log(clickedTab);
-//   clickedTab.style.color = "white";
-//   clickedTab.style.backgroundColor = "#091931";
-//   let clickedTabImg = document.querySelector(`.tab-img${tabIndex}`);
-//   clickedTabImg.src = whiteImageCorrespondends[tabIndex];
-// }
 
 
 
