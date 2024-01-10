@@ -1,16 +1,9 @@
-let mobileView = false
-
 async function loadAll() {
   await includeHTML();
-  let currentPage = document.body.id;
-  tabsFrame = document.getElementById(`sidebar-tabs`)
-  init()
+  let currentPage = Number(document.body.id);
+  clearTabStyles();
+  changeClickedTab(currentPage);
 }
-
-function init(){
-  console.log(document.querySelector(`.tab0`));
-}
-
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
@@ -33,29 +26,31 @@ let whiteImageCorrespondends = {
   3: "./assets/img/header_sidebar/icon_contacts_white.png"
 };
 
-
-function renderTabsFrame(tabsFrameID, tabsFrameHTML){
-  let tabsFrame = document.getElementById(tabsFrameID);
-  tabsFrame.innerHTML = "";
-  tabsFrame.innerHTML = tabsFrameHTML();
+function clearTabStyles() {
+  let tabList = document.querySelectorAll(`.single-tab`);
+  tabList.forEach(tab => { tab.style.color = "#CDCDCD", tab.style.backgroundColor = "#2A3647"; });
 }
 
+function changeClickedTab(tabIndex) {
+  let clickedTab = document.querySelectorAll(`.tab${tabIndex}`);
+  clickedTab.forEach(tab => {tab.style.color = "white", tab.style.backgroundColor = "#091931"} )
+  let tabImg = document.querySelectorAll(`.tab-img${tabIndex}`);
+  tabImg.forEach(img => {img.src = whiteImageCorrespondends[tabIndex]})
+}
 
 /**
  * Changes the appearance of the clicked tab and updates the sidebar content..
  * @param {number} i - Index of the clicked tab.
  */
-function changeClickedTab(tabIndex, tabsFrameID, tabsFrameHTML, mobileViewState) {
-  mobileView = mobileViewState
-  renderTabsFrame(tabsFrameID, tabsFrameHTML)
-  let clickedTab = document.querySelector(`.tab${tabIndex}`);
-  console.log(tabIndex);
-  console.log(clickedTab);
-  clickedTab.style.color = "white";
-  clickedTab.style.backgroundColor = "#091931";
-  let clickedTabImg = document.querySelector(`.tab-img${tabIndex}`);
-  clickedTabImg.src = whiteImageCorrespondends[tabIndex];
-}
+// function changeClickedTab(tabIndex) {
+//   let clickedTab = document.querySelector(`.tab${tabIndex}`);
+//   console.log(tabIndex);
+//   console.log(clickedTab);
+//   clickedTab.style.color = "white";
+//   clickedTab.style.backgroundColor = "#091931";
+//   let clickedTabImg = document.querySelector(`.tab-img${tabIndex}`);
+//   clickedTabImg.src = whiteImageCorrespondends[tabIndex];
+// }
 
 
 
