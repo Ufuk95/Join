@@ -32,7 +32,7 @@
                         <img src="/assets/img/board/Vector 3.png" alt="">
                         <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="searchTasks()">
                     </div>
-                    <button onclick="addTask()">
+                    <button onclick="addTask('todo')">
                         Add task
                         <img src="/assets/img/board/add.png" alt="plus">
                     </button>
@@ -86,7 +86,7 @@
             <!-- ab hier kommt der add task bereich -->
             <div class="full-task-body d-none" id="full-task-card">
                 <input type="hidden" id="task-field" value="" />
-                <form id="task-form" onsubmit="event.preventDefault(); createTask();">
+                <form id="task-form" onsubmit="event.preventDefault(); createTask(); return false">
                     <div class="task-card">
                         <header class="add-task-header">
                             <span class="task-card-headline">Add Task</span>
@@ -98,8 +98,8 @@
                             <div class="left-side">
                                 <div class="task-title">
                                     <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                                    <input required class="task-title-input" id="task-title-input" type="text"
-                                        placeholder="Enter a title">
+                                    <input required class="task-title-input" id="task-title-input" name="taskTitle"
+                                        type="text" placeholder="Enter a title">
                                 </div>
                                 <div class="task-title">
                                     <span class="font-line">Description</span>
@@ -124,7 +124,7 @@
                                 <div class="task-title">
                                     <span class="font-line">Due Date<span style="color: #FF8190;">*</span></span></span>
                                     <div class="task-date-area">
-                                        <input required type="date" id="date" placeholder="dd/mm/yyyy">
+                                        <input required type="date" id="date" name="taskDate" placeholder="dd/mm/yyyy">
                                     </div>
                                 </div>
 
@@ -156,8 +156,8 @@
                                     <div id="task-select-category" class="task-select-category d-none">
                                         <span id="technicalTask" class="selected-task"
                                             onclick="showTaskSelect(this)">Technical Task</span>
-                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
-                                            Story</span>
+                                        <span id="userStory" class="selected-task" 
+                                        onclick="showTaskSelect(this)">User Story</span>
                                     </div>
                                 </div>
 
