@@ -22,6 +22,7 @@ body {
 /************************* SIGN-UP-FRAME *************************/
 #sign-up-frame {
   position: absolute;
+  background-color: white;
   top: 197px;
   left: 421px;
   display: inline-flex;
@@ -32,7 +33,7 @@ body {
 }
 
 .sign-up-header {
-  display:flex;
+  display: flex;
   flex-direction: column;
   margin: 0;
   color: #000;
@@ -44,8 +45,32 @@ body {
   line-height: 120%;
 }
 
-.blue-storke{
+.blue-storke {
   margin-top: 16px;
   width: 150px;
   align-self: center;
+}
+
+#input-fields-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.login-input {
+  background-size: 24px;
+  font-family: "Inter";
+  height: 48px;
+  width: 422px;
+  border-radius: 10px;
+  padding-left: 12px;
+  font-size: 20px;
+  font-weight: 400;
+  border: 1px solid #d1d1d1;
+  cursor: auto;
+}
+
+.mail-img {
+  background: url(/assets/img/log_in/mail.png) no-repeat 96%;
 }

@@ -40,9 +40,9 @@ function clearTabStyles() {
  */
 function changeClickedTab(tabIndex) {
   let clickedTab = document.querySelectorAll(`.tab${tabIndex}`);
-  clickedTab.forEach(tab => {tab.style.color = "white", tab.style.backgroundColor = "#091931"} )
+  clickedTab.forEach(tab => { tab.style.color = "white", tab.style.backgroundColor = "#091931"; });
   let tabImg = document.querySelectorAll(`.tab-img${tabIndex}`);
-  tabImg.forEach(img => {img.src = whiteImageCorrespondends[tabIndex]})
+  tabImg.forEach(img => { img.src = whiteImageCorrespondends[tabIndex]; });
 }
 
 
