@@ -90,7 +90,7 @@ function removeHighlight(id) {
 }
 
 function createTask() {
-  var form = document.getElementById("task-form");
+  let form = document.getElementById("task-form");
 
   if (form.checkValidity() === false) {
     alert("Bitte füllen Sie alle erforderlichen Felder aus");
