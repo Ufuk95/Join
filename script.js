@@ -4,12 +4,13 @@ async function loadAll() {
   await includeHTML();
   let currentPage = document.body.id;
   tabsFrame = document.getElementById(`sidebar-tabs`)
-  if(mobileView){
-    changeClickedTab(Number(currentPage) + 4, "nav-footer", footerFrameHTML, true)
-  }else{
-    changeClickedTab(Number(currentPage), "sidebar-tabs", tabsFrameHTML, false);
-  }
+  init()
 }
+
+function init(){
+  console.log(document.querySelector(`.tab0`));
+}
+
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
