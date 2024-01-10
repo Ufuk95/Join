@@ -1,11 +1,18 @@
 /************************* GLOBAL SELECTORS *************************/
-body{
+@font-face {
+  font-family: "Inter";
+  /* Gewünschter Name */
+  src: url("/assets/fonts/inter-font.ttf");
+}
+
+
+body {
   background-color: #F6F7F8;
   margin: 0;
 }
 
 /************************* HEADER *************************/
-#join-logo{
+#join-logo {
   margin-top: 80px;
   margin-left: 77px;
   width: 100.03px;
@@ -13,6 +20,32 @@ body{
 }
 
 /************************* SIGN-UP-FRAME *************************/
-#sign-up-frame{
-  
+#sign-up-frame {
+  position: absolute;
+  top: 197px;
+  left: 421px;
+  display: inline-flex;
+  padding: 48px 88px;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.sign-up-header {
+  display:flex;
+  flex-direction: column;
+  margin: 0;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.blue-storke{
+  margin-top: 16px;
+  width: 150px;
+  align-self: center;
 }
