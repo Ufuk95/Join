@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
-    <link rel="stylesheet" href="css/header_sidebar.css">
-    <link rel="stylesheet" href="/css/board.css">
-    <script src="script.js" defer></script>
-    <script src="/js/board.js"></script>
+    <link rel="stylesheet" href="./css/header_sidebar.css">
+    <link rel="stylesheet" href="./css/board.css">
+    <script src="./script.js" defer></script>
+    <script src="./js/board.js"></script>
     <script defer>
         function init() {
             includeHTML();
@@ -18,9 +18,9 @@
 </head>
 
 <body onload="init()">
-    <header id="header" w3-include-html="assets/templates/header.html"></header>
+    <header id="header" w3-include-html="./assets/templates/header.html"></header>
 
-    <div id="sidebar" w3-include-html="assets/templates/sidebar.html"></div>
+    <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
     <div class="board-body start-position">
         <div class="board-top">
@@ -85,8 +85,8 @@
             </div>
             <!-- ab hier kommt der add task bereich -->
             <div class="full-task-body d-none" id="full-task-card">
-                <input type="hidden" id="task-field" value="" />
-                <form id="task-form" onsubmit="event.preventDefault(); createTask(); return false">
+                <input type="hidden" id="task-field" value=""/>
+                <form onsubmit="createTask()">
                     <div class="task-card">
                         <header class="add-task-header">
                             <span class="task-card-headline">Add Task</span>
@@ -98,8 +98,8 @@
                             <div class="left-side">
                                 <div class="task-title">
                                     <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                                    <input required class="task-title-input" id="task-title-input" name="taskTitle"
-                                        type="text" placeholder="Enter a title">
+                                    <input required type="text" class="task-title-input" id="task-title-input" 
+                                        name="taskTitle" placeholder="Enter a title">
                                 </div>
                                 <div class="task-title">
                                     <span class="font-line">Description</span>
@@ -146,21 +146,15 @@
                                 <div class="task-title">
                                     <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                                     <div class="task-contact-input-area" onclick="showTaskSelect()">
-                                        <input required type="text" id="task-category-input"
-                                            placeholder="Select task category">
-                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png"
-                                            alt="#">
-                                        <img id="arrow_up" class="Assigned-img d-none"
-                                            src="/assets/img/board/arrow_up.png" alt="#">
+                                        <input required type="text" id="task-category-input" placeholder="Select task category">
+                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png" alt="#">
+                                        <img id="arrow_up" class="Assigned-img d-none" src="/assets/img/board/arrow_up.png" alt="#">
                                     </div>
                                     <div id="task-select-category" class="task-select-category d-none">
-                                        <span id="technicalTask" class="selected-task"
-                                            onclick="showTaskSelect(this)">Technical Task</span>
-                                        <span id="userStory" class="selected-task" 
-                                        onclick="showTaskSelect(this)">User Story</span>
+                                        <span id="technicalTask" class="selected-task" onclick="showTaskSelect(this)">Technical Task</span>
+                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
                                     </div>
-                                </div>
-
+                                </div>                                
                                 <div class="task-title">
                                     <span class="font-line">Subtasks</span>
                                     <div class="task-contact-input-area">
@@ -174,8 +168,7 @@
                         </div>
                         <footer class="add-task-footer">
                             <div>
-                                <span class="font-line"><span style="color: #FF8190;">* </span></span> This field is
-                                required</span>
+                                <span class="font-line"><span style="color: #FF8190;">* </span></span>This field is required</span>
                             </div>
                             <div class="add-task-footer-btn">
                                 <button class="task-button cancel-btn" onclick="closeTask()">
