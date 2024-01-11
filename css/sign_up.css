@@ -5,7 +5,6 @@
   src: url("/assets/fonts/inter-font.ttf");
 }
 
-
 body {
   background-color: #F6F7F8;
   margin: 0;
@@ -30,21 +29,6 @@ a:visited {
   text-decoration: none;
 }
 
-/************************* BACKGROUND IMGs *************************/
-.mail-img {
-  background: url(/assets/img/log_in/mail.png) no-repeat 96%;
-}
-
-.person-img {
-  background: url(/assets/img/sign_up/icon_person.png) no-repeat 96%;
-}
-
-.password-img {
-  background: url(/assets/img/log_in/lock.png) no-repeat 96%;
-}
-
-
-
 /************************* HEADER *************************/
 #join-logo {
   margin-top: 80px;
@@ -60,6 +44,7 @@ a:visited {
 }
 
 #sign-up-frame {
+  position: relative;
   box-sizing: content-box;
   background-color: white;
   margin: 0 auto;
@@ -86,24 +71,40 @@ a:visited {
   line-height: 120%;
 }
 
+#back-arrow-blue {
+  position: absolute;
+  top: 92px;
+  left: 61px;
+}
+
 .blue-storke {
   margin-top: 16px;
   width: 150px;
   align-self: center;
 }
 
+/************************* INPUTS *************************/
 #input-fields-frame {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 24px;
 }
 
-.login-input {
-  background-size: 24px;
+.input-field-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 422px;
+}
+
+.input-field {
+  display: flex;
+  position: relative;
   font-family: "Inter";
   height: 48px;
-  width: 422px;
+  width: 100%;
   border-radius: 10px;
   padding-left: 12px;
   font-size: 20px;
@@ -112,12 +113,30 @@ a:visited {
   cursor: auto;
 }
 
-.login-input:focus {
-  outline:none;
+.input-field__img-placing {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 18px;
+}
+
+.input-field:focus {
+  outline: none;
   border: solid #29ABE2 1px;
 }
 
+/************************* CHECKBOX *************************/
+#checkbox-frame {
+  display: flex;
+  align-items: center;
+}
 
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+
+/************************* SEND BUTTON *************************/
 #privacy-policy-checkmark-frame {
   display: flex;
   align-items: center;

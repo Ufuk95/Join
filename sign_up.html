@@ -5,25 +5,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/sign_up.css">
-  <script src="./js/sign_up.js"></script>
+  <script src="./js/sign_up.js" defer></script>
   <title>Sign Up</title>
 </head>
 
 <body>
   <img id="join-logo" src="./assets/img/log_in/join_logo.png" alt="">
+
+  <!-------------------------- SIGN-UP AREA -------------------------->
   <div id="sign-up-frame-wrapper">
     <div id="sign-up-frame">
+      <a href="./logIn.html">
+        <img src="./assets/img/sign_up/back_arrow_blue.png" id="back-arrow-blue" alt="">
+      </a>
       <header class="sign-up-header">Sign up
         <img src="./assets/img/sign_up/horizontal_stroke_blue.png" class="blue-storke" alt="">
       </header>
+  <!-------------------------- INPUT FIELDS -------------------------->
       <div id="input-fields-frame">
-        <input class="login-input person-img" placeholder="Name" type="text" required="">
-        <input class="login-input mail-img" placeholder="Email" type="email" required="">
-        <input class="login-input password-img" placeholder="Password" type="password" required="">
-        <input class="login-input password-img" placeholder="Confirm Password" type="password" required="">
+        <div class="input-field-box">
+          <input class="input-field" id="name" placeholder="Name" type="text" required="">
+          <img src="./assets/img/sign_up/icon_person.png" id="icon-person" class="input-field__img-placing" alt="">
+        </div>
+        <div class="input-field-box">
+          <input class="input-field" id="mail" placeholder="Email" type="email" required="">
+          <img src="./assets/img/log_in/mail.png" id="icon-person" class="input-field__img-placing" alt="">
+        </div>
+  <!-------------------------- PASSWORDS -------------------------->
+        <div class="input-field-box">
+          <input class="input-field " id="password" placeholder="Password" type="password" required="">
+          <img src="./assets/img/log_in/lock.png" id="lock-img" class="input-field__img-placing" alt="" onclick="togglePasswordVisibility()">
+        </div>
+        <div class="input-field-box">
+          <input class="input-field" id="password-repeat" placeholder="Confirm Password" type="password" required="">
+          <img src="./assets/img/log_in/lock.png" id="lock-img" class="input-field__img-placing" alt="" onclick="togglePasswordVisibility()">
       </div>
-      <div>
-        <input required="" type="checkbox">
+      <div id="checkbox-frame">
+        <input required="" type="checkbox" id="privacy-checkbox" onchange="checkBoxStatus()">
         <span id="accept"> I accept the </span>
         <a href="privacy_policy.html" id="privacy-policy">Privacy Policy</a>
       </div>
