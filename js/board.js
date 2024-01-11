@@ -19,7 +19,10 @@ function startDragging(id) {
 function generateTaskHTML(element) {
   return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
-        <div class="kanban-title">
+        <div>
+            <img src="${element.category}">
+        </div>
+        <div>
             <b>${element.title}</b>
         </div>
         <div>
@@ -90,19 +93,13 @@ function removeHighlight(id) {
 }
 
 function createTask() {
-  let form = document.getElementById("task-form");
 
-  if (form.checkValidity() === false) {
-    alert("Bitte füllen Sie alle erforderlichen Felder aus");
-    return;
-  }
-
-  
   let titleInput = document.getElementById("task-title-input");
   let descriptionInput = document.getElementById("description-input");
   let dateInput = document.getElementById("date");
   let subtasksInput = document.getElementById("input-subtasks");
   let fieldInput = document.getElementById("task-field");
+  let categoryInput = document.getElementById("task-category-input");
 
   // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
   let title = titleInput.value;
@@ -110,6 +107,13 @@ function createTask() {
   let date = dateInput.value;
   let subtasks = subtasksInput.value;
   let field = fieldInput.value;
+  let category = categoryInput.value;
+
+  if (category === "Technical Task") {
+    category = "/assets/img/board/technical-task.png";
+  } else if (category === "User Story") {
+    category = "/assets/img/board/user-story.png";
+  }
 
   // Erstelle eine eindeutige ID für die Aufgabe
   let taskId = tasks.length;
@@ -119,6 +123,7 @@ function createTask() {
   descriptionInput.value = "";
   dateInput.value = "";
   subtasksInput.value = "";
+  categoryInput.value = "";
 
   let task = {
     id: taskId,
@@ -126,6 +131,7 @@ function createTask() {
     title: title,
     description: description,
     date: date,
+    category: category,
     priority: getPriorityImagePath(currentPriority),
     contacts: "?",
     subtasks: subtasks,
