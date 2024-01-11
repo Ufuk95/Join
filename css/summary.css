@@ -83,7 +83,6 @@ body {
   justify-content: center;
   align-items: center;
   gap: 18px;
-  /* flex-shrink: 0; */
   border-radius: 30px;
   background: var(--white, #FFF);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10)
@@ -164,7 +163,6 @@ body {
   font-weight: 600;
   line-height: 120%;
 }
-
 
 #deadline-date-box {
   display: flex;
@@ -395,7 +393,6 @@ body {
   .metrics-icon {
     width: 40px;
     height: 40px;
-    /* filter: invert(1); */
   }
 
   .urgent-arrows {
