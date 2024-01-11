@@ -30,6 +30,21 @@ a:visited {
   text-decoration: none;
 }
 
+/************************* BACKGROUND IMGs *************************/
+.mail-img {
+  background: url(/assets/img/log_in/mail.png) no-repeat 96%;
+}
+
+.person-img {
+  background: url(/assets/img/sign_up/icon_person.png) no-repeat 96%;
+}
+
+.password-img {
+  background: url(/assets/img/log_in/lock.png) no-repeat 96%;
+}
+
+
+
 /************************* HEADER *************************/
 #join-logo {
   margin-top: 80px;
@@ -97,17 +112,11 @@ a:visited {
   cursor: auto;
 }
 
-.mail-img {
-  background: url(/assets/img/log_in/mail.png) no-repeat 96%;
+.login-input:focus {
+  outline:none;
+  border: solid #29ABE2 1px;
 }
 
-.person-img {
-  background: url(/assets/img/sign_up/icon_person.png) no-repeat 96%;
-}
-
-.password-img {
-  background: url(/assets/img/log_in/lock.png) no-repeat 96%;
-}
 
 #privacy-policy-checkmark-frame {
   display: flex;
