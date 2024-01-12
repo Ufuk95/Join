@@ -9,39 +9,36 @@ function checkBoxStatus() {
   }
 }
 
+
 /**
  * Waits for a password input.  
- * Changes visibility icon based on isVisible state
+ * Changes the icon from the password field from lock to invisible based on input length. 
  */
 document.getElementById("password").addEventListener("input", () => {
   const passwordInput = document.getElementById("password");
-  const lockImg = document.getElementById("lock-img");
+  const passwordFieldIcon = document.getElementById("lock-img");
   if (passwordInput.value.length > 0) {
-    if (!isVisible) {
-      lockImg.src = "/assets/img/log_in/visibility_off.png"; 
-    } else {
-      lockImg.src = "/assets/img/log_in/visibility.png";
-    }
-  } else {
-    lockImg.src = "/assets/img/log_in/lock.png"; 
+    passwordFieldIcon.src = "/assets/img/log_in/visibility_off.png"
+  }else{
+    passwordFieldIcon.src = "/assets/img/log_in/lock.png"
   }
-});
+})
 
 
 /**
- *
- *
+ * Changes the icon of the password field onclick, 
+ * from visible to invisible. 
  */
 function togglePasswordVisibility() {
   const passwordInput = document.getElementById("password");
-  const lockImg = document.getElementById("lock-img");
+  const passwordFieldIcon = document.getElementById("lock-img");
   if (!isVisible) {
     passwordInput.type = "text";
-    lockImg.src = "/assets/img/log_in/visibility.png"; 
+    passwordFieldIcon.src = "/assets/img/log_in/visibility.png"; 
     isVisible = true;
   } else {
     passwordInput.type = "password";
-    lockImg.src = "/assets/img/log_in/visibility_off.png"; 
+    passwordFieldIcon.src = "/assets/img/log_in/visibility_off.png"; 
     isVisible = false;
   }
 }
