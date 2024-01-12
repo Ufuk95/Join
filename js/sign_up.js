@@ -11,8 +11,8 @@ function checkBoxStatus() {
 
 
 /**
- * Waits for a password input.  
- * Changes the icon from the password field from lock to invisible based on input length. 
+ * Waits for a password input .  
+ * Changes the password field icon from lock to invisible based on input length. 
  */
 document.getElementById("password").addEventListener("input", () => {
   const passwordInput = document.getElementById("password");
