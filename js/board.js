@@ -30,10 +30,9 @@ function generateTaskHTML(element) {
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
-            <div class="subtask-display">0/0 Subtasks</div>
+             <div class="subtask-display">0/${element.AmountofSubtasks} Subtasks</div>
         </div>
         <div>
-        <!-- <span>${element.contacts}</span> -->
             <img id="priority" src="${element.priority}" alt="Priority">
         </div> 
     </div>`;
@@ -92,7 +91,9 @@ function removeHighlight(id) {
   document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-function createTask() {
+function createTask(event) {
+  // sorgt dafür das die seite nachdem erstellen des tasks nicht neu ladet
+  event.preventDefault();
 
   let titleInput = document.getElementById("task-title-input");
   let descriptionInput = document.getElementById("description-input");
@@ -100,6 +101,7 @@ function createTask() {
   let subtasksInput = document.getElementById("input-subtasks");
   let fieldInput = document.getElementById("task-field");
   let categoryInput = document.getElementById("task-category-input");
+  let AmountofSubtasks = document.getElementById("unsorted-list");
 
   // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
   let title = titleInput.value;
@@ -108,6 +110,7 @@ function createTask() {
   let subtasks = subtasksInput.value;
   let field = fieldInput.value;
   let category = categoryInput.value;
+  let subtasksLength = AmountofSubtasks.length;
 
   if (category === "Technical Task") {
     category = "/assets/img/board/technical-task.png";
@@ -135,6 +138,7 @@ function createTask() {
     priority: getPriorityImagePath(currentPriority),
     contacts: "?",
     subtasks: subtasks,
+    AmountofSubtasks: subtasksLength,
   };
 
   tasks.push(task);
@@ -219,7 +223,16 @@ function addSubtask() {
 
     // Input-Feld leeren
     inputSubtasks.value = "";
+
+    // Wiederherstellen des Plus-Symbols
+    setTimeout(restoreInputImg, 0);
   }
+}
+function deleteSubtaskInput() {
+  let inputSubtasks = document.getElementById("input-subtasks");
+  inputSubtasks.value = "";
+  // Bilder wiederherstellen
+  restoreInputImg();
 }
 
 // Funktion zum Testen, um Subtasks zu löschen
@@ -242,8 +255,7 @@ function editSubtask() {
   // Einen Button zum Akzeptieren der Bearbeitung erstellen
   let acceptButton = document.createElement("img");
   acceptButton.src = "/assets/img/board/done.png";
-  acceptButton.style =
-    "cursor: pointer; background-color: white; border-radius: 15px;";
+  acceptButton.style = "cursor: pointer; background-color: white; border-radius: 15px;";
   acceptButton.alt = "Done";
   acceptButton.onclick = function () {
     // Den bearbeiteten Text übernehmen
@@ -386,3 +398,28 @@ function colorChangeToGreen() {
     greenBtn.style.borderColor = "white";
   }
 }
+
+function changeInputImg() {
+  let plusIcon = document.getElementById("subtask-plus-img");
+  plusIcon.classList.add("d-none");
+  let closeIcon = document.getElementById("subtask-close-img");
+  closeIcon.classList.remove("d-none");
+  let vectorIcon = document.getElementById("subtask-vector-img");
+  vectorIcon.classList.remove("d-none");
+  let checkedIcon = document.getElementById("subtask-checked-img");
+  checkedIcon.classList.remove("d-none");
+  
+}
+
+function restoreInputImg() {
+  let plusIcon = document.getElementById("subtask-plus-img");
+  let closeIcon = document.getElementById("subtask-close-img");
+  let vectorIcon = document.getElementById("subtask-vector-img");
+  let checkedIcon = document.getElementById("subtask-checked-img");
+
+  plusIcon.classList.remove("d-none");
+  closeIcon.classList.add("d-none");
+  vectorIcon.classList.add("d-none");
+  checkedIcon.classList.add("d-none");
+}
+

@@ -29,7 +29,7 @@
                 <div class="board-active">
                     <input placeholder="Find Task" type="text">
                     <div class="input-img">
-                        <img src="/assets/img/board/Vector 3.png" alt="">
+                        <img src="/assets/img/board/vector-subtask.png" alt="">
                         <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="searchTasks()">
                     </div>
                     <button onclick="addTask('todo')">
@@ -85,8 +85,8 @@
             </div>
             <!-- ab hier kommt der add task bereich -->
             <div class="full-task-body d-none" id="full-task-card">
-                <input type="hidden" id="task-field" value=""/>
-                <form onsubmit="createTask()">
+                <input type="hidden" id="task-field" value="" />
+                <form onsubmit="createTask(event)">
                     <div class="task-card">
                         <header class="add-task-header">
                             <span class="task-card-headline">Add Task</span>
@@ -98,7 +98,7 @@
                             <div class="left-side">
                                 <div class="task-title">
                                     <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                                    <input required type="text" class="task-title-input" id="task-title-input" 
+                                    <input required type="text" class="task-title-input" id="task-title-input"
                                         name="taskTitle" placeholder="Enter a title">
                                 </div>
                                 <div class="task-title">
@@ -146,35 +146,49 @@
                                 <div class="task-title">
                                     <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                                     <div class="task-contact-input-area" onclick="showTaskSelect()">
-                                        <input required type="text" id="task-category-input" placeholder="Select task category">
-                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png" alt="#">
-                                        <img id="arrow_up" class="Assigned-img d-none" src="/assets/img/board/arrow_up.png" alt="#">
+                                        <input required type="text" id="task-category-input"
+                                            placeholder="Select task category">
+                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                                            alt="#">
+                                        <img id="arrow_up" class="Assigned-img d-none"
+                                            src="/assets/img/board/arrow_up.png" alt="#">
                                     </div>
                                     <div id="task-select-category" class="task-select-category d-none">
-                                        <span id="technicalTask" class="selected-task" onclick="showTaskSelect(this)">Technical Task</span>
-                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
+                                        <span id="technicalTask" class="selected-task"
+                                            onclick="showTaskSelect(this)">Technical Task</span>
+                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
+                                            Story</span>
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="task-title">
                                     <span class="font-line">Subtasks</span>
-                                    <div class="task-contact-input-area">
+                                    <div class="task-contact-input-area" onclick="changeInputImg()">
                                         <input id="input-subtasks" type="text" placeholder="Add new subtasks">
-                                        <img onclick="addSubtask()" class="Assigned-img"
+                                        <img id="subtask-plus-img" class="Assigned-img"
                                             src="/assets/img/board/addTaskAdd.png" alt="plus">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
+                                                src="/assets/img/board/close.png" onclick="deleteSubtaskInput()">
+                                            <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
+                                                src="/assets/img/board/vector-subtask.png">
+                                            <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
+                                                src="/assets/img/board/checked.png" onclick="addSubtask()">
+                                        </div>
                                     </div>
-                                    <ul class="unsorted-list" id="unsorted-list"></ul>
+                                    <ol class="unsorted-list" id="unsorted-list"></ol>
                                 </div>
                             </div>
                         </div>
                         <footer class="add-task-footer">
                             <div>
-                                <span class="font-line"><span style="color: #FF8190;">* </span></span>This field is required</span>
+                                <span class="font-line"><span style="color: #FF8190;">* </span></span>This field is
+                                required</span>
                             </div>
                             <div class="add-task-footer-btn">
                                 <button class="task-button cancel-btn" onclick="closeTask()">
                                     Cancel<img style="width: 25px; height: 24px;" src="/assets/img/board/close.png">
                                 </button>
-                                <button class="task-button create-btn" onclick="createTask()">
+                                <button type="submit" class="task-button create-btn">
                                     Create Task <img src="/assets/img/board/footerCheckBtn.png">
                                 </button>
                             </div>
