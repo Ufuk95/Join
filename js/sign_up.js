@@ -9,6 +9,7 @@ function checkBoxStatus() {
   }
 }
 
+
 /**  
  * Changes the password field icon from lock to invisible based on input length. 
  * @param {string} pwId - password field element
@@ -24,8 +25,9 @@ function pwIconChanger(pwId, pwImgId){
   }
 }
 
+
 /**
- * input listeners for password field and password-repeat field. 
+ * Input listeners for password field and password-repeat field. 
  * @param {string} "input" - Event type, listens for input events.
  * @param {function} pwIconChanger - Function to be called on input events. 
  */
