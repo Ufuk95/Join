@@ -34,6 +34,7 @@ function clearTabStyles() {
   tabList.forEach(tab => { tab.style.color = "#CDCDCD", tab.style.backgroundColor = "#2A3647"; });
 }
 
+
 /**
  * Changes the styling of a clicked tab. 
  * @param {number} tabIndex index of the clicked tab.  
@@ -48,3 +49,4 @@ function changeClickedTab(tabIndex) {
 
 
 
+tabList.forEach(itemVonderListe, indexVonderListe, ListeSelber-tabList )
