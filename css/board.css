@@ -348,6 +348,19 @@ body {
   border-radius: 20px;
 }
 
+.Assigned-img-subtask {
+  position: relative;
+  right: 72px;
+  cursor: pointer;
+}
+.Assigned-img-subtask:hover {
+  background-color: #c9d7dc;
+  border-radius: 20px;
+}
+.px24{
+  width: 24px;
+  height: 24px;
+}
 .right-side {
   display: flex;
   flex-direction: column;
