@@ -49,4 +49,3 @@ function changeClickedTab(tabIndex) {
 
 
 
-tabList.forEach(itemVonderListe, indexVonderListe, ListeSelber-tabList )
