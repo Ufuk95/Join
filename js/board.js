@@ -30,7 +30,7 @@ function generateTaskHTML(element) {
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
-             <div class="subtask-display">0/${element.AmountofSubtasks} Subtasks</div>
+             <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
         </div>
         <div>
             <img id="priority" src="${element.priority}" alt="Priority">
@@ -65,12 +65,6 @@ function updateProgressBar(taskId) {
   }
 }
 
-// Beispiel für das Hinzufügen von Unteraufgaben zu einer Aufgabe
-tasks.subtasks = [
-  { id: 1, title: "Subtask 1", done: true },
-  { id: 2, title: "Subtask 2", done: false },
-];
-
 // Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
 updateProgressBar(0);
 
@@ -92,25 +86,21 @@ function removeHighlight(id) {
 }
 
 function createTask(event) {
-  // sorgt dafür das die seite nachdem erstellen des tasks nicht neu ladet
   event.preventDefault();
 
   let titleInput = document.getElementById("task-title-input");
   let descriptionInput = document.getElementById("description-input");
   let dateInput = document.getElementById("date");
-  let subtasksInput = document.getElementById("input-subtasks");
+  let createdSubtasks = document.getElementById("unsorted-list");
   let fieldInput = document.getElementById("task-field");
   let categoryInput = document.getElementById("task-category-input");
-  let AmountofSubtasks = document.getElementById("unsorted-list");
 
-  // Speichern Sie die Werte in Variablen, bevor Sie sie löschen
   let title = titleInput.value;
   let description = descriptionInput.value;
   let date = dateInput.value;
-  let subtasks = subtasksInput.value;
   let field = fieldInput.value;
   let category = categoryInput.value;
-  let subtasksLength = AmountofSubtasks.length;
+  let subtasksLength = createdSubtasks.children.length;
 
   if (category === "Technical Task") {
     category = "/assets/img/board/technical-task.png";
@@ -118,15 +108,20 @@ function createTask(event) {
     category = "/assets/img/board/user-story.png";
   }
 
-  // Erstelle eine eindeutige ID für die Aufgabe
+  let subtaskElements = createdSubtasks.children;
+  let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
+    return {
+      title: subtaskElement.textContent,
+    };
+  });
+
   let taskId = tasks.length;
 
-  // Setze die Werte auf leer mit Platzhalter zurück
   titleInput.value = "";
   descriptionInput.value = "";
   dateInput.value = "";
-  subtasksInput.value = "";
   categoryInput.value = "";
+  createdSubtasks.innerHTML = "";
 
   let task = {
     id: taskId,
@@ -138,7 +133,7 @@ function createTask(event) {
     priority: getPriorityImagePath(currentPriority),
     contacts: "?",
     subtasks: subtasks,
-    AmountofSubtasks: subtasksLength,
+    createdSubtasks: subtasksLength,
   };
 
   tasks.push(task);
@@ -152,6 +147,8 @@ function createTask(event) {
   resetAllButtons();
   currentPriority = null;
 }
+
+
 function getPriorityImagePath(priority) {
   if (priority === "red") {
     return "/assets/img/board/Prio-red.png";

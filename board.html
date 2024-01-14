@@ -78,7 +78,12 @@
                         ondragover="allowDrop(event); highlight('await-feedback')"></div>
                 </div>
                 <div class="each_drag_drop">
-                    <span style="margin-bottom: 15px;">Done</span>
+                    <span style="margin-bottom: 15px;color: var(--menu-color, #42526E);
+                    font-family: Inter;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 120%; /* 24px */">Done</span>
                     <div class="drag-area" id="done" ondrop="moveTo('done')" ondragleave="removeHighlight('done')"
                         ondragover="allowDrop(event); highlight('done')"></div>
                 </div>
@@ -131,18 +136,17 @@
                                 <div class="task-title">
                                     <span class="font-line">Prio</span>
                                     <div class="task-button-area">
-                                        <button id="prio-btn-red" class="prio-btn"
+                                        <button type="button" id="prio-btn-red" class="prio-btn"
                                             onclick="changeBtnColor('red')">Urgent<img id="prio-red"
                                                 src="/assets/img/board/Prio-red.png"></button>
-                                        <button id="prio-btn-yellow" class="prio-btn"
+                                        <button type="button" id="prio-btn-yellow" class="prio-btn"
                                             onclick="changeBtnColor('yellow')">Medium<img id="prio-yellow"
                                                 src="/assets/img/board/Prio-yellow.png"></button>
-                                        <button id="prio-btn-green" class="prio-btn"
+                                        <button type="button" id="prio-btn-green" class="prio-btn"
                                             onclick="changeBtnColor('green')">Low<img id="prio-green"
                                                 src="/assets/img/board/Prio-green.png"></button>
                                     </div>
                                 </div>
-
                                 <div class="task-title">
                                     <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                                     <div class="task-contact-input-area" onclick="showTaskSelect()">
@@ -156,8 +160,7 @@
                                     <div id="task-select-category" class="task-select-category d-none">
                                         <span id="technicalTask" class="selected-task"
                                             onclick="showTaskSelect(this)">Technical Task</span>
-                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
-                                            Story</span>
+                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
                                     </div>
                                 </div>
                                 <div class="task-title">

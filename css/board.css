@@ -106,7 +106,14 @@ body {
   flex-shrink: 0;
   position: relative;
 }
-
+.flex span {
+  color: var(--menu-color, #42526e);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 24px */
+}
 .addTask {
   position: relative;
 }
@@ -357,7 +364,7 @@ body {
   background-color: #c9d7dc;
   border-radius: 20px;
 }
-.px24{
+.px24 {
   width: 24px;
   height: 24px;
 }
