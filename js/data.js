@@ -1,27 +1,22 @@
 let ContactsDummyData = [
   {
-    name: "John",
-    lastname: "Doe",
+    name: "Dennis Schmidt",
     email: "john.doe@example.com"
   },
   {
-    name: "Alice",
-    lastname: "Smith",
+    name: "Alice Schenger",
     email: "alice.smith@example.com"
   },
   {
-    name: "Bob",
-    lastname: "Johnson",
+    name: "Bob Ross",
     email: "bob.johnson@example.com"
   },
   {
-    name: "Emily",
-    lastname: "Davis",
+    name: "Emily Scholz",
     email: "emily.davis@example.com"
   },
   {
     name: "Daniel",
-    lastname: "Clark",
     email: "daniel.clark@example.com"
   },
   // {
