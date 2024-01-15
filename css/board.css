@@ -193,6 +193,14 @@ body {
   line-height: 120%;
 }
 
+.done-style{
+  margin-bottom: 15px;color: var(--menu-color, #42526E);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%; /* 24px */
+}
 /* progressbar */
 
 .progressbar {
