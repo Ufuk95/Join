@@ -24,6 +24,7 @@ body {
   padding-bottom: 79.5px;
   padding-left: 64px;
 }
+
 .board-header h1 {
   color: #000;
   font-family: Inter;
@@ -34,12 +35,14 @@ body {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
 .board-active {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 32px;
 }
+
 .board-active input {
   display: flex;
   width: 312px;
@@ -52,6 +55,7 @@ body {
   background-color: #fff;
   padding-block: 1px;
 }
+
 .board-active button {
   display: flex;
   padding: 8px 16px;
@@ -71,6 +75,7 @@ body {
   font-weight: 700;
   line-height: 120%;
 }
+
 .board-active button:hover {
   background-color: rgb(40, 171, 226);
   border-color: rgb(40, 171, 226);
@@ -85,6 +90,7 @@ body {
   position: relative;
   right: 16%;
 }
+
 .search-img:hover {
   background-color: lightgrey;
   border-radius: 20px;
@@ -97,6 +103,7 @@ body {
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .each_drag_drop {
   display: flex;
   width: 244px;
@@ -106,14 +113,17 @@ body {
   flex-shrink: 0;
   position: relative;
 }
+
 .flex span {
   color: var(--menu-color, #42526e);
   font-family: Inter;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 120%; /* 24px */
+  line-height: 120%;
+  /* 24px */
 }
+
 .addTask {
   position: relative;
 }
@@ -142,6 +152,7 @@ body {
 .addTask:hover .blue-plus {
   display: flex;
 }
+
 .addTask:hover .black-plus {
   display: none;
 }
@@ -193,6 +204,17 @@ body {
   line-height: 120%;
 }
 
+.done-style {
+  margin-bottom: 15px;
+  color: var(--menu-color, #42526e);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  /* 24px */
+}
+
 /* progressbar */
 
 .progressbar {
@@ -206,12 +228,14 @@ body {
   border-radius: 8px;
   background: #f4f4f4;
 }
+
 .progress-task {
   display: flex;
   padding: 0px 6px 2px 0px;
   align-items: center;
   gap: 11px;
 }
+
 .subtask-display {
   color: #000;
   font-family: Inter;
@@ -220,13 +244,33 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
-.subtask-img img {
+
+.subtask-img {
   cursor: pointer;
   padding: 2px;
 }
-.subtask-img img:hover {
+
+.subtask-img:hover {
   background-color: white;
   border-radius: 15px;
+}
+
+#subtask-edit {
+  position: absolute;
+  width: 385px;
+  height: 40px;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-bottom: 1px solid blue;
+  color: black;
+}
+#subtask-done-img{
+  cursor: pointer; 
+}
+#subtask-done-img:hover {
+  background-color: white;
+  border-radius: 20px;
 }
 
 /* ab hier kommt die add task card von html aus gesehen oben nach unten */
@@ -260,11 +304,13 @@ body {
   font-weight: 700;
   line-height: 120%;
 }
+
 .task-close-X {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
+
 .task-close-X:hover {
   background-color: rgb(220 217 217);
   border-radius: 20px;
@@ -292,6 +338,7 @@ body {
   gap: 16px;
   width: 50%;
 }
+
 .task-title {
   display: flex;
   flex-direction: column;
@@ -299,6 +346,7 @@ body {
   gap: 8px;
   width: 440px;
 }
+
 .font-line {
   color: var(--Version-2-main-color, #2a3647);
   font-family: Inter;
@@ -307,6 +355,7 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+
 .task-title input {
   display: flex;
   width: 440px;
@@ -321,9 +370,11 @@ body {
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 120%; /* 24px */
+  line-height: 120%;
+  /* 24px */
   color: var(--Style, #d1d1d1);
 }
+
 #description-input {
   display: flex;
   height: 120px;
@@ -341,15 +392,18 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+
 .task-contact-input-area {
   display: flex;
   align-items: center;
 }
+
 .Assigned-img {
   position: relative;
   right: 35px;
   cursor: pointer;
 }
+
 .Assigned-img:hover {
   background-color: #c9d7dc;
   border-radius: 20px;
@@ -360,14 +414,17 @@ body {
   right: 72px;
   cursor: pointer;
 }
+
 .Assigned-img-subtask:hover {
   background-color: #c9d7dc;
   border-radius: 20px;
 }
+
 .px24 {
   width: 24px;
   height: 24px;
 }
+
 .right-side {
   display: flex;
   flex-direction: column;
@@ -382,6 +439,7 @@ body {
   align-items: center;
   gap: 16px;
 }
+
 .prio-btn {
   width: 136px;
   height: 56px;
@@ -401,6 +459,7 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+
 .prio-btn:hover {
   box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3), -1px 3px 5px rgba(0, 0, 0, 0.3);
 }
@@ -410,9 +469,11 @@ body {
   margin-top: -8px;
   border-radius: 10px;
 }
+
 #task-category-input {
   color: black;
 }
+
 .selected-task {
   display: flex;
   width: 440px;
@@ -421,16 +482,50 @@ body {
   align-items: center;
   border-radius: 10px;
 }
+
 .selected-task:hover {
   background-color: lightgrey;
   cursor: pointer;
 }
+
 #input-subtasks {
   color: black;
 }
+
+#task-title-input {
+  color: black;
+}
+
+.full-subtasks-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 440px;
+  height: 36px;
+  padding: 6px 8px;
+  padding-left: 19.375px;
+}
+
+.full-subtasks-area:hover {
+  background-color: lightgrey;
+  border-radius: 16px;
+}
+
 .unsorted-list {
   padding-inline-start: 0;
 }
+
+.subatsk-headline {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  /* 19.2px */
+}
+
+/* 
 .unsorted-list li {
   display: flex;
   justify-content: space-between;
@@ -438,10 +533,11 @@ body {
   width: 400px;
   padding: 6px 16px;
 }
-.unsorted-list li:hover {
+
+.unsorted-list:hover {
   background-color: lightgrey;
   border-radius: 16px;
-}
+} 
 
 /* für addTask ab hier footer bereich */
 
@@ -454,12 +550,14 @@ body {
   left: 74px;
   width: 80%;
 }
+
 .add-task-footer-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 25px;
 }
+
 .task-button {
   display: flex;
   padding: 16px;
@@ -479,11 +577,13 @@ body {
   font-weight: 400;
   line-height: 120%;
 }
+
 .cancel-btn:hover {
   border: 1px solid var(--Ligth-blue, #29abe2);
   color: var(--Ligth-blue, #29abe2);
   box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.3), -2px 5px 8px rgba(0, 0, 0, 0.3);
 }
+
 .create-btn {
   background: #2a3647;
   color: white;
@@ -493,6 +593,7 @@ body {
   font-weight: 700;
   line-height: 120%;
 }
+
 .create-btn:hover {
   background-color: var(--Ligth-blue, #29abe2);
   border: 1px solid var(--Ligth-blue, #29abe2);
@@ -504,7 +605,8 @@ body {
 .full-task-body {
   position: fixed;
   top: 50%;
-  left: 100%; /* Startposition außerhalb des sichtbaren Bereichs */
+  left: 100%;
+  /* Startposition außerhalb des sichtbaren Bereichs */
   transform: translate(0%, -50%);
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.4);
@@ -514,7 +616,8 @@ body {
 }
 
 .full-task-body.open {
-  left: 0; /* Endposition für das Öffnen des Containers */
+  left: 0;
+  /* Endposition für das Öffnen des Containers */
 }
 
 /***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
