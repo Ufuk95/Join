@@ -184,47 +184,45 @@ function showTaskSelect(selectedOption) {
 function addSubtask() {
   // Input-Feld und Subtask-Div abrufen
   let inputSubtasks = document.getElementById("input-subtasks");
-  let ulElement = document.getElementById("unsorted-list");
+  let subtaskOL = document.getElementById("unsorted-list");
 
   // Wert des Input-Felds abrufen
-  let subtaskText = inputSubtasks.value.trim();
+  // let subtaskText = inputSubtasks.value.trim();
 
-  // Wenn das Input-Feld nicht leer ist
-  if (subtaskText !== "") {
-    // Neues LI-Element erstellen und den Subtask-Text einfügen
-    let liElement = document.createElement("li");
-    liElement.textContent = subtaskText;
+  subtaskOL.innerHTML += `
+  <div id="testSubtask" class="full-subtasks-area">
+    <li>${inputSubtasks.value}</li>
+    <div id="subtasksGreyImgs" class="subtask-edit-imgs d-none">
+      <img src="/assets/img/board/editforSubtask.png" alt="">
+      <img src="/assets/img/board/trashforsubtasks.png" alt="">
+    </div>
+    <div id="subtasksBlueImgs" class="subtask-edit-imgs d-none">
+      <img src="/assets/img/board/blue-edit.png" onclick="editSubtask()">
+      <img src="/assets/img/board/blue-trash.png" onclick="deleteSubtask()">
+    </div>
+  </div>`;
 
-    // Container für Bearbeiten und Löschen erstellen
-    let actionContainer = document.createElement("div");
-    actionContainer.classList.add("subtask-img");
-
-    // Bilder für Bearbeiten und Löschen erstellen
-    let editImg = document.createElement("img");
-    editImg.src = "/assets/img/board/editforSubtask.png";
-    editImg.alt = "Edit";
-    editImg.onclick = editSubtask;
-
-    let deleteImg = document.createElement("img");
-    deleteImg.src = "/assets/img/board/trashforsubtasks.png";
-    deleteImg.alt = "Delete";
-    deleteImg.onclick = deleteSubtask;
-
-    // Bilder dem Container hinzufügen
-    actionContainer.appendChild(editImg);
-    actionContainer.appendChild(deleteImg);
-
-    // LI-Element dem UL-Element hinzufügen
-    liElement.appendChild(actionContainer);
-    ulElement.appendChild(liElement);
-
-    // Input-Feld leeren
-    inputSubtasks.value = "";
-
-    // Wiederherstellen des Plus-Symbols
-    setTimeout(restoreInputImg, 0);
-  }
+  inputSubtasks.value = "";
+  setTimeout(restoreInputImg, 0);
+  
+  let firsthover = document.getElementById('testSubtask')
+  firsthover.addEventListener('mouseenter', mouseEnter);
+  firsthover.addEventListener('mouseleave', mouseLeave);
 }
+
+function mouseEnter(){
+  let greyImgs = document.getElementById('subtasksGreyImgs');
+  greyImgs.classList.remove('d-none');
+  console.log('Maus betreten!');
+}
+function mouseLeave(){
+  let greyImgs = document.getElementById('subtasksGreyImgs');
+  greyImgs.classList.add('d-none');
+  console.log('Maus verlassen!');
+}
+
+
+
 function deleteSubtaskInput() {
   let inputSubtasks = document.getElementById("input-subtasks");
   inputSubtasks.value = "";

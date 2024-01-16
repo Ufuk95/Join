@@ -193,8 +193,9 @@ body {
   line-height: 120%;
 }
 
-.done-style{
-  margin-bottom: 15px;color: var(--menu-color, #42526E);
+.done-style {
+  margin-bottom: 15px;
+  color: var(--menu-color, #42526e);
   font-family: Inter;
   font-size: 20px;
   font-style: normal;
@@ -436,9 +437,28 @@ body {
 #input-subtasks {
   color: black;
 }
+#task-title-input {
+  color: black;
+}
+
+.full-subtasks-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 440px;
+  padding: 6px 8px;
+  padding-left: 19.375px;
+}
+.full-subtasks-area:hover {
+  background-color: lightgrey;
+  border-radius: 16px;
+}
+
 .unsorted-list {
   padding-inline-start: 0;
 }
+
+/* 
 .unsorted-list li {
   display: flex;
   justify-content: space-between;
@@ -446,10 +466,11 @@ body {
   width: 400px;
   padding: 6px 16px;
 }
-.unsorted-list li:hover {
+
+.unsorted-list:hover {
   background-color: lightgrey;
   border-radius: 16px;
-}
+} 
 
 /* für addTask ab hier footer bereich */
 
