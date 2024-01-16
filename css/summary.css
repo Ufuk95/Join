@@ -2,7 +2,7 @@
 @font-face {
   font-family: "Inter";
   /* Gewünschter Name */
-  src: url("./assets/fonts/inter-font.ttf");
+  src: url("/assets/fonts/inter-font.ttf");
 }
 
 body {

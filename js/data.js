@@ -1,3 +1,5 @@
+let signUpData = []
+
 let ContactsDummyData = [
   {
     name: "Dennis Schmidt",

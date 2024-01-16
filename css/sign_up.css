@@ -38,6 +38,43 @@ a:visited {
 }
 
 /************************* SIGN-UP-FRAME *************************/
+@keyframes slideInFromBottom {
+  from {
+    transform: translate(50%, 700%);
+  }
+  to {
+    transform: translate(50%, -50%);
+  }
+}
+
+#sign-up-success {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 999;
+  width: fit-content;
+  height: 74px;
+  padding: 0px 25px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  animation: slideInFromBottom 0.9s ease-out;
+  background: #2A3647;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+#sign-up-success_txt {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
 #sign-up-frame-wrapper {
   width: 100%;
   margin-top: -20px;

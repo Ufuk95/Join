@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/sign_up.css">
+  <script src="./js/data.js" defer></script>
   <script src="./js/sign_up.js" defer></script>
   <title>Sign Up</title>
 </head>
@@ -13,6 +14,10 @@
   <img id="join-logo" src="./assets/img/log_in/join_logo.png" alt="">
 
   <!-------------------------- SIGN-UP AREA -------------------------->
+  <div id="sign-up-success">
+    <span id="sign-up-success_txt">You signed up successfully</span>
+    
+  </div>
   <div id="sign-up-frame-wrapper">
     <or id="sign-up-frame">
       <a href="./logIn.html">
@@ -25,11 +30,11 @@
       <form onsubmit="getSignUpData(); return false" class="sign-up-form">
       <div id="input-fields-frame">
         <div class="input-field-box">
-          <input class="input-field" id="name" placeholder="Name" type="text" required="">
+          <input class="input-field" id="name" placeholder="Name" type="text" required autocomplete="off">
           <img src="./assets/img/sign_up/icon_person.png" id="icon-person" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field-box">
-          <input class="input-field" id="mail" placeholder="Email" type="email" required>
+          <input class="input-field" id="mail" placeholder="Email" type="email" required autocomplete="off" >
           <img src="./assets/img/log_in/mail.png" id="icon-person" class="input-field__img-placing" alt="">
         </div>
         <!-------------------------- PASSWORDS -------------------------->
@@ -39,15 +44,16 @@
             onclick="togglePasswordVisibility(`password`, `password-img`)">
         </div>
         <div class="input-field-box">
-          <input class="input-field" id="password-repeat" placeholder="Confirm Password" type="password" required="">
+          <input class="input-field" id="password-repeat" placeholder="Confirm Password" type="password" required>
           <img src="./assets/img/log_in/lock.png" id="password-repeat-img" class="input-field__img-placing" alt=""
             onclick="togglePasswordVisibility(`password-repeat`, 'password-repeat-img')">
         </div>
         <div id="checkbox-frame">
-          <input required="" type="checkbox" id="privacy-checkbox" onchange="checkBoxStatus()">
+          <input required="" type="checkbox" id="privacy-checkbox">
           <span id="accept"> I accept the </span>
           <a href="privacy_policy.html" id="privacy-policy">Privacy Policy</a>
         </div>
+        <div class="tex-content"></div>
         <button id="button-sign-up">
           <span id="sign-up-button-text">Sign up</span>
         </button>
