@@ -182,43 +182,55 @@ function showTaskSelect(selectedOption) {
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
 function addSubtask() {
-  // Input-Feld und Subtask-Div abrufen
   let inputSubtasks = document.getElementById("input-subtasks");
   let subtaskOL = document.getElementById("unsorted-list");
+  let subtaskText = inputSubtasks.value;
+  let subtaskID = `subtask-${Date.now()}`;
+  let newSubtask = document.createElement("div");
+  newSubtask.id = subtaskID;
+  newSubtask.className = "full-subtasks-area";
 
-  // Wert des Input-Felds abrufen
-  // let subtaskText = inputSubtasks.value.trim();
-
-  subtaskOL.innerHTML += `
-  <div id="testSubtask" class="full-subtasks-area">
-    <li>${inputSubtasks.value}</li>
-    <div id="subtasksGreyImgs" class="subtask-edit-imgs d-none">
-      <img src="/assets/img/board/editforSubtask.png" alt="">
+  newSubtask.innerHTML = `
+    <li>${subtaskText}</li>
+    <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
+      <img src="/assets/img/board/editforSubtask.png">
       <img src="/assets/img/board/trashforsubtasks.png" alt="">
     </div>
-    <div id="subtasksBlueImgs" class="subtask-edit-imgs d-none">
+    <div id="subtasksBlueImgs-${subtaskID}" class="subtask-edit-imgs d-none">
       <img src="/assets/img/board/blue-edit.png" onclick="editSubtask()">
       <img src="/assets/img/board/blue-trash.png" onclick="deleteSubtask()">
     </div>
-  </div>`;
+  `;
+
+  // Neues Subtask-Element dem Subtask-OL hinzufügen
+  subtaskOL.appendChild(newSubtask);
 
   inputSubtasks.value = "";
   setTimeout(restoreInputImg, 0);
-  
-  let firsthover = document.getElementById('testSubtask')
-  firsthover.addEventListener('mouseenter', mouseEnter);
-  firsthover.addEventListener('mouseleave', mouseLeave);
+
+  // Event Listener für das aktuelle Subtask-Element hinzufügen
+  let currentSubtask = document.getElementById(subtaskID);
+
+  // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
+  if (!currentSubtask.dataset.listenerAdded) {
+    currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
+    currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
+    
+    // Markieren, dass der Eventlistener hinzugefügt wurde
+    currentSubtask.dataset.listenerAdded = true;
+  }
 }
 
-function mouseEnter(){
-  let greyImgs = document.getElementById('subtasksGreyImgs');
-  greyImgs.classList.remove('d-none');
-  console.log('Maus betreten!');
+function mouseEnter(subtaskID) {
+  let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
+  greyImgs.classList.remove("d-none");
+  console.log("Maus betreten!");
 }
-function mouseLeave(){
-  let greyImgs = document.getElementById('subtasksGreyImgs');
-  greyImgs.classList.add('d-none');
-  console.log('Maus verlassen!');
+
+function mouseLeave(subtaskID) {
+  let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
+  greyImgs.classList.add("d-none");
+  console.log("Maus verlassen!");
 }
 
 
