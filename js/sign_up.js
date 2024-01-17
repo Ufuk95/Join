@@ -52,21 +52,67 @@ function togglePasswordVisibility(passwordId, passwordImg) {
 }
 
 
-function getSignUpData() {
+/**
+ *Notifies the user about a successful sign up. 
+ */
+function signUpSuccessNotice(){
+  document.getElementById(`sign-up-success`).style.display = "flex";
+  setTimeout(() => {
+    document.getElementById(`sign-up-success`).style.display = "none";
+  }, 1000);
+}
+
+
+function greyOverlay(){
+  document.querySelector(`.grey-overlay`).classList.remove("display-none")
+}
+
+
+/**
+ * Handles the animation and the transition to login.html after a successful sign up.
+ */
+function transitionHandler(){
+  signUpSuccessNotice()
+  greyOverlay()
+  setTimeout(()=> {window.location.href = "./logIn.html"}, 2000)
+}
+
+
+/**
+ * Executes after a successful sign-up / form validation. 
+ * Gets the data from the input fields, puts the data in an JSON array.
+ */
+function getSignUpInputs() {
   let nameValue = document.getElementById(`name`).value;
   let emailValue = document.getElementById(`mail`).value;
-  let nameEmailCombo = {
-    name: nameValue,
-    email: emailValue
+  let passwordValue = document.getElementById(`password`).value
+  storeSignUpInputs(nameValue, emailValue, passwordValue)
+  setItem("userData", signUpDataCollection)
+  transitionHandler()
+  console.log(signUpDataCollection);
+}
+
+
+/**
+ * Stores sign up user inputs in an object, pushes the object into an array.
+ */
+function storeSignUpInputs(name, email, password){
+  let oneUserSignUpData = {
+    name,
+    email,
+    password,
   };
-  signUpData.push(nameEmailCombo);
-  console.log(signUpData);
+  signUpDataCollection.push(oneUserSignUpData);
 }
 
 
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
 
+
+/**
+ * Validates the password and the password repeat. 
+ */
 function pwCheck() {
   console.log("change recognized");
   if (pwInput.value != pwInputRepeat.value) {
@@ -77,6 +123,9 @@ function pwCheck() {
 }
 
 
+/**
+ * Listener for changes in the password fields. 
+ */
 pwInput.addEventListener("input", () =>{
   pwCheck()
 })

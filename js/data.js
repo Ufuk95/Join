@@ -1,4 +1,19 @@
-let signUpData = []
+let signUpDataCollection = []
+
+
+/**
+ * Gets sign up data from remote storage as json array. 
+ */
+async function remoteSignUpData(){
+  signUpData = JSON.parse(await getItem("userData"))
+  console.log(signUpData);
+}
+
+
+// async function giveMeTask(){
+//   let myItems = await getItem("tasks")
+//   let parsedMyItems = JSON.parse(myItems);
+// }
 
 let ContactsDummyData = [
   {

@@ -27,8 +27,9 @@ async function getItem(key) {
 }
 
 
-//Upload data
-setItem("exampleKey", exampleTasks)
+//Upload data example
+
+// setItem("exampleKey", exampleTasks)
 
 // get data and parse to JSON / JS object
 async function giveMeTask(){

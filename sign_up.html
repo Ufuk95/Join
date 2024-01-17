@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/sign_up.css">
+  <link rel="stylesheet" href="./css/display_classes.css">
+  
+  <script src="./js/storage.js" defer></script>
   <script src="./js/data.js" defer></script>
   <script src="./js/sign_up.js" defer></script>
   <title>Sign Up</title>
@@ -15,9 +18,9 @@
 
   <!-------------------------- SIGN-UP AREA -------------------------->
   <div id="sign-up-success">
-    <span id="sign-up-success_txt">You signed up successfully</span>
-    
+    <span id="sign-up-success_txt" > You signed up successfully </span>
   </div>
+  <div class="grey-overlay display-none"></div>
   <div id="sign-up-frame-wrapper">
     <or id="sign-up-frame">
       <a href="./logIn.html">
@@ -27,7 +30,7 @@
         <img src="./assets/img/sign_up/horizontal_stroke_blue.png" class="blue-storke" alt="">
       </header>
       <!--------------------------FORM INPUT FIELDS -------------------------->
-      <form onsubmit="getSignUpData(); return false" class="sign-up-form">
+      <form onsubmit="getSignUpInputs(); return false" class="sign-up-form">
       <div id="input-fields-frame">
         <div class="input-field-box">
           <input class="input-field" id="name" placeholder="Name" type="text" required autocomplete="off">
