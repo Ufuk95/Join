@@ -38,27 +38,6 @@ a:visited {
 }
 
 /************************* SIGN-UP-FRAME *************************/
-
-
-#sign-up-success {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  z-index: 999;
-  width: fit-content;
-  height: 74px;
-  padding: 0px 25px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  animation: slideInFromBottom 0.9s ease-out;
-  background: #2A3647;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
-}
-
 #sign-up-success_txt {
   color: #FFF;
   font-family: Inter;
@@ -226,6 +205,26 @@ input[type="checkbox"] {
     justify-content: center;
     align-items: center;
 }
+
+#sign-up-success {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 999;
+  width: fit-content;
+  height: 74px;
+  padding: 0px 25px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  animation: slideInFromBottom 0.9s ease-out;
+  background: #2A3647;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
 
 @keyframes slideInFromBottom {
   0% {

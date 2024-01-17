@@ -1,4 +1,20 @@
-let isVisible = false
+let isVisible = false;
+
+/**
+ * Executes after a successful sign-up / form validation. 
+ * Gets the data from the input fields, puts the data in an JSON array.
+ */
+function getSignUpInputs() {
+  let nameValue = document.getElementById(`name`).value;
+  let emailValue = document.getElementById(`mail`).value;
+  let passwordValue = document.getElementById(`password`).value;
+  storeSignUpInputs(nameValue, emailValue, passwordValue);
+  setItem("userData", signUpDataCollection);
+  transitionHandler();
+  removeLogInAnimation();
+  console.log(signUpDataCollection);
+}
+
 
 /**  
  * Changes the password field icon from lock to invisible based on pwInput length. 
@@ -55,48 +71,46 @@ function togglePasswordVisibility(passwordId, passwordImg) {
 /**
  *Notifies the user about a successful sign up. 
  */
-function signUpSuccessNotice(){
+function signUpSuccessNotice() {
   document.getElementById(`sign-up-success`).style.display = "flex";
   setTimeout(() => {
     document.getElementById(`sign-up-success`).style.display = "none";
   }, 1000);
+  console.log(document.getElementById(`join-logo-login`));
+
 }
 
 
-function greyOverlay(){
-  document.querySelector(`.grey-overlay`).classList.remove("display-none")
+/**
+ * Puts a transparent grey ovelay over the window. 
+ */
+function greyOverlay() {
+  document.querySelector(`.grey-overlay`).classList.remove("display-none");
 }
 
 
 /**
  * Handles the animation and the transition to login.html after a successful sign up.
  */
-function transitionHandler(){
-  signUpSuccessNotice()
-  greyOverlay()
-  setTimeout(()=> {window.location.href = "./logIn.html"}, 2000)
+function transitionHandler() {
+  signUpSuccessNotice();
+  greyOverlay();
+  setTimeout(() => { window.location.href = "./logIn.html"; }, 2000);
 }
 
 
-/**
- * Executes after a successful sign-up / form validation. 
- * Gets the data from the input fields, puts the data in an JSON array.
- */
-function getSignUpInputs() {
-  let nameValue = document.getElementById(`name`).value;
-  let emailValue = document.getElementById(`mail`).value;
-  let passwordValue = document.getElementById(`password`).value
-  storeSignUpInputs(nameValue, emailValue, passwordValue)
-  setItem("userData", signUpDataCollection)
-  transitionHandler()
-  console.log(signUpDataCollection);
+
+
+
+function removeLogInAnimation() {
+  document.querySelector(`.join-logo-animation`).classList.remove("join-logo-animation");
 }
 
 
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
  */
-function storeSignUpInputs(name, email, password){
+function storeSignUpInputs(name, email, password) {
   let oneUserSignUpData = {
     name,
     email,
@@ -126,11 +140,11 @@ function pwCheck() {
 /**
  * Listener for changes in the password fields. 
  */
-pwInput.addEventListener("input", () =>{
-  pwCheck()
-})
-pwInputRepeat.addEventListener("input", () =>{
-  pwCheck()
+pwInput.addEventListener("input", () => {
+  pwCheck();
+});
+pwInputRepeat.addEventListener("input", () => {
+  pwCheck();
 })
 
 
