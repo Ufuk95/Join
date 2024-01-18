@@ -42,6 +42,8 @@ async function loadUsers() {
   console.log(users);
 }
 
+console.log(users);
+
 
 // By using the <form> tag IDs are recognized in the function.
 async function register() {
