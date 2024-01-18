@@ -1,4 +1,7 @@
-let isVisible = false;
+let pwInputVisible = false;
+let pwInput = document.getElementById('password');
+let pwInputRepeat = document.getElementById('password-repeat');
+
 
 /**
  * Executes after a successful sign-up / form validation. 
@@ -11,7 +14,7 @@ function getSignUpInputs() {
   storeSignUpInputs(nameValue, emailValue, passwordValue);
   setItem("userData", signUpDataCollection);
   transitionHandler();
-  removeLogInAnimation();
+  // removeLogInAnimation();
   console.log(signUpDataCollection);
 }
 
@@ -34,15 +37,15 @@ function pwIconChanger(pwId, pwImgId) {
 
 /**
  * Input listeners for password field and password-repeat field. 
- * @param {string} "pwInput" - Event type, listens for pwInput events.
+ * @param {string} "input" - Event type, listens for pwInput events.
  * @param {function} pwIconChanger - Function to be called on pwInput events. 
  */
 let passwordField = document.getElementById("password");
 let passwordRepeatField = document.getElementById(`password-repeat`);
-passwordField.addEventListener("pwInput", () => {
+passwordField.addEventListener("input", () => {
   pwIconChanger("password", "password-img");
 });
-passwordRepeatField.addEventListener("pwInput", () => {
+passwordRepeatField.addEventListener("input", () => {
   pwIconChanger("password-repeat", "password-repeat-img");
 });
 
@@ -56,14 +59,14 @@ passwordRepeatField.addEventListener("pwInput", () => {
 function togglePasswordVisibility(passwordId, passwordImg) {
   const passwordInput = document.getElementById(passwordId);
   const passwordFieldIcon = document.getElementById(passwordImg);
-  if (!isVisible) {
+  if (!pwInputVisible) {
     passwordInput.type = "text";
     passwordFieldIcon.src = "/assets/img/log_in/visibility.png";
-    isVisible = true;
+    pwInputVisible = true;
   } else {
     passwordInput.type = "password";
     passwordFieldIcon.src = "/assets/img/log_in/visibility_off.png";
-    isVisible = false;
+    pwInputVisible = false;
   }
 }
 
@@ -114,10 +117,6 @@ function storeSignUpInputs(name, email, password) {
   };
   signUpDataCollection.push(oneUserSignUpData);
 }
-
-
-let pwInput = document.getElementById('password');
-let pwInputRepeat = document.getElementById('password-repeat');
 
 
 /**
