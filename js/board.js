@@ -2,14 +2,27 @@ const tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
 
-function updateHTML() {
-    ["todo", "in-progress", "await-feedback", "done"].forEach(updateArea);
+async function updateHTML() {
+    try {
+        ["todo", "in-progress", "await-feedback", "done"].forEach(async (field) => {
+            await updateArea(field);
+        });
+    } catch (error) {
+        console.error('An error occurred while updating HTML:', error);
+    }
 }
 
-function updateArea(field) {
+
+async function updateArea(field) {
     const filteredTasks = tasks.filter((t) => t["field"] === field);
     const areaElement = document.getElementById(field);
-    areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
+
+    // Check if the areaElement exists before updating its innerHTML
+    if (areaElement) {
+        areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
+    } else {
+        console.error(`Element with id ${field} not found.`);
+    }
 }
 
 function startDragging(id) {
@@ -286,12 +299,6 @@ function editSubtask(subtaskID) {
         console.error("Das Subtask-Element wurde nicht gefunden!");
     }
 }
-
-
-
-
-
-
 
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
