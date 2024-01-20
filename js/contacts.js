@@ -9,46 +9,15 @@ function addTask(field) {
 }
 
 
-
-let alphabet = "abcdefghijklmnopqrstuvwxyz";
-
-let unsortedArray = ["u", "b", "v", "a", "x"];
-
-
-let incomingNames = [["Adrian Bitea", "addi@addi.de"], ["Bebel", "bebel@gmx.de"]];
-let incomingNamesOject = [{
-  name: "Adrian Bitea",
-  email: "addi@addi.de"
-},
-{
-  name: "Bebel",
-  email: "bebel@gmx.de"
-}
-];
-
-for (let i = 0; i < incomingNamesOject.length; i++) {
-  let splittedName = incomingNamesOject[i].name.split(" ");
-  for (let j = 0; j < splittedName.length; j++) {
-    
-    
-  }
-
-  
+async function setHardcodedData(){
+  await setItem("userData", ContactsDummyData)
 }
 
-// for (let i = 0; i < incomingNamesOject.length; i++) {
-//   let initials = "".toUpperCase();
-//   let splittedName = incomingNamesOject[i].name.split(" ");
-//   for (let j = 0; j < splittedName.length; i++) {
-//     initials += splittedName[j][0]
-//    }
-//    console.log(initials);
-// }
+setHardcodedData()
 
+async function logUserData(){
+  let userData = await getItem("userData")
+  console.log(userData);
+}
 
-let sortedFornamesA = {
-
-};
-
-
-
+logUserData()

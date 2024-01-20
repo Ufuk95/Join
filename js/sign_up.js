@@ -137,7 +137,6 @@ function transitionHandler() {
   setTimeout(() => { window.location.href = "./logIn.html"; }, 2000);
 }
 
-console.log(document.getElementById(`join-logo-login`));
 
 function removeLogInAnimation() {
   document.querySelector(`.join-logo-animation`).classList.remove("join-logo-animation");
