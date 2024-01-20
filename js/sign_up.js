@@ -1,6 +1,7 @@
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
+let signUpDataCollection = []
 
 
 /**

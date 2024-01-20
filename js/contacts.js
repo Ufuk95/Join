@@ -16,8 +16,9 @@ async function setHardcodedData(){
 setHardcodedData()
 
 async function logUserData(){
-  let userData = await getItem("userData")
+  let userData =  JSON.parse(await getItem("userData")); 
   console.log(userData);
+  console.log(userData.length);
 }
 
 logUserData()
