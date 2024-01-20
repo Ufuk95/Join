@@ -59,7 +59,6 @@ async function addInitials() {
       let name = splittedNameLastName[j];
       initials += name[0].toUpperCase()
       console.log(initials);
-      // initials += name[0].upper;
     }
     nameAndLastNameArray.splice(2, 0, initials)
     initials = ""
