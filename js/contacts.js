@@ -15,17 +15,33 @@ function addTask(field) {
 // setHardcodedData()
 
 async function contactsInit() {
-
+  loadAll()
+  renderContacts("contactsArray")
 }
 
 async function renderContacts(remoteKey) {
   let contactsFrame = document.getElementById(`contacts-frame`);
-  contactsFrame.innerHTML += `<div class="single-letter-box"> B </div> `
-  console.log(contactsFrame);
   let contactsArray = JSON.parse(await getItem(remoteKey));
+  let singleLetterCollection = ""
+  for (let i  = 0; i < contactsArray.length; i++) {
+    let singleContactData = contactsArray[i];
+    let singleLetter = singleContactData[2][0]
+    singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame)
+    let initials = singleContactData[2]
+    let name = singleContactData[0]
+    let email = singleContactData[1]
+    contactsFrame.innerHTML += contactFrameHTML(initials, name, email)
+    singleLetterCollection += singleLetter
+  }
 }
-renderContacts("contactsArray")
 
+
+function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame){
+  if(!singleLetterCollection.includes(singleLetter)){
+    contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter)
+  }
+
+}
 
 async function createArrayOfArrays(remoteKey) {
   let userDataAsArray = [];
@@ -52,9 +68,9 @@ async function sortArray(remoteKey) {
   return userArray.sort();
 }
 
-async function addInitials() {
+async function addInitials(remoteKey) {
   let initials = "";
-  let sortedArray = await JSON.parse(await getItem("sortedUserArray"));
+  let sortedArray = await JSON.parse(await getItem(remoteKey));
   for (let i = 0; i < sortedArray.length; i++) {
     let nameAndLastNameArray = sortedArray[i];
     let nameAndLastNameString = sortedArray[i][0];
@@ -69,7 +85,7 @@ async function addInitials() {
   await setItem("contactsArray", sortedArray);
 }
 
-addInitials();
+// addInitials();
 
 
 async function logRemoteArray(remoteKey) {
