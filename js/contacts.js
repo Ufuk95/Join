@@ -14,10 +14,17 @@ function addTask(field) {
 // }
 // setHardcodedData()
 
-async function logUserData() {
-  let userData = JSON.parse(await getItem("userData"));
-  console.log(userData);
+async function contactsInit() {
+
 }
+
+async function renderContacts(remoteKey) {
+  let contactsFrame = document.getElementById(`contacts-frame`);
+  contactsFrame.innerHTML += `<div class="single-letter-box"> B </div> `
+  console.log(contactsFrame);
+  let contactsArray = JSON.parse(await getItem(remoteKey));
+}
+renderContacts("contactsArray")
 
 
 async function createArrayOfArrays(remoteKey) {
@@ -38,10 +45,7 @@ async function setSortedArray(remoteKey) {
 
 setSortedArray("userData");
 
-async function logSortedUserArray(remoteKey) {
-  let mySortedArray = JSON.parse(await getItem(remoteKey));
-  console.log(mySortedArray);
-}
+
 
 async function sortArray(remoteKey) {
   let userArray = await createArrayOfArrays(remoteKey);
@@ -52,18 +56,23 @@ async function addInitials() {
   let initials = "";
   let sortedArray = await JSON.parse(await getItem("sortedUserArray"));
   for (let i = 0; i < sortedArray.length; i++) {
-    let nameAndLastNameArray = sortedArray[i]
+    let nameAndLastNameArray = sortedArray[i];
     let nameAndLastNameString = sortedArray[i][0];
     let splittedNameLastName = nameAndLastNameString.split(" ");
     for (let j = 0; j < splittedNameLastName.length; j++) {
       let name = splittedNameLastName[j];
-      initials += name[0].toUpperCase()
-      console.log(initials);
+      initials += name[0].toUpperCase();
     }
-    nameAndLastNameArray.splice(2, 0, initials)
-    initials = ""
+    nameAndLastNameArray.splice(2, 0, initials);
+    initials = "";
   }
-  console.log(sortedArray);
+  await setItem("contactsArray", sortedArray);
 }
 
-addInitials()
+addInitials();
+
+
+async function logRemoteArray(remoteKey) {
+  let mySortedArray = JSON.parse(await getItem(remoteKey));
+}
+logRemoteArray("contactsArray");
