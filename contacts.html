@@ -17,20 +17,30 @@
 <!------------------------- TEMPLATES ------------------------->
 
 <body onload="contactsInit()" id="3">
-  <header id="header" w3-include-html="./assets/templates/header.html"></header>
-  <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-  <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
+  <div id="grey-bg">
+    <header id="header" w3-include-html="./assets/templates/header.html"></header>
+    <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+    <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
 
-  <!------------------------- CONTACTS-FRAME ------------------------->
-  <div id="contacts-frame">
-    <div id="contacts-btn">
-      <span id="contacts-btn__txt">
-        Add new contacts
-      </span>
-      <img src="./assets/img/contacts/add_new_contact.png" alt="">
+    <!------------------------- CONTACTS-FRAME ------------------------->
+    <div id="contacts-frame">
+      <div id="contacts-btn">
+        <span id="contacts-btn__txt">
+          Add new contact
+        </span>
+        <img src="./assets/img/contacts/add_new_contact.png" alt="">
+      </div>
+    </div>
+    <div id="contacts-slogan-wrapper">
+      <div id="contacts-slogan-box">
+        <span id="contacts-slogan">Contacts</span>
+        <img src="./assets/img/contacts/stroke_vertical_blue.png" alt="">
+        <span id="contacts-slogan__txt">
+          Better with a team
+        </span>
+      </div>
     </div>
   </div>
-
 </body>
 
 </html>

@@ -1,6 +1,7 @@
 /************************* GLOBAL SELECTORS *************************/
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 * {
@@ -10,14 +11,31 @@ body {
 
 /************************* LEFT-SECTION-CONTACTS *************************/
 #contacts-frame {
-  margin-left: 257px;
+  margin-left: 234px;
+  background-color: white;
+  
   margin-top: 96px;
   display: inline-flex;
   padding: 32px 24px;
+  padding-left: 71px;
   flex-direction: column;
   align-items: center;
-  width: 352px;
-  height: fit-content;
+  width: fit-content;
+  height: 100vh;
+  overflow-y: scroll;
+  max-height: 100vh;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #A8A8A8;
+    height: 50%;
+    border-radius: 8px;
+
+  }
 }
 
 #contacts-btn {
@@ -77,6 +95,7 @@ body {
   position: relative;
   width: 42px;
   height: 42px;
+  z-index: 1;
 }
 
 .initials {
@@ -116,6 +135,52 @@ body {
   font-weight: 400;
   line-height: 120%;
   color: #007CEE;
+}
+
+/************************* RIGHT SIDE CONTACTS *************************/
+#grey-bg {
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+#contacts-slogan-wrapper {
+  display: inline;
+  width: 100vh;
+  height: 100vh;
+  border: solid orange,
+}
+
+#contacts-slogan-box {
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 30px;
+  background-color: #A8A8A8;
+}
+
+#contacts-slogan {
+  color: #000;
+  font-family: Inter;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+#contacts-slogan__txt {
+  color: #2A3647;
+  font-family: Inter;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
 }
 
 
