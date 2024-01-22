@@ -16,7 +16,8 @@ function addTask(field) {
 
 async function contactsInit() {
   loadAll()
-  renderContacts("contactsArray")
+  setSortedArray("userData");
+  // renderContacts("sortedUserArray")
 }
 
 async function renderContacts(remoteKey) {
@@ -59,10 +60,6 @@ async function setSortedArray(remoteKey) {
   setItem("sortedUserArray", sortedArray);
 }
 
-setSortedArray("userData");
-
-
-
 async function sortArray(remoteKey) {
   let userArray = await createArrayOfArrays(remoteKey);
   return userArray.sort();
@@ -90,5 +87,7 @@ async function addInitials(remoteKey) {
 
 async function logRemoteArray(remoteKey) {
   let mySortedArray = JSON.parse(await getItem(remoteKey));
+  console.log(mySortedArray);
 }
+
 logRemoteArray("contactsArray");

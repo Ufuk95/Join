@@ -11,14 +11,16 @@ body {
 
 /************************* LEFT-SECTION-CONTACTS *************************/
 #contacts-frame {
-  margin-left: 234px;
+  position:relative;
+
+  margin-left: 231px;
   background-color: white;
-  
   margin-top: 96px;
   display: inline-flex;
   padding: 32px 24px;
   padding-left: 71px;
   flex-direction: column;
+  z-index: 2;
   align-items: center;
   width: fit-content;
   height: 100vh;
@@ -95,7 +97,7 @@ body {
   position: relative;
   width: 42px;
   height: 42px;
-  z-index: 1;
+  z-index: 0;
 }
 
 .initials {
@@ -139,13 +141,12 @@ body {
 
 /************************* RIGHT SIDE CONTACTS *************************/
 #grey-bg {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: #F6F7F8;
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
 }
@@ -162,7 +163,6 @@ body {
   justify-content: flex-end;
   align-items: center;
   gap: 30px;
-  background-color: #A8A8A8;
 }
 
 #contacts-slogan {
