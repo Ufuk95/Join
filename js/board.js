@@ -31,24 +31,75 @@ function startDragging(id) {
 
 function generateTaskHTML(element) {
     return `
-    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
+    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
         <div>
             <img src="${element.category}">
         </div>
         <div>
-            <b>${element.title}</b>
+            <b style="word-break: break-word;">${element.title}</b>
         </div>
         <div>
             <p class="description-font">${element.description}</p>
         </div>
         <div class="progress-task">
             <div class="progressbar"></div>
-             <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
+            <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
         </div>
         <div>
             <img id="priority" src="${element.priority}" alt="Priority">
         </div> 
     </div>`;
+}
+
+function openTaskCard(elementId) {
+    let element = tasks.find(task => task.id === elementId);
+    let removeNone = document.getElementById('card-container');
+    removeNone.classList.remove('d-none-card');
+
+    if (element) {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = `
+            <div class="completeCard">
+                <div class="taskcard-head">
+                    <img class="card-category-img" src="${element.category}">
+                    <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTaskCard()">
+                </div>
+                <div class="title-card">
+                    <p>${element.title}</p>
+                </div>
+                <div class="description-card">
+                    <p>${element.description}</p>
+                </div>
+                <div class="date-card">
+                    <p>Due Date: ${element.date}</p>
+                </div>
+                <div class="priority-card">
+                    <p>Príority:</p>
+                    <img id="priority" src="${element.priority.innerText,element.priority}" alt="Priority">
+                </div>
+                <div class="contact-card">
+                    <p>Assigned to:</p>
+                </div>
+                <div class="subtask-card">
+                    <p>Subtasks</p>
+                    <div>
+                        <div>
+                            // checkboximage
+                            <p>${element.subtask}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    } else {
+        console.error(`Element with ID ${elementId} not found.`);
+        // Hier können Sie entsprechend reagieren, wenn das Element nicht gefunden wurde
+    }
+}
+
+
+function closeTaskCard(){
+    let addNone = document.getElementById('card-container');
+    addNone.classList.add('d-none-card');
 }
 
 // Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
