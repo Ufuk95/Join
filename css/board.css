@@ -169,9 +169,10 @@ body {
 
 .drag-area {
   display: flex;
-  min-height: 48px;
-  flex-direction: column;
+  min-height: 90px;
+  min-width: 260px;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   align-self: stretch;
@@ -179,6 +180,8 @@ body {
   border: 1px dashed var(--icon, #a8a8a8);
   background: #e7e7e7;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  padding: 4px;
+  box-sizing: border-box;
 }
 
 .drag-area-highlight {
@@ -186,11 +189,17 @@ body {
 }
 
 .task {
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
+  width: 252px;
+  padding: 16px;
+  justify-content: center;
+  border-radius: 24px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
   cursor: pointer;
 }
 
@@ -202,6 +211,7 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+  word-break: break-word;
 }
 
 .done-style {
@@ -265,9 +275,11 @@ body {
   border-bottom: 1px solid blue;
   color: black;
 }
-#subtask-done-img{
-  cursor: pointer; 
+
+#subtask-done-img {
+  cursor: pointer;
 }
+
 #subtask-done-img:hover {
   background-color: white;
   border-radius: 20px;
@@ -618,6 +630,95 @@ body {
 .full-task-body.open {
   left: 0;
   /* Endposition für das Öffnen des Containers */
+}
+
+/* Design für task card */
+.d-none-card {
+  display: none !important;
+}
+
+.completeCard {
+  display: flex;
+  width: 525px;
+  padding: 48px 40px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  border-radius: 30px;
+  background: #FFF;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+  color: var(--black, #000);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  min-height: 75vh;
+}
+
+
+.card-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #29292963;
+  z-index: 10000;
+  top: -96px;
+  left: -232px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-card {
+  align-self: stretch;
+  color: var(--black, #000);
+  font-family: Inter;
+  font-size: 61px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+.title-card p {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  word-break: break-word;
+}
+
+.card-category-img {
+  width: 160px;
+  height: 36px;
+}
+
+.taskcard-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.description-card p {
+  color: var(--black, #000);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  word-break: break-word;
+}
+
+.priority-card {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 /***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
