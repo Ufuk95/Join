@@ -15,7 +15,7 @@ async function getSignUpInputs() {
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
   signUpNameEmail =  await getUserData("userData");
-  emailPwCombo =  await getEmailPwCombo("mailPwCombo");
+  emailPwCombo =  await getUserData("mailPwCombo");
   storeSignUpMailPw(email.value, password.value);
   storeSignUpNameEmail(name.value, email.value);
   await setSignUpData();
@@ -36,14 +36,16 @@ async function clearTestData(remoteKey) {
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
  */
-function storeSignUpMailPw(email, password) {
-  let oneUserSignUpData = {
-    email,
-    password
-  };
-  signUpNameEmail.push(oneUserSignUpData);
+let testArray = []
+function storeInTemporaryArray(key1, value1, key2,  value2,  JSONArray) {
+  let oneUserSignUpData = {}
+  oneUserSignUpData[key1] = value1
+  oneUserSignUpData[key2] = value2
+  JSONArray.push(oneUserSignUpData);
 }
 
+storeInTemporaryArray("email", "email@email", "password", "passwd", testArray)
+console.log(testArray);
 
 function storeSignUpNameEmail(name, email) {
   let oneUserSignUpData = {
@@ -60,15 +62,10 @@ async function setSignUpData(remoteKey) {
 
 
 async function getUserData(remoteKey) {
-  let signUpNameEmail = JSON.parse(await getItem(remoteKey));
-  return signUpNameEmail;
+  let remoteValue = JSON.parse(await getItem(remoteKey));
+  return remoteValue;
 }
 
-
-async function getEmailPwCombo(remoteKey) {
-  let mailPwCombo = JSON.parse(await getItem(remoteKey));
-  return mailPwCombo;
-}
 
 function clearFields(name, email, password, passwordRepeat) {
   name.value = "";
