@@ -56,8 +56,14 @@ function openTaskCard(elementId) {
     let removeNone = document.getElementById('card-container');
     removeNone.classList.remove('d-none-card');
 
+
     if (element) {
         const cardContainer = document.getElementById("card-container");
+        const subtaskHTML = element.subtasks.map(subtask => `
+        <div class="subtask-card">
+            <img src="/assets/img/board/checkForCard.png" onclick="checkedSubtask()">
+            <p>${subtask.title}</p>
+        </div>`).join("");
         cardContainer.innerHTML = `
             <div class="completeCard">
                 <div class="taskcard-head">
@@ -71,22 +77,28 @@ function openTaskCard(elementId) {
                     <p>${element.description}</p>
                 </div>
                 <div class="date-card">
-                    <p>Due Date: ${element.date}</p>
+                    <p>Due Date: ${formatDate(element.date)}</p>
                 </div>
                 <div class="priority-card">
-                    <p>Príority:</p>
-                    <img id="priority" src="${element.priority.innerText,element.priority}" alt="Priority">
+                    <p>Priority:</p>
+                    <p>${element.priority.textContent}</p>
+                    <img id="priority" src="${element.priority}" alt="Priority">
                 </div>
                 <div class="contact-card">
                     <p>Assigned to:</p>
                 </div>
-                <div class="subtask-card">
-                    <p>Subtasks</p>
-                    <div>
-                        <div>
-                            // checkboximage
-                            <p>${element.subtask}</p>
-                        </div>
+                <div>
+                    <p>Subtasks: </p>
+                    ${subtaskHTML}
+                </div>
+                <div class="subtaskcard-bottom-footer">
+                    <div class="subtaskcard-footer">
+                        <img src="/assets/img/board/trashforsubtasks.png">
+                        <p>Delete</p>
+                    </div>
+                    <div class="subtaskcard-footer">
+                        <img src="/assets/img/board/editforSubtask.png">
+                        <p>Edit</p>
                     </div>
                 </div>
             </div>`;
@@ -97,11 +109,16 @@ function openTaskCard(elementId) {
 }
 
 
-function closeTaskCard(){
+function closeTaskCard() {
     let addNone = document.getElementById('card-container');
     addNone.classList.add('d-none-card');
 }
 
+function formatDate(dateString) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('de-DE', options);
+}
 // Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
 
 function updateProgressBar(taskId) {
