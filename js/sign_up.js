@@ -1,7 +1,8 @@
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
-let signUpDataCollection = []
+let signUpNameEmail = [];
+let emailPwCombo = [];
 
 
 /**
@@ -13,42 +14,60 @@ async function getSignUpInputs() {
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
-  await getSignUpData()
-  storeSignUpInputs(name.value, email.value, password.value);
-  await setSignUpData()
-  console.log(signUpDataCollection);
+  signUpNameEmail =  await getUserData("userData");
+  emailPwCombo =  await getEmailPwCombo("mailPwCombo");
+  storeSignUpMailPw(email.value, password.value);
+  storeSignUpNameEmail(name.value, email.value);
+  await setSignUpData();
+  console.log(signUpNameEmail);
   clearFields(name, email, password, passwordRepeat);
   // transitionHandler();
   // removeLogInAnimation();
 }
-
+ 
 // ! Will be removed Exist for clearing purpuse
-let emptyArray = []
-async function clearTestData(){
-  await setItem("userData", JSON.stringify(emptyArray))
+let emptyArray = [];
+async function clearTestData(remoteKey) {
+  await setItem(remoteKey, JSON.stringify(emptyArray));
 }
 // ! fire this function to clear remote storage!
-// clearTestData()
+// clearTestData("remoteKey")
 
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
  */
-function storeSignUpInputs(name, email, password) {
+function storeSignUpMailPw(email, password) {
+  let oneUserSignUpData = {
+    email,
+    password
+  };
+  signUpNameEmail.push(oneUserSignUpData);
+}
+
+
+function storeSignUpNameEmail(name, email) {
   let oneUserSignUpData = {
     name,
     email,
-    password,
   };
-  signUpDataCollection.push(oneUserSignUpData);
+  emailPwCombo.push(oneUserSignUpData);
 }
 
 
-async function setSignUpData(){
-  await setItem("userData", JSON.stringify(signUpDataCollection))
+async function setSignUpData(remoteKey) {
+  await setItem(remoteKey, JSON.stringify(signUpNameEmail));
 }
 
-async function getSignUpData(){
-  signUpDataCollection = JSON.parse(await getItem("userData"))
+
+async function getUserData(remoteKey) {
+  let signUpNameEmail = JSON.parse(await getItem(remoteKey));
+  return signUpNameEmail;
+}
+
+
+async function getEmailPwCombo(remoteKey) {
+  let mailPwCombo = JSON.parse(await getItem(remoteKey));
+  return mailPwCombo;
 }
 
 function clearFields(name, email, password, passwordRepeat) {
