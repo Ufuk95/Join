@@ -15,7 +15,6 @@ async function getSignUpInputs() {
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
   signUpNameEmail = await getUserData("userData");
-  console.log(signUpNameEmail);
   emailPwCombo = await getUserData("emailPwCombo");
   storeInTemporaryArray("name", name.value, "email", email.value, signUpNameEmail);
   storeInTemporaryObject("email", email.value, "password", password.value, emailPwCombo);
@@ -26,14 +25,16 @@ async function getSignUpInputs() {
   // removeLogInAnimation();
 }
 
+
+
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
   console.log(parsedData);
 }
 
-// logFromRemote("userData");
-// logFromRemote("emailPwCombo")
+logFromRemote("userData");
+logFromRemote("emailPwCombo")
 // ! ---------------------------------------------------------
 
 /**
