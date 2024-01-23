@@ -66,6 +66,7 @@ a {
 #sidebar {
   position: fixed;
   left: 0;
+  top: 0;
   display: flex;
   z-index: 999;
   width: 232px;
@@ -124,7 +125,6 @@ a {
 }
 
 /************************* FOOTER *************************/
-
 #nav-footer {
   position: fixed;
   bottom: 0;
