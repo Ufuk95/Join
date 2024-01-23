@@ -721,4 +721,39 @@ p {
   margin-block-end: 0;
 }
 
+.subtask-card {
+  display: flex;
+  height: 32px;
+  padding: 6px 16px;
+  align-items: center;
+  gap: 16px;
+}
+
+.subtask-card img {
+  cursor: pointer;
+
+}
+
+.subtask-card img:hover {
+  background: url(/assets/img/board/checkHover.png);
+  background-repeat: no-repeat;
+}
+
+.subtaskcard-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.subtaskcard-bottom-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  top: 24px;
+}
+
 /***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
