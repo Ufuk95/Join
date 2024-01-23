@@ -2,7 +2,7 @@ let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
 let signUpNameEmail = [];
-let emailPwCombo = [];
+let emailPwCombo = {};
 
 
 /**
@@ -16,9 +16,10 @@ async function getSignUpInputs() {
   let passwordRepeat = document.getElementById(`password-repeat`);
   signUpNameEmail =  await getUserData("userData");
   emailPwCombo =  await getUserData("mailPwCombo");
-  storeSignUpMailPw(email.value, password.value);
-  storeSignUpNameEmail(name.value, email.value);
-  await setSignUpData();
+  storeInTemporaryArray("name", name.value, "email", email.value, signUpNameEmail)
+  storeInTemporaryArray("email", email.value, "password", password.value, emailPwCombo)
+  await setSignUpData("userData", signUpNameEmail);
+  await setSignUpData("mailPwCombo", emailPwCombo);
   console.log(signUpNameEmail);
   clearFields(name, email, password, passwordRepeat);
   // transitionHandler();
@@ -44,8 +45,9 @@ function storeInTemporaryArray(key1, value1, key2,  value2,  JSONArray) {
   JSONArray.push(oneUserSignUpData);
 }
 
-storeInTemporaryArray("email", "email@email", "password", "passwd", testArray)
-console.log(testArray);
+function storeInTemporaryObject(key1, value1, key2, value2, object){
+  object
+}
 
 function storeSignUpNameEmail(name, email) {
   let oneUserSignUpData = {
@@ -56,8 +58,8 @@ function storeSignUpNameEmail(name, email) {
 }
 
 
-async function setSignUpData(remoteKey) {
-  await setItem(remoteKey, JSON.stringify(signUpNameEmail));
+async function setSignUpData(remoteKey, JSONArray) {
+  await setItem(remoteKey, JSON.stringify(JSONArray));
 }
 
 
