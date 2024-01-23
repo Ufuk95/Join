@@ -14,47 +14,42 @@ async function getSignUpInputs() {
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
-  signUpNameEmail =  await getUserData("userData");
-  emailPwCombo =  await getUserData("mailPwCombo");
-  storeInTemporaryArray("name", name.value, "email", email.value, signUpNameEmail)
-  storeInTemporaryArray("email", email.value, "password", password.value, emailPwCombo)
-  await setSignUpData("userData", signUpNameEmail);
-  await setSignUpData("mailPwCombo", emailPwCombo);
+  signUpNameEmail = await getUserData("userData");
   console.log(signUpNameEmail);
+  emailPwCombo = await getUserData("emailPwCombo");
+  storeInTemporaryArray("name", name.value, "email", email.value, signUpNameEmail);
+  storeInTemporaryObject("email", email.value, "password", password.value, emailPwCombo);
+  await setSignUpData("userData", signUpNameEmail);
+  await setSignUpData("emailPwCombo", emailPwCombo);
   clearFields(name, email, password, passwordRepeat);
   // transitionHandler();
   // removeLogInAnimation();
 }
- 
-// ! Will be removed Exist for clearing purpuse
-let emptyArray = [];
-async function clearTestData(remoteKey) {
-  await setItem(remoteKey, JSON.stringify(emptyArray));
+
+// ! Test purpose log function
+async function logFromRemote(remoteKey) {
+  let parsedData = JSON.parse(await getItem(remoteKey));
+  console.log(parsedData);
 }
-// ! fire this function to clear remote storage!
-// clearTestData("remoteKey")
+
+// logFromRemote("userData");
+// logFromRemote("emailPwCombo")
+// ! ---------------------------------------------------------
 
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
  */
-let testArray = []
-function storeInTemporaryArray(key1, value1, key2,  value2,  JSONArray) {
-  let oneUserSignUpData = {}
-  oneUserSignUpData[key1] = value1
-  oneUserSignUpData[key2] = value2
-  JSONArray.push(oneUserSignUpData);
+function storeInTemporaryArray(key1, value1, key2, value2, JSONArray) {
+  let userObject = {};
+  userObject[key1] = value1;
+  userObject[key2] = value2;
+  JSONArray.push(userObject);
 }
 
-function storeInTemporaryObject(key1, value1, key2, value2, object){
-  object
-}
 
-function storeSignUpNameEmail(name, email) {
-  let oneUserSignUpData = {
-    name,
-    email,
-  };
-  emailPwCombo.push(oneUserSignUpData);
+function storeInTemporaryObject(key1, value1, key2, value2, object) {
+  object[key1] = value1;
+  object[key2] = value2;
 }
 
 
@@ -183,8 +178,15 @@ pwInput.addEventListener("input", () => {
 });
 pwInputRepeat.addEventListener("input", () => {
   pwCheck();
-})
+});
 
 
 
 
+// ! Will be removed Exist for clearing purpuse
+let emptyArray = [];
+async function clearTestData(remoteKey) {
+  await setItem(remoteKey, JSON.stringify(emptyArray));
+}
+// ! fire this function to clear remote storage!
+// clearTestData("remoteKey")
