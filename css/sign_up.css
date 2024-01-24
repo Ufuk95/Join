@@ -38,6 +38,10 @@ a:visited {
 }
 
 /************************* SIGN-UP-FRAME *************************/
+.sign-up-form{
+  width: 100%;
+}
+
 #sign-up-success_txt {
   color: #FFF;
   font-family: Inter;
@@ -53,7 +57,6 @@ a:visited {
 }
 
 #sign-up-frame {
-  position: relative;
   box-sizing: content-box;
   background-color: white;
   margin: 0 auto;
@@ -62,15 +65,17 @@ a:visited {
   padding: 48px 88px;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+
   border-radius: 30px;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
 }
 
 .sign-up-header {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: 0;
+  margin-bottom: 32px;
   color: #000;
   text-align: center;
   font-family: Inter;
@@ -219,28 +224,59 @@ footer a {
 /************************* RESPONSIVNESS *************************/
 
 @media (max-width: 1017px) {
-  #join-logo-sign-up{
+  #join-logo-sign-up {
     margin-top: 37px;
     margin-left: 38px;
     width: 64px;
     height: 78px;
   }
-  #sign-up-frame-wrapper{
+
+  #sign-up-frame-wrapper {
     margin-top: 51px;
   }
 }
 
 @media (max-width: 750px) {
-  #sign-up-frame{
+  #sign-up-frame {
     box-sizing: content-box;
-    padding: 32px 0 ;
+    padding: 32px 0;
   }
 
-  .sign-up-header{
+
+  .sign-up-header {
     font-size: 47px;
+  }
+
+  .blue-storke {
+    width: 88px;
+  }
+
+  .input-field-box {
+    width: 90%;
+  }
+
+  #back-arrow-blue {
+    top: 38px;
+  }
+
+  #button-sign-up {
+    width: 180px;
+    height: 51px;
+    padding: 4px 0px;
+  }
+
+  #sign-up-button-text {
+    font-size: 16px;
   }
 }
 
+@media (max-width: 500px) {
+  #sign-up-frame{
+    width: 90%;
+  }
+
+
+}
 /************************* TRANSITIONS ANIMATIONS *************************/
 .grey-overlay {
   background-color: rgba(0, 0, 0, 0.2);
