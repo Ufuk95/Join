@@ -731,19 +731,21 @@ p {
 
 .subtask-card img {
   cursor: pointer;
-
 }
 
-.subtask-card img:hover {
-  background: url(/assets/img/board/checkHover.png);
-  background-repeat: no-repeat;
-}
-
-.subtaskcard-footer {
+.subtaskcard-footer-delete {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+}
+.subtaskcard-footer-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .subtaskcard-bottom-footer {
@@ -755,5 +757,4 @@ p {
   position: relative;
   top: 24px;
 }
-
 /***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
