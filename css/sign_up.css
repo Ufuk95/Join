@@ -225,6 +225,20 @@ footer a {
     width: 64px;
     height: 78px;
   }
+  #sign-up-frame-wrapper{
+    margin-top: 51px;
+  }
+}
+
+@media (max-width: 750px) {
+  #sign-up-frame{
+    box-sizing: content-box;
+    padding: 32px 0 ;
+  }
+
+  .sign-up-header{
+    font-size: 47px;
+  }
 }
 
 /************************* TRANSITIONS ANIMATIONS *************************/
