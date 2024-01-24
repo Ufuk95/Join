@@ -14,17 +14,20 @@ async function getSignUpInputs() {
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
-  signUpNameEmail = await getUserData("userData");
-  emailPwCombo = await getUserData("emailPwCombo");
-  storeInTemporaryArray("name", name.value, "email", email.value, signUpNameEmail);
-  storeInTemporaryObject("email", email.value, "password", password.value, emailPwCombo);
-  await setSignUpData("userData", signUpNameEmail);
-  await setSignUpData("emailPwCombo", emailPwCombo);
-  clearFields(name, email, password, passwordRepeat);
+  handleRemoteStorage(name, email, password, passwordRepeat)
   // transitionHandler();
   // removeLogInAnimation();
 }
 
+async function handleRemoteStorage(name, email, password, passwordRepeat){
+  signUpNameEmail = await getUserData("userData");
+  emailPwCombo = await getUserData("emailPwCombo");
+  temporaryArray("name", name.value, "email", email.value, signUpNameEmail);
+  temporaryObject(email, email.value, "password", password.value, emailPwCombo);
+  await setSignUpData("userData", signUpNameEmail);
+  await setSignUpData("emailPwCombo", emailPwCombo);
+  clearFields(name, email, password, passwordRepeat);
+}
 
 
 // ! Test purpose log function
@@ -40,7 +43,7 @@ logFromRemote("emailPwCombo")
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
  */
-function storeInTemporaryArray(key1, value1, key2, value2, JSONArray) {
+function temporaryArray(key1, value1, key2, value2, JSONArray) {
   let userObject = {};
   userObject[key1] = value1;
   userObject[key2] = value2;
@@ -48,9 +51,8 @@ function storeInTemporaryArray(key1, value1, key2, value2, JSONArray) {
 }
 
 
-function storeInTemporaryObject(key1, value1, key2, value2, object) {
+function temporaryObject(key1, value1, object) {
   object[key1] = value1;
-  object[key2] = value2;
 }
 
 

@@ -192,6 +192,32 @@ input[type="checkbox"] {
   line-height: 120%;
 }
 
+/************************* FOOTER *************************/
+footer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  position: absolute;
+  bottom: 35px;
+}
+
+footer a {
+  font-family: "Inter";
+  display: inline-block;
+  padding: 8px;
+  align-items: center;
+  gap: 8px;
+  color: #a8a8a8;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+
+/************************* RESPONSIVNESS *************************/
+
 /************************* TRANSITIONS ANIMATIONS *************************/
 .grey-overlay{
     background-color: rgba(0, 0, 0, 0.2);
