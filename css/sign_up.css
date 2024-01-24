@@ -204,7 +204,7 @@ footer {
 }
 
 footer a {
-  font-family: "Inter";   
+  font-family: "Inter";
   display: inline-block;
   padding: 8px;
   align-items: center;
@@ -218,18 +218,27 @@ footer a {
 
 /************************* RESPONSIVNESS *************************/
 
+@media (max-width: 1017px) {
+  #join-logo-sign-up{
+    margin-top: 37px;
+    margin-left: 38px;
+    width: 64px;
+    height: 78px;
+  }
+}
+
 /************************* TRANSITIONS ANIMATIONS *************************/
-.grey-overlay{
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.grey-overlay {
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #sign-up-success {
@@ -256,9 +265,11 @@ footer a {
   0% {
     transform: translate(50%, 700%);
   }
+
   30% {
     transform: translate(50%, -50%);
   }
+
   100% {
     transform: translate(50%, -50%);
   }
