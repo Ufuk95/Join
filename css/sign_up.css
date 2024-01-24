@@ -87,8 +87,8 @@ a:visited {
 
 #back-arrow-blue {
   position: absolute;
-  top: 92px;
-  left: 61px;
+  top: 20px;
+  left: -147px;
 }
 
 .blue-storke {
@@ -256,7 +256,8 @@ footer a {
   }
 
   #back-arrow-blue {
-    top: 38px;
+    top: 9px;
+    left: -91px;
   }
 
   #button-sign-up {
@@ -273,6 +274,11 @@ footer a {
 @media (max-width: 500px) {
   #sign-up-frame{
     width: 90%;
+  }
+
+  #back-arrow-blue {
+    top: 9px;
+    left: -48px;
   }
 
 
