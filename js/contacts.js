@@ -11,11 +11,12 @@ async function contactsInit() {
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
   let arrayOfArrays = createArrayOfArrays(userData);
-  let sortedArray = arrayOfArrays.sort()
-  console.log(sortedArray);
+  let sortedArray = arrayOfArrays.sort();
+  let addedInitials = addInitials(sortedArray)
+  console.log(addedInitials);
 }
 
-sortAndPrepare("userData")
+sortAndPrepare("userData");
 
 async function renderContacts(remoteKey) {
   let contactsFrame = document.getElementById(`contacts-frame`);
@@ -53,9 +54,8 @@ function createArrayOfArrays(JSONArray) {
 }
 
 
-async function addInitials(remoteKey) {
+function addInitials(sortedArray) {
   let initials = "";
-  let sortedArray = await JSON.parse(await getItem(remoteKey));
   for (let i = 0; i < sortedArray.length; i++) {
     let nameAndLastNameArray = sortedArray[i];
     let nameAndLastNameString = sortedArray[i][0];
@@ -67,10 +67,9 @@ async function addInitials(remoteKey) {
     nameAndLastNameArray.splice(2, 0, initials);
     initials = "";
   }
-  await setItem("contactsArray", sortedArray);
+  return sortedArray;
 }
 
-// addInitials();
 
 
 
