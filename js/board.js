@@ -60,11 +60,11 @@ function openTaskCard(elementId) {
 
     if (element) {
         const cardContainer = document.getElementById("card-container");
-        const subtaskHTML = element.subtasks.map(subtask => `
-        <div class="subtask-card">
-            <img class="subtask-image" src="/assets/img/board/checkForCard.png" onclick="toggleSubtask(this)">
-            <p>${subtask.title}</p>
-        </div>`).join("");
+        const subtaskHTML = element.subtasks.map((subtask, subtaskIndex) => `
+            <div class="subtask-card">
+                <img id="subtask-checkbox" class="subtask-image" src="/assets/img/board/checkForCard.png" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
+                <p>${subtask.title}</p>
+            </div>`).join("");
 
 
         cardContainer.innerHTML = `
@@ -111,16 +111,24 @@ function openTaskCard(elementId) {
     }
 }
 
-function toggleSubtask(subtaskImage) {
-    // Überprüfen, ob das benutzerdefinierte Attribut "data-checked" existiert
-    if (!subtaskImage.dataset.checked || subtaskImage.dataset.checked === "false") {
-        // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
-        subtaskImage.src = "/assets/img/board/checkedForCard.png";
-        subtaskImage.dataset.checked = "true";
-    } else {
-        // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
-        subtaskImage.src = "/assets/img/board/checkForCard.png";
-        subtaskImage.dataset.checked = "false";
+function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
+    const task = tasks.find((item) => item.id === taskId);
+
+    if (task && task.subtasks[subtaskIndex]) {
+        // Überprüfen, ob das benutzerdefinierte Attribut "data-checked" existiert
+        if (!subtaskImage.dataset.checked || subtaskImage.dataset.checked === "false") {
+            // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
+            subtaskImage.src = "/assets/img/board/checkedForCard.png";
+            subtaskImage.dataset.checked = "true";
+            task.subtasks[subtaskIndex].checked = true;
+        } else {
+            // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
+            subtaskImage.src = "/assets/img/board/checkForCard.png";
+            subtaskImage.dataset.checked = "false";
+            task.subtasks[subtaskIndex].checked = false;
+        }
+
+        updateProgressBar(taskId);
     }
 }
 
@@ -169,11 +177,11 @@ function formatDate(dateString) {
 function updateProgressBar(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     const progressBar = document.querySelector(
-        `.tasks[data-id="${taskId}"].progressbar`
+        `.task[data-id="${taskId}"] .progressbar`
     );
 
     if (task && progressBar) {
-        const subtasksDone = task.subtasks.filter((subtask) => subtask.done).length;
+        const subtasksDone = task.subtasks.filter((subtask) => subtask.checked).length;
         const subtasksTotal = task.subtasks.length;
 
         // Aktualisiere die Fortschrittsleiste
@@ -190,6 +198,7 @@ function updateProgressBar(taskId) {
         }
     }
 }
+
 
 function moveTo(field) {
     tasks[currentDraggedElement]["field"] = field;
@@ -245,6 +254,7 @@ function createTask(event) {
     dateInput.value = "";
     categoryInput.value = "";
     createdSubtasks.innerHTML = "";
+    let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
 
     let task = {
         id: taskId,
@@ -257,6 +267,7 @@ function createTask(event) {
         priorityText: priorityText(currentPriority), 
         contacts: "?",
         subtasks: subtasks,
+        checkedSubtasks: checkedSubtasks,
         createdSubtasks: subtasksLength,
     };
 
