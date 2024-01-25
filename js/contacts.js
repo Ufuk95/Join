@@ -1,26 +1,35 @@
 
-
-
-
 async function contactsInit() {
-  // loadAll()
-  // setSortedArray("userData");
-  // renderContacts("userData")
+  loadAll()
+  let finalArray = await sortAndPrepare("userData");
+  renderContacts(finalArray)
 }
+
+//! test
+async function changeColors(){
+  // Selecting the circle element
+var circleElement = document.querySelector('circle');
+
+// Changing the fill color
+circleElement.setAttribute('fill', 'red');
+}
+
+// changeColors()
+//! test finish
+
 
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
   let arrayOfArrays = createArrayOfArrays(userData);
   let sortedArray = arrayOfArrays.sort();
-  let addedInitials = addInitials(sortedArray)
-  console.log(addedInitials);
+  let finalArray = addInitials(sortedArray)
+  return finalArray
 }
 
-sortAndPrepare("userData");
 
-async function renderContacts(remoteKey) {
+async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
-  let contactsArray = JSON.parse(await getItem(remoteKey));
+  let contactsArray = finalArray
   console.log(contactsArray);
   let singleLetterCollection = "";
   for (let i = 0; i < contactsArray.length; i++) {
@@ -30,10 +39,12 @@ async function renderContacts(remoteKey) {
     let initials = singleContactData[2];
     let name = singleContactData[0];
     let email = singleContactData[1];
-    contactsFrame.innerHTML += contactFrameHTML(initials, name, email);
+    contactsFrame.innerHTML += contactFrameHTML(initials, name, email, i);
     singleLetterCollection += singleLetter;
   }
 }
+
+
 
 
 function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame) {
