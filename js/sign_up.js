@@ -19,6 +19,7 @@ async function getSignUpInputs() {
   // removeLogInAnimation();
 }
 
+
 async function handleRemoteStorage(name, email, password, passwordRepeat){
   signUpNameEmail = await getUserData("userData");
   emailPwCombo = await getUserData("emailPwCombo");
@@ -37,7 +38,7 @@ async function logFromRemote(remoteKey) {
 }
 
 logFromRemote("userData");
-logFromRemote("emailPwCombo")
+// logFromRemote("emailPwCombo")
 // ! ---------------------------------------------------------
 
 /**

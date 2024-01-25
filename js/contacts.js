@@ -1,45 +1,42 @@
 
-// Example of Dialog appearing.
-function addTask(field) {
-  let taskcard = document.getElementById("full-task-card");
-  taskcard.classList.remove("d-none");
-  setTimeout(function () {
-    taskcard.classList.add("open");
-  }, 0);
-}
 
 
-// async function setHardcodedData() {
-//   await setItem("userData", ContactsDummyData);
-// }
-// setHardcodedData()
 
 async function contactsInit() {
-  loadAll()
-  setSortedArray("userData");
-  // renderContacts("sortedUserArray")
+  // loadAll()
+  // setSortedArray("userData");
+  // renderContacts("userData")
 }
+
+async function sortAndPrepare(remoteKey) {
+  let arrayOfArrays = await createArrayOfArrays(remoteKey)
+  let sortedArray = arrayOfArrays.sort()
+  console.log(sortedArray);
+}
+
+sortAndPrepare("userData")
 
 async function renderContacts(remoteKey) {
   let contactsFrame = document.getElementById(`contacts-frame`);
   let contactsArray = JSON.parse(await getItem(remoteKey));
-  let singleLetterCollection = ""
-  for (let i  = 0; i < contactsArray.length; i++) {
+  console.log(contactsArray);
+  let singleLetterCollection = "";
+  for (let i = 0; i < contactsArray.length; i++) {
     let singleContactData = contactsArray[i];
-    let singleLetter = singleContactData[2][0]
-    singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame)
-    let initials = singleContactData[2]
-    let name = singleContactData[0]
-    let email = singleContactData[1]
-    contactsFrame.innerHTML += contactFrameHTML(initials, name, email)
-    singleLetterCollection += singleLetter
+    let singleLetter = singleContactData[2][0];
+    singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame);
+    let initials = singleContactData[2];
+    let name = singleContactData[0];
+    let email = singleContactData[1];
+    contactsFrame.innerHTML += contactFrameHTML(initials, name, email);
+    singleLetterCollection += singleLetter;
   }
 }
 
 
-function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame){
-  if(!singleLetterCollection.includes(singleLetter)){
-    contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter)
+function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame) {
+  if (!singleLetterCollection.includes(singleLetter)) {
+    contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter);
   }
 
 }
@@ -85,9 +82,24 @@ async function addInitials(remoteKey) {
 // addInitials();
 
 
+
+//! Logging function fire to see remote objects
 async function logRemoteArray(remoteKey) {
   let mySortedArray = JSON.parse(await getItem(remoteKey));
   console.log(mySortedArray);
 }
 
-logRemoteArray("contactsArray");
+// logRemoteArray("userData");
+//! ---------------------------------------------------
+
+
+//! example for later usage
+// Example of Dialog appearing.
+function addTask(field) {
+  let taskcard = document.getElementById("full-task-card");
+  taskcard.classList.remove("d-none");
+  setTimeout(function () {
+    taskcard.classList.add("open");
+  }, 0);
+}
+//! ----------------------------------------------------
