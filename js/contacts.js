@@ -1,21 +1,20 @@
 
+let colorCarousell = {
+  "0": "#FF7A00",
+  "1": "#9327FF",
+  "2": "#6E52FF",
+  "3": "#FC71FF",
+  "4": "#FFBB2B",
+  "5": "#1FD7C1",
+  "6": "#462F8A",
+  "7": "#FF4646",
+}
+
 async function contactsInit() {
   loadAll()
   let finalArray = await sortAndPrepare("userData");
   renderContacts(finalArray)
 }
-
-//! test
-async function changeColors(){
-  // Selecting the circle element
-var circleElement = document.querySelector('circle');
-
-// Changing the fill color
-circleElement.setAttribute('fill', 'red');
-}
-
-// changeColors()
-//! test finish
 
 
 async function sortAndPrepare(remoteKey) {
