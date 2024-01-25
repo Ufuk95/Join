@@ -10,6 +10,8 @@ let colorCarousell = {
   "7": "#FF4646",
 }
 
+
+
 async function contactsInit() {
   loadAll()
   let finalArray = await sortAndPrepare("userData");
@@ -26,6 +28,14 @@ async function sortAndPrepare(remoteKey) {
 }
 
 
+function calculateColorMap(index){
+  let colorMapLen = Object.keys(colorCarousell).length
+  if(index >= colorMapLen){
+    index = index % colorMapLen
+  }
+  return index
+}
+
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
   let contactsArray = finalArray
@@ -38,7 +48,8 @@ async function renderContacts(finalArray) {
     let initials = singleContactData[2];
     let name = singleContactData[0];
     let email = singleContactData[1];
-    contactsFrame.innerHTML += contactFrameHTML(initials, name, email, i);
+    let j = calculateColorMap(i)
+    contactsFrame.innerHTML += contactFrameHTML(initials, name, email, j);
     singleLetterCollection += singleLetter;
   }
 }
