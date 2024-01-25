@@ -229,12 +229,12 @@ body {
 
 .progressbar {
   display: flex;
-  width: 128px;
-  height: 8px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
+  width: 128px;
+  height: 8px;
   border-radius: 8px;
   background: #f4f4f4;
 }
@@ -244,6 +244,7 @@ body {
   padding: 0px 6px 2px 0px;
   align-items: center;
   gap: 11px;
+  width: 100%;
 }
 
 .subtask-display {
