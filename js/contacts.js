@@ -9,7 +9,8 @@ async function contactsInit() {
 }
 
 async function sortAndPrepare(remoteKey) {
-  let arrayOfArrays = await createArrayOfArrays(remoteKey)
+  let userData = JSON.parse(await getItem(remoteKey));
+  let arrayOfArrays = createArrayOfArrays(userData);
   let sortedArray = arrayOfArrays.sort()
   console.log(sortedArray);
 }
@@ -41,9 +42,9 @@ function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame) 
 
 }
 
-async function createArrayOfArrays(remoteKey) {
+function createArrayOfArrays(JSONArray) {
   let userDataAsArray = [];
-  let userData = JSON.parse(await getItem(remoteKey));
+  let userData = JSONArray;
   for (let i = 0; i < userData.length; i++) {
     let element = Object.values(userData[i]);
     userDataAsArray.push(element);
@@ -51,16 +52,6 @@ async function createArrayOfArrays(remoteKey) {
   return userDataAsArray;
 }
 
-async function setSortedArray(remoteKey) {
-  let userDataAsArray = await createArrayOfArrays(remoteKey);
-  let sortedArray = userDataAsArray.sort();
-  setItem("sortedUserArray", sortedArray);
-}
-
-async function sortArray(remoteKey) {
-  let userArray = await createArrayOfArrays(remoteKey);
-  return userArray.sort();
-}
 
 async function addInitials(remoteKey) {
   let initials = "";
