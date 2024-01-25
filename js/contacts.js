@@ -11,7 +11,6 @@ let colorCarousell = {
 }
 
 
-
 async function contactsInit() {
   loadAll()
   let finalArray = await sortAndPrepare("userData");
@@ -35,6 +34,7 @@ function calculateColorMap(index){
   }
   return index
 }
+
 
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
