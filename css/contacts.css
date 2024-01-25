@@ -15,6 +15,7 @@ body {
 }
 
 #contacts-frame {
+  border: solid orange;
   box-sizing: border-box;
   position:relative;
   margin-left: 231px;
@@ -42,8 +43,23 @@ body {
   }
 }
 
+#new-contact-placeholder{
+  width: 352px;
+  height: 59.5px;
+  border: solid orange;
+}
+
+#new-content-overflow-hide{
+  position:fixed;
+  width: 352px;
+  height: 100px;
+  border: solid lightblue;
+  top: 100px;
+  background-color: white;
+}
 
 #contacts-btn {
+  position:fixed;
   display: flex;
   z-index: 2;
   width: 352px;
