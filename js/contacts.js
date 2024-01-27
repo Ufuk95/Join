@@ -50,6 +50,9 @@ async function renderContacts(finalArray) {
     let email = singleContactData[1];
     let j = calculateColorMap(i)
     contactsFrame.innerHTML += contactFrameHTML(initials, name, email, j);
+    if(i == 0){
+      document.querySelector(`.single-letter-box`).classList.add("first-letter")
+    }
     singleLetterCollection += singleLetter;
   }
 }
