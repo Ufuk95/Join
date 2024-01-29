@@ -27,9 +27,7 @@ async function updateArea(field) {
     }
 }
 
-function startDragging(id) {
-    currentDraggedElement = id;
-}
+
 
 function generateTaskHTML(element) {
     return `
@@ -94,11 +92,11 @@ function openTaskCard(elementId) {
                     ${subtaskHTML}
                 </div>
                 <div class="subtaskcard-bottom-footer">
-                    <div class="subtaskcard-footer-delete" onclick="deleteSubtaskCard(${element.id})">
+                    <div class="subtaskcard-footer-delete" onclick="deleteTaskCard(${element.id})">
                         <img id="black-trash" src="/assets/img/board/trashforsubtasks.png">
                         <p>Delete</p>
                     </div>
-                    <div class="subtaskcard-footer-edit" onclick="editSubtaskCard(${element.id})">
+                    <div class="subtaskcard-footer-edit" onclick="editTaskCard(${element.id})">
                         <img id="black-edit" src="/assets/img/board/editforSubtask.png">
                         <p>Edit</p>
                     </div>
@@ -110,124 +108,7 @@ function openTaskCard(elementId) {
     }
 }
 
-function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
-    const task = tasks.find((item) => item.id === taskId);
-
-    if (task && task.subtasks[subtaskIndex]) {
-        const subtask = task.subtasks[subtaskIndex];
-
-        // Überprüfen, ob das Subtask als checked markiert ist
-        if (!subtask.checked) {
-            // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
-            subtaskImage.src = "/assets/img/board/checkedForCard.png";
-            subtask.checked = true;
-        } else {
-            // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
-            subtaskImage.src = "/assets/img/board/checkForCard.png";
-            subtask.checked = false;
-        }
-
-        updateProgressBar(taskId);
-    }
-}
-
-
-function hoverDeleteInSubtaskcard() {
-    let subtaskFooterDelete = document.querySelector(".subtaskcard-footer-delete");
-    let subtaskFooterEdit = document.querySelector(".subtaskcard-footer-edit");
-    let blackTrash = document.getElementById("black-trash");
-    let blackEdit = document.getElementById("black-edit");
-
-    subtaskFooterDelete.addEventListener("mouseenter", function () {
-        blackTrash.src = "/assets/img/board/blue-trash.svg";
-        blackTrash.style = "background-color: white;"
-        subtaskFooterDelete.style.color = "rgb(40,171,226)";
-    });
-
-    subtaskFooterDelete.addEventListener("mouseleave", function () {
-        blackTrash.src = "/assets/img/board/trashforsubtasks.png";
-        subtaskFooterDelete.style.color = "black";
-    });
-
-    subtaskFooterEdit.addEventListener("mouseenter", function () {
-        blackEdit.src = "/assets/img/board/blue-edit.svg";
-        subtaskFooterEdit.style.color = "rgb(40,171,226)";
-    });
-    subtaskFooterEdit.addEventListener("mouseleave", function () {
-        blackEdit.src = "/assets/img/board/editforSubtask.png";
-        subtaskFooterEdit.style.color = "black";
-    });
-}
-
-
-function closeTaskCard() {
-    let addNone = document.getElementById('card-container');
-    addNone.classList.add('d-none-card');
-}
-
-function closeEditTask() {
-    let addNone = document.getElementById('edit-container');
-    addNone.classList.add('d-none-card');
-}
-
-function formatDate(dateString) {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', options);
-}
-
-function updateProgressBar(taskId) {
-    const task = tasks.find((item) => item.id === taskId);
-    const progressBar = document.querySelector(`.task[data-id="${taskId}"] .progressbar`);
-
-    if (task && progressBar) {
-        const subtasksDone = task.subtasks.filter((subtask) => subtask.checked).length;
-        const subtasksTotal = task.subtasks.length;
-
-        // Berechne den prozentualen Fortschritt
-        const progressPercentage = subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
-
-        // Setze die Breite auf 128px, um die leere Fortschrittsleiste darzustellen
-        progressBar.style.width = '128px';
-
-        // Setze die Hintergrundfarbe auf Blau entsprechend dem Fortschritt
-        progressBar.style.background = `linear-gradient(90deg, #3498db ${progressPercentage}%, #f4f4f4 ${progressPercentage}%)`;
-
-        // Aktualisiere die Anzeige für Subtasks
-        const subtaskDisplay = document.querySelector(
-            `.task[data-id="${taskId}"] .subtask-display`
-        );
-        if (subtaskDisplay) {
-            subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
-        }
-    }
-}
-
-// Eine Funktion um die gesammte Task zu löschen
-
-function deleteSubtaskCard(taskId) {
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-    if (taskIndex !== -1) {
-        tasks.splice(taskIndex, 1);
-        updateHTML();
-        closeTaskCard();
-    } else {
-        console.error(`Task with ID ${taskId} not found.`);
-    }
-}
-
-// Eine Funktion um sein Task über die Task Card zu bearbeiten 
-function addSubtaskEventListeners(subtaskID) {
-    const subtaskContainer = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
-    const editImg = subtaskContainer.querySelector(".subtask-img-edit");
-    const trashImg = subtaskContainer.querySelector(".subtask-img-trash");
-
-    editImg.addEventListener("click", () => editSubtask(subtaskID));
-    trashImg.addEventListener("click", () => deleteSubtask(subtaskID));
-}
-
-
-function editSubtaskCard(taskId) {
+function editTaskCard(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
@@ -236,7 +117,7 @@ function editSubtaskCard(taskId) {
     if (task) {
         const editCard = document.getElementById('edit-container');
         const subtaskListHTML = task.subtasks.map(subtask => `
-            <li id="subtask-${subtask.id}">
+            <li id="subtask-${subtask.taskId}">
                 <span class="subtask-title">${subtask.title}</span>
                 <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs">
                     <img src="/assets/img/board/editforSubtask.png" class="subtask-img subtask-img-edit" onclick="editSubtask('${subtask.id}')">
@@ -309,7 +190,222 @@ function editSubtaskCard(taskId) {
     }
 }
 
+// Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
+function addSubtask() {
+    let inputSubtasks = document.getElementById("input-subtasks");
+    let subtaskOL = document.getElementById("unsorted-list");
+    let subtaskText = inputSubtasks.value;
+    let subtaskID = `subtask-${Date.now()}`;
+    let newSubtask = document.createElement("div");
+    newSubtask.id = subtaskID;
+    newSubtask.className = "full-subtasks-area";
+
+    newSubtask.innerHTML = `
+      <li>${subtaskText}</li>
+      <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
+        <img src="/assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
+        <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
+      </div>
+    `;
+
+    // Neues Subtask-Element dem Subtask-OL hinzufügen
+    subtaskOL.appendChild(newSubtask);
+
+    inputSubtasks.value = "";
+    setTimeout(restoreInputImg, 0);
+
+    // Event Listener für das aktuelle Subtask-Element hinzufügen
+    let currentSubtask = document.getElementById(subtaskID);
+
+    // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
+    if (!currentSubtask.dataset.listenerAdded) {
+        currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
+        currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
+
+        // Markieren, dass der Eventlistener hinzugefügt wurde
+        currentSubtask.dataset.listenerAdded = true;
+    }
+}
+
+
+// Eine Funktion um sein Task über die Task Card zu bearbeiten 
+function addSubtaskEventListeners(subtaskID) {
+    const subtaskContainer = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
+    const editImg = subtaskContainer.querySelector(".subtask-img-edit");
+    const trashImg = subtaskContainer.querySelector(".subtask-img-trash");
+
+    editImg.addEventListener("click", () => editSubtask(subtaskID));
+    trashImg.addEventListener("click", () => deleteSubtask(subtaskID));
+}
+
+
+function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
+    const task = tasks.find((item) => item.id === taskId);
+
+    if (task && task.subtasks[subtaskIndex]) {
+        const subtask = task.subtasks[subtaskIndex];
+
+        // Überprüfen, ob das Subtask als checked markiert ist
+        if (!subtask.checked) {
+            // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
+            subtaskImage.src = "/assets/img/board/checkedForCard.png";
+            subtask.checked = true;
+        } else {
+            // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
+            subtaskImage.src = "/assets/img/board/checkForCard.png";
+            subtask.checked = false;
+        }
+
+        updateProgressBar(taskId);
+    }
+}
+
+function deleteSubtaskInput() {
+    let inputSubtasks = document.getElementById("input-subtasks");
+    inputSubtasks.value = "";
+    restoreInputImg();
+}
+
+function deleteSubtask(subtaskId) {
+    const subtaskElement = document.getElementById(subtaskId);
+
+    if (subtaskElement) {
+        subtaskElement.remove();
+    } else {
+        console.error(`Subtask mit der ID ${subtaskId} wurde nicht gefunden!`);
+    }
+}
+
+
+
+function editSubtask(subtaskID) {
+    let subtaskContainer = document.getElementById(subtaskID);
+
+    if (subtaskContainer) {
+
+        let subtaskTextElement = subtaskContainer.querySelector("li");
+
+        // Bilder für Bearbeiten und Löschen ausblenden
+        let editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
+        editImgsContainer.classList.add("d-none");
+
+        // Einen neuen Input für die Bearbeitung erstellen
+        let inputElement = document.createElement("input");
+        inputElement.id = "subtask-edit";
+        inputElement.type = "text";
+        inputElement.value = subtaskTextElement.textContent;
+
+        // Einen Button zum Akzeptieren der Bearbeitung erstellen
+        let acceptImg = document.createElement("img");
+        acceptImg.id = "subtask-done-img";
+        acceptImg.src = "/assets/img/board/done.png";
+        acceptImg.classList.add("accept-button");
+        acceptImg.onclick = function () {
+            // Den bearbeiteten Text übernehmen
+            subtaskTextElement.textContent = inputElement.value;
+
+            // Das Eingabefeld und den "Done"-Button entfernen
+            subtaskContainer.removeChild(inputElement);
+            subtaskContainer.removeChild(acceptImg);
+        };
+
+        // Das Eingabefeld, das "Done"-Button und das Bestätigen-Bild dem Subtask-Element hinzufügen
+        subtaskContainer.appendChild(inputElement);
+        subtaskContainer.appendChild(acceptImg);
+    } else {
+        console.error("Das Subtask-Element wurde nicht gefunden!");
+    }
+}
+
+
+function hoverDeleteInSubtaskcard() {
+    let subtaskFooterDelete = document.querySelector(".subtaskcard-footer-delete");
+    let subtaskFooterEdit = document.querySelector(".subtaskcard-footer-edit");
+    let blackTrash = document.getElementById("black-trash");
+    let blackEdit = document.getElementById("black-edit");
+
+    subtaskFooterDelete.addEventListener("mouseenter", function () {
+        blackTrash.src = "/assets/img/board/blue-trash.svg";
+        blackTrash.style = "background-color: white;"
+        subtaskFooterDelete.style.color = "rgb(40,171,226)";
+    });
+
+    subtaskFooterDelete.addEventListener("mouseleave", function () {
+        blackTrash.src = "/assets/img/board/trashforsubtasks.png";
+        subtaskFooterDelete.style.color = "black";
+    });
+
+    subtaskFooterEdit.addEventListener("mouseenter", function () {
+        blackEdit.src = "/assets/img/board/blue-edit.svg";
+        subtaskFooterEdit.style.color = "rgb(40,171,226)";
+    });
+    subtaskFooterEdit.addEventListener("mouseleave", function () {
+        blackEdit.src = "/assets/img/board/editforSubtask.png";
+        subtaskFooterEdit.style.color = "black";
+    });
+}
+
+
+// Eine Funktion um die gesammte Task zu löschen
+
+function deleteTaskCard(taskId) {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        updateHTML();
+        closeTaskCard();
+    } else {
+        console.error(`Task with ID ${taskId} not found.`);
+    }
+}
+
+function closeTaskCard() {
+    let addNone = document.getElementById('card-container');
+    addNone.classList.add('d-none-card');
+}
+
+function closeEditTask() {
+    let addNone = document.getElementById('edit-container');
+    addNone.classList.add('d-none-card');
+}
+
+function formatDate(dateString) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('de-DE', options);
+}
+
+function updateProgressBar(taskId) {
+    const task = tasks.find((item) => item.id === taskId);
+    const progressBar = document.querySelector(`.task[data-id="${taskId}"] .progressbar`);
+
+    if (task && progressBar) {
+        const subtasksDone = task.subtasks.filter((subtask) => subtask.checked).length;
+        const subtasksTotal = task.subtasks.length;
+
+        // Berechne den prozentualen Fortschritt
+        const progressPercentage = subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
+
+        // Setze die Breite auf 128px, um die leere Fortschrittsleiste darzustellen
+        progressBar.style.width = '128px';
+
+        // Setze die Hintergrundfarbe auf Blau entsprechend dem Fortschritt
+        progressBar.style.background = `linear-gradient(90deg, #3498db ${progressPercentage}%, #f4f4f4 ${progressPercentage}%)`;
+
+        // Aktualisiere die Anzeige für Subtasks
+        const subtaskDisplay = document.querySelector(
+            `.task[data-id="${taskId}"] .subtask-display`
+        );
+        if (subtaskDisplay) {
+            subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
+        }
+    }
+}
+
+function startDragging(id) {
+    currentDraggedElement = id;
+}
 
 function moveTo(field) {
     tasks[currentDraggedElement]["field"] = field;
@@ -441,43 +537,6 @@ function showTaskSelect(selectedOption) {
     taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 
-// Funtion damit man einzelne subtasks eingeben und anzeigen kann
-
-function addSubtask() {
-    let inputSubtasks = document.getElementById("input-subtasks");
-    let subtaskOL = document.getElementById("unsorted-list");
-    let subtaskText = inputSubtasks.value;
-    let subtaskID = `subtask-${Date.now()}`;
-    let newSubtask = document.createElement("div");
-    newSubtask.id = subtaskID;
-    newSubtask.className = "full-subtasks-area";
-
-    newSubtask.innerHTML = `
-      <li>${subtaskText}</li>
-      <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
-        <img src="/assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
-        <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
-      </div>
-    `;
-
-    // Neues Subtask-Element dem Subtask-OL hinzufügen
-    subtaskOL.appendChild(newSubtask);
-
-    inputSubtasks.value = "";
-    setTimeout(restoreInputImg, 0);
-
-    // Event Listener für das aktuelle Subtask-Element hinzufügen
-    let currentSubtask = document.getElementById(subtaskID);
-
-    // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
-    if (!currentSubtask.dataset.listenerAdded) {
-        currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
-        currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
-
-        // Markieren, dass der Eventlistener hinzugefügt wurde
-        currentSubtask.dataset.listenerAdded = true;
-    }
-}
 
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
@@ -508,6 +567,7 @@ function deleteSubtask(subtaskId) {
         console.error(`Subtask mit der ID ${subtaskId} wurde nicht gefunden!`);
     }
 }
+
 
 
 function editSubtask(subtaskID) {
@@ -692,4 +752,3 @@ function restoreInputImg() {
     vectorIcon.classList.add("d-none");
     checkedIcon.classList.add("d-none");
 }
-
