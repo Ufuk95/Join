@@ -44,12 +44,12 @@ async function renderContacts(finalArray) {
   for (let i = 0; i < contactsArray.length; i++) {
     let singleContactData = contactsArray[i];
     let singleLetter = singleContactData[2][0];
-    singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame);
+    singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, i);
     let initials = singleContactData[2];
     let name = singleContactData[0];
     let email = singleContactData[1];
-    let j = calculateColorMap(i)
-    contactsFrame.innerHTML += contactFrameHTML(initials, name, email, j);
+    let colorIndex = calculateColorMap(i)
+    contactsFrame.innerHTML += contactFrameHTML(initials, name, email, colorIndex, i);
     if(i == 0){
       document.querySelector(`.single-letter-box`).classList.add("first-letter")
     }
@@ -58,14 +58,12 @@ async function renderContacts(finalArray) {
 }
 
 
-
-
-function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame) {
+function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, i) {
   if (!singleLetterCollection.includes(singleLetter)) {
-    contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter);
+    contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter, i);
   }
-
 }
+
 
 function createArrayOfArrays(JSONArray) {
   let userDataAsArray = [];

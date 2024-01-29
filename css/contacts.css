@@ -46,20 +46,15 @@ body {
   width: 352px;
   z-index: 2;
   height: 75px;
-  border: solid orange;
   position:fixed;
   top: 90px;
   background-color: white;
 }
 
-.first-letter{
-  margin-top: 50px;
-}
-
-
 #contacts-btn {
   position:fixed;
   display: flex;
+  top: 118px;
   z-index: 2;
   width: 352px;
   padding: 12px 0px;
@@ -71,6 +66,12 @@ body {
   border: 1px solid #2A3647;
   background: #2A3647;
 }
+
+.first-letter{
+  margin-top: 62px;
+}
+
+
 
 #contacts-btn__txt {
   color: #FFF;
@@ -109,6 +110,8 @@ body {
   padding: 15px 24px;
   align-items: flex-start;
   gap: 35px;
+  border-radius: 10px;
+  border: solid lightblue 0.5px
 }
 
 .name-circle-wrapper {

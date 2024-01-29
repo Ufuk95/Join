@@ -1,6 +1,6 @@
-function contactFrameHTML(initials, name, email, colorNumber){
+function contactFrameHTML(initials, name, email, colorNumber, i){
   return`
-  <div class="contact-frame">
+  <div class="contact-frame contact-frame${i}">
   <div class="name-circle-wrapper">
     <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle  cx="21" cy="21" r="20" fill=${colorCarousell[colorNumber]} stroke="white" stroke-width="2" />
@@ -15,9 +15,9 @@ function contactFrameHTML(initials, name, email, colorNumber){
   `
 }
 
-function singleLetterAndStrokeHTML(singleLetter){
+function singleLetterAndStrokeHTML(singleLetter, i){
   return `
-  <div class="single-letter-box">
+  <div class="single-letter-box letter${i}">
   <span class="single-letter-box__txt">${singleLetter}</span>
   </div>
   <svg width="354" height="2" viewBox="0 0 354 2" fill="none" xmlns="http://www.w3.org/2000/svg">
