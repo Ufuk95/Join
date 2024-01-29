@@ -66,8 +66,6 @@ function openTaskCard(elementId) {
                 <p>${subtask.title}</p>
             </div>`).join("");
 
-
-
         cardContainer.innerHTML = `
             <div class="completeCard">
                 <div class="taskcard-head">
@@ -96,17 +94,17 @@ function openTaskCard(elementId) {
                     ${subtaskHTML}
                 </div>
                 <div class="subtaskcard-bottom-footer">
-                    <div class="subtaskcard-footer-delete" onclick="">
+                    <div class="subtaskcard-footer-delete" onclick="deleteSubtaskCard(${element.id})">
                         <img id="black-trash" src="/assets/img/board/trashforsubtasks.png">
                         <p>Delete</p>
                     </div>
-                    <div class="subtaskcard-footer-edit" onclick="">
+                    <div class="subtaskcard-footer-edit" onclick="editSubtaskCard(${element.id})">
                         <img id="black-edit" src="/assets/img/board/editforSubtask.png">
                         <p>Edit</p>
                     </div>
                 </div>
             </div>`;
-            hoverDeleteInSubtaskcard();
+        hoverDeleteInSubtaskcard();
     } else {
         console.error(`Element with ID ${elementId} not found.`);
     }
@@ -134,9 +132,6 @@ function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
 }
 
 
-
-
-
 function hoverDeleteInSubtaskcard() {
     let subtaskFooterDelete = document.querySelector(".subtaskcard-footer-delete");
     let subtaskFooterEdit = document.querySelector(".subtaskcard-footer-edit");
@@ -146,21 +141,21 @@ function hoverDeleteInSubtaskcard() {
     subtaskFooterDelete.addEventListener("mouseenter", function () {
         blackTrash.src = "/assets/img/board/blue-trash.svg";
         blackTrash.style = "background-color: white;"
-        subtaskFooterDelete.style.color = "rgb(40,171,226)"; 
+        subtaskFooterDelete.style.color = "rgb(40,171,226)";
     });
 
     subtaskFooterDelete.addEventListener("mouseleave", function () {
         blackTrash.src = "/assets/img/board/trashforsubtasks.png";
-        subtaskFooterDelete.style.color = "black"; 
+        subtaskFooterDelete.style.color = "black";
     });
-    
+
     subtaskFooterEdit.addEventListener("mouseenter", function () {
         blackEdit.src = "/assets/img/board/blue-edit.svg";
-        subtaskFooterEdit.style.color = "rgb(40,171,226)"; 
+        subtaskFooterEdit.style.color = "rgb(40,171,226)";
     });
     subtaskFooterEdit.addEventListener("mouseleave", function () {
         blackEdit.src = "/assets/img/board/editforSubtask.png";
-        subtaskFooterEdit.style.color = "black"; 
+        subtaskFooterEdit.style.color = "black";
     });
 }
 
@@ -170,12 +165,16 @@ function closeTaskCard() {
     addNone.classList.add('d-none-card');
 }
 
+function closeEditTask() {
+    let addNone = document.getElementById('edit-container');
+    addNone.classList.add('d-none-card');
+}
+
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const date = new Date(dateString);
     return date.toLocaleDateString('de-DE', options);
 }
-// Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
 
 function updateProgressBar(taskId) {
     const task = tasks.find((item) => item.id === taskId);
@@ -204,9 +203,111 @@ function updateProgressBar(taskId) {
     }
 }
 
+// Eine Funktion um die gesammte Task zu löschen
+
+function deleteSubtaskCard(taskId) {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+    if (taskIndex !== -1) {
+        tasks.splice(taskIndex, 1);
+        updateHTML();
+        closeTaskCard();
+    } else {
+        console.error(`Task with ID ${taskId} not found.`);
+    }
+}
+
+// Eine Funktion um sein Task über die Task Card zu bearbeiten 
+function addSubtaskEventListeners(subtaskID) {
+    const subtaskContainer = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
+    const editImg = subtaskContainer.querySelector(".subtask-img-edit");
+    const trashImg = subtaskContainer.querySelector(".subtask-img-trash");
+
+    editImg.addEventListener("click", () => editSubtask(subtaskID));
+    trashImg.addEventListener("click", () => deleteSubtask(subtaskID));
+}
 
 
+function editSubtaskCard(taskId) {
+    const task = tasks.find((item) => item.id === taskId);
+    let removeNone = document.getElementById('edit-container');
+    removeNone.classList.remove('d-none-card');
+    
 
+    if (task) {
+        const editCard = document.getElementById('edit-container');
+        const subtaskListHTML = task.subtasks.map(subtask => `
+            <li id="subtask-${subtask.id}">
+                <span class="subtask-title">${subtask.title}</span>
+                <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs">
+                    <img src="/assets/img/board/editforSubtask.png" class="subtask-img subtask-img-edit" onclick="editSubtask('${subtask.id}')">
+                    <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img subtask-img-trash" onclick="deleteSubtask('${subtask.id}')">
+                </div>
+            </li>`).join('');
+
+
+        editCard.innerHTML = `
+            <div class="completeCard">
+                <div class="right-end">
+                    <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeEditTask()">
+                </div>
+                <div class="task-title">
+                    <span class="font-line">Title</span>
+                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" placeholder="Enter a title" value="${task.title}">
+                </div>
+                <div class="task-title">
+                    <span class="font-line">Description</span>
+                    <textarea id="description-input" cols="30" rows="10" placeholder="Enter a Description">${task.description}</textarea>
+                </div>
+                <div class="task-title">
+                    <span class="font-line">Due Date</span>
+                    <div class="task-date-area">
+                        <input required type="date" id="date" name="taskDate" placeholder="dd/mm/yyyy" value="${task.date}">
+                    </div>
+                </div>
+                <div class="task-title">
+                    <span class="font-line">Priority</span>
+                    <div class="task-button-area">
+                        <button type="button" id="prio-btn-red" class="prio-btn ${task.checkedPriority === 'red' ? 'checked' : ''}" onclick="changeBtnColor('red')">Urgent
+                            <img id="prio-red" src="/assets/img/board/Prio-red.png" alt="Urgent"></button>
+                        <button type="button" id="prio-btn-yellow" class="prio-btn ${task.checkedPriority === 'yellow' ? 'checked' : ''}" onclick="changeBtnColor('yellow')">Medium
+                            <img id="prio-yellow" src="/assets/img/board/Prio-yellow.png" alt="Medium"></button>
+                        <button type="button" id="prio-btn-green" class="prio-btn ${task.checkedPriority === 'green' ? 'checked' : ''}" onclick="changeBtnColor('green')">Low
+                            <img id="prio-green" src="/assets/img/board/Prio-green.png" alt="Low"></button>
+                    </div>
+                </div>  
+                <div class="task-title">
+                    <span class="font-line">Assigned to</span>
+                    <div class="task-contact-input-area">
+                        <input type="text" placeholder="Select contacts to assign">
+                        <img class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                        alt="arrow down" onclick="showContactsInTasks()">
+                    </div>
+                </div>
+                <div class="task-title">
+                    <span class="font-line">Subtasks</span>
+                    <div class="task-contact-input-area" onclick="changeInputImg()">
+                        <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                        <img id="subtask-plus-img" class="Assigned-img"
+                            src="/assets/img/board/addTaskAdd.png" alt="plus">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
+                                src="/assets/img/board/close.png" onclick="deleteSubtaskInput()">
+                            <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
+                                src="/assets/img/board/vector-subtask.png">
+                            <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
+                                src="/assets/img/board/checked.png" onclick="addSubtask()">
+                        </div>
+                    </div>
+                    <ol class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ol>
+                </div>
+                <div class="right-end">
+                    <button class="edit-card-btn">Ok<img src="/assets/img/board/check.png"></button>
+                </div>
+            </div>`;
+    } else {
+        console.error(`Task with ID ${taskId} not found.`);
+    }
+}
 
 
 
@@ -274,7 +375,7 @@ function createTask(event) {
         date: date,
         category: category,
         priority: getPriorityImagePath(currentPriority),
-        priorityText: priorityText(currentPriority), 
+        priorityText: priorityText(currentPriority),
         contacts: "?",
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
@@ -395,19 +496,19 @@ function mouseLeave(subtaskID) {
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
     inputSubtasks.value = "";
-    // Bilder wiederherstellen
     restoreInputImg();
 }
 
-function deleteSubtask(subtaskID) {
-    let subtaskElement = document.getElementById(subtaskID);
+function deleteSubtask(subtaskId) {
+    const subtaskElement = document.getElementById(subtaskId);
 
     if (subtaskElement) {
         subtaskElement.remove();
     } else {
-        console.error("Das Subtask-Element wurde nicht gefunden!");
+        console.error(`Subtask mit der ID ${subtaskId} wurde nicht gefunden!`);
     }
 }
+
 
 function editSubtask(subtaskID) {
     let subtaskContainer = document.getElementById(subtaskID);

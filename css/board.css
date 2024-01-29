@@ -655,7 +655,8 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
-  min-height: 75vh;
+  height: 930px;
+  overflow: auto;
 }
 
 
@@ -742,6 +743,7 @@ p {
   gap: 8px;
   cursor: pointer;
 }
+
 .subtaskcard-footer-edit {
   display: flex;
   justify-content: center;
@@ -759,4 +761,40 @@ p {
   position: relative;
   top: 24px;
 }
-/***** Ab hier werden die einzeln erstellte notizen fürs kanban designt *****/
+
+/***** Ab hier wird die Edit task bereich designt *****/
+
+.edit-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #29292963;
+  z-index: 10001;
+  top: -96px;
+  left: -232px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-card-btn {
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  background: #2A3647;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+.right-end {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
