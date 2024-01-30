@@ -8,37 +8,40 @@ let colorCarousell = {
   "5": "#1FD7C1",
   "6": "#462F8A",
   "7": "#FF4646",
-}
+};
 
 
 async function contactsInit() {
-  loadAll()
+  loadAll();
   let finalArray = await sortAndPrepare("userData");
-  renderContacts(finalArray)
+  renderContacts(finalArray);
 }
 
-
+/**
+ * Prepares a JSONArray and sorts it. Adds initials to the final Array
+ * @param remoteKey Key that is needed to 
+ */
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
   let arrayOfArrays = createArrayOfArrays(userData);
   let sortedArray = arrayOfArrays.sort();
-  let finalArray = addInitials(sortedArray)
-  return finalArray
+  let finalArray = addInitials(sortedArray);
+  return finalArray;
 }
 
 
-function calculateColorMap(index){
-  let colorMapLen = Object.keys(colorCarousell).length
-  if(index >= colorMapLen){
-    index = index % colorMapLen
+function calculateColorMap(index) {
+  let colorMapLen = Object.keys(colorCarousell).length;
+  if (index >= colorMapLen) {
+    index = index % colorMapLen;
   }
-  return index
+  return index;
 }
 
 
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
-  let contactsArray = finalArray
+  let contactsArray = finalArray;
   let singleLetterCollection = "";
   for (let i = 0; i < contactsArray.length; i++) {
     let singleContactData = contactsArray[i];
@@ -47,10 +50,10 @@ async function renderContacts(finalArray) {
     let initials = singleContactData[2];
     let name = singleContactData[0];
     let email = singleContactData[1];
-    let colorIndex = calculateColorMap(i)
+    let colorIndex = calculateColorMap(i);
     contactsFrame.innerHTML += contactFrameHTML(initials, name, email, colorIndex, i);
-    if(i == 0){
-      document.querySelector(`.single-letter-box`).classList.add("first-letter")
+    if (i == 0) {
+      document.querySelector(`.single-letter-box`).classList.add("first-letter");
     }
     singleLetterCollection += singleLetter;
   }
@@ -92,15 +95,23 @@ function addInitials(sortedArray) {
 }
 
 
-function activeContactTab(i){
-  let contactTab = document.querySelector(`.contact-frame${i}`)
-  contactTab.style.backgroundColor = "#2A3647"
+function activeContactTab(i) {
+  clearTabStyle();
+  let contactTab = document.querySelector(`.contact-frame${i}`);
+  let contactTabName = document.querySelector(`.name${i}`);
+  contactTab.classList.add("active-tab-bg");
+  contactTabName.classList.add("active-tab-name");
 }
 
 
-function clearTabStyle(i){
-  let contactTab = document.querySelector(`.contact-frame${i}`)
-  contactTab.style.backgroundColor = "#FFFFFFF"
+function clearTabStyle() {
+  let lastActiveTab = document.querySelector(`.active-tab-bg`);
+  let lastActiveTabName = document.querySelector(`.active-tab-name`);
+  if (!lastActiveTab) {
+    return;
+  }
+  lastActiveTab.classList.remove("active-tab-bg");
+  lastActiveTabName.classList.remove("active-tab-name");
 }
 
 

@@ -8,7 +8,7 @@ function contactFrameHTML(initials, name, email, colorNumber, i){
     <span class="initials">${initials}</span>
   </div>
   <div class="name-email-box">
-    <span class="name-email-box__name">${name}</span>
+    <span class="name-email-box__name name${i}">${name}</span>
     <span class="name-email-box__mail">${email}</span>
   </div>
   </div>
