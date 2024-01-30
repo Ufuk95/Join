@@ -39,7 +39,6 @@ function calculateColorMap(index){
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
   let contactsArray = finalArray
-  console.log(contactsArray);
   let singleLetterCollection = "";
   for (let i = 0; i < contactsArray.length; i++) {
     let singleContactData = contactsArray[i];
@@ -101,7 +100,7 @@ function activeContactTab(i){
 
 function clearTabStyle(i){
   let contactTab = document.querySelector(`.contact-frame${i}`)
-  contactTab.style.backgroundColor = "FFFFFFF"
+  contactTab.style.backgroundColor = "#FFFFFFF"
 }
 
 
