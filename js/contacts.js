@@ -93,16 +93,11 @@ function addInitials(sortedArray) {
 }
 
 
-
-
-//! Logging function fire to see remote objects
-async function logRemoteArray(remoteKey) {
-  let mySortedArray = JSON.parse(await getItem(remoteKey));
-  console.log(mySortedArray);
+function activeContactTab(i){
+  console.log("firing");
+  let contactTab = document.querySelector(`.contact-frame${i}`)
+  contactTab.style.backgroundColor = "#2A3647"
 }
-
-// logRemoteArray("userData");
-//! ---------------------------------------------------
 
 
 //! example for later usage
