@@ -94,9 +94,14 @@ function addInitials(sortedArray) {
 
 
 function activeContactTab(i){
-  console.log("firing");
   let contactTab = document.querySelector(`.contact-frame${i}`)
   contactTab.style.backgroundColor = "#2A3647"
+}
+
+
+function clearTabStyle(i){
+  let contactTab = document.querySelector(`.contact-frame${i}`)
+  contactTab.style.backgroundColor = "FFFFFFF"
 }
 
 
