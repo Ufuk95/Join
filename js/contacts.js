@@ -80,6 +80,10 @@ function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, 
 }
 
 
+/**
+ * Creates an array of arrays. 
+ * @param {object} JSONArray object with collected data from sign-up.html
+ */
 function createArrayOfArrays(JSONArray) {
   let userDataAsArray = [];
   let userData = JSONArray;
@@ -91,6 +95,11 @@ function createArrayOfArrays(JSONArray) {
 }
 
 
+/**
+ * Adds initials from the for- and lastname. 
+ * @param {Array} sortedArray 
+ * @returns {Array}
+ */
 function addInitials(sortedArray) {
   let initials = "";
   for (let i = 0; i < sortedArray.length; i++) {
@@ -108,6 +117,12 @@ function addInitials(sortedArray) {
 }
 
 
+/**
+ * Executes when clicking a contact tab on the left side. 
+ * Clears unwanted styles. Adds wanted styles.
+ * Triggers the contact details on the right side to be shown.
+ * @param {Number} i Index of the contact. 
+ */
 function activeContactTab(i) {
   clearTabStyle();
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
@@ -120,6 +135,9 @@ function activeContactTab(i) {
 }
 
 
+/**
+ * Handles the transition for the contact details on the right side. 
+ */
 function handleTransition(element){
   element.classList.remove("display-none");
   element.classList.add("transition");
@@ -127,6 +145,9 @@ function handleTransition(element){
 }
 
 
+/**
+ * Clears unwanted styles from contacts on the left. 
+ */
 function clearTabStyle() {
   let lastActiveTab = document.querySelector(`.active-tab-bg`);
   let lastActiveTabName = document.querySelector(`.active-tab-name`);
@@ -138,6 +159,9 @@ function clearTabStyle() {
 }
 
 
+/**
+ * Renders data of a clicked contact into the contact detail template.
+ */
 function showContactDetails(i) {
   let contactEclipse = document.getElementById(`contact-infos__eclipse`);
   let contactName = document.getElementById(`contact-infos__name`);
@@ -151,6 +175,9 @@ function showContactDetails(i) {
 }
 
 
+/**
+ * Clears the contact detail template.
+ */
 function clearContactDetails(contactDetailsArray) {
   for (let i = 0; i < contactDetailsArray.length; i++) {
     let contactDetail = contactDetailsArray[i];
