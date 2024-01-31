@@ -11,6 +11,9 @@ let colorCarousell = {
 };
 
 
+/**
+ * Initialization of contacts.html
+ */
 async function contactsInit() {
   loadAll();
   let finalArray = await sortAndPrepare("userData");
@@ -19,7 +22,8 @@ async function contactsInit() {
 
 /**
  * Prepares a JSONArray and sorts it. Adds initials to the final Array
- * @param remoteKey Key that is needed to 
+ * @param {string} remoteKey Key to acces remote Data
+ * @returns {Array} 
  */
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
@@ -30,6 +34,11 @@ async function sortAndPrepare(remoteKey) {
 }
 
 
+/**
+ * Calculates an index based on the amount of colors in colorCarousell.
+ * @param {Number} index Index number of a contact. 
+ * @return {Number} 
+ */
 function calculateColorMap(index) {
   let colorMapLen = Object.keys(colorCarousell).length;
   if (index >= colorMapLen) {
@@ -39,12 +48,15 @@ function calculateColorMap(index) {
 }
 
 
+/**
+ * Renders contacts on the left side of the page. 
+ * @param {Array} finalArray prepared and Sorted array. Ready to be rendered.   
+ */
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
-  let contactsArray = finalArray;
   let singleLetterCollection = "";
-  for (let i = 0; i < contactsArray.length; i++) {
-    let singleContactData = contactsArray[i];
+  for (let i = 0; i < finalArray.length; i++) {
+    let singleContactData = finalArray[i];
     let singleLetter = singleContactData[2][0];
     singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, i);
     let initials = singleContactData[2];
@@ -52,14 +64,15 @@ async function renderContacts(finalArray) {
     let email = singleContactData[1];
     let colorIndex = calculateColorMap(i);
     contactsFrame.innerHTML += contactFrameHTML(initials, name, email, colorIndex, i);
-    if (i == 0) {
-      document.querySelector(`.single-letter-box`).classList.add("first-letter");
-    }
     singleLetterCollection += singleLetter;
   }
 }
 
 
+/**
+ * Checks if a letter is already present. 
+ * Renders a capital Letter and a stroke based on that.
+ */
 function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, i) {
   if (!singleLetterCollection.includes(singleLetter)) {
     contactsFrame.innerHTML += singleLetterAndStrokeHTML(singleLetter, i);
