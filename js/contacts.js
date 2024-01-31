@@ -97,11 +97,20 @@ function addInitials(sortedArray) {
 
 function activeContactTab(i) {
   clearTabStyle();
+  let contactDetailsBox = document.querySelector(`.contact-infos-box`);
+  handleTransition(contactDetailsBox)
   let contactTab = document.querySelector(`.contact-frame${i}`);
   let contactTabName = document.querySelector(`.name${i}`);
   contactTab.classList.add("active-tab-bg");
   contactTabName.classList.add("active-tab-name");
   showContactDetails(i);
+}
+
+
+function handleTransition(element){
+  element.classList.remove("display-none");
+  element.classList.add("transition");
+  setTimeout(() => {element.classList.remove("transition")}, 400)
 }
 
 
@@ -124,8 +133,8 @@ function showContactDetails(i) {
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
   clearContactDetails(contactDetailsArray);
   contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
-  contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML
-  contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML
+  contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
+  contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
 }
 
 
@@ -136,13 +145,3 @@ function clearContactDetails(contactDetailsArray) {
   }
 }
 
-//! example for later usage
-// Example of Dialog appearing.
-function addTask(field) {
-  let taskcard = document.getElementById("full-task-card");
-  taskcard.classList.remove("d-none");
-  setTimeout(function () {
-    taskcard.classList.add("open");
-  }, 0);
-}
-//! ----------------------------------------------------

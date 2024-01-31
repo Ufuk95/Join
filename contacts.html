@@ -15,7 +15,6 @@
   <script src="./js/contacts.js" defer></script>
 </head>
 <!------------------------- TEMPLATES ------------------------->
-
 <body onload="contactsInit()" id="3">
   <div id="grey-bg">
     <header id="header" w3-include-html="./assets/templates/header.html"></header>
@@ -23,7 +22,6 @@
     <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
 
     <!------------------------- CONTACTS-FRAME ------------------------->
-
     <div id="contacts-frame">
       <div id="contacts-button-wrapper">
         <div id="contacts-btn">
@@ -41,11 +39,13 @@
       <span id="contacts-slogan__txt">
         Better with a team
       </span>
-      <div id="contact-infos-box">
+
+<!-------------------------------- RIGHT SIDE CONTACT DETAILS ---------------------------------->
+      <div class="contact-infos-box display-none">
         <div id="contact-infos__name-eclipse">
           <div id="contact-infos__eclipse"></div>
           <div id="contact-infos__name-edit-delete">
-            <div id="contact-infos__name">Anton aus Tirol</div>
+            <div id="contact-infos__name"></div>
             <div id="contact-infos__edit-delete">
               <div id="contact-infos__edit">
                 <img src="./assets/img/contacts/icon_pencil.svg" alt="">
@@ -62,11 +62,11 @@
         <div id="contact-infos__email-phone-frame">
           <div id="contact-infos__email-frame">
             <div id="contact-infos__email-txt">Email</div>
-            <div id="contact-infos__email">bla@bla</div>
+            <div id="contact-infos__email"></div>
           </div>
           <div id="contact-infos__phone-frame">
             <div id="contact-infos__phone-txt">Phone</div>
-            <div id="contact-infos__phone">0166</div>
+            <div id="contact-infos__phone"></div>
           </div>
         </div>
       </div>

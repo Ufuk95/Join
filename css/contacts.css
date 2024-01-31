@@ -221,13 +221,12 @@ body {
 }
 
 /************************* ADD CONTACTS *************************/
-#contact-infos-box {
+.contact-infos-box {
   position: absolute;
   top: 105px;
   left: 0;
   width: fit-content;
   height: 364px;
-  border: solid orange;
   z-index: 3;
 }
 
@@ -240,7 +239,6 @@ body {
 #contact-infos__eclipse {
   width: 120px;
   height: 120px;
-  border: solid lightblue;
   position: relative;
   display: flex;
   align-items: center;
@@ -304,9 +302,9 @@ body {
 }
 
 #contact-information {
+  box-sizing: content-box;
   display: flex;
-  height: 74px;
-  padding: 20px 0;
+  padding: 50px 0;
   color: #000;
   font-family: Inter;
   font-size: 20px;
@@ -358,24 +356,25 @@ body {
   line-height: 120%;
 }
 
+/************************* TRANSITIONS *************************/
 
+@keyframes slidein {
+  from {
+    transform: translateX(200%);
+  }
 
-
-/************************* EXAMPLES FOR APPEARING DIALOG *************************/
-.full-task-body {
-  position: fixed;
-  top: 50%;
-  left: 100%;
-  /* Startposition außerhalb des sichtbaren Bereichs */
-  transform: translate(0%, -50%);
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  height: 100%;
-  transition: left 0.5s ease-in-out;
+  to {
+    transform: translateX(0%);
+  }
 }
 
-.full-task-body.open {
-  left: 0;
-  /* Endposition für das Öffnen des Containers */
+.transition{
+  animation-name: slidein;
+  animation-duration: 0.4s; 
+  animation-timing-function: ease;
+}
+
+/************************* DISPLAY CLASSES *************************/
+.display-none{
+  display: none;
 }
