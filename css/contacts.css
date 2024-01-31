@@ -269,6 +269,61 @@ body {
   gap: 8px;
 }
 
+#contact-infos__edit-txt,
+#contact-infos__delete-txt {
+  color: #2A3647;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#contact-information {
+  display: flex;
+  height: 74px;
+  padding: 20px 0;
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#contact-infos__email-phone-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+#contact-infos__email,
+#contact-infos__phone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+#contact-infos__email-txt,
+#contact-infos__phone-txt {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+#contact-infos__email-frame,
+#contact-infos__phone-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
 
 /************************* EXAMPLES FOR APPEARING DIALOG *************************/
 .full-task-body {
