@@ -101,6 +101,7 @@ function activeContactTab(i) {
   let contactTabName = document.querySelector(`.name${i}`);
   contactTab.classList.add("active-tab-bg");
   contactTabName.classList.add("active-tab-name");
+  showContactDetails(i);
 }
 
 
@@ -114,6 +115,26 @@ function clearTabStyle() {
   lastActiveTabName.classList.remove("active-tab-name");
 }
 
+
+function showContactDetails(i) {
+  let contactEclipse = document.getElementById(`contact-infos__eclipse`);
+  let contactName = document.getElementById(`contact-infos__name`);
+  let contactMail = document.getElementById(`contact-infos__email`);
+  let contactPhone = document.getElementById(`contact-infos__phone`);
+  let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
+  clearContactDetails(contactDetailsArray);
+  contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML
+  contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML
+}
+
+
+function clearContactDetails(contactDetailsArray) {
+  for (let i = 0; i < contactDetailsArray.length; i++) {
+    let contactDetail = contactDetailsArray[i];
+    contactDetail.innerHTML = "";
+  }
+}
 
 //! example for later usage
 // Example of Dialog appearing.
