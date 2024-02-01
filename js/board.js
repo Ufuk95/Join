@@ -1,6 +1,7 @@
 const tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
+let editedSubtaskText;
 
 async function updateHTML() {
     try {
@@ -60,7 +61,7 @@ function openTaskCard(elementId) {
         const cardContainer = document.getElementById("card-container");
         const subtaskHTML = element.subtasks.map((subtask, subtaskIndex) => `
             <div class="subtask-card">
-                <img id="subtask-checkbox" class="subtask-image" src="${subtask.checked ? '/assets/img/board/checkedForCard.png' : '/assets/img/board/checkForCard.png'}" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
+                <img id="subtask-checkbox" class="subtask-image" src="${subtask.checked ? './assets/img/board/checkedForCard.png' : './assets/img/board/checkForCard.png'}" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
                 <p>${subtask.title}</p>
             </div>`).join("");
 
@@ -68,7 +69,7 @@ function openTaskCard(elementId) {
             <div class="completeCard">
                 <div class="taskcard-head">
                     <img class="card-category-img" src="${element.category}">
-                    <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTaskCard()">
+                    <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeTaskCard()">
                 </div>
                 <div class="title-card">
                     <p>${element.title}</p>
@@ -93,11 +94,11 @@ function openTaskCard(elementId) {
                 </div>
                 <div class="subtaskcard-bottom-footer">
                     <div class="subtaskcard-footer-delete" onclick="deleteTaskCard(${element.id})">
-                        <img id="black-trash" src="/assets/img/board/trashforsubtasks.png">
+                        <img id="black-trash" src="./assets/img/board/trashforsubtasks.png">
                         <p>Delete</p>
                     </div>
                     <div class="subtaskcard-footer-edit" onclick="editTaskCard(${element.id})">
-                        <img id="black-edit" src="/assets/img/board/editforSubtask.png">
+                        <img id="black-edit" src="./assets/img/board/editforSubtask.png">
                         <p>Edit</p>
                     </div>
                 </div>
@@ -108,7 +109,7 @@ function openTaskCard(elementId) {
     }
 }
 
-function editTaskCard(taskId) {
+function editTaskCard(taskId, editedSubtaskText) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
@@ -120,8 +121,8 @@ function editTaskCard(taskId) {
             <li id="subtask-${subtask.taskId}">
                 <span class="subtask-title">${subtask.title}</span>
                 <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs">
-                    <img src="/assets/img/board/editforSubtask.png" class="subtask-img subtask-img-edit" onclick="editSubtask('${subtask.id}')">
-                    <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img subtask-img-trash" onclick="deleteSubtask('${subtask.id}')">
+                    <img src="./assets/img/board/editforSubtask.png" class="subtask-img subtask-img-edit" onclick="editSubtask('${subtask.id}')">
+                    <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img subtask-img-trash" onclick="deleteSubtask('${subtask.id}')">
                 </div>
             </li>`).join('');
 
@@ -129,7 +130,7 @@ function editTaskCard(taskId) {
         editCard.innerHTML = `
             <div class="completeCard">
                 <div class="right-end">
-                    <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeEditTask()">
+                    <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeEditTask()">
                 </div>
                 <div class="task-title">
                     <span class="font-line">Title</span>
@@ -149,18 +150,18 @@ function editTaskCard(taskId) {
                     <span class="font-line">Priority</span>
                     <div class="task-button-area">
                         <button type="button" id="prio-btn-red" class="prio-btn ${task.checkedPriority === 'red' ? 'checked' : ''}" onclick="changeBtnColor('red')">Urgent
-                            <img id="prio-red" src="/assets/img/board/Prio-red.png" alt="Urgent"></button>
+                            <img id="prio-red" src="./assets/img/board/Prio-red.png" alt="Urgent"></button>
                         <button type="button" id="prio-btn-yellow" class="prio-btn ${task.checkedPriority === 'yellow' ? 'checked' : ''}" onclick="changeBtnColor('yellow')">Medium
-                            <img id="prio-yellow" src="/assets/img/board/Prio-yellow.png" alt="Medium"></button>
+                            <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png" alt="Medium"></button>
                         <button type="button" id="prio-btn-green" class="prio-btn ${task.checkedPriority === 'green' ? 'checked' : ''}" onclick="changeBtnColor('green')">Low
-                            <img id="prio-green" src="/assets/img/board/Prio-green.png" alt="Low"></button>
+                            <img id="prio-green" src="./assets/img/board/Prio-green.png" alt="Low"></button>
                     </div>
                 </div>  
                 <div class="task-title">
                     <span class="font-line">Assigned to</span>
                     <div class="task-contact-input-area">
                         <input type="text" placeholder="Select contacts to assign">
-                        <img class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png"
                         alt="arrow down" onclick="showContactsInTasks()">
                     </div>
                 </div>
@@ -169,22 +170,24 @@ function editTaskCard(taskId) {
                     <div class="task-contact-input-area" onclick="changeInputImg()">
                         <input id="input-subtasks" type="text" placeholder="Add new subtasks">
                         <img id="subtask-plus-img" class="Assigned-img"
-                            src="/assets/img/board/addTaskAdd.png" alt="plus">
+                            src="./assets/img/board/addTaskAdd.png" alt="plus">
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
-                                src="/assets/img/board/close.png" onclick="deleteSubtaskInput()">
+                                src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
                             <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
-                                src="/assets/img/board/vector-subtask.png">
+                                src="/.assets/img/board/vector-subtask.png">
                             <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
-                                src="/assets/img/board/checked.png" onclick="addSubtask()">
+                                src="./assets/img/board/checked.png" onclick="addSubtask()">
                         </div>
                     </div>
-                    <ol class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ol>
+                    <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
                 </div>
                 <div class="right-end">
-                    <button class="edit-card-btn">Ok<img src="/assets/img/board/check.png"></button>
+                    <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
                 </div>
             </div>`;
+
+            addSubtask(editedSubtaskText);
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
@@ -194,28 +197,34 @@ function editTaskCard(taskId) {
 
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
-    let subtaskOL = document.getElementById("unsorted-list");
+    let subtaskUL = document.getElementById("unsorted-list");
     let subtaskText = inputSubtasks.value;
     let subtaskID = `subtask-${Date.now()}`;
+    
+    // Neues Subtask-Element erstellen
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
     newSubtask.className = "full-subtasks-area";
-
     newSubtask.innerHTML = `
-      <li>${subtaskText}</li>
-      <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
-        <img src="/assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
-        <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
-      </div>
+        <li>${subtaskText}</li>
+        <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
+            <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
+            <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
+        </div>
     `;
 
     // Neues Subtask-Element dem Subtask-OL hinzufügen
-    subtaskOL.appendChild(newSubtask);
+    subtaskUL.appendChild(newSubtask);
 
     inputSubtasks.value = "";
     setTimeout(restoreInputImg, 0);
 
     // Event Listener für das aktuelle Subtask-Element hinzufügen
+    addSubtaskListeners(subtaskID);
+}
+
+function addSubtaskListeners(subtaskID) {
+    // Eventlistener für das aktuelle Subtask-Element hinzufügen
     let currentSubtask = document.getElementById(subtaskID);
 
     // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
@@ -227,7 +236,6 @@ function addSubtask() {
         currentSubtask.dataset.listenerAdded = true;
     }
 }
-
 
 // Eine Funktion um sein Task über die Task Card zu bearbeiten 
 function addSubtaskEventListeners(subtaskID) {
@@ -249,11 +257,11 @@ function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
         // Überprüfen, ob das Subtask als checked markiert ist
         if (!subtask.checked) {
             // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
-            subtaskImage.src = "/assets/img/board/checkedForCard.png";
+            subtaskImage.src = "./assets/img/board/checkedForCard.png";
             subtask.checked = true;
         } else {
             // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
-            subtaskImage.src = "/assets/img/board/checkForCard.png";
+            subtaskImage.src = "./assets/img/board/checkForCard.png";
             subtask.checked = false;
         }
 
@@ -299,7 +307,7 @@ function editSubtask(subtaskID) {
         // Einen Button zum Akzeptieren der Bearbeitung erstellen
         let acceptImg = document.createElement("img");
         acceptImg.id = "subtask-done-img";
-        acceptImg.src = "/assets/img/board/done.png";
+        acceptImg.src = "./assets/img/board/done.png";
         acceptImg.classList.add("accept-button");
         acceptImg.onclick = function () {
             // Den bearbeiteten Text übernehmen
@@ -326,22 +334,22 @@ function hoverDeleteInSubtaskcard() {
     let blackEdit = document.getElementById("black-edit");
 
     subtaskFooterDelete.addEventListener("mouseenter", function () {
-        blackTrash.src = "/assets/img/board/blue-trash.svg";
+        blackTrash.src = "./assets/img/board/blue-trash.svg";
         blackTrash.style = "background-color: white;"
         subtaskFooterDelete.style.color = "rgb(40,171,226)";
     });
 
     subtaskFooterDelete.addEventListener("mouseleave", function () {
-        blackTrash.src = "/assets/img/board/trashforsubtasks.png";
+        blackTrash.src = "./assets/img/board/trashforsubtasks.png";
         subtaskFooterDelete.style.color = "black";
     });
 
     subtaskFooterEdit.addEventListener("mouseenter", function () {
-        blackEdit.src = "/assets/img/board/blue-edit.svg";
+        blackEdit.src = "./assets/img/board/blue-edit.svg";
         subtaskFooterEdit.style.color = "rgb(40,171,226)";
     });
     subtaskFooterEdit.addEventListener("mouseleave", function () {
-        blackEdit.src = "/assets/img/board/editforSubtask.png";
+        blackEdit.src = "./assets/img/board/editforSubtask.png";
         subtaskFooterEdit.style.color = "black";
     });
 }
@@ -442,15 +450,16 @@ function createTask(event) {
     let subtasksLength = createdSubtasks.children.length;
 
     if (category === "Technical Task") {
-        category = "/assets/img/board/technical-task.png";
+        category = "./assets/img/board/technical-task.png";
     } else if (category === "User Story") {
-        category = "/assets/img/board/user-story.png";
+        category = "./assets/img/board/user-story.png";
     }
 
     let subtaskElements = createdSubtasks.children;
     let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
         return {
-            title: subtaskElement.textContent,
+            title: subtaskElement.textContent.trim(), 
+            checked: false,
         };
     });
 
@@ -509,13 +518,13 @@ function priorityText(priority) {
 
 function getPriorityImagePath(priority) {
     if (priority === "red") {
-        return "/assets/img/board/Prio-red.png";
+        return "./assets/img/board/Prio-red.png";
     } else if (priority === "yellow") {
-        return "/assets/img/board/Prio-yellow.png";
+        return "./assets/img/board/Prio-yellow.png";
     } else if (priority === "green") {
-        return "/assets/img/board/Prio-green.png";
+        return "./assets/img/board/Prio-green.png";
     } else {
-        return "/assets/img/board/Prio-red.png";
+        return "./assets/img/board/Prio-red.png";
     }
 }
 // Funktion für addTask um Category auszuwählen
@@ -590,7 +599,7 @@ function editSubtask(subtaskID) {
         // Einen Button zum Akzeptieren der Bearbeitung erstellen
         let acceptImg = document.createElement("img");
         acceptImg.id = "subtask-done-img";
-        acceptImg.src = "/assets/img/board/done.png";
+        acceptImg.src = "./assets/img/board/done.png";
         acceptImg.classList.add("accept-button");
         acceptImg.onclick = function () {
             // Den bearbeiteten Text übernehmen
@@ -636,7 +645,7 @@ function resetAllButtons() {
     // Reset red button
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
-    redImg.src = "/assets/img/board/Prio-red.png";
+    redImg.src = "./assets/img/board/Prio-red.png";
     redBtn.style.backgroundColor = "white";
     redBtn.style.color = "black";
     redBtn.style.borderColor = "white";
@@ -644,7 +653,7 @@ function resetAllButtons() {
     // Reset yellow button
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
-    yellowImg.src = "/assets/img/board/Prio-yellow.png";
+    yellowImg.src = "./assets/img/board/Prio-yellow.png";
     yellowBtn.style.backgroundColor = "white";
     yellowBtn.style.color = "black";
     yellowBtn.style.borderColor = "white";
@@ -652,7 +661,7 @@ function resetAllButtons() {
     // Reset green button
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
-    greenImg.src = "/assets/img/board/Prio-green.png";
+    greenImg.src = "./assets/img/board/Prio-green.png";
     greenBtn.style.backgroundColor = "white";
     greenBtn.style.color = "black";
     greenBtn.style.borderColor = "white";
@@ -683,12 +692,12 @@ function colorChangeToRed() {
     redBtn = document.getElementById("prio-btn-red");
 
     if (redImg.src.endsWith("/assets/img/board/Prio-red.png")) {
-        redImg.src = "/assets/img/board/prio-red-white.png";
+        redImg.src = "./assets/img/board/prio-red-white.png";
         redBtn.style.backgroundColor = "rgb(255,61,0)";
         redBtn.style.color = "white";
         redBtn.style.borderColor = "rgb(255,61,0)";
     } else {
-        redImg.src = "/assets/img/board/Prio-red.png";
+        redImg.src = "./assets/img/board/Prio-red.png";
         redBtn.style.backgroundColor = "white";
         redBtn.style.color = "black";
         redBtn.style.borderColor = "white";
@@ -700,12 +709,12 @@ function colorChangeToYellow() {
     yellowBtn = document.getElementById("prio-btn-yellow");
 
     if (yellowImg.src.endsWith("/assets/img/board/Prio-yellow.png")) {
-        yellowImg.src = "/assets/img/board/prio-yellow-white.png";
+        yellowImg.src = "./assets/img/board/prio-yellow-white.png";
         yellowBtn.style.backgroundColor = "rgb(255,168,0)";
         yellowBtn.style.color = "white";
         yellowBtn.style.borderColor = "rgb(255,168,0)";
     } else {
-        yellowImg.src = "/assets/img/board/Prio-yellow.png";
+        yellowImg.src = "./assets/img/board/Prio-yellow.png";
         yellowBtn.style.backgroundColor = "white";
         yellowBtn.style.color = "black";
         yellowBtn.style.borderColor = "white";
@@ -717,12 +726,12 @@ function colorChangeToGreen() {
     greenBtn = document.getElementById("prio-btn-green");
 
     if (greenImg.src.endsWith("/assets/img/board/Prio-green.png")) {
-        greenImg.src = "/assets/img/board/prio-green-white.png";
+        greenImg.src = "./assets/img/board/prio-green-white.png";
         greenBtn.style.backgroundColor = "rgb(122,226,40)";
         greenBtn.style.color = "white";
         greenBtn.style.borderColor = "rgb(122,226,40)";
     } else {
-        greenImg.src = "/assets/img/board/Prio-green.png";
+        greenImg.src = "./assets/img/board/Prio-green.png";
         greenBtn.style.backgroundColor = "white";
         greenBtn.style.color = "black";
         greenBtn.style.borderColor = "white";
