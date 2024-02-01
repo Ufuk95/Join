@@ -15,61 +15,66 @@
   <script src="./js/contacts.js" defer></script>
 </head>
 <!------------------------- TEMPLATES ------------------------->
-<body onload="contactsInit()" id="3">
-  <div id="grey-bg">
-    <header id="header" w3-include-html="./assets/templates/header.html"></header>
-    <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
-    <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
 
-    <!------------------------- CONTACTS-FRAME ------------------------->
-    <div id="contacts-frame">
-      <div id="contacts-button-wrapper">
-        <div id="contacts-btn">
-          <span id="contacts-btn__txt">
-            Add new contact
-          </span>
-          <img src="./assets/img/contacts/add_new_contact.png" alt="">
+<body onload="contactsInit()" id="3">
+  <div class="grey-bg">
+      <!-- <div class="dialog-background display-none"> -->
+      <header id="header" w3-include-html="./assets/templates/header.html"></header>
+      <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
+      <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
+      <div id="add-contact-frame display-none"></div>
+
+      <!------------------------- CONTACTS-FRAME ------------------------->
+      <div id="contacts-frame">
+        <div id="contacts-button-wrapper">
+          <div id="contacts-btn">
+            <span id="contacts-btn__txt">
+              Add new contact
+            </span>
+            <img src="./assets/img/contacts/add_new_contact.png" alt="">
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="contacts-slogan-box">
-      <span id="contacts-slogan">Contacts</span>
-      <img src="./assets/img/contacts/stroke_vertical_blue.png" alt="">
-      <span id="contacts-slogan__txt">
-        Better with a team
-      </span>
+      <div id="contacts-slogan-box">
+        <span id="contacts-slogan">Contacts</span>
+        <img src="./assets/img/contacts/stroke_vertical_blue.png" alt="">
+        <span id="contacts-slogan__txt">
+          Better with a team
+        </span>
 
-<!-------------------------------- RIGHT SIDE CONTACT DETAILS ---------------------------------->
-      <div class="contact-infos-box display-none">
-        <div id="contact-infos__name-eclipse">
-          <div id="contact-infos__eclipse"></div>
-          <div id="contact-infos__name-edit-delete">
-            <div id="contact-infos__name"></div>
-            <div id="contact-infos__edit-delete">
-              <div id="contact-infos__edit">
-                <img src="./assets/img/contacts/icon_pencil.svg" alt="">
-                <span id="contact-infos__edit-txt">Edit</span>
-              </div>
-              <div id="contact-infos__delete">
-                <img src="./assets/img/contacts/icon_trash_bin.svg" alt="">
-                <span id="contact-infos__delete-txt">Delete</span>
+        <!-------------------------------- RIGHT SIDE CONTACT DETAILS ---------------------------------->
+        <div class="contact-infos-box display-none">
+          <div id="contact-infos__name-eclipse">
+            <div id="contact-infos__eclipse"></div>
+            <div id="contact-infos__name-edit-delete">
+              <div id="contact-infos__name"></div>
+              <div id="contact-infos__edit-delete">
+                <div id="contact-infos__edit">
+                  <img src="./assets/img/contacts/icon_pencil.svg" alt="">
+                  <span id="contact-infos__edit-txt">Edit</span>
+                </div>
+                <div id="contact-infos__delete">
+                  <img src="./assets/img/contacts/icon_trash_bin.svg" alt="">
+                  <span id="contact-infos__delete-txt">Delete</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div id="contact-information">Contact Information</div>
-        <div id="contact-infos__email-phone-frame">
-          <div id="contact-infos__email-frame">
-            <div id="contact-infos__email-txt">Email</div>
-            <div id="contact-infos__email"></div>
-          </div>
-          <div id="contact-infos__phone-frame">
-            <div id="contact-infos__phone-txt">Phone</div>
-            <div id="contact-infos__phone"></div>
+          <div id="contact-information">Contact Information</div>
+          <div id="contact-infos__email-phone-frame">
+            <div id="contact-infos__email-frame">
+              <div id="contact-infos__email-txt">Email</div>
+              <div id="contact-infos__email"></div>
+            </div>
+            <div id="contact-infos__phone-frame">
+              <div id="contact-infos__phone-txt">Phone</div>
+              <div id="contact-infos__phone"></div>
+            </div>
           </div>
         </div>
       </div>
+      <!--------------------------  -------------------------->
     </div>
   </div>
 </body>

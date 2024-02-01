@@ -8,6 +8,25 @@ body {
   box-sizing: border-box;
 }
 
+/************************* BACKGROUNDS *************************/
+.grey-bg {
+  background-color: #F6F7F8;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.dialog-background{
+  /* background-color: rgba(0, 0, 0, 0.4); */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0.5;
+}
 
 /************************* LEFT-SECTION-CONTACTS *************************/
 #contacts-frame-wrapper {}
@@ -42,7 +61,6 @@ body {
   }
 }
 
-
 #contacts-button-wrapper {
   width: 352px;
   z-index: 2;
@@ -71,8 +89,6 @@ body {
 .letter0 {
   margin-top: 62px;
 }
-
-
 
 #contacts-btn__txt {
   color: #FFF;
@@ -175,16 +191,6 @@ body {
 }
 
 /************************* RIGHT SIDE CONTACTS *************************/
-#grey-bg {
-  background-color: #F6F7F8;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-}
 
 #contacts-slogan-wrapper {
   display: inline;
@@ -356,6 +362,20 @@ body {
   line-height: 120%;
 }
 
+/************************* ADD CONTACT FRAME *************************/
+#add-contact-frame {
+  position: absolute;
+  width: 1212px;
+  height: 592px;
+  border-radius: 30px;
+  border: solid lightcoral;
+  z-index: 10;
+  margin-bottom: 300px;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
 /************************* TRANSITIONS *************************/
 
 @keyframes slidein {
@@ -368,13 +388,13 @@ body {
   }
 }
 
-.transition{
+.transition {
   animation-name: slidein;
-  animation-duration: 0.4s; 
+  animation-duration: 0.4s;
   animation-timing-function: ease;
 }
 
 /************************* DISPLAY CLASSES *************************/
-.display-none{
+.display-none {
   display: none;
 }

@@ -20,6 +20,9 @@ async function getSignUpInputs() {
 }
 
 
+/**
+ * Handles the remote storage logic
+ */
 async function handleRemoteStorage(name, email, password, passwordRepeat){
   signUpNameEmail = await getUserData("userData");
   emailPwCombo = await getUserData("emailPwCombo");
@@ -61,7 +64,9 @@ async function setSignUpData(remoteKey, JSONArray) {
   await setItem(remoteKey, JSON.stringify(JSONArray));
 }
 
-
+/**
+ * Gets user data from remote
+ */
 async function getUserData(remoteKey) {
   let remoteValue = JSON.parse(await getItem(remoteKey));
   return remoteValue;
