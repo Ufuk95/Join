@@ -1,118 +1,23 @@
 const tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
+let currentColor = null;
 
-async function updateHTML() {
-    try {
-        ["todo"].forEach(async (field) => {
-            await updateArea(field);
-        });
-    } catch (error) {
-        console.error('An error occurred while updating HTML:', error);
-    }
-}
-
-
-async function updateArea(field) {
-    const filteredTasks = tasks.filter((t) => t["field"] === field);
-    const areaElement = window.parent.document.getElementById(field);
-
-    // Check if the areaElement exists before updating its innerHTML
-    if (areaElement) {
-        areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
-    } else {
-        console.error(`Element with id ${field} not found.`);
-    }
-}
-
-function startDragging(id) {
-    currentDraggedElement = id;
-}
-
-function generateTaskHTML(element) {
-    return `
-    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task">
-        <div>
-            <img src="${element.category}">
-        </div>
-        <div>
-            <b>${element.title}</b>
-        </div>
-        <div>
-            <p class="description-font">${element.description}</p>
-        </div>
-        <div class="progress-task">
-            <div class="progressbar"></div>
-             <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
-        </div>
-        <div>
-            <img id="priority" src="${element.priority}" alt="Priority">
-        </div> 
-    </div>`;
-}
-
-// Annahme: board ist eine globale Variable, die Ihre Aufgaben enthält
-
-function updateProgressBar(taskId) {
-    const task = tasks.find((item) => item.id === taskId);
-    const progressBar = document.querySelector(
-        `.tasks[data-id="${taskId}"].progressbar`
-    );
-
-    if (task && progressBar) {
-        const subtasksDone = task.subtasks.filter((subtask) => subtask.done).length;
-        const subtasksTotal = task.subtasks.length;
-
-        // Aktualisiere die Fortschrittsleiste
-        const progressPercentage =
-            subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
-        progressBar.style.width = `${progressPercentage}%`;
-
-        // Aktualisiere die Anzeige für Subtasks
-        const subtaskDisplay = document.querySelector(
-            `.task[data-id="${taskId}"] .subtask-display`
-        );
-        if (subtaskDisplay) {
-            subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
-        }
-    }
-}
-
-// Beispiel für das Aktualisieren der Fortschrittsleiste und Anzeige für Subtasks
-updateProgressBar(0);
-
-function moveTo(field) {
-    tasks[currentDraggedElement]["field"] = field;
-    updateHTML();
-}
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function highlight(id) {
-    document.getElementById(id).classList.add("drag-area-highlight");
-}
-
-function removeHighlight(id) {
-    document.getElementById(id).classList.remove("drag-area-highlight");
+function updateHTML() {
+    setupClearButton();
+    showDateOnInput()
 }
 
 function createTask(event) {
     event.preventDefault();
 
-    let titleInput = document.getElementById("task-title-input");
-    let descriptionInput = document.getElementById("description-input");
-    let dateInput = document.getElementById("date");
+    let title = document.getElementById("task-title-input");
+    let description = document.getElementById("description-input");
+    let date = document.getElementById("date");
     let createdSubtasks = document.getElementById("unsorted-list");
-    let fieldInput = document.getElementById("task-field");
-    let categoryInput = document.getElementById("task-category-input");
-
-    let title = titleInput.value;
-    let description = descriptionInput.value;
-    let date = dateInput.value;
-    let field = fieldInput.value;
-    let category = categoryInput.value;
+    // let fieldInput = document.getElementById("task-field");    muss noch gemacht werden damit es von der add task seite zur board seite in todo erscheint!!
+    let category = document.getElementById("task-category-input");
+    // let field = fieldInput.value;
     let subtasksLength = createdSubtasks.children.length;
 
     if (category === "Technical Task") {
@@ -124,25 +29,20 @@ function createTask(event) {
     let subtaskElements = createdSubtasks.children;
     let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
         return {
-            title: subtaskElement.textContent,
+            title: subtaskElement.textContent.trim(),
+            id: subtaskElement.id,
         };
     });
 
     let taskId = tasks.length;
 
-    titleInput.value = "";
-    descriptionInput.value = "";
-    dateInput.value = "";
-    categoryInput.value = "";
-    createdSubtasks.innerHTML = "";
-
     let task = {
         id: taskId,
-        field: field,
-        title: title,
-        description: description,
-        date: date,
-        category: category,
+        // field: field,
+        title: title.value,
+        description: description.value,
+        date: date.value,
+        category: category.value,
         priority: getPriorityImagePath(currentPriority),
         contacts: "?",
         subtasks: subtasks,
@@ -152,16 +52,18 @@ function createTask(event) {
     tasks.push(task);
     console.log(tasks);
 
-    updateHTML();
+    title.value = "";
+    description.value = "";
+    date.value = "";
+    category.value = "";
+    createdSubtasks.innerHTML = "";
 
-    let closeTask = document.getElementById("full-task-card");
-    closeTask.classList.add("d-none");
-
+    updateHTML()
     resetAllButtons();
     currentPriority = null;
 }
 
-
+// Diese Funktion ändert per knopfdruck die Farben der Buttons
 function getPriorityImagePath(priority) {
     if (priority === "red") {
         return "/assets/img/board/Prio-red.png";
@@ -173,8 +75,8 @@ function getPriorityImagePath(priority) {
         return "/assets/img/board/Prio-red.png";
     }
 }
-// Funktion für addTask um Category auszuwählen
 
+// Funktion für addTask um Category auszuwählen
 function showTaskSelect(selectedOption) {
     let taskSelectCategory = document.getElementById("task-select-category");
     let arrowDownImg = document.getElementById("arrow_down");
@@ -193,10 +95,9 @@ function showTaskSelect(selectedOption) {
 }
 
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
-
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
-    let subtaskOL = document.getElementById("unsorted-list");
+    let subtaskUL = document.getElementById("unsorted-list");
     let subtaskText = inputSubtasks.value;
     let subtaskID = `subtask-${Date.now()}`;
     let newSubtask = document.createElement("div");
@@ -204,7 +105,7 @@ function addSubtask() {
     newSubtask.className = "full-subtasks-area";
 
     newSubtask.innerHTML = `
-      <li>${subtaskText}</li>
+      <li class="subtask-headline">${subtaskText}</li>
       <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
         <img src="/assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
         <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
@@ -212,23 +113,25 @@ function addSubtask() {
     `;
 
     // Neues Subtask-Element dem Subtask-OL hinzufügen
-    subtaskOL.appendChild(newSubtask);
+    subtaskUL.appendChild(newSubtask);
 
     inputSubtasks.value = "";
     setTimeout(restoreInputImg, 0);
+    subtaskEventlistener(subtaskID);
+}
 
-    // Event Listener für das aktuelle Subtask-Element hinzufügen
+
+function subtaskEventlistener(subtaskID) {
     let currentSubtask = document.getElementById(subtaskID);
 
     // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
     if (!currentSubtask.dataset.listenerAdded) {
         currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
         currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
-
-        // Markieren, dass der Eventlistener hinzugefügt wurde
         currentSubtask.dataset.listenerAdded = true;
     }
 }
+
 
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
@@ -244,16 +147,15 @@ function mouseLeave(subtaskID) {
 
 
 
+
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
     inputSubtasks.value = "";
-    // Bilder wiederherstellen
     restoreInputImg();
 }
 
 function deleteSubtask(subtaskID) {
     let subtaskElement = document.getElementById(subtaskID);
-
     if (subtaskElement) {
         subtaskElement.remove();
     } else {
@@ -265,15 +167,17 @@ function editSubtask(subtaskID) {
     let subtaskContainer = document.getElementById(subtaskID);
 
     if (subtaskContainer) {
-
         let subtaskTextElement = subtaskContainer.querySelector("li");
 
         // Bilder für Bearbeiten und Löschen ausblenden
         let editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
         editImgsContainer.classList.add("d-none");
 
+
         // Einen neuen Input für die Bearbeitung erstellen
         let inputElement = document.createElement("input");
+        inputElement.classList = "subtask-edit";
+        inputElement.classList.remove("task-title");
         inputElement.id = "subtask-edit";
         inputElement.type = "text";
         inputElement.value = subtaskTextElement.textContent;
@@ -300,6 +204,7 @@ function editSubtask(subtaskID) {
     }
 }
 
+
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("d-none");
@@ -311,17 +216,8 @@ function addTask(field) {
     document.getElementById("task-field").value = field;
 }
 
-function closeTask() {
-    let taskcard = document.getElementById("full-task-card");
-    taskcard.classList.remove("open");
-    setTimeout(function () {
-        taskcard.classList.add("d-none");
-    }, 500);
-}
 
 // farben für die prio Buttons ändern
-
-let currentColor = null;
 
 function resetAllButtons() {
     // Reset red button
@@ -443,3 +339,50 @@ function restoreInputImg() {
     vectorIcon.classList.add("d-none");
     checkedIcon.classList.add("d-none");
 }
+
+
+function setupClearButton() {
+    const clearButton = document.getElementById("clear-button");
+    const blackCross = document.getElementById("black-cross");
+    const blueCross = document.getElementById("blue-cross");
+
+    clearButton.addEventListener("mouseenter", function () {
+        // Schwarzes Kreuz ausblenden, blaues Kreuz anzeigen
+        blackCross.classList.add("d-none");
+        blueCross.classList.remove("d-none");
+    });
+
+
+    clearButton.addEventListener("mouseleave", function () {
+        // Blaues Kreuz ausblenden, schwarzes Kreuz anzeigen
+        blackCross.classList.remove("d-none");
+        blueCross.classList.add("d-none");
+    });
+}
+
+
+function clearTask() {
+    document.getElementById("task-title-input").value = "";
+    document.getElementById("description-input").value = "";
+    document.getElementById("date").value = "";
+    document.getElementById("task-category-input").value = "";
+    document.getElementById("input-subtasks").value = "";
+
+    let subtaskUL = document.getElementById("unsorted-list");
+    subtaskUL.innerHTML = "";
+
+    resetAllButtons();
+    updateHTML();
+}
+
+
+function showDateOnInput() {
+    document.getElementById("date").addEventListener('focus', function (event) {
+        event.target.showPicker();
+    });
+}
+
+
+// function redirectToBoardTask(){
+//     window.location.href = '/board.html';
+// }

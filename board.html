@@ -29,12 +29,12 @@
                 <div class="board-active">
                     <input placeholder="Find Task" type="text">
                     <div class="input-img">
-                        <img src="/assets/img/board/vector-subtask.png" alt="">
-                        <img class="search-img" src="/assets/img/board/search.png" alt="" onclick="searchTasks()">
+                        <img src="./assets/img/board/vector-subtask.png" alt="">
+                        <img class="search-img" src="./assets/img/board/search.png" alt="" onclick="searchTasks()">
                     </div>
                     <button onclick="addTask('todo')">
                         Add task
-                        <img src="/assets/img/board/add.png" alt="plus">
+                        <img src="./assets/img/board/add.png" alt="plus">
                     </button>
                 </div>
             </div>
@@ -43,8 +43,8 @@
                     <div class="flex">
                         <span>To do</span>
                         <div class="addTask">
-                            <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
-                            <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
+                            <img class="black-plus" src="./assets/img/board/Capa1-black.png" alt="plus img">
+                            <img class="blue-plus" src="./assets/img/board/Capa1-blue.png" alt="blue plus"
                                 onclick="addTask('todo')">
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                     <div class="flex">
                         <span>In progress</span>
                         <div class="addTask">
-                            <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
-                            <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
+                            <img class="black-plus" src="./assets/img/board/Capa1-black.png" alt="plus img">
+                            <img class="blue-plus" src="./assets/img/board/Capa1-blue.png" alt="blue plus"
                                 onclick="addTask('in-progress')">
                         </div>
                     </div>
@@ -68,8 +68,8 @@
                     <div class="flex">
                         <span>Await feedback</span>
                         <div class="addTask">
-                            <img class="black-plus" src="/assets/img/board/Capa1-black.png" alt="plus img">
-                            <img class="blue-plus" src="/assets/img/board/Capa1-blue.png" alt="blue plus"
+                            <img class="black-plus" src="./assets/img/board/Capa1-black.png" alt="plus img">
+                            <img class="blue-plus" src="./assets/img/board/Capa1-blue.png" alt="blue plus"
                                 onclick="addTask('await-feedback')">
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                     <div class="task-card">
                         <header class="add-task-header">
                             <span class="task-card-headline">Add Task</span>
-                            <img class="task-close-X" src="/assets/img/board/close.png" onclick="closeTask()">
+                            <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeTask()">
                         </header>
 
                         <div class="middle-task-body">
@@ -119,14 +119,14 @@
                                     <span class="font-line">Assigned to</span>
                                     <div class="task-contact-input-area">
                                         <input type="text" placeholder="Select contacts to assign">
-                                        <img class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png"
                                             alt="arrow down" onclick="showContactsInTasks()">
                                     </div>
                                 </div>
                             </div>
                             <!-- einfache div für die trennung durch eine vektor linie -->
                             <div class="vektor-line">
-                                <img src="/assets/img/board/vertical-line.png" alt="">
+                                <img src="./assets/img/board/vertical-line.png" alt="">
                             </div>
                             <!-- ----- -->
                             <div class="right-side">
@@ -141,11 +141,11 @@
                                     <span class="font-line">Prio<span style="color: #FF8190;">*</span></span>
                                     <div class="task-button-area">
                                         <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
-                                            <img id="prio-red" src="/assets/img/board/Prio-red.png" alt="Urgent"></button>
+                                            <img id="prio-red" src="./assets/img/board/Prio-red.png" alt="Urgent"></button>
                                         <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
-                                            <img id="prio-yellow" src="/assets/img/board/Prio-yellow.png" alt="Medium"></button>
+                                            <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png" alt="Medium"></button>
                                         <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
-                                            <img id="prio-green" src="/assets/img/board/Prio-green.png" alt="Low"></button>
+                                            <img id="prio-green" src="./assets/img/board/Prio-green.png" alt="Low"></button>
                                     </div>
                                 </div>                                                              
                                 <div class="task-title">
@@ -153,10 +153,10 @@
                                     <div class="task-contact-input-area" onclick="showTaskSelect()">
                                         <input required type="text" id="task-category-input"
                                             placeholder="Select task category">
-                                        <img id="arrow_down" class="Assigned-img" src="/assets/img/board/arrow_down.png"
+                                        <img id="arrow_down" class="Assigned-img" src="./assets/img/board/arrow_down.png"
                                             alt="#">
                                         <img id="arrow_up" class="Assigned-img d-none"
-                                            src="/assets/img/board/arrow_up.png" alt="#">
+                                            src="./assets/img/board/arrow_up.png" alt="#">
                                     </div>
                                     <div id="task-select-category" class="task-select-category d-none">
                                         <span id="technicalTask" class="selected-task"
@@ -169,17 +169,17 @@
                                     <div class="task-contact-input-area" onclick="changeInputImg()">
                                         <input id="input-subtasks" type="text" placeholder="Add new subtasks">
                                         <img id="subtask-plus-img" class="Assigned-img"
-                                            src="/assets/img/board/addTaskAdd.png" alt="plus">
+                                            src="./assets/img/board/addTaskAdd.png" alt="plus">
                                         <div style="display: flex; align-items: center; gap: 8px;">
                                             <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
-                                                src="/assets/img/board/close.png" onclick="deleteSubtaskInput()">
+                                                src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
                                             <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
-                                                src="/assets/img/board/vector-subtask.png">
+                                                src="./assets/img/board/vector-subtask.png">
                                             <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
-                                                src="/assets/img/board/checked.png" onclick="addSubtask()">
+                                                src="./assets/img/board/checked.png" onclick="addSubtask()">
                                         </div>
                                     </div>
-                                    <ol class="unsorted-list" id="unsorted-list"></ol>
+                                    <ul class="unsorted-list" id="unsorted-list"></ul>
                                 </div>
                             </div>
                         </div>
@@ -190,10 +190,10 @@
                             </div>
                             <div class="add-task-footer-btn">
                                 <button class="task-button cancel-btn" onclick="closeTask()">
-                                    Cancel<img style="width: 25px; height: 24px;" src="/assets/img/board/close.png">
+                                    Cancel<img style="width: 25px; height: 24px;" src="./assets/img/board/close.png">
                                 </button>
                                 <button type="submit" class="task-button create-btn">
-                                    Create Task <img src="/assets/img/board/footerCheckBtn.png">
+                                    Create Task <img src="./assets/img/board/footerCheckBtn.png">
                                 </button>
                             </div>
                         </footer>
