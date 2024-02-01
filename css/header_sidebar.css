@@ -68,7 +68,7 @@ a {
   left: 0;
   top: 0;
   display: flex;
-  z-index: 999;
+  z-index: 4;
   width: 232px;
   height: 100vh;
   padding: 64px 0px;

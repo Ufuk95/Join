@@ -185,3 +185,8 @@ function clearContactDetails(contactDetailsArray) {
   }
 }
 
+
+function addNewContactBtn(){
+  
+}
+

@@ -14,11 +14,13 @@
   <script src="./assets/templates/contacts_templates.js" defer></script>
   <script src="./js/contacts.js" defer></script>
 </head>
-<!------------------------- TEMPLATES ------------------------->
 
 <body onload="contactsInit()" id="3">
+  <!------------------------- BACKGROUNDS ------------------------->
   <div class="grey-bg">
-    <!-- <div class="dialog-background"> -->
+    <div class="dialog-background display-none"></div>
+    
+    <!------------------------- TEMPLATES ------------------------->
       <header id="header" w3-include-html="./assets/templates/header.html"></header>
       <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
       <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
@@ -27,7 +29,7 @@
       <!------------------------- CONTACTS-FRAME ------------------------->
       <div id="contacts-frame">
         <div id="contacts-button-wrapper">
-          <div id="contacts-btn">
+          <div id="contacts-btn" onclick="addNewContactBtn()">
             <span id="contacts-btn__txt">
               Add new contact
             </span>
@@ -76,7 +78,6 @@
       </div>
       <!--------------------------  -------------------------->
     </div>
-  </div>
 </body>
 
 </html>
