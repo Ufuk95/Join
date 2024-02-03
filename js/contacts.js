@@ -189,7 +189,7 @@ function clearContactDetails(contactDetailsArray) {
 
 
 /**
- * Executes on clicking the add new contact button
+ * Executes on clicking the add new contact button.
  */
 function addNewContactBtn(){
   document.querySelector(`.dialog-bg`).classList.remove("display-none")
@@ -199,7 +199,7 @@ function addNewContactBtn(){
 }
 
 /**
- * Closes the dialog and the add new contact form
+ * Closes the dialog and the add new contact form.
  */
 function navigateBack(){
   let addContactFrame = document.querySelector(`.add-contact-frame`)
@@ -208,3 +208,6 @@ function navigateBack(){
   addContactFrame.classList.remove("transition__add-contact")
 }
 
+async function getContactData(){
+  
+}

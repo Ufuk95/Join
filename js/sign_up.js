@@ -54,13 +54,8 @@ async function logFromRemote(remoteKey) {
   console.log(parsedData);
 }
 
-// logFromRemote("userData");
 logFromRemote("emailPwCombo")
 // ! ---------------------------------------------------------
-
-
-
-
 
 
 
