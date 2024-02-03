@@ -8,7 +8,7 @@ function updateHTML() {
     showDateOnInput()
 }
 
-function createTask(event) {
+async function createTask(event) {
     event.preventDefault();
 
     let title = document.getElementById("task-title-input");
@@ -38,7 +38,7 @@ function createTask(event) {
 
     let task = {
         id: taskId,
-        // field: field,
+        field: "todo",
         title: title.value,
         description: description.value,
         date: date.value,
@@ -58,22 +58,12 @@ function createTask(event) {
     category.value = "";
     createdSubtasks.innerHTML = "";
 
+
+    await setItem("key", task);
+
     updateHTML()
     resetAllButtons();
     currentPriority = null;
-}
-
-// Diese Funktion ändert per knopfdruck die Farben der Buttons
-function getPriorityImagePath(priority) {
-    if (priority === "red") {
-        return "/assets/img/board/Prio-red.png";
-    } else if (priority === "yellow") {
-        return "/assets/img/board/Prio-yellow.png";
-    } else if (priority === "green") {
-        return "/assets/img/board/Prio-green.png";
-    } else {
-        return "/assets/img/board/Prio-red.png";
-    }
 }
 
 // Funktion für addTask um Category auszuwählen
@@ -216,6 +206,19 @@ function addTask(field) {
     document.getElementById("task-field").value = field;
 }
 
+// Diese Funktion ändert per knopfdruck die Farben der Buttons
+function getPriorityImagePath(priority) {
+    if (priority === "red") {
+        return "/assets/img/board/Prio-red.png";
+    } else if (priority === "yellow") {
+        return "/assets/img/board/Prio-yellow.png";
+    } else if (priority === "green") {
+        return "/assets/img/board/Prio-green.png";
+    } else {
+        return "/assets/img/board/Prio-red.png";
+    }
+}
+
 
 // farben für die prio Buttons ändern
 
@@ -260,8 +263,6 @@ function changeBtnColor(color) {
         }
     } else {
         currentColor = null;
-        // Wenn kein Button ausgewählt ist, setze die currentPriority zurück
-        currentPriority = null;
     }
 }
 
@@ -383,6 +384,7 @@ function showDateOnInput() {
 }
 
 
-// function redirectToBoardTask(){
-//     window.location.href = '/board.html';
-// }
+function redirectToBoardTask() {
+    window.location.href = '/board.html';
+}
+
