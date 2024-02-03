@@ -5,14 +5,30 @@ let editedSubtaskText;
 
 async function updateHTML() {
     try {
-        ["todo", "in-progress", "await-feedback", "done"].forEach(async (field) => {
+        for (const field of ["todo", "in-progress", "await-feedback", "done"]) {
             await updateArea(field);
-        });
+        }
     } catch (error) {
         console.error('An error occurred while updating HTML:', error);
     }
 
     updateProgressBar(0);
+    getTaskFromRemote();
+}
+
+
+async function getTaskFromRemote(){
+    try {
+        const storedTaskJSON = await getItem("key");
+        const storedTask = JSON.parse(storedTaskJSON);
+
+        tasks.push(storedTask);
+        await updateArea("todo");
+
+        console.log(storedTask);
+    } catch (error) {
+        console.error('An error occurred while fetching and parsing stored task:', error);
+    }
 }
 
 
@@ -363,10 +379,24 @@ function deleteTaskCard(taskId) {
         tasks.splice(taskIndex, 1);
         updateHTML();
         closeTaskCard();
+
+        try {
+            // Versuche, die gespeicherte Aufgabe aus dem localStorage zu entfernen
+            const storedTaskJSON = getItem("key");
+            if (storedTaskJSON) {
+                removeItem("key");
+
+                // Speichere das aktualisierte tasks Array im localStorage
+                setItem("key", JSON.stringify(tasks));
+            }
+        } catch (error) {
+            console.error('An error occurred while removing stored task:', error);
+        }
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
+
 
 function closeTaskCard() {
     let addNone = document.getElementById('card-container');

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/add-task.css">
 
     <script src="./script.js" defer></script>
-    <script src="./js/summary.js" defer></script>
+    <script src="./js/storage.js" defer></script>
     <script src="./js/add_task.js" defer></script>
 
     <script defer>
@@ -37,7 +37,7 @@
                 <div class="left-side">
                     <div class="task-title">
                         <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                        <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle"
+                        <input required type="text" autocomplete = "off" class="task-title-input" id="task-title-input" name="taskTitle"
                             placeholder="Enter a title">
                     </div>
                     <div class="task-title">
@@ -48,7 +48,7 @@
                     <div class="task-title">
                         <span class="font-line">Assigned to</span>
                         <div class="task-contact-input-area">
-                            <input type="text" placeholder="Select contacts to assign">
+                            <input type="text" autocomplete = "off" placeholder="Select contacts to assign">
                             <img class="Assigned-img" src="./assets/img/board/arrow_down.png" alt="arrow down"
                                 onclick="showContactsInTasks()">
                         </div>
@@ -85,7 +85,7 @@
                     <div class="task-title">
                         <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                         <div class="task-contact-input-area" onclick="showTaskSelect()">
-                            <input required type="text" id="task-category-input" placeholder="Select task category">
+                            <input required type="text" autocomplete = "off" id="task-category-input" placeholder="Select task category">
                             <img id="arrow_down" class="Assigned-img" src="./assets/img/board/arrow_down.png" alt="#">
                             <img id="arrow_up" class="Assigned-img d-none" src="./assets/img/board/arrow_up.png"
                                 alt="#">
@@ -98,7 +98,7 @@
                     <div class="subtask-complete">
                         <span class="font-line">Subtasks</span>
                         <div class="task-contact-input-area" onclick="changeInputImg()">
-                            <input class="subtask-main-input" id="input-subtasks" type="text"
+                            <input class="subtask-main-input" autocomplete = "off" id="input-subtasks" type="text"
                                 placeholder="Add new subtasks">
                             <img id="subtask-plus-img" class="Assigned-img" src="./assets/img/board/addTaskAdd.png"
                                 alt="plus">
