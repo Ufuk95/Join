@@ -18,8 +18,8 @@ body {
   left: 0;
 }
 
-.dialog-background{
-  background-color: rgba(0, 0, 0, 0.4);
+.dialog-bg {
+  background-color: rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 0;
   bottom: 0;
@@ -85,7 +85,7 @@ body {
   background: #091931;
 }
 
-#contacts-btn:hover{
+#contacts-btn:hover {
   cursor: pointer;
 }
 
@@ -365,9 +365,10 @@ body {
   line-height: 120%;
 }
 
-/************************* ADD CONTACT FRAME *************************/
-#add-contact-frame {
+/************************* ADD NEW CONTACT FRAME *************************/
+.add-contact-frame {
   position: absolute;
+  display: flex;
   width: 1212px;
   height: 592px;
   border-radius: 30px;
@@ -379,8 +380,230 @@ body {
   transform: translate(50%, -50%);
 }
 
-/************************* TRANSITIONS *************************/
+#close-x {
+  /* margin-right: 29px */
+}
 
+#close-x__wrapper {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: content-box;
+  padding: 50px;
+  padding-bottom: 64px;
+  margin-left: auto;
+}
+
+#enclosing-circle {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+#enclosing-circle:hover {
+  background-color: #f1eeee;
+  cursor: pointer;
+}
+
+
+
+.add-contact-frame__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: solid blueviolet; */
+  width: 38%;
+  background-color: #2A3647;
+  border-radius: 30px 0 0 30px;
+}
+
+.add-contact-frame__right {
+  background-color: #FFFFFF;
+  width: 62%;
+  border-radius: 0 30px 30px 0;
+}
+
+#logo-join {
+  width: 55.6px;
+  height: 66.48px;
+}
+
+.add-contact__left-content {
+  position: relative;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.left-content__header {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 61px;
+  color: #FFFFFF
+}
+
+.left-content__slogan {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 27px;
+  color: #FFFFFF
+}
+
+#blue-stroke {
+  height: 2;
+  width: 90px;
+}
+
+.add-contact-form__wrapper {
+  height: fit-content;
+  display: flex;
+  /* border: solid blue */
+}
+
+.add-contact__img-placeholder {
+  display: flex;
+  box-sizing: border-box;
+  width: 40%;
+  padding-top: 60px;
+  /* padding-left:70px; */
+  /* border: solid red ; */
+}
+
+.person-img {
+  width: 124px;
+  height: 124px;
+  /* border: solid orange; */
+  margin: 0 auto;
+}
+
+
+.add-contact__form {
+  width: 60%;
+  /* border: solid rgb(152, 11, 11) */
+}
+
+/* Used in sign-up to place the imgs in input field */
+/* Change the naming and use them for this form. */
+.input-fields-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 90%;
+}
+
+.input-field__box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.input-field {
+  display: flex;
+  position: relative;
+  font-family: "Inter";
+  height: 48px;
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 12px;
+  font-size: 20px;
+  font-weight: 400;
+  border: 1px solid #d1d1d1;
+  cursor: auto;
+}
+
+.input-field__img-placing {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 18px;
+}
+
+.input-field:focus {
+  outline: none;
+  border: solid #29ABE2 1px;
+}
+
+.add-contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.form-btns-frame {
+  margin-top: 20px;
+  display: flex;
+  align-self: flex-start;
+  gap: 24px;
+}
+
+
+.cancel-btn {
+  width: 126px;
+  height: 56px;
+  border: 1px solid #2A3647;
+  border-radius: 10px;
+  align-self: flex-start;
+}
+
+.cancel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-btn__content {
+  display: flex;
+  align-items: center;
+  /* gap: 4px; */
+}
+
+.cancel-txt {
+  font-size: 20px;
+  line-height: 120%;
+  font-family: Inter;
+}
+
+
+.create-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #2A3647;
+  width: 217px;
+  height: 56px;
+}
+
+.create-btn__content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.create-btn__txt {
+  font-size: 21px;
+  font-weight: 700;
+  font-family: Inter;
+  color: #FFFFFF;
+}
+
+
+.input-field__img-placing {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 18px;
+}
+
+
+/************************* TRANSITIONS *************************/
 @keyframes slidein {
   from {
     transform: translateX(200%);
@@ -391,10 +614,28 @@ body {
   }
 }
 
+@keyframes add-contact {
+  from {
+    transform: translate(200%, -50%)
+  }
+
+  to {
+    transform: translate(50%, -50%);
+  }
+
+}
+
 .transition {
   animation-name: slidein;
   animation-duration: 0.4s;
   animation-timing-function: ease;
+}
+
+.transition__add-contact {
+  animation-name: add-contact;
+  animation-duration: 0.4s;
+  animation-timing-function: ease;
+
 }
 
 /************************* DISPLAY CLASSES *************************/

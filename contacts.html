@@ -18,13 +18,12 @@
 <body onload="contactsInit()" id="3">
   <!------------------------- BACKGROUNDS ------------------------->
   <div class="grey-bg">
-    <div class="dialog-background display-none"></div>
+    <div class="dialog-bg display-none" onclick="navigtateBack()"></div>
     
     <!------------------------- TEMPLATES ------------------------->
       <header id="header" w3-include-html="./assets/templates/header.html"></header>
       <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
       <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
-      <div id="add-contact-frame display-none"></div>
 
       <!------------------------- CONTACTS-FRAME ------------------------->
       <div id="contacts-frame">
@@ -78,6 +77,65 @@
       </div>
       <!--------------------------  -------------------------->
     </div>
+      <!-------------------------- ADD CONTACT FRAME -------------------------->
+      <div class="add-contact-frame display-none">
+        <!-------------- CONTACT FRAME LEFT -------------->
+        <div class="add-contact-frame__left">
+          <div class="add-contact__left-content">
+            <img id="logo-join" src="./assets/img/contacts/join_logo.svg" alt="">
+            <div class="left-content__header">Add Contact</div>
+            <div class="left-content__slogan">Tasks are better with a team</div>
+            <img id="blue-stroke" src="./assets/img/contacts/blue_stroke_horizontal.svg" alt="">
+          </div>
+        </div>
+    
+        <div class="add-contact-frame__right">
+          <div id="close-x__wrapper">
+            <div id="enclosing-circle">
+              <img id="close-x" src="./assets/img/contacts/close_x.svg" alt="">
+            </div>
+          </div>
+          <div class="add-contact-form__wrapper">
+            <div class="add-contact__img-placeholder">
+              <img src="./assets/img/contacts/person_in_circle.svg" class="person-img" alt="">
+            </div>
+            <form class="add-contact__form">
+              <div class="input-fields-frame">
+                <div class="input-field__box">
+                  <input type="text" required class="input-field" placeholder="Name">
+                  <img src="./assets/img/contacts/icon_person.png" class="input-field__img-placing" alt="">
+                </div>
+                <div class="input-field__box">
+                  <input type="email" required class="input-field" placeholder="Email">
+                  <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
+                </div>
+                <div class="input-field__box">
+                  <input type="tel" required class="input-field" placeholder="Phone">
+                  <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
+                </div>
+    
+                <div class="form-btns-frame">
+                  <div class="cancel-btn">
+                    <div class="cancel-btn__content">
+                      <span class="cancel-txt">Cancel</span>
+                      <img src="./assets/img/contacts/close_x.svg" alt="">
+                    </div>
+                  </div>
+                  <button class="create-btn">
+                    <div class="create-btn__content">
+                      <span class="create-btn__txt">Create Contact</span>
+                      <img src="./assets/img/contacts/check_mark.svg" alt="">
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    
+
 </body>
 
 </html>

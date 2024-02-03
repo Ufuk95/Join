@@ -187,6 +187,16 @@ function clearContactDetails(contactDetailsArray) {
 
 
 function addNewContactBtn(){
-  
+  document.querySelector(`.dialog-bg`).classList.remove("display-none")
+  let addContactFrame = document.querySelector(`.add-contact-frame`)
+  addContactFrame.classList.remove("display-none")
+  addContactFrame.classList.add("transition__add-contact")
 }
 
+
+function navigtateBack(){
+  let addContactFrame = document.querySelector(`.add-contact-frame`)
+  document.querySelector(`.dialog-bg`).classList.add("display-none")
+  document.querySelector(`.add-contact-frame`).classList.add("display-none")
+  addContactFrame.classList.remove("transition__add-contact")
+}
