@@ -8,6 +8,10 @@ body {
   box-sizing: border-box;
 }
 
+button{
+  border: none;
+}
+
 /************************* BACKGROUNDS *************************/
 .grey-bg {
   background-color: #F6F7F8;
@@ -551,6 +555,19 @@ body {
   align-self: flex-start;
 }
 
+.cancel-btn:hover {
+  cursor: pointer;
+  border-color: #29ABE2;
+}
+
+.cancel-btn:hover .cancel-btn__content {
+  color: #29ABE2;
+}
+
+.cancel-btn:hover .x-fill {
+  fill: #29ABE2;
+}
+
 .cancel-btn {
   display: flex;
   align-items: center;
@@ -560,7 +577,6 @@ body {
 .cancel-btn__content {
   display: flex;
   align-items: center;
-  /* gap: 4px; */
 }
 
 .cancel-txt {
@@ -568,7 +584,6 @@ body {
   line-height: 120%;
   font-family: Inter;
 }
-
 
 .create-btn {
   display: flex;
@@ -578,6 +593,11 @@ body {
   background: #2A3647;
   width: 217px;
   height: 56px;
+}
+
+.create-btn:hover{
+  cursor: pointer;
+  background-color: #29ABE2;
 }
 
 .create-btn__content {
