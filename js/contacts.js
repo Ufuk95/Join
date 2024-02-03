@@ -18,6 +18,7 @@ async function contactsInit() {
   loadAll();
   let finalArray = await sortAndPrepare("userData");
   renderContacts(finalArray);
+  console.log(finalArray);
 }
 
 /**
@@ -195,7 +196,7 @@ function addNewContactBtn(){
 }
 
 
-function navigtateBack(){
+function navigateBack(){
   let addContactFrame = document.querySelector(`.add-contact-frame`)
   document.querySelector(`.dialog-bg`).classList.add("display-none")
   document.querySelector(`.add-contact-frame`).classList.add("display-none")

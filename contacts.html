@@ -18,7 +18,7 @@
 <body onload="contactsInit()" id="3">
   <!------------------------- BACKGROUNDS ------------------------->
   <div class="grey-bg">
-    <div class="dialog-bg display-none" onclick="navigtateBack()"></div>
+    <div class="dialog-bg display-none" onclick="navigateBack()"></div>
     
     <!------------------------- TEMPLATES ------------------------->
       <header id="header" w3-include-html="./assets/templates/header.html"></header>
@@ -91,7 +91,7 @@
     
         <div class="add-contact-frame__right">
           <div id="close-x__wrapper">
-            <div id="enclosing-circle">
+            <div id="enclosing-circle" onclick="navigateBack()">
               <img id="close-x" src="./assets/img/contacts/close_x.svg" alt="">
             </div>
           </div>

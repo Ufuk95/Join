@@ -14,7 +14,8 @@ async function getSignUpInputs() {
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
   let passwordRepeat = document.getElementById(`password-repeat`);
-  handleRemoteStorage(name, email, password, passwordRepeat)
+  handleRemoteStorage(name.value, email.value, password.value, passwordRepeat.value)
+  clearFields(name, email, password, passwordRepeat);
   // transitionHandler();
   // removeLogInAnimation();
 }
@@ -26,23 +27,12 @@ async function getSignUpInputs() {
 async function handleRemoteStorage(name, email, password, passwordRepeat){
   signUpNameEmail = await getUserData("userData");
   emailPwCombo = await getUserData("emailPwCombo");
-  temporaryArray("name", name.value, "email", email.value, signUpNameEmail);
-  temporaryObject(email, email.value, "password", password.value, emailPwCombo);
+  temporaryArray("name", name, "email", email, signUpNameEmail);
+  temporaryObject(email, password, emailPwCombo);
   await setSignUpData("userData", signUpNameEmail);
   await setSignUpData("emailPwCombo", emailPwCombo);
-  clearFields(name, email, password, passwordRepeat);
 }
 
-
-// ! Test purpose log function
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
-}
-
-// logFromRemote("userData");
-logFromRemote("emailPwCombo")
-// ! ---------------------------------------------------------
 
 /**
  * Stores sign up user inputs in an object, pushes the object into an array.
@@ -54,10 +44,24 @@ function temporaryArray(key1, value1, key2, value2, JSONArray) {
   JSONArray.push(userObject);
 }
 
-
 function temporaryObject(key1, value1, object) {
   object[key1] = value1;
 }
+
+// ! Test purpose log function
+async function logFromRemote(remoteKey) {
+  let parsedData = JSON.parse(await getItem(remoteKey));
+  console.log(parsedData);
+}
+
+// logFromRemote("userData");
+logFromRemote("emailPwCombo")
+// ! ---------------------------------------------------------
+
+
+
+
+
 
 
 async function setSignUpData(remoteKey, JSONArray) {
