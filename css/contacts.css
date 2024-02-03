@@ -372,7 +372,7 @@ body {
   width: 1212px;
   height: 592px;
   border-radius: 30px;
-  border: solid lightcoral;
+  /* border: solid lightcoral; */
   z-index: 10;
   margin-bottom: 300px;
   top: 50%;

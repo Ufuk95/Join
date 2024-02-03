@@ -30,6 +30,7 @@ async function sortAndPrepare(remoteKey) {
   let arrayOfArrays = createArrayOfArrays(userData);
   let sortedArray = arrayOfArrays.sort();
   let finalArray = addInitials(sortedArray);
+  console.log(finalArray);
   return finalArray;
 }
 

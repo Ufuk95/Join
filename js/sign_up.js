@@ -21,7 +21,7 @@ async function getSignUpInputs() {
 
 
 /**
- * Handles the remote storage logic
+ * Gets existing data from remote. And adds new sign up data. 
  */
 async function handleRemoteStorage(name, email, password, passwordRepeat){
   signUpNameEmail = await getUserData("userData");
@@ -40,8 +40,8 @@ async function logFromRemote(remoteKey) {
   console.log(parsedData);
 }
 
-logFromRemote("userData");
-// logFromRemote("emailPwCombo")
+// logFromRemote("userData");
+logFromRemote("emailPwCombo")
 // ! ---------------------------------------------------------
 
 /**
