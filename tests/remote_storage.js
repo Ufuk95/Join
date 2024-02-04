@@ -29,30 +29,24 @@ async function getItem(key) {
 // -------------------------------------------- USER LOGIN GET DATA EXAMPLE -------------------------------------
 
 
-let users = [];
+// Schreibe eine Funktion die Daten aus den Input -Feldern nimmt. 
+// Diese Daten sollen in ein Array geschrieben werden. 
+// Dieses Array soll in ein bestehendes array gepushed werden. 
 
-// Loading users from remote-storage into the array
-async function init() {
-  await loadUsers();
-}
+// Lade dieses Array in den remote storage und nenne es key =  "array1"
 
-// loads users array onload
-async function loadUsers() {
-  users = JSON.parse(await getItem("usersCollection"));
-  console.log(users);
-}
-
-console.log(users);
+// Rufe dieses Array von remote ab, und füge dem Array 1 beliebiges item hinzu. 
+// Lade es anschließend wieder hoch 
 
 
-// By using the <form> tag IDs are recognized in the function.
-async function register() {
-  users.push({ email: email.value, password: password.value });
-  await setItem("usersCollection", JSON.stringify(users));
-}
+// Schreibe eine ähnliche Funktion wie oben. Nur dass die Daten aus den input-feldern in ein object geschrieben
+// werden sollen. Die Daten aus input-one sollen unter dem key input-one rein, und die Daten aus input-two  
+// in den key input-two. Pushe dieses Object immer wieder in ein Array, so das ein JSONArray entsteht. 
+// Lade dieses JSONArray hoch ins backend gebe den keynamen object1. 
 
-async function logUsers() {
-  console.log(users);
+// Rufe dieses Array ab. 
+
+function getData(){
 }
 
 

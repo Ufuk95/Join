@@ -1,4 +1,6 @@
 
+
+
 let colorCarousell = {
   "0": "#FF7A00",
   "1": "#9327FF",
@@ -11,14 +13,30 @@ let colorCarousell = {
 };
 
 
+// ! Test purpose log function
+async function logFromRemote(remoteKey) {
+  let parsedData = JSON.parse(await getItem(remoteKey));
+  for (let i  = 0; i < parsedData.length; i++) {
+    let element = parsedData[i];
+    element.splice(3)
+  }
+
+  await setItem("userData", parsedData)
+  console.log(parsedData);
+}
+
+// logFromRemote("userData")
+// ! ---------------------------------------------------------
+
+
 /**
  * Initialization of contacts.html
- */
+*/
 async function contactsInit() {
   loadAll();
   let finalArray = await sortAndPrepare("userData");
+  setItem("userData", finalArray);
   renderContacts(finalArray);
-  console.log(finalArray);
 }
 
 /**
@@ -31,7 +49,6 @@ async function sortAndPrepare(remoteKey) {
   let arrayOfArrays = createArrayOfArrays(userData);
   let sortedArray = arrayOfArrays.sort();
   let finalArray = addInitials(sortedArray);
-  console.log(finalArray);
   return finalArray;
 }
 
@@ -111,8 +128,10 @@ function addInitials(sortedArray) {
     for (let j = 0; j < splittedNameLastName.length; j++) {
       let name = splittedNameLastName[j];
       initials += name[0].toUpperCase();
+    } 
+    if(sortedArray[i].length <=3){
+      nameAndLastNameArray.splice(2, 0, initials);
     }
-    nameAndLastNameArray.splice(2, 0, initials);
     initials = "";
   }
   return sortedArray;
@@ -128,7 +147,7 @@ function addInitials(sortedArray) {
 function activeContactTab(i) {
   clearTabStyle();
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
-  handleTransition(contactDetailsBox)
+  handleTransition(contactDetailsBox);
   let contactTab = document.querySelector(`.contact-frame${i}`);
   let contactTabName = document.querySelector(`.name${i}`);
   contactTab.classList.add("active-tab-bg");
@@ -140,10 +159,10 @@ function activeContactTab(i) {
 /**
  * Handles the transition for the contact details on the right side. 
  */
-function handleTransition(element){
+function handleTransition(element) {
   element.classList.remove("display-none");
   element.classList.add("transition");
-  setTimeout(() => {element.classList.remove("transition")}, 400)
+  setTimeout(() => { element.classList.remove("transition"); }, 400);
 }
 
 
@@ -191,23 +210,43 @@ function clearContactDetails(contactDetailsArray) {
 /**
  * Executes on clicking the add new contact button.
  */
-function addNewContactBtn(){
-  document.querySelector(`.dialog-bg`).classList.remove("display-none")
-  let addContactFrame = document.querySelector(`.add-contact-frame`)
-  addContactFrame.classList.remove("display-none")
-  addContactFrame.classList.add("transition__add-contact")
+function addNewContactBtn() {
+  document.querySelector(`.dialog-bg`).classList.remove("display-none");
+  let addContactFrame = document.querySelector(`.add-contact-frame`);
+  addContactFrame.classList.remove("display-none");
+  addContactFrame.classList.add("transition__add-contact");
 }
+
 
 /**
  * Closes the dialog and the add new contact form.
  */
-function navigateBack(){
-  let addContactFrame = document.querySelector(`.add-contact-frame`)
-  document.querySelector(`.dialog-bg`).classList.add("display-none")
-  document.querySelector(`.add-contact-frame`).classList.add("display-none")
-  addContactFrame.classList.remove("transition__add-contact")
+function navigateBack() {
+  let addContactFrame = document.querySelector(`.add-contact-frame`);
+  document.querySelector(`.dialog-bg`).classList.add("display-none");
+  document.querySelector(`.add-contact-frame`).classList.add("display-none");
+  addContactFrame.classList.remove("transition__add-contact");
 }
 
-async function getContactData(){
-  
+
+async function getContactData() {
+  let contactName = document.getElementById(`add-contact__name`);
+  let contactEmail = document.getElementById(`ad-contact__email`);
+  let contactPhone = document.getElementById(`ad-contact__phone`);
+  let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
+  let sortedContactData = addInitials(contactDataArray);
+    let finalArray = JSON.parse(await getItem("userData"));
+  finalArray.push(sortedContactData[0]);
+  console.log(finalArray);
+//   console.log(finalArray);
+//   let contactsFrame = document.getElementById(`contacts-frame`);
+//   contactsFrame.innerHTML = "";
+//   renderContacts(finalArray)
 }
+
+
+
+
+
+
+

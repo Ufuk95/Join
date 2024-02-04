@@ -48,15 +48,15 @@ function temporaryObject(key1, value1, object) {
   object[key1] = value1;
 }
 
+
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
   console.log(parsedData);
 }
 
-logFromRemote("emailPwCombo")
+// logFromRemote("emailPwCombo")
 // ! ---------------------------------------------------------
-
 
 
 async function setSignUpData(remoteKey, JSONArray) {
