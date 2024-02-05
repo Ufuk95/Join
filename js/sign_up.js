@@ -1,7 +1,6 @@
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
-let signUpNameEmail = [];
 let emailPwCombo = {};
 
 
@@ -13,9 +12,8 @@ async function getSignUpInputs() {
   let name = document.getElementById(`name`);
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
-  let passwordRepeat = document.getElementById(`password-repeat`);
-  handleRemoteStorage(name.value, email.value, password.value, passwordRepeat.value)
-  clearFields(name, email, password, passwordRepeat);
+  handleRemoteStorage(name.value, email.value, password.value)
+  clearFields(name, email, password);
   // transitionHandler();
   // removeLogInAnimation();
 }
@@ -24,25 +22,13 @@ async function getSignUpInputs() {
 /**
  * Gets existing data from remote. And adds new sign up data. 
  */
-async function handleRemoteStorage(name, email, password, passwordRepeat){
+async function handleRemoteStorage(email, password){
   signUpNameEmail = await getUserData("userData");
   emailPwCombo = await getUserData("emailPwCombo");
-  temporaryArray("name", name, "email", email, signUpNameEmail);
   temporaryObject(email, password, emailPwCombo);
-  await setSignUpData("userData", signUpNameEmail);
   await setSignUpData("emailPwCombo", emailPwCombo);
 }
 
-
-/**
- * Stores sign up user inputs in an object, pushes the object into an array.
- */
-function temporaryArray(key1, value1, key2, value2, JSONArray) {
-  let userObject = {};
-  userObject[key1] = value1;
-  userObject[key2] = value2;
-  JSONArray.push(userObject);
-}
 
 function temporaryObject(key1, value1, object) {
   object[key1] = value1;

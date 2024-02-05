@@ -1,6 +1,5 @@
 
 
-
 let colorCarousell = {
   "0": "#FF7A00",
   "1": "#9327FF",
@@ -16,17 +15,19 @@ let colorCarousell = {
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
-  for (let i  = 0; i < parsedData.length; i++) {
-    let element = parsedData[i];
-    element.splice(3)
-  }
-
-  await setItem("userData", parsedData)
+  // await setItem("userData", parsedData)
   console.log(parsedData);
 }
 
-// logFromRemote("userData")
+// logFromRemote("userData");
 // ! ---------------------------------------------------------
+
+
+// console.log(ContactsDummyData);
+
+// let addedInits = addInitials(ContactsDummyData)
+// console.log(addedInits);
+// setItem("userData", addedInits)
 
 
 /**
@@ -35,7 +36,6 @@ async function logFromRemote(remoteKey) {
 async function contactsInit() {
   loadAll();
   let finalArray = await sortAndPrepare("userData");
-  setItem("userData", finalArray);
   renderContacts(finalArray);
 }
 
@@ -46,8 +46,7 @@ async function contactsInit() {
  */
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
-  let arrayOfArrays = createArrayOfArrays(userData);
-  let sortedArray = arrayOfArrays.sort();
+  let sortedArray = userData.sort();
   let finalArray = addInitials(sortedArray);
   return finalArray;
 }
@@ -73,6 +72,8 @@ function calculateColorMap(index) {
  */
 async function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
+  contactsFrame.innerHTML = "";
+  contactsFrame.innerHTML += contactButtonHTML();
   let singleLetterCollection = "";
   for (let i = 0; i < finalArray.length; i++) {
     let singleContactData = finalArray[i];
@@ -100,21 +101,6 @@ function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, 
 
 
 /**
- * Creates an array of arrays. 
- * @param {object} JSONArray object with collected data from sign-up.html
- */
-function createArrayOfArrays(JSONArray) {
-  let userDataAsArray = [];
-  let userData = JSONArray;
-  for (let i = 0; i < userData.length; i++) {
-    let element = Object.values(userData[i]);
-    userDataAsArray.push(element);
-  }
-  return userDataAsArray;
-}
-
-
-/**
  * Adds initials from the for- and lastname. 
  * @param {Array} sortedArray 
  * @returns {Array}
@@ -128,8 +114,8 @@ function addInitials(sortedArray) {
     for (let j = 0; j < splittedNameLastName.length; j++) {
       let name = splittedNameLastName[j];
       initials += name[0].toUpperCase();
-    } 
-    if(sortedArray[i].length <=3){
+    }
+    if (sortedArray[i].length <= 3) {
       nameAndLastNameArray.splice(2, 0, initials);
     }
     initials = "";
@@ -183,7 +169,9 @@ function clearTabStyle() {
 /**
  * Renders data of a clicked contact into the contact detail template.
  */
-function showContactDetails(i) {
+async function showContactDetails(i) {
+  let userData = JSON.parse(await getItem("userData"));
+  userData.sort();
   let contactEclipse = document.getElementById(`contact-infos__eclipse`);
   let contactName = document.getElementById(`contact-infos__name`);
   let contactMail = document.getElementById(`contact-infos__email`);
@@ -193,6 +181,11 @@ function showContactDetails(i) {
   contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
   contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
   contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
+  contactPhone.innerHTML = userData[i][3];
+  let deleteBtn = document.getElementById("contact-infos__delete");
+  deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
+  let editBtn = document.getElementById(`contact-infos__edit`)
+  editBtn.setAttribute("onclick", `editContact(${i})`)
 }
 
 
@@ -215,6 +208,7 @@ function addNewContactBtn() {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.classList.remove("display-none");
   addContactFrame.classList.add("transition__add-contact");
+  addContactFrame.innerHTML = addContactTemplate()
 }
 
 
@@ -235,18 +229,43 @@ async function getContactData() {
   let contactPhone = document.getElementById(`ad-contact__phone`);
   let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
   let sortedContactData = addInitials(contactDataArray);
-    let finalArray = JSON.parse(await getItem("userData"));
+  let finalArray = JSON.parse(await getItem("userData"));
   finalArray.push(sortedContactData[0]);
-  console.log(finalArray);
-//   console.log(finalArray);
-//   let contactsFrame = document.getElementById(`contacts-frame`);
-//   contactsFrame.innerHTML = "";
-//   renderContacts(finalArray)
+  finalArray.sort();
+  setItem("userData", finalArray);
+  clearContactInputs(contactName, contactEmail, contactPhone);
+  navigateBack();
+  renderContacts(finalArray);
 }
 
+function clearContactInputs(contactName, contactEmail, contactPhone) {
+  contactName.value = ""
+  contactEmail.value = ""
+  contactPhone.value = ""
+}
+
+async function deleteContact(i) {
+  let userData = JSON.parse(await getItem("userData"));
+  userData.splice(i, 1);
+  setItem("userData", userData);
+  renderContacts(userData);
+}
+
+async function editContact(i){
+  let addContactFrame = document.querySelector(`.add-contact-frame`)
+  addContactFrame.innerHTML = editContactTemplate()
+  document.querySelector(`.dialog-bg`).classList.remove("display-none");
+  addContactFrame.classList.remove("display-none");
+  addContactFrame.classList.add("transition__add-contact");
+  let nameEclipse =  document.querySelector(`.name-in-circle${i}`).innerHTML;
+  document.querySelector(`.add-contact__img-placeholder`).innerHTML = `
+  <div id="contact-infos__eclipse" class="margin-auto">${nameEclipse}</div>
+  `
+  
 
 
-
+  // document.querySelector(`.left-content__slogan`).innerHTML = "Edit Contact"
+}
 
 
 

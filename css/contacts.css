@@ -8,7 +8,7 @@ body {
   box-sizing: border-box;
 }
 
-button{
+button {
   border: none;
 }
 
@@ -48,7 +48,7 @@ button{
   z-index: 2;
   align-items: center;
   width: fit-content;
-  height: 100vh;
+  height: 95vh;
   overflow-y: auto;
   max-height: 100vh;
   scrollbar-width: thin;
@@ -126,6 +126,10 @@ button{
 }
 
 /************************* LEFT-SECTION-CONTACT-FRAME *************************/
+/* .contacts-wrapper{
+  height: 100vh;
+} */
+
 .contact-frame {
   display: flex;
   width: 352px;
@@ -303,6 +307,36 @@ button{
   align-items: center;
   gap: 8px;
 }
+
+#contact-infos__delete:hover{
+  cursor: pointer;
+}
+
+#contact-infos__delete:hover span {
+  color:#007CEE
+}
+
+#contact-infos__delete:hover #delete_2{
+  fill:#007CEE
+}
+
+#contact-infos__edit:hover {
+  cursor: pointer;
+}
+
+#contact-infos__edit:hover span {
+  color: #007CEE;
+}
+
+#contact-infos__edit:hover #edit_2 {
+  fill: #007CEE;
+}
+
+#contact-infos__edit #contact-infos__edit:hover {
+  cursor: pointer;
+  color: #007CEE
+}
+
 
 #contact-infos__edit-txt,
 #contact-infos__delete-txt {
@@ -595,7 +629,7 @@ button{
   height: 56px;
 }
 
-.create-btn:hover{
+.create-btn:hover {
   cursor: pointer;
   background-color: #29ABE2;
 }
@@ -622,6 +656,26 @@ button{
   right: 18px;
 }
 
+
+/************************* EDIT CONTACT *************************/
+
+.delete-btn {
+  width: 126px;
+  height: 56px;
+  border: 1px solid #2A3647;
+  border-radius: 10px;
+  align-self: flex-start;
+}
+
+.save-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #2A3647;
+  width: 126px;
+  height: 56px;
+}
 
 /************************* TRANSITIONS *************************/
 @keyframes slidein {
@@ -661,4 +715,8 @@ button{
 /************************* DISPLAY CLASSES *************************/
 .display-none {
   display: none;
+}
+
+.margin-auto {
+  margin: 0 auto
 }
