@@ -184,8 +184,8 @@ async function showContactDetails(i) {
   contactPhone.innerHTML = userData[i][3];
   let deleteBtn = document.getElementById("contact-infos__delete");
   deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
-  let editBtn = document.getElementById(`contact-infos__edit`)
-  editBtn.setAttribute("onclick", `editContact(${i})`)
+  let editBtn = document.getElementById(`contact-infos__edit`);
+  editBtn.setAttribute("onclick", `editContact(${i})`);
 }
 
 
@@ -208,7 +208,7 @@ function addNewContactBtn() {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.classList.remove("display-none");
   addContactFrame.classList.add("transition__add-contact");
-  addContactFrame.innerHTML = addContactTemplate()
+  addContactFrame.innerHTML = addContactTemplate();
 }
 
 
@@ -239,9 +239,9 @@ async function getContactData() {
 }
 
 function clearContactInputs(contactName, contactEmail, contactPhone) {
-  contactName.value = ""
-  contactEmail.value = ""
-  contactPhone.value = ""
+  contactName.value = "";
+  contactEmail.value = "";
+  contactPhone.value = "";
 }
 
 async function deleteContact(i) {
@@ -251,20 +251,40 @@ async function deleteContact(i) {
   renderContacts(userData);
 }
 
-async function editContact(i){
-  let addContactFrame = document.querySelector(`.add-contact-frame`)
-  addContactFrame.innerHTML = editContactTemplate()
+async function editContact(i) {
+  let userData = JSON.parse(await getItem("userData"));
+  console.log(userData[i]);
+  let addContactFrame = document.querySelector(`.add-contact-frame`);
+  addContactFrame.innerHTML = editContactTemplate();
+  let saveBtn = document.querySelector(`.save-btn`);
+  saveBtn.setAttribute("onclick", `saveEditedData(${i})`);
   document.querySelector(`.dialog-bg`).classList.remove("display-none");
   addContactFrame.classList.remove("display-none");
   addContactFrame.classList.add("transition__add-contact");
-  let nameEclipse =  document.querySelector(`.name-in-circle${i}`).innerHTML;
-  document.querySelector(`.add-contact__img-placeholder`).innerHTML = `
-  <div id="contact-infos__eclipse" class="margin-auto">${nameEclipse}</div>
-  `
-  
+  let nameEclipseValue = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(nameEclipseValue);
+  let nameField = document.querySelector(`.edit-name`);
+  let emailField = document.querySelector(`.edit-email`);
+  let phoneField = document.querySelector(`.edit-phone`);
+  nameField.value = userData[i][0];
+  emailField.value = userData[i][1];
+  phoneField.value = userData[i][3];
+}
 
 
-  // document.querySelector(`.left-content__slogan`).innerHTML = "Edit Contact"
+async function saveEditedData(i) {
+  let userData = JSON.parse(await getItem("userData"));
+  let nameFieldValue = document.querySelector(`.edit-name`).value;
+  let emailFieldValue = document.querySelector(`.edit-email`).value;
+  let phoneFieldValue = document.querySelector(`.edit-phone`).value;
+  console.log(userData[i]);
+  userData[i][0] = nameFieldValue;
+  userData[i][1] = emailFieldValue;
+  userData[i][3] = phoneFieldValue;
+  console.log(userData[i]);
+  console.log(userData);
+  // setItem("userData", userData);
+  // renderContacts(userData);
 }
 
 

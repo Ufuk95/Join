@@ -130,15 +130,15 @@ function editContactTemplate() {
     <form class="add-contact__form" onsubmit="getContactData(); return false">
       <div class="input-fields-frame">
         <div class="input-field__box">
-          <input id="add-contact__name" type="text" required class="input-field" placeholder="Name" autocomplete="off">
+          <input id="add-contact__name" type="text" required class="input-field edit-name" placeholder="Name" autocomplete="off">
           <img src="./assets/img/contacts/icon_person.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__email" type="email" required class="input-field" placeholder="Email" autocomplete="off">
+          <input id="ad-contact__email" type="email" required class="input-field edit-email" placeholder="Email" autocomplete="off">
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__phone" type="tel" required class="input-field" placeholder="Phone" autocomplete="off">
+          <input id="ad-contact__phone" type="tel" required class="input-field edit-phone" placeholder="Phone" autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
 
@@ -156,7 +156,7 @@ function editContactTemplate() {
                 </svg>
             </div>
           </div>
-          <button class="create-btn save-btn" onclick="getContactData()">
+          <button class="create-btn save-btn">
             <div class="create-btn__content">
               <span class="create-btn__txt">Save</span>
               <img src="./assets/img/contacts/check_mark.svg" alt="">
@@ -169,6 +169,13 @@ function editContactTemplate() {
 </div>
  `;
 }
+
+function nameEclipse(nameEclipse){
+  return`
+  <div id="contact-infos__eclipse" class="margin-auto">${nameEclipse}</div>
+  `
+}
+
 
 // ! all of that has to go into contacts. Whereby single-letter box depends if there are already
 // ! names beginning with that letter. 
