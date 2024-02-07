@@ -798,3 +798,14 @@ p {
   justify-content: flex-end;
   align-items: center;
 }
+
+.date-img {
+  position: relative;
+  bottom: 36px;
+  left: 400px;
+  cursor: pointer;
+}
+
+#date{
+  color: black;
+}

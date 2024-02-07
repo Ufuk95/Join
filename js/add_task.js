@@ -1,7 +1,8 @@
-const tasks = [];
+let tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
 let currentColor = null;
+
 
 function updateHTML() {
     setupClearButton();
@@ -15,9 +16,10 @@ async function createTask(event) {
     let description = document.getElementById("description-input");
     let date = document.getElementById("date");
     let createdSubtasks = document.getElementById("unsorted-list");
-    // let fieldInput = document.getElementById("task-field");    muss noch gemacht werden damit es von der add task seite zur board seite in todo erscheint!!
-    let category = document.getElementById("task-category-input");
-    // let field = fieldInput.value;
+    let categoryInput = document.getElementById("task-category-input");
+
+    let category = categoryInput.value;
+
     let subtasksLength = createdSubtasks.children.length;
 
     if (category === "Technical Task") {
@@ -42,12 +44,20 @@ async function createTask(event) {
         title: title.value,
         description: description.value,
         date: date.value,
-        category: category.value,
+        category: category,
         priority: getPriorityImagePath(currentPriority),
+        priorityText: priorityText(currentPriority),
         contacts: "?",
         subtasks: subtasks,
         createdSubtasks: subtasksLength,
     };
+
+    try {
+        const response = await setItem("task_key", JSON.stringify(task));
+        console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
+    } catch (error) {
+        console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
+    }
 
     tasks.push(task);
     console.log(tasks);
@@ -59,12 +69,29 @@ async function createTask(event) {
     createdSubtasks.innerHTML = "";
 
 
-    await setItem("key", task);
+
 
     updateHTML()
     resetAllButtons();
     currentPriority = null;
 }
+
+function priorityText(priority) {
+    let low = document.getElementById('prio-btn-green').innerText;
+    let medium = document.getElementById('prio-btn-yellow').innerText;
+    let urgent = document.getElementById('prio-btn-red').innerText;
+
+    if (priority === "red") {
+        return urgent;
+    } else if (priority === "yellow") {
+        return medium;
+    } else if (priority === "green") {
+        return low;
+    } else {
+        return "-empty-";
+    }
+}
+
 
 // Funktion für addTask um Category auszuwählen
 function showTaskSelect(selectedOption) {
@@ -135,9 +162,6 @@ function mouseLeave(subtaskID) {
     console.log("Maus verlassen!");
 }
 
-
-
-
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
     inputSubtasks.value = "";
@@ -194,7 +218,6 @@ function editSubtask(subtaskID) {
     }
 }
 
-
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("d-none");
@@ -209,13 +232,13 @@ function addTask(field) {
 // Diese Funktion ändert per knopfdruck die Farben der Buttons
 function getPriorityImagePath(priority) {
     if (priority === "red") {
-        return "/assets/img/board/Prio-red.png";
+        return "/assets/img/board/prio_red.png";
     } else if (priority === "yellow") {
         return "/assets/img/board/Prio-yellow.png";
     } else if (priority === "green") {
         return "/assets/img/board/Prio-green.png";
     } else {
-        return "/assets/img/board/Prio-red.png";
+        return "/assets/img/board/prio_red.png";
     }
 }
 
@@ -226,7 +249,7 @@ function resetAllButtons() {
     // Reset red button
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
-    redImg.src = "/assets/img/board/Prio-red.png";
+    redImg.src = "/assets/img/board/prio_red.png";
     redBtn.style.backgroundColor = "white";
     redBtn.style.color = "black";
     redBtn.style.borderColor = "white";
@@ -270,13 +293,13 @@ function colorChangeToRed() {
     redImg = document.getElementById("prio-red");
     redBtn = document.getElementById("prio-btn-red");
 
-    if (redImg.src.endsWith("/assets/img/board/Prio-red.png")) {
+    if (redImg.src.endsWith("/assets/img/board/prio_red.png")) {
         redImg.src = "/assets/img/board/prio-red-white.png";
         redBtn.style.backgroundColor = "rgb(255,61,0)";
         redBtn.style.color = "white";
         redBtn.style.borderColor = "rgb(255,61,0)";
     } else {
-        redImg.src = "/assets/img/board/Prio-red.png";
+        redImg.src = "/assets/img/board/prio_red.png";
         redBtn.style.backgroundColor = "white";
         redBtn.style.color = "black";
         redBtn.style.borderColor = "white";
@@ -317,6 +340,7 @@ function colorChangeToGreen() {
     }
 }
 
+
 function changeInputImg() {
     let plusIcon = document.getElementById("subtask-plus-img");
     plusIcon.classList.add("d-none");
@@ -348,14 +372,11 @@ function setupClearButton() {
     const blueCross = document.getElementById("blue-cross");
 
     clearButton.addEventListener("mouseenter", function () {
-        // Schwarzes Kreuz ausblenden, blaues Kreuz anzeigen
         blackCross.classList.add("d-none");
         blueCross.classList.remove("d-none");
     });
 
-
     clearButton.addEventListener("mouseleave", function () {
-        // Blaues Kreuz ausblenden, schwarzes Kreuz anzeigen
         blackCross.classList.remove("d-none");
         blueCross.classList.add("d-none");
     });
@@ -385,6 +406,9 @@ function showDateOnInput() {
 
 
 function redirectToBoardTask() {
-    window.location.href = '/board.html';
+    setTimeout(function () {
+        window.location.href = '/board.html';
+    }, 400);
 }
+
 
