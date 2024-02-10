@@ -3,6 +3,11 @@ let currentDraggedElement;
 let currentPriority = null;
 let editedSubtaskText;
 
+async function initialize() {
+    // Laden der gespeicherten Tasks
+    await loadTasksFromStorage();
+    updateHTML();
+}
 
 async function updateHTML() {
     try {
@@ -16,7 +21,6 @@ async function updateHTML() {
     updateProgressBar(0);
     showDateOnInput();
     setupCancelButton();
-
 }
 
 async function loadTasksFromStorage() {
@@ -26,28 +30,36 @@ async function loadTasksFromStorage() {
 
         tasks.push(storedTask);
         await updateArea("todo");
-
-        console.log(storedTask);
     } catch (error) {
         console.error('An error occurred while fetching and parsing stored task:', error);
     }
 }
 
-loadTasksFromStorage();
+
+
+async function loadBoardFromStorage(taskId) {
+    try {
+        const storedBoardJSON = await getItem(`${taskId}`);
+        const storedBoard = JSON.parse(storedBoardJSON);
+
+        tasks.push(storedBoard);
+        await updateArea(storedBoard.field);
+    } catch (error) {
+        console.error('An error occurred while fetching and parsing stored task:', error);
+    }
+}
+
 
 
 async function updateArea(field) {
     const filteredTasks = tasks.filter((t) => t["field"] === field);
     const areaElement = document.getElementById(field);
-
     if (areaElement) {
         areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
     } else {
         console.error(`Element with id ${field} not found.`);
     }
 }
-
-
 
 
 function generateTaskHTML(element) {
@@ -145,8 +157,7 @@ function editTaskCard(taskId) {
                     <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtask.id}')">
                 </div>
             </div>`).join('');
-        task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
-
+            
 
         editCard.innerHTML = `
             <div class="completeCard">
@@ -206,29 +217,28 @@ function editTaskCard(taskId) {
                     <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
                 </div>
             </div>`;
-
-        // addSubtask(subtaskListHTML);
+            task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
 
-function createSubtaskHTML(subtask) {
-    let subtaskID = `subtask-${Date.now()}`;
-    let subtaskHTML = `
-        <div id="${subtaskID}" class="full-subtasks-area">
-            <li>${subtask.title}</li>
-            <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
-                <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
-                <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
-            </div>
-        </div>
-    `;
+// function createSubtaskHTML(subtask) {
+//     let subtaskID = `subtask-${Date.now()}`;
+//     let subtaskHTML = `
+//         <div id="${subtaskID}" class="full-subtasks-area">
+//             <li>${subtask.title}</li>
+//             <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
+//                 <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
+//                 <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
+//             </div>
+//         </div>
+//     `;
     
-    addSubtaskListeners(subtaskID); // Eventlistener hinzufügen
+//     addSubtaskListeners(subtaskID); // Eventlistener hinzufügen
     
-    return subtaskHTML;
-}
+//     return subtaskHTML;
+// }
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
 function addSubtask() {
@@ -410,6 +420,17 @@ function deleteTaskCard(taskId) {
         } catch (error) {
             console.error('An error occurred while removing stored task:', error);
         }
+
+        try {
+            const storedBoardJSON = getItem(`${taskId}`);
+            if (storedBoardJSON) {
+                localStorage.removeItem(`${taskId}`);
+
+                setItem(`${taskId}`, tasks);
+            }
+        } catch (error) {
+            console.error('An error occurred while removing stored task:', error);
+        }
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
@@ -480,7 +501,7 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-function createTask(event) {
+async function createTask(event) {
     event.preventDefault();
 
     let title = document.getElementById("task-title-input");
@@ -509,7 +530,7 @@ function createTask(event) {
     });
 
     let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
-    let taskId = tasks.length;
+    let taskId = Date.now();
 
     let task = {
         id: taskId,
@@ -526,16 +547,25 @@ function createTask(event) {
         createdSubtasks: subtasksLength,
     };
 
+
+    tasks.push(task);
+    try {
+        const response = await setItem(`${taskId}`, JSON.stringify(task));
+        console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
+        await loadBoardFromStorage(taskId);
+    } catch (error) {
+        console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
+    }
+
+    
+    
     title.value = "";
     description.value = "";
     date.value = "";
     categoryInput.value = "";
     createdSubtasks.innerHTML = "";
 
-    tasks.push(task);
-    console.log(tasks);
-
-    updateHTML();
+    // updateHTML();
 
     let closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");
@@ -728,7 +758,6 @@ function changeBtnColor(color) {
         }
     } else {
         currentColor = null;
-        // Wenn kein Button ausgewählt ist, setze die currentPriority zurück
         currentPriority = null;
     }
 }
