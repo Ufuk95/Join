@@ -5,14 +5,15 @@ let editedSubtaskText;
 
 async function initialize() {
     // Laden der gespeicherten Tasks
-    await loadTasksFromStorage();
+    tasks = JSON.parse(await getItem("task_key"));
+    // await loadTasksFromStorage();
     updateHTML();
 }
 
 async function updateHTML() {
     try {
         for (const field of ["todo", "in-progress", "await-feedback", "done"]) {
-            await updateArea(field);
+            updateArea(field);
         }
     } catch (error) {
         console.error('An error occurred while updating HTML:', error);
@@ -24,15 +25,8 @@ async function updateHTML() {
 }
 
 async function loadTasksFromStorage() {
-    try {
-        const storedTaskJSON = await getItem("task_key");
-        const storedTask = JSON.parse(storedTaskJSON);
+    // await updateArea("todo");
 
-        tasks.push(storedTask);
-        await updateArea("todo");
-    } catch (error) {
-        console.error('An error occurred while fetching and parsing stored task:', error);
-    }
 }
 
 
@@ -43,7 +37,7 @@ async function loadBoardFromStorage(taskId) {
         const storedBoard = JSON.parse(storedBoardJSON);
 
         tasks.push(storedBoard);
-        await updateArea(storedBoard.field);
+        // await updateArea(storedBoard.field);
     } catch (error) {
         console.error('An error occurred while fetching and parsing stored task:', error);
     }
@@ -52,13 +46,22 @@ async function loadBoardFromStorage(taskId) {
 
 
 async function updateArea(field) {
-    const filteredTasks = tasks.filter((t) => t["field"] === field);
+    // console.log(tasks);
+    let filteredTasks = tasks.filter((t) => t["field"] === field);
+    console.log(filteredTasks);
     const areaElement = document.getElementById(field);
-    if (areaElement) {
-        areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
-    } else {
-        console.error(`Element with id ${field} not found.`);
+    // areaElement.innerHTML = tasks
+
+    for (let i = 0; i < filteredTasks.length; i++) {
+        let element = filteredTasks[i];
+        areaElement.innerHTML += generateTaskHTML(element);
     }
+    // if (areaElement) {
+    //     areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
+    //     console.log(areaElement.innerHTML);
+    // } else {
+    //     console.error(`Element with id ${field} not found.`);
+    // }
 }
 
 
@@ -157,7 +160,7 @@ function editTaskCard(taskId) {
                     <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtask.id}')">
                 </div>
             </div>`).join('');
-            
+
 
         editCard.innerHTML = `
             <div class="completeCard">
@@ -217,7 +220,7 @@ function editTaskCard(taskId) {
                     <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
                 </div>
             </div>`;
-            task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
+        task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
@@ -234,9 +237,9 @@ function editTaskCard(taskId) {
 //             </div>
 //         </div>
 //     `;
-    
+
 //     addSubtaskListeners(subtaskID); // Eventlistener hinzufügen
-    
+
 //     return subtaskHTML;
 // }
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
@@ -381,7 +384,7 @@ function hoverDeleteInSubtaskcard() {
 
     subtaskFooterDelete.addEventListener("mouseenter", function () {
         blackTrash.src = "./assets/img/board/blue-trash.svg";
-        blackTrash.style = "background-color: white;"
+        blackTrash.style = "background-color: white;";
         subtaskFooterDelete.style.color = "rgb(40,171,226)";
     });
 
@@ -549,23 +552,23 @@ async function createTask(event) {
 
 
     tasks.push(task);
-    try {
-        const response = await setItem(`${taskId}`, JSON.stringify(task));
-        console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
-        await loadBoardFromStorage(taskId);
-    } catch (error) {
-        console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
-    }
+    // try {
+    //     const response = await setItem(`${taskId}`, JSON.stringify(task));
+    //     console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
+    //     await loadBoardFromStorage(taskId);
+    // } catch (error) {
+    //     console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
+    // }
 
-    
-    
+
+
     title.value = "";
     description.value = "";
     date.value = "";
     categoryInput.value = "";
     createdSubtasks.innerHTML = "";
 
-    // updateHTML();
+    updateHTML();
 
     let closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");

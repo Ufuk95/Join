@@ -4,10 +4,28 @@ let currentPriority = null;
 let currentColor = null;
 
 
+async function init() {
+    includeHTML();
+    updateHTML();
+    loadAll();
+    tasks =  JSON.parse(await getItem("task_key")) 
+}
+
 function updateHTML() {
     setupClearButton();
     showDateOnInput()
 }
+
+async function logRemote(){
+    let myData = JSON.parse(await getItem("task_key"))
+    // console.log(typeof(myData));
+    // console.log(myData);
+    // myData = [];
+    // console.log(myData);
+    setItem("task_key", myData)
+}
+
+// logRemote()
 
 async function createTask(event) {
     event.preventDefault();
@@ -51,16 +69,10 @@ async function createTask(event) {
         subtasks: subtasks,
         createdSubtasks: subtasksLength,
     };
-
-    try {
-        const response = await setItem("task_key", JSON.stringify(task));
-        console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
-    } catch (error) {
-        console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
-    }
-
     tasks.push(task);
     console.log(tasks);
+
+    setItem("task_key", tasks)
 
     title.value = "";
     description.value = "";
