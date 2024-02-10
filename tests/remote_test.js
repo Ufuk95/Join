@@ -61,7 +61,6 @@ function logTdata() {
 }
 
 function addToData() {
-  // await tData;
   tData.push("added to Data!!!");
   console.log(tData);
   setItem("testData", tData);
