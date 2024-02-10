@@ -7,14 +7,15 @@
     <title>Join</title>
     <link rel="stylesheet" href="./css/header_sidebar.css">
     <link rel="stylesheet" href="./css/board.css">
+
     <script src="./script.js" defer></script>
     <script src="./js/storage.js"></script>
     <script src="./js/board.js"></script>
-    
+
     <script defer>
         function init() {
             includeHTML();
-            updateHTML();
+            initialize();
         }
     </script>
 </head>
@@ -109,8 +110,8 @@
                             <div class="left-side">
                                 <div class="task-title">
                                     <span class="font-line">Title<span style="color: #FF8190;">*</span></span>
-                                    <input required type="text" class="task-title-input" id="task-title-input"
-                                        name="taskTitle" placeholder="Enter a title">
+                                    <input required type="text" autocomplete="off" class="task-title-input"
+                                        id="task-title-input" name="taskTitle" placeholder="Enter a title">
                                 </div>
                                 <div class="task-title">
                                     <span class="font-line">Description</span>
@@ -132,31 +133,39 @@
                             </div>
                             <!-- ----- -->
                             <div class="right-side">
-                                <div class="task-title">
+                                <div class="task-title" style="height: 80px;">
                                     <span class="font-line">Due Date<span style="color: #FF8190;">*</span></span>
                                     <div class="task-date-area">
-                                        <input required type="date" id="date" name="taskDate" placeholder="dd/mm/yyyy">
+                                        <input required type="text" id="date" name="taskDate" placeholder="dd/mm/yyyy"
+                                            onfocus="(this.type='date')">
+                                        <img class="date-img" src="/assets/img/board/date.png">
                                     </div>
                                 </div>
 
                                 <div class="task-title">
                                     <span class="font-line">Prio<span style="color: #FF8190;">*</span></span>
                                     <div class="task-button-area">
-                                        <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
-                                            <img id="prio-red" src="./assets/img/board/Prio-red.png" alt="Urgent"></button>
-                                        <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
-                                            <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png" alt="Medium"></button>
-                                        <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
-                                            <img id="prio-green" src="./assets/img/board/Prio-green.png" alt="Low"></button>
+                                        <button type="button" id="prio-btn-red" class="prio-btn"
+                                            onclick="changeBtnColor('red')">Urgent
+                                            <img id="prio-red" src="./assets/img/board/prio_red.png"
+                                                alt="Urgent"></button>
+                                        <button type="button" id="prio-btn-yellow" class="prio-btn"
+                                            onclick="changeBtnColor('yellow')">Medium
+                                            <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png"
+                                                alt="Medium"></button>
+                                        <button type="button" id="prio-btn-green" class="prio-btn"
+                                            onclick="changeBtnColor('green')">Low
+                                            <img id="prio-green" src="./assets/img/board/Prio-green.png"
+                                                alt="Low"></button>
                                     </div>
-                                </div>                                                              
+                                </div>
                                 <div class="task-title">
                                     <span class="font-line">Category<span style="color: #FF8190;">*</span></span>
                                     <div class="task-contact-input-area" onclick="showTaskSelect()">
-                                        <input required type="text" id="task-category-input"
+                                        <input required type="text" autocomplete="off" id="task-category-input"
                                             placeholder="Select task category">
-                                        <img id="arrow_down" class="Assigned-img" src="./assets/img/board/arrow_down.png"
-                                            alt="#">
+                                        <img id="arrow_down" class="Assigned-img"
+                                            src="./assets/img/board/arrow_down.png" alt="#">
                                         <img id="arrow_up" class="Assigned-img d-none"
                                             src="./assets/img/board/arrow_up.png" alt="#">
                                     </div>
@@ -169,7 +178,8 @@
                                 <div class="task-title">
                                     <span class="font-line">Subtasks</span>
                                     <div class="task-contact-input-area" onclick="changeInputImg()">
-                                        <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                                        <input id="input-subtasks" autocomplete="off" type="text"
+                                            placeholder="Add new subtasks">
                                         <img id="subtask-plus-img" class="Assigned-img"
                                             src="./assets/img/board/addTaskAdd.png" alt="plus">
                                         <div style="display: flex; align-items: center; gap: 8px;">
@@ -191,8 +201,12 @@
                                 required</span>
                             </div>
                             <div class="add-task-footer-btn">
-                                <button class="task-button cancel-btn" onclick="closeTask()">
-                                    Cancel<img style="width: 25px; height: 24px;" src="./assets/img/board/close.png">
+                                <button id="cancel-button" class="task-button cancel-btn" onclick="closeTask()">
+                                    Cancel
+                                    <img id="black-cross" class="black-cross" style="width: 25px; height: 24px;"
+                                        src="./assets/img/board/close.png">
+                                    <img id="blue-cross" class="blue-cross d-none" style="width: 24px; height: 23px;"
+                                        src="./assets/img/board/blue_cancel.svg">
                                 </button>
                                 <button type="submit" class="task-button create-btn">
                                     Create Task <img src="./assets/img/board/footerCheckBtn.png">

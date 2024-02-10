@@ -1,7 +1,13 @@
-const tasks = [];
+let tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
 let editedSubtaskText;
+
+async function initialize() {
+    // Laden der gespeicherten Tasks
+    await loadTasksFromStorage();
+    updateHTML();
+}
 
 async function updateHTML() {
     try {
@@ -13,37 +19,47 @@ async function updateHTML() {
     }
 
     updateProgressBar(0);
-    getTaskFromRemote();
+    showDateOnInput();
+    setupCancelButton();
 }
 
-
-async function getTaskFromRemote(){
+async function loadTasksFromStorage() {
     try {
-        const storedTaskJSON = await getItem("key");
+        const storedTaskJSON = await getItem("task_key");
         const storedTask = JSON.parse(storedTaskJSON);
 
         tasks.push(storedTask);
         await updateArea("todo");
-
-        console.log(storedTask);
     } catch (error) {
         console.error('An error occurred while fetching and parsing stored task:', error);
     }
 }
 
 
+
+async function loadBoardFromStorage(taskId) {
+    try {
+        const storedBoardJSON = await getItem(`${taskId}`);
+        const storedBoard = JSON.parse(storedBoardJSON);
+
+        tasks.push(storedBoard);
+        await updateArea(storedBoard.field);
+    } catch (error) {
+        console.error('An error occurred while fetching and parsing stored task:', error);
+    }
+}
+
+
+
 async function updateArea(field) {
     const filteredTasks = tasks.filter((t) => t["field"] === field);
     const areaElement = document.getElementById(field);
-
-    // Check if the areaElement exists before updating its innerHTML
     if (areaElement) {
         areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
     } else {
         console.error(`Element with id ${field} not found.`);
     }
 }
-
 
 
 function generateTaskHTML(element) {
@@ -125,23 +141,23 @@ function openTaskCard(elementId) {
     }
 }
 
-function editTaskCard(taskId, editedSubtaskText) {
+function editTaskCard(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
-    
+
 
     if (task) {
         const editCard = document.getElementById('edit-container');
         const subtaskListHTML = task.subtasks.map(subtask => `
-            <li id="subtask-${subtask.taskId}">
-                <span class="subtask-title">${subtask.title}</span>
-                <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs">
-                    <img src="./assets/img/board/editforSubtask.png" class="subtask-img subtask-img-edit" onclick="editSubtask('${subtask.id}')">
-                    <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img subtask-img-trash" onclick="deleteSubtask('${subtask.id}')">
+            <div id="${subtask.id}" class="full-subtasks-area">
+                <li>${subtask.title}</li>
+                <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs d-none">
+                    <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtask.id}')">
+                    <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtask.id}')">
                 </div>
-            </li>`).join('');
-
+            </div>`).join('');
+            
 
         editCard.innerHTML = `
             <div class="completeCard">
@@ -165,11 +181,11 @@ function editTaskCard(taskId, editedSubtaskText) {
                 <div class="task-title">
                     <span class="font-line">Priority</span>
                     <div class="task-button-area">
-                        <button type="button" id="prio-btn-red" class="prio-btn ${task.checkedPriority === 'red' ? 'checked' : ''}" onclick="changeBtnColor('red')">Urgent
-                            <img id="prio-red" src="./assets/img/board/Prio-red.png" alt="Urgent"></button>
-                        <button type="button" id="prio-btn-yellow" class="prio-btn ${task.checkedPriority === 'yellow' ? 'checked' : ''}" onclick="changeBtnColor('yellow')">Medium
+                        <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
+                            <img id="prio-red" src="./assets/img/board/prio_red.png" alt="Urgent"></button>
+                        <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
                             <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png" alt="Medium"></button>
-                        <button type="button" id="prio-btn-green" class="prio-btn ${task.checkedPriority === 'green' ? 'checked' : ''}" onclick="changeBtnColor('green')">Low
+                        <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
                             <img id="prio-green" src="./assets/img/board/Prio-green.png" alt="Low"></button>
                     </div>
                 </div>  
@@ -191,24 +207,38 @@ function editTaskCard(taskId, editedSubtaskText) {
                             <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
                                 src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
                             <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
-                                src="/.assets/img/board/vector-subtask.png">
+                                src="./assets/img/board/vector-subtask.png">
                             <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
                                 src="./assets/img/board/checked.png" onclick="addSubtask()">
                         </div>
                     </div>
                     <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
-                </div>
                 <div class="right-end">
                     <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
                 </div>
             </div>`;
-
-            addSubtask(editedSubtaskText);
+            task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
 
+// function createSubtaskHTML(subtask) {
+//     let subtaskID = `subtask-${Date.now()}`;
+//     let subtaskHTML = `
+//         <div id="${subtaskID}" class="full-subtasks-area">
+//             <li>${subtask.title}</li>
+//             <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
+//                 <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
+//                 <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
+//             </div>
+//         </div>
+//     `;
+    
+//     addSubtaskListeners(subtaskID); // Eventlistener hinzufügen
+    
+//     return subtaskHTML;
+// }
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
 function addSubtask() {
@@ -216,7 +246,7 @@ function addSubtask() {
     let subtaskUL = document.getElementById("unsorted-list");
     let subtaskText = inputSubtasks.value;
     let subtaskID = `subtask-${Date.now()}`;
-    
+
     // Neues Subtask-Element erstellen
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -229,27 +259,27 @@ function addSubtask() {
         </div>
     `;
 
-    // Neues Subtask-Element dem Subtask-OL hinzufügen
     subtaskUL.appendChild(newSubtask);
-
+    addSubtaskListeners(subtaskID);
     inputSubtasks.value = "";
     setTimeout(restoreInputImg, 0);
-
-    // Event Listener für das aktuelle Subtask-Element hinzufügen
-    addSubtaskListeners(subtaskID);
 }
 
 function addSubtaskListeners(subtaskID) {
-    // Eventlistener für das aktuelle Subtask-Element hinzufügen
     let currentSubtask = document.getElementById(subtaskID);
 
-    // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
-    if (!currentSubtask.dataset.listenerAdded) {
-        currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
-        currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
+    // Überprüfen, ob das Element gefunden wurde
+    if (currentSubtask) {
+        // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
+        if (!currentSubtask.dataset.listenerAdded) {
+            currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
+            currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
 
-        // Markieren, dass der Eventlistener hinzugefügt wurde
-        currentSubtask.dataset.listenerAdded = true;
+            // Markieren, dass der Eventlistener hinzugefügt wurde
+            currentSubtask.dataset.listenerAdded = true;
+        }
+    } else {
+        console.error(`Element with ID ${subtaskID} not found.`);
     }
 }
 
@@ -381,13 +411,22 @@ function deleteTaskCard(taskId) {
         closeTaskCard();
 
         try {
-            // Versuche, die gespeicherte Aufgabe aus dem localStorage zu entfernen
-            const storedTaskJSON = getItem("key");
+            const storedTaskJSON = getItem("task_key");
             if (storedTaskJSON) {
-                removeItem("key");
+                localStorage.removeItem("key");
 
-                // Speichere das aktualisierte tasks Array im localStorage
-                setItem("key", JSON.stringify(tasks));
+                setItem("task_key", tasks);
+            }
+        } catch (error) {
+            console.error('An error occurred while removing stored task:', error);
+        }
+
+        try {
+            const storedBoardJSON = getItem(`${taskId}`);
+            if (storedBoardJSON) {
+                localStorage.removeItem(`${taskId}`);
+
+                setItem(`${taskId}`, tasks);
             }
         } catch (error) {
             console.error('An error occurred while removing stored task:', error);
@@ -462,20 +501,16 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
-function createTask(event) {
+async function createTask(event) {
     event.preventDefault();
 
-    let titleInput = document.getElementById("task-title-input");
-    let descriptionInput = document.getElementById("description-input");
-    let dateInput = document.getElementById("date");
+    let title = document.getElementById("task-title-input");
+    let description = document.getElementById("description-input");
+    let date = document.getElementById("date");
     let createdSubtasks = document.getElementById("unsorted-list");
-    let fieldInput = document.getElementById("task-field");
+    let field = document.getElementById("task-field");
     let categoryInput = document.getElementById("task-category-input");
 
-    let title = titleInput.value;
-    let description = descriptionInput.value;
-    let date = dateInput.value;
-    let field = fieldInput.value;
     let category = categoryInput.value;
     let subtasksLength = createdSubtasks.children.length;
 
@@ -488,26 +523,21 @@ function createTask(event) {
     let subtaskElements = createdSubtasks.children;
     let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
         return {
-            title: subtaskElement.textContent.trim(), 
+            title: subtaskElement.textContent.trim(),
             checked: false,
+            id: subtaskElement.id,
         };
     });
 
-    let taskId = tasks.length;
-
-    titleInput.value = "";
-    descriptionInput.value = "";
-    dateInput.value = "";
-    categoryInput.value = "";
-    createdSubtasks.innerHTML = "";
     let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
+    let taskId = Date.now();
 
     let task = {
         id: taskId,
-        field: field,
-        title: title,
-        description: description,
-        date: date,
+        field: field.value,
+        title: title.value,
+        description: description.value,
+        date: date.value,
         category: category,
         priority: getPriorityImagePath(currentPriority),
         priorityText: priorityText(currentPriority),
@@ -517,10 +547,25 @@ function createTask(event) {
         createdSubtasks: subtasksLength,
     };
 
-    tasks.push(task);
-    console.log(tasks);
 
-    updateHTML();
+    tasks.push(task);
+    try {
+        const response = await setItem(`${taskId}`, JSON.stringify(task));
+        console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
+        await loadBoardFromStorage(taskId);
+    } catch (error) {
+        console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
+    }
+
+    
+    
+    title.value = "";
+    description.value = "";
+    date.value = "";
+    categoryInput.value = "";
+    createdSubtasks.innerHTML = "";
+
+    // updateHTML();
 
     let closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");
@@ -528,6 +573,7 @@ function createTask(event) {
     resetAllButtons();
     currentPriority = null;
 }
+
 
 function priorityText(priority) {
     let low = document.getElementById('prio-btn-green').innerText;
@@ -541,20 +587,20 @@ function priorityText(priority) {
     } else if (priority === "green") {
         return low;
     } else {
-        return "-empty-";
+        return "-empty-" || priority == "";
     }
 }
 
 
 function getPriorityImagePath(priority) {
     if (priority === "red") {
-        return "./assets/img/board/Prio-red.png";
+        return "./assets/img/board/prio_red.png";
     } else if (priority === "yellow") {
         return "./assets/img/board/Prio-yellow.png";
     } else if (priority === "green") {
         return "./assets/img/board/Prio-green.png";
     } else {
-        return "./assets/img/board/Prio-red.png";
+        return "./assets/img/board/prio_red.png";
     }
 }
 // Funktion für addTask um Category auszuwählen
@@ -675,7 +721,7 @@ function resetAllButtons() {
     // Reset red button
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
-    redImg.src = "./assets/img/board/Prio-red.png";
+    redImg.src = "./assets/img/board/prio_red.png";
     redBtn.style.backgroundColor = "white";
     redBtn.style.color = "black";
     redBtn.style.borderColor = "white";
@@ -712,7 +758,6 @@ function changeBtnColor(color) {
         }
     } else {
         currentColor = null;
-        // Wenn kein Button ausgewählt ist, setze die currentPriority zurück
         currentPriority = null;
     }
 }
@@ -721,13 +766,13 @@ function colorChangeToRed() {
     redImg = document.getElementById("prio-red");
     redBtn = document.getElementById("prio-btn-red");
 
-    if (redImg.src.endsWith("/assets/img/board/Prio-red.png")) {
+    if (redImg.src.endsWith("/assets/img/board/prio_red.png")) {
         redImg.src = "./assets/img/board/prio-red-white.png";
         redBtn.style.backgroundColor = "rgb(255,61,0)";
         redBtn.style.color = "white";
         redBtn.style.borderColor = "rgb(255,61,0)";
     } else {
-        redImg.src = "./assets/img/board/Prio-red.png";
+        redImg.src = "./assets/img/board/prio_red.png";
         redBtn.style.backgroundColor = "white";
         redBtn.style.color = "black";
         redBtn.style.borderColor = "white";
@@ -790,4 +835,25 @@ function restoreInputImg() {
     closeIcon.classList.add("d-none");
     vectorIcon.classList.add("d-none");
     checkedIcon.classList.add("d-none");
+}
+
+function showDateOnInput() {
+    document.getElementById("date").addEventListener('focus', function (event) {
+        event.target.showPicker();
+    });
+}
+function setupCancelButton() {
+    const cancelButton = document.getElementById("cancel-button");
+    const blackCross = document.getElementById("black-cross");
+    const blueCross = document.getElementById("blue-cross");
+
+    cancelButton.addEventListener("mouseenter", function () {
+        blackCross.classList.add("d-none");
+        blueCross.classList.remove("d-none");
+    });
+
+    cancelButton.addEventListener("mouseleave", function () {
+        blackCross.classList.remove("d-none");
+        blueCross.classList.add("d-none");
+    });
 }
