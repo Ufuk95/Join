@@ -21,3 +21,5 @@ let ContactsDummyData = [
   ["Emily Scholz", "emily.davis@gmx.de", "01658325432"],
   ["Daniel", "daniel.clark@yahoo.com", "017782332523"],
 ]
+
+

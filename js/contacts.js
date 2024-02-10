@@ -1,4 +1,5 @@
 
+let finalArray;
 
 let colorCarousell = {
   "0": "#FF7A00",
@@ -11,23 +12,21 @@ let colorCarousell = {
   "7": "#FF4646",
 };
 
-
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
-  // await setItem("userData", parsedData)
-  console.log(parsedData);
+  console.log();
+  return parsedData
+}
+ 
+async function getParsedData(){
+  let getFromRemote = logFromRemote("userData");
+  return getFromRemote
 }
 
-// logFromRemote("userData");
+
+//  console.log(contactsArray);
 // ! ---------------------------------------------------------
-
-
-// console.log(ContactsDummyData);
-
-// let addedInits = addInitials(ContactsDummyData)
-// console.log(addedInits);
-// setItem("userData", addedInits)
 
 
 /**
@@ -35,9 +34,11 @@ async function logFromRemote(remoteKey) {
 */
 async function contactsInit() {
   loadAll();
-  let finalArray = await sortAndPrepare("userData");
+  finalArray =  await sortAndPrepare("userData");
+  // console.log(finalArray);
   renderContacts(finalArray);
 }
+
 
 /**
  * Prepares a JSONArray and sorts it. Adds initials to the final Array
@@ -46,10 +47,12 @@ async function contactsInit() {
  */
 async function sortAndPrepare(remoteKey) {
   let userData = JSON.parse(await getItem(remoteKey));
+  contactsArray = userData
   let sortedArray = userData.sort();
   let finalArray = addInitials(sortedArray);
   return finalArray;
 }
+
 
 
 /**
@@ -70,7 +73,7 @@ function calculateColorMap(index) {
  * Renders contacts on the left side of the page. 
  * @param {Array} finalArray prepared and Sorted array. Ready to be rendered.   
  */
-async function renderContacts(finalArray) {
+function renderContacts(finalArray) {
   let contactsFrame = document.getElementById(`contacts-frame`);
   contactsFrame.innerHTML = "";
   contactsFrame.innerHTML += contactButtonHTML();
@@ -109,7 +112,7 @@ function addInitials(sortedArray) {
   let initials = "";
   for (let i = 0; i < sortedArray.length; i++) {
     let nameAndLastNameArray = sortedArray[i];
-    let nameAndLastNameString = sortedArray[i][0];
+    let nameAndLastNameString = sortedArray[i][0].trim();
     let splittedNameLastName = nameAndLastNameString.split(" ");
     for (let j = 0; j < splittedNameLastName.length; j++) {
       let name = splittedNameLastName[j];
@@ -117,6 +120,8 @@ function addInitials(sortedArray) {
     }
     if (sortedArray[i].length <= 3) {
       nameAndLastNameArray.splice(2, 0, initials);
+    }else if( sortedArray[i][2].length <= 2){
+      nameAndLastNameArray.splice(2, 1, initials)
     }
     initials = "";
   }
@@ -229,7 +234,7 @@ async function getContactData() {
   let contactPhone = document.getElementById(`ad-contact__phone`);
   let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
   let sortedContactData = addInitials(contactDataArray);
-  let finalArray = JSON.parse(await getItem("userData"));
+  // let finalArray = JSON.parse(await getItem("userData"));
   finalArray.push(sortedContactData[0]);
   finalArray.sort();
   setItem("userData", finalArray);
@@ -245,15 +250,15 @@ function clearContactInputs(contactName, contactEmail, contactPhone) {
 }
 
 async function deleteContact(i) {
-  let userData = JSON.parse(await getItem("userData"));
-  userData.splice(i, 1);
-  setItem("userData", userData);
-  renderContacts(userData);
+  
+  finalArray.splice(i, 1);
+  document.querySelector(`.contact-infos-box`).classList.add("display-none");
+  await setItem("userData", finalArray);
+  renderContacts(finalArray);
 }
 
 async function editContact(i) {
-  let userData = JSON.parse(await getItem("userData"));
-  console.log(userData[i]);
+  // let finalArray = JSON.parse(await getItem("finalArray"));
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.innerHTML = editContactTemplate();
   let saveBtn = document.querySelector(`.save-btn`);
@@ -266,25 +271,31 @@ async function editContact(i) {
   let nameField = document.querySelector(`.edit-name`);
   let emailField = document.querySelector(`.edit-email`);
   let phoneField = document.querySelector(`.edit-phone`);
-  nameField.value = userData[i][0];
-  emailField.value = userData[i][1];
-  phoneField.value = userData[i][3];
+  nameField.value = finalArray[i][0];
+  emailField.value = finalArray[i][1];
+  phoneField.value = finalArray[i][3];
 }
 
 
 async function saveEditedData(i) {
-  let userData = JSON.parse(await getItem("userData"));
+  // let userData = JSON.parse(await getItem("userData"));
   let nameFieldValue = document.querySelector(`.edit-name`).value;
   let emailFieldValue = document.querySelector(`.edit-email`).value;
   let phoneFieldValue = document.querySelector(`.edit-phone`).value;
-  console.log(userData[i]);
-  userData[i][0] = nameFieldValue;
-  userData[i][1] = emailFieldValue;
-  userData[i][3] = phoneFieldValue;
-  console.log(userData[i]);
-  console.log(userData);
-  // setItem("userData", userData);
-  // renderContacts(userData);
+  console.log(finalArray);
+  console.log(finalArray[i]);
+  finalArray[i][0] = nameFieldValue;
+  finalArray[i][1] = emailFieldValue;
+  finalArray[i][3] = phoneFieldValue;
+  console.log(finalArray[i]);
+  console.log(finalArray)
+  let userDataInitials = addInitials(finalArray);
+  userDataInitials.sort();
+  finalArray = userDataInitials
+  console.log(finalArray);
+  await setItem("userData", finalArray);
+  renderContacts(finalArray);
+  activeContactTab(i);
 }
 
 

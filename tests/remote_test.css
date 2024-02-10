@@ -1,0 +1,30 @@
+.box {}
+
+.push-button {
+  width: 500px;
+  height: 50px;
+  background-color: lightblue;
+}
+
+.render-area {
+  width: 90%;
+  height: fit-content;
+  margin: 0 auto;
+  margin-top: 50px;
+  border: solid lightcoral
+}
+
+.log-button{
+  margin-top: 100px; 
+  width: 500px;
+  height: 50px;
+  background-color: lightgrey;
+
+}
+
+.add-to-data{
+  margin-top: 100px; 
+  width: 500px;
+  height: 50px;
+  background-color: lightgrey;
+}
