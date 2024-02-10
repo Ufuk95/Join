@@ -289,13 +289,11 @@ async function saveEditedData(i) {
   finalArray[i][3] = phoneFieldValue;
   console.log(finalArray[i]);
   console.log(finalArray)
-  let userDataInitials = addInitials(finalArray);
-  userDataInitials.sort();
-  finalArray = userDataInitials
-  console.log(finalArray);
-  await setItem("userData", finalArray);
-  renderContacts(finalArray);
+  let userDataInitials = addInitials(finalArray).sort();
+  renderContacts(userDataInitials);
+  await setItem("userData", userDataInitials);
   activeContactTab(i);
+  navigateBack()
 }
 
 

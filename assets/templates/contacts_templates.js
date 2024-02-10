@@ -127,7 +127,7 @@ function editContactTemplate() {
     <div class="add-contact__img-placeholder">
       <img src="./assets/img/contacts/person_in_circle.svg" class="person-img" alt="">
     </div>
-    <form class="add-contact__form" onsubmit="getContactData(); return false">
+    <form class="add-contact__form" onsubmit="return false">
       <div class="input-fields-frame">
         <div class="input-field__box">
           <input id="add-contact__name" type="text" required class="input-field edit-name" placeholder="Name" autocomplete="off">
