@@ -70,11 +70,11 @@ function addContactTemplate() {
           <img src="./assets/img/contacts/icon_person.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__email" type="email" required class="input-field" placeholder="Email" autocomplete="off">
+          <input id="add-contact__email" type="email" required class="input-field" placeholder="Email" autocomplete="off">
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__phone" type="tel" required class="input-field" placeholder="Phone" autocomplete="off">
+          <input id="add-contact__phone" type="tel" required class="input-field" placeholder="Phone" autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
 
@@ -92,7 +92,7 @@ function addContactTemplate() {
                 </svg>
             </div>
           </div>
-          <button class="create-btn" onclick="getContactData()">
+          <button class="create-btn">
             <div class="create-btn__content">
               <span class="create-btn__txt">Create Contact</span>
               <img src="./assets/img/contacts/check_mark.svg" alt="">
