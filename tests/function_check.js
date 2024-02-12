@@ -1,26 +1,30 @@
-
 async function saveEditedData(i) {
-  // let userData = JSON.parse(await getItem("userData"));
+  let editedIndex;
+  let { nameField, emailField, phoneField } = getInputFieldElement();
+  finalArray[i][0] = nameField.value;
+  finalArray[i][1] = emailField.value;
+  finalArray[i][3] = phoneField.value;
+  let userDataInitials = addInitials(finalArray).sort();
+  editedIndex = getNewIndex(userDataInitials, emailField.value);
+  renderContacts(userDataInitials);
+  setItem("userData", userDataInitials);
+  activeContactTab(editedIndex);
+  navigateBack();
+}
 
-  // Getting the changed Data out of the fields. 
-  let nameFieldValue = document.querySelector(`.edit-name`).value;
-  let emailFieldValue = document.querySelector(`.edit-email`).value;
-  let phoneFieldValue = document.querySelector(`.edit-phone`).value;
-  console.log(finalArray);
-  console.log(finalArray[i]);
 
-  // Assigning the fields to the array. 
-  finalArray[i][0] = nameFieldValue;
-  finalArray[i][1] = emailFieldValue;
-  finalArray[i][3] = phoneFieldValue;
-  console.log(finalArray[i]);
-  console.log(finalArray)
-
-  // Adding Initials to final Array
-  let userDataInitials = addInitials(finalArray);
-  userDataInitials.sort();
-  console.log(finalArray);
-  await setItem("userData", finalArray);
+async function getContactData() {
+  let contactName = document.getElementById(`add-contact__name`);
+  let contactEmail = document.getElementById(`add-contact__email`);
+  let contactPhone = document.getElementById(`add-contact__phone`);
+  let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
+  let sortedContactData = addInitials(contactDataArray);
+  finalArray.push(sortedContactData[0]);
+  finalArray.sort();
+  setItem("userData", finalArray);
+  let newIndex = getNewIndex(finalArray, contactEmail.value)
   renderContacts(finalArray);
-  activeContactTab(i);
+  clearContactInputs(contactName, contactEmail, contactPhone);
+  activeContactTab(editedIndex)
+  navigateBack();
 }

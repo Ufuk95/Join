@@ -171,25 +171,30 @@ function clearTabStyle() {
 }
 
 
+function getContactDetailElements() {
+  return {
+    contactEclipse: document.getElementById(`contact-infos__eclipse`),
+    contactName: document.getElementById(`contact-infos__name`),
+    contactMail: document.getElementById(`contact-infos__email`),
+    contactPhone: document.getElementById(`contact-infos__phone`),
+    deleteBtn : document.getElementById("contact-infos__delete"),
+    editBtn:  document.getElementById(`contact-infos__edit`)
+  };
+}
+
 /**
  * Renders data of a clicked contact into the contact detail template.
  */
 async function showContactDetails(i) {
-  let userData = JSON.parse(await getItem("userData"));
-  userData.sort();
-  let contactEclipse = document.getElementById(`contact-infos__eclipse`);
-  let contactName = document.getElementById(`contact-infos__name`);
-  let contactMail = document.getElementById(`contact-infos__email`);
-  let contactPhone = document.getElementById(`contact-infos__phone`);
+  finalArray.sort();
+  let {contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn} = getContactDetailElements()
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
   clearContactDetails(contactDetailsArray);
   contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
   contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
   contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
-  contactPhone.innerHTML = userData[i][3];
-  let deleteBtn = document.getElementById("contact-infos__delete");
+  contactPhone.innerHTML = finalArray[i][3];
   deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
-  let editBtn = document.getElementById(`contact-infos__edit`);
   editBtn.setAttribute("onclick", `editContact(${i})`);
 }
 
@@ -234,13 +239,14 @@ async function getContactData() {
   let contactPhone = document.getElementById(`add-contact__phone`);
   let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
   let sortedContactData = addInitials(contactDataArray);
-  // let finalArray = JSON.parse(await getItem("userData"));
   finalArray.push(sortedContactData[0]);
   finalArray.sort();
   setItem("userData", finalArray);
-  clearContactInputs(contactName, contactEmail, contactPhone);
-  navigateBack();
+  let newIndex = getNewIndex(finalArray, contactEmail.value)
   renderContacts(finalArray);
+  clearContactInputs(contactName, contactEmail, contactPhone);
+  activeContactTab(newIndex)
+  navigateBack();
 }
 
 function clearContactInputs(contactName, contactEmail, contactPhone) {
@@ -250,7 +256,6 @@ function clearContactInputs(contactName, contactEmail, contactPhone) {
 }
 
 async function deleteContact(i) {
-
   finalArray.splice(i, 1);
   document.querySelector(`.contact-infos-box`).classList.add("display-none");
   await setItem("userData", finalArray);
@@ -258,7 +263,6 @@ async function deleteContact(i) {
 }
 
 async function editContact(i) {
-  // let finalArray = JSON.parse(await getItem("finalArray"));
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.innerHTML = editContactTemplate();
   let saveBtn = document.querySelector(`.save-btn`);
@@ -268,31 +272,36 @@ async function editContact(i) {
   addContactFrame.classList.add("transition__add-contact");
   let nameEclipseValue = document.querySelector(`.name-in-circle${i}`).innerHTML;
   document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(nameEclipseValue);
-  let nameField = document.querySelector(`.edit-name`);
-  let emailField = document.querySelector(`.edit-email`);
-  let phoneField = document.querySelector(`.edit-phone`);
+  let { nameField, emailField, phoneField } = getInputFieldElement();
   nameField.value = finalArray[i][0];
   emailField.value = finalArray[i][1];
   phoneField.value = finalArray[i][3];
 }
 
 
+function getInputFieldElement() {
+  return {
+    nameField: document.querySelector(`.edit-name`),
+    emailField: document.querySelector(`.edit-email`),
+    phoneField: document.querySelector(`.edit-phone`)
+  };
+}
+
 async function saveEditedData(i) {
   let editedIndex;
-  let nameFieldValue = document.querySelector(`.edit-name`).value;
-  let emailFieldValue = document.querySelector(`.edit-email`).value;
-  let phoneFieldValue = document.querySelector(`.edit-phone`).value;
-  console.log(emailFieldValue);
-  finalArray[i][0] = nameFieldValue;
-  finalArray[i][1] = emailFieldValue;
-  finalArray[i][3] = phoneFieldValue;
+  let { nameField, emailField, phoneField } = getInputFieldElement();
+  finalArray[i][0] = nameField.value;
+  finalArray[i][1] = emailField.value;
+  finalArray[i][3] = phoneField.value;
   let userDataInitials = addInitials(finalArray).sort();
-  editedIndex = getNewIndex(userDataInitials, emailFieldValue);
+  editedIndex = getNewIndex(userDataInitials, emailField.value);
   renderContacts(userDataInitials);
   await setItem("userData", userDataInitials);
   activeContactTab(editedIndex);
   navigateBack();
 }
+
+
 
 function getNewIndex(finalArray, email) {
   for (let j = 0; j < finalArray.length; j++) {
