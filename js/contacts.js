@@ -104,7 +104,7 @@ function singleLetterCheck(singleLetter, singleLetterCollection, contactsFrame, 
 
 
 /**
- * Adds initials from the for- and lastname. 
+ * Adds initials from the for- and lastname.
  * @param {Array} sortedArray 
  * @returns {Array}
  */
