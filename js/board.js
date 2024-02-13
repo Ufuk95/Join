@@ -9,11 +9,11 @@ function init() {
     includeHTML();
     updateHTML();
     addTaskFromStorage();
-    BoardTaskFromStorage();
+    // BoardTaskFromStorage();
 }
 
 async function addTaskFromStorage() {
-    tasks = JSON.parse(await getItem("task_key"));
+    tasks = JSON.parse(await getItem("board_key"));
     updateHTML();
 }
 
@@ -22,6 +22,12 @@ async function BoardTaskFromStorage() {
     updateHTML();
 }
 
+async function logFromRemote() {
+    let myData = JSON.parse(await getItem("board_key"));
+    console.log(myData);
+}
+
+logFromRemote();
 
 async function updateHTML() {
     try {
@@ -370,29 +376,15 @@ function hoverDeleteInSubtaskcard() {
 // Eine Funktion um die gesammte Task zu löschen
 
 async function deleteTaskCard(taskId) {
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-    if (taskIndex !== -1) {
-        tasks.splice(taskIndex, 1);
-        closeTaskCard();
-        if (getItem("board_key")) {
-            tasks = [];
-            await setItem("board_key", tasks);
+    for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        if (taskId === task.id) {
+            tasks.splice(i, 1);
         }
-        if (getItem("task_key")) {
-            tasks = [];
-            await setItem("task_key", tasks);
-        }
-        // try {
-        //     tasks = [];
-        //     await setItem("task_key", tasks);
-        //     await setItem("board_key", tasks);
-        // } catch (error) {
-        //     console.error('An error occurred while removing stored data:', error);
-        // }
-    } else {
-        console.error(`Task with ID ${taskId} not found.`);
     }
-    location.reload();
+    await setItem("board_key", tasks);
+    closeTaskCard();
+    location.reload()
 }
 
 
