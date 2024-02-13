@@ -3,12 +3,25 @@ let currentDraggedElement;
 let currentPriority = null;
 let editedSubtaskText;
 
-async function initialize() {
-    // Laden der gespeicherten Tasks
+
+
+function init() {
+    includeHTML();
+    updateHTML();
+    addTaskFromStorage();
+    BoardTaskFromStorage();
+}
+
+async function addTaskFromStorage() {
     tasks = JSON.parse(await getItem("task_key"));
-    // await loadTasksFromStorage();
     updateHTML();
 }
+
+async function BoardTaskFromStorage() {
+    tasks = JSON.parse(await getItem("board_key"));
+    updateHTML();
+}
+
 
 async function updateHTML() {
     try {
@@ -24,46 +37,16 @@ async function updateHTML() {
     setupCancelButton();
 }
 
-async function loadTasksFromStorage() {
-    // await updateArea("todo");
 
-}
-
-
-
-async function loadBoardFromStorage(taskId) {
-    try {
-        const storedBoardJSON = await getItem(`${taskId}`);
-        const storedBoard = JSON.parse(storedBoardJSON);
-
-        tasks.push(storedBoard);
-        // await updateArea(storedBoard.field);
-    } catch (error) {
-        console.error('An error occurred while fetching and parsing stored task:', error);
-    }
-}
-
-
-
-async function updateArea(field) {
-    // console.log(tasks);
+function updateArea(field) {
     let filteredTasks = tasks.filter((t) => t["field"] === field);
-    console.log(filteredTasks);
     const areaElement = document.getElementById(field);
-    // areaElement.innerHTML = tasks
 
     for (let i = 0; i < filteredTasks.length; i++) {
         let element = filteredTasks[i];
         areaElement.innerHTML += generateTaskHTML(element);
     }
-    // if (areaElement) {
-    //     areaElement.innerHTML = filteredTasks.map(generateTaskHTML).join("");
-    //     console.log(areaElement.innerHTML);
-    // } else {
-    //     console.error(`Element with id ${field} not found.`);
-    // }
 }
-
 
 function generateTaskHTML(element) {
     return `
@@ -161,7 +144,6 @@ function editTaskCard(taskId) {
                 </div>
             </div>`).join('');
 
-
         editCard.innerHTML = `
             <div class="completeCard">
                 <div class="right-end">
@@ -226,23 +208,6 @@ function editTaskCard(taskId) {
     }
 }
 
-// function createSubtaskHTML(subtask) {
-//     let subtaskID = `subtask-${Date.now()}`;
-//     let subtaskHTML = `
-//         <div id="${subtaskID}" class="full-subtasks-area">
-//             <li>${subtask.title}</li>
-//             <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
-//                 <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtaskID}')">
-//                 <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
-//             </div>
-//         </div>
-//     `;
-
-//     addSubtaskListeners(subtaskID); // Eventlistener hinzufügen
-
-//     return subtaskHTML;
-// }
-// Funtion damit man einzelne subtasks eingeben und anzeigen kann
 
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -271,9 +236,7 @@ function addSubtask() {
 function addSubtaskListeners(subtaskID) {
     let currentSubtask = document.getElementById(subtaskID);
 
-    // Überprüfen, ob das Element gefunden wurde
     if (currentSubtask) {
-        // Überprüfen, ob der Eventlistener bereits hinzugefügt wurde
         if (!currentSubtask.dataset.listenerAdded) {
             currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
             currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
@@ -406,38 +369,32 @@ function hoverDeleteInSubtaskcard() {
 
 // Eine Funktion um die gesammte Task zu löschen
 
-function deleteTaskCard(taskId) {
+async function deleteTaskCard(taskId) {
     const taskIndex = tasks.findIndex((task) => task.id === taskId);
     if (taskIndex !== -1) {
         tasks.splice(taskIndex, 1);
-        updateHTML();
         closeTaskCard();
-
-        try {
-            const storedTaskJSON = getItem("task_key");
-            if (storedTaskJSON) {
-                localStorage.removeItem("key");
-
-                setItem("task_key", tasks);
-            }
-        } catch (error) {
-            console.error('An error occurred while removing stored task:', error);
+        if (getItem("board_key")) {
+            tasks = [];
+            await setItem("board_key", tasks);
         }
-
-        try {
-            const storedBoardJSON = getItem(`${taskId}`);
-            if (storedBoardJSON) {
-                localStorage.removeItem(`${taskId}`);
-
-                setItem(`${taskId}`, tasks);
-            }
-        } catch (error) {
-            console.error('An error occurred while removing stored task:', error);
+        if (getItem("task_key")) {
+            tasks = [];
+            await setItem("task_key", tasks);
         }
+        // try {
+        //     tasks = [];
+        //     await setItem("task_key", tasks);
+        //     await setItem("board_key", tasks);
+        // } catch (error) {
+        //     console.error('An error occurred while removing stored data:', error);
+        // }
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
+    location.reload();
 }
+
 
 
 function closeTaskCard() {
@@ -550,16 +507,8 @@ async function createTask(event) {
         createdSubtasks: subtasksLength,
     };
 
-
     tasks.push(task);
-    // try {
-    //     const response = await setItem(`${taskId}`, JSON.stringify(task));
-    //     console.log('Task wurde erfolgreich ins Remote Storage gespeichert:', response);
-    //     await loadBoardFromStorage(taskId);
-    // } catch (error) {
-    //     console.error('Fehler beim Speichern des Tasks im Remote Storage:', error);
-    // }
-
+    await setItem("board_key", tasks);
 
 
     title.value = "";
@@ -569,12 +518,12 @@ async function createTask(event) {
     createdSubtasks.innerHTML = "";
 
     updateHTML();
-
     let closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");
 
     resetAllButtons();
     currentPriority = null;
+    // location.reload();      // Schmerzfreie Lösung: aktualisiert die Seite 
 }
 
 
@@ -637,7 +586,6 @@ function mouseLeave(subtaskID) {
     greyImgs.classList.add("d-none");
     console.log("Maus verlassen!");
 }
-
 
 
 function deleteSubtaskInput() {
