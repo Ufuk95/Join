@@ -233,6 +233,10 @@ function navigateBack() {
 }
 
 
+/**
+ * Executes on Create button.
+ * Adds a new contact to the existing contacts array. Sorts the array in the proccess. 
+ */
 async function getContactData() {
   let contactName = document.getElementById(`add-contact__name`);
   let contactEmail = document.getElementById(`add-contact__email`);
@@ -249,6 +253,7 @@ async function getContactData() {
   navigateBack();
 }
 
+
 function clearContactInputs(contactName, contactEmail, contactPhone) {
   contactName.value = "";
   contactEmail.value = "";
@@ -262,6 +267,11 @@ async function deleteContact(i) {
   renderContacts(finalArray);
 }
 
+
+/**
+ * Executes on edit button. 
+ * Gets the contact details into the input fields. 
+ */
 async function editContact(i) {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.innerHTML = editContactTemplate();
@@ -287,6 +297,11 @@ function getInputFieldElement() {
   };
 }
 
+
+/**
+ * Executes on the save button. 
+ * Edited contact details getting saved in the finalArry. 
+ */
 async function saveEditedData(i) {
   let editedIndex;
   let { nameField, emailField, phoneField } = getInputFieldElement();
@@ -302,7 +317,10 @@ async function saveEditedData(i) {
 }
 
 
-
+/**
+ * Gets the new index of a changed contact. 
+ *
+ */
 function getNewIndex(finalArray, email) {
   for (let j = 0; j < finalArray.length; j++) {
     let element = finalArray[j];
