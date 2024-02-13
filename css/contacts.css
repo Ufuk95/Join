@@ -721,19 +721,31 @@ button {
   margin: 0 auto
 }
 
+.no-hover {
+  pointer-events: none;
+  cursor: pointer;
+}
 
 /************************* RESPONSIVNESS *************************/
 
-@media(max-width: 972px) {
+@media(max-width: 1370px){
+  #sidebar{
+    display:none;
+  }
   #contacts-frame {
-    width: 100%;
+    /* width: 100%; */
     margin-left: 0;
   }
-
   #header {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
     z-index: 5;
   }
+
+}
+
+@media(max-width: 972px) {
+
+
 }
 
 

@@ -137,12 +137,16 @@ function addInitials(sortedArray) {
  */
 function activeContactTab(i) {
   clearTabStyle();
+  if(document.querySelector(`.no-hover`)){
+    document.querySelector(`.no-hover`).classList.remove("no-hover") 
+  }
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
   handleTransition(contactDetailsBox);
   let contactTab = document.querySelector(`.contact-frame${i}`);
   let contactTabName = document.querySelector(`.name${i}`);
   contactTab.classList.add("active-tab-bg");
   contactTabName.classList.add("active-tab-name");
+  contactTab.classList.add("no-hover")
   showContactDetails(i);
 }
 
