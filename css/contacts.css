@@ -203,14 +203,10 @@ button {
 
 /************************* RIGHT SIDE CONTACTS *************************/
 
-#contacts-slogan-wrapper {
-  display: inline;
-  width: 100vh;
-  height: 100vh;
-}
 
 #contacts-slogan-box {
   position: relative;
+
   top: 45px;
   margin-left: 42px;
   display: inline-flex;
@@ -218,6 +214,12 @@ button {
   align-items: center;
   gap: 30px;
 }
+
+.blue-stroke__horizontal {
+  display: none;
+}
+
+.blue-stroke__vertical {}
 
 #contacts-slogan {
   color: #000;
@@ -728,14 +730,20 @@ button {
 
 /************************* RESPONSIVNESS *************************/
 
-@media(max-width: 1370px){
-  #sidebar{
-    display:none;
+@media(max-width: 1370px) {
+  #sidebar {
+    display: none;
   }
+
+  #nav-footer {
+    display: flex;
+  }
+
   #contacts-frame {
     /* width: 100%; */
     margin-left: 0;
   }
+
   #header {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
     z-index: 5;
@@ -743,21 +751,99 @@ button {
 
 }
 
-@media(max-width: 972px) {
 
 
+@media(max-width: 1300px) {
+  #contacts-slogan-box {
+    flex-direction: column;
+    gap: 8px;
+    top: -20px;
+    align-items: flex-start;
+  }
+
+  #contacts-frame {
+    width: 410px;
+    padding-left: 18px;
+  }
+
+  #contacts-slogan {
+    font-size: 54px;
+  }
+
+  .add-contact-frame {
+    width: 90%;
+  }
+
+  .add-contact__img-placeholder {
+    width: 28%;
+  }
+
+  .contact-infos-box {
+    top: 180px;
+  }
+
+  .blue-stroke__horizontal {
+    display: block;
+  }
+
+  .blue-stroke__vertical {
+    display: none;
+  }
+}
+
+
+@media (max-width: 1186px) {
+  .add-contact__left-content {
+    padding-left: 20px;
+  }
+}
+
+
+@media (max-width: 1000px) {
+  #contacts-slogan-box {
+    display: none;
+  }
+
+  #contacts-frame {
+    width: 100%;
+  }
+
+  #contacts-frame{
+    margin-top: 29px;
+
+  }  
+  #contacts-button-wrapper{
+    display: none;
+  }
+}
+
+
+@media (max-width: 714px) {
+  #header-text {
+    display: none;
+  }
+
+  #help-icon-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #icon-help {
+    justify-self: flex-end;
+  }
 }
 
 
 @media (max-width: 430px) {
-  #contacts-btn {
+  /* #contacts-btn {
     display: none;
-  }
-  #contacts-button-wrapper{
-    display: none;
-  }
+  } */
 
-  .letter0{
+  /* #contacts-button-wrapper {
+    display: none;
+  } */
+
+  /* .letter0 {
     margin-top: 10px
-  }
+  } */
 }

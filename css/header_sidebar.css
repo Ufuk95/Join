@@ -48,6 +48,12 @@ a {
   gap: 16px;
 }
 
+.help-icon-wrapper{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 #icon-help {
   width: 32px;
   height: 32px;

@@ -189,7 +189,7 @@ function getContactDetailElements() {
 /**
  * Renders data of a clicked contact into the contact detail template.
  */
-async function showContactDetails(i) {
+function showContactDetails(i) {
   finalArray.sort();
   let {contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn} = getContactDetailElements()
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
@@ -241,7 +241,7 @@ function navigateBack() {
  * Executes on Create button.
  * Adds a new contact to the existing contacts array. Sorts the array in the proccess. 
  */
-async function getContactData() {
+function getContactData() {
   let contactName = document.getElementById(`add-contact__name`);
   let contactEmail = document.getElementById(`add-contact__email`);
   let contactPhone = document.getElementById(`add-contact__phone`);
@@ -264,10 +264,10 @@ function clearContactInputs(contactName, contactEmail, contactPhone) {
   contactPhone.value = "";
 }
 
-async function deleteContact(i) {
+function deleteContact(i) {
   finalArray.splice(i, 1);
   document.querySelector(`.contact-infos-box`).classList.add("display-none");
-  await setItem("userData", finalArray);
+  setItem("userData", finalArray);
   renderContacts(finalArray);
 }
 
@@ -276,7 +276,7 @@ async function deleteContact(i) {
  * Executes on edit button. 
  * Gets the contact details into the input fields. 
  */
-async function editContact(i) {
+function editContact(i) {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
   addContactFrame.innerHTML = editContactTemplate();
   let saveBtn = document.querySelector(`.save-btn`);
@@ -306,7 +306,7 @@ function getInputFieldElement() {
  * Executes on the save button. 
  * Edited contact details getting saved in the finalArry. 
  */
-async function saveEditedData(i) {
+function saveEditedData(i) {
   let editedIndex;
   let { nameField, emailField, phoneField } = getInputFieldElement();
   finalArray[i][0] = nameField.value;
@@ -315,7 +315,7 @@ async function saveEditedData(i) {
   let userDataInitials = addInitials(finalArray).sort();
   editedIndex = getNewIndex(userDataInitials, emailField.value);
   renderContacts(userDataInitials);
-  await setItem("userData", userDataInitials);
+  setItem("userData", userDataInitials);
   activeContactTab(editedIndex);
   navigateBack();
 }
