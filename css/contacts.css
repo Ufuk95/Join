@@ -32,6 +32,11 @@ button {
   z-index: 5;
 }
 
+/************************* MOBILE ELEMENTES *************************/
+.mobile-add-contact-btn{
+  display: none;
+}
+
 /************************* LEFT-SECTION-CONTACTS *************************/
 #contacts-frame-wrapper {}
 
@@ -814,6 +819,18 @@ button {
   }  
   #contacts-button-wrapper{
     display: none;
+  }
+
+  #header{
+    padding-left: 40px;
+  }
+
+  .mobile-add-contact-btn{
+    display:block;
+    position: absolute;
+    right: 11px;
+    bottom: 109px;
+    z-index: 5;
   }
 }
 
