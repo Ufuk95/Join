@@ -11,7 +11,7 @@ body {
 .add-contact-frame-mobile {
   position: absolute;
   width: 396px;
-  height: 856px;
+  height: 760px;
   border: solid orange;
   top: 50%;
   left: 50%;
@@ -97,7 +97,7 @@ body {
 .create-btn__mobile {
   display: flex;
   margin: 0 auto;
-  margin-top: 20px;
+  margin-top: 36px;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
