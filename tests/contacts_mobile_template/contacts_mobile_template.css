@@ -12,7 +12,8 @@ body {
   position: absolute;
   width: 396px;
   height: 760px;
-  border: solid orange;
+  border: solid #29ABE2;
+  border-radius: 10px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

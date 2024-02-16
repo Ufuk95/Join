@@ -15,17 +15,17 @@ let colorCarousell = {
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log();
+  console.log(parsedData);
   return parsedData;
 }
 
 async function getParsedData() {
   let getFromRemote = logFromRemote("userData");
-  return getFromRemote;
+  console.log(getFromRemote);
 }
 
-
-//  console.log(contactsArray);
+logFromRemote("userData")
+// getParsedData()
 // ! ---------------------------------------------------------
 
 
