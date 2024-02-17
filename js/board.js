@@ -8,26 +8,14 @@ let editedSubtaskText;
 function init() {
     includeHTML();
     updateHTML();
-    addTaskFromStorage();
-    // BoardTaskFromStorage();
+    TaskFromStorage();
+    
 }
 
-async function addTaskFromStorage() {
+async function TaskFromStorage() {
     tasks = JSON.parse(await getItem("board_key"));
     updateHTML();
 }
-
-async function BoardTaskFromStorage() {
-    tasks = JSON.parse(await getItem("board_key"));
-    updateHTML();
-}
-
-async function logFromRemote() {
-    let myData = JSON.parse(await getItem("board_key"));
-    console.log(myData);
-}
-
-logFromRemote();
 
 async function updateHTML() {
     try {
@@ -45,14 +33,16 @@ async function updateHTML() {
 
 
 function updateArea(field) {
-    let filteredTasks = tasks.filter((t) => t["field"] === field);
     const areaElement = document.getElementById(field);
+    areaElement.innerHTML = "";
+    let filteredTasks = tasks.filter((t) => t["field"] === field);
 
     for (let i = 0; i < filteredTasks.length; i++) {
         let element = filteredTasks[i];
         areaElement.innerHTML += generateTaskHTML(element);
     }
 }
+
 
 function generateTaskHTML(element) {
     return `
@@ -221,6 +211,13 @@ function addSubtask() {
     let subtaskText = inputSubtasks.value;
     let subtaskID = `subtask-${Date.now()}`;
 
+    // Überprüfen, ob bereits vier Subtasks vorhanden sind
+    if (subtaskUL.children.length >= 4) {
+        alert("Du kannst maximal 4 subtasks erstellen!");
+        inputSubtasks.value = "";
+        return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
+    }
+   
     // Neues Subtask-Element erstellen
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -238,6 +235,7 @@ function addSubtask() {
     inputSubtasks.value = "";
     setTimeout(restoreInputImg, 0);
 }
+
 
 function addSubtaskListeners(subtaskID) {
     let currentSubtask = document.getElementById(subtaskID);
@@ -436,9 +434,16 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
-function moveTo(field) {
-    tasks[currentDraggedElement]["field"] = field;
-    updateHTML();
+async function moveTo(field) {
+    const selectedTask = tasks.find(task => task.id === currentDraggedElement);
+
+    if (selectedTask) {
+        selectedTask.field = field;
+        await setItem("board_key", tasks);
+        updateHTML();
+    } else {
+        console.error("Selected task not found!");
+    }
 }
 
 function allowDrop(ev) {
@@ -501,7 +506,7 @@ async function createTask(event) {
 
     tasks.push(task);
     await setItem("board_key", tasks);
-
+    updateHTML()
 
     title.value = "";
     description.value = "";
@@ -509,13 +514,11 @@ async function createTask(event) {
     categoryInput.value = "";
     createdSubtasks.innerHTML = "";
 
-    updateHTML();
     let closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");
 
     resetAllButtons();
     currentPriority = null;
-    // location.reload();      // Schmerzfreie Lösung: aktualisiert die Seite 
 }
 
 

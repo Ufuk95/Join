@@ -8,24 +8,13 @@ async function init() {
     includeHTML();
     updateHTML();
     loadAll();
-    tasks =  JSON.parse(await getItem("task_key")) 
+    tasks =  JSON.parse(await getItem("board_key")) 
 }
 
 function updateHTML() {
     setupClearButton();
     showDateOnInput()
 }
-
-async function logRemote(){
-    let myData = JSON.parse(await getItem("task_key"))
-    // console.log(typeof(myData));
-    // console.log(myData);
-    // myData = [];
-    // console.log(myData);
-    setItem("task_key", myData)
-}
-
-// logRemote()
 
 async function createTask(event) {
     event.preventDefault();
@@ -54,7 +43,7 @@ async function createTask(event) {
         };
     });
 
-    let taskId = tasks.length;
+    let taskId = Date.now();
 
     let task = {
         id: taskId,
@@ -69,10 +58,10 @@ async function createTask(event) {
         subtasks: subtasks,
         createdSubtasks: subtasksLength,
     };
-    tasks.push(task);
-    console.log(tasks);
 
-    setItem("task_key", tasks)
+    tasks.push(task);
+    await setItem("board_key", tasks);
+    updateHTML();
 
     title.value = "";
     description.value = "";
@@ -80,10 +69,6 @@ async function createTask(event) {
     category.value = "";
     createdSubtasks.innerHTML = "";
 
-
-
-
-    updateHTML()
     resetAllButtons();
     currentPriority = null;
 }
@@ -132,6 +117,13 @@ function addSubtask() {
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
     newSubtask.className = "full-subtasks-area";
+
+    // Überprüfen, ob bereits vier Subtasks vorhanden sind
+    if (subtaskUL.children.length >= 4) {
+        alert("Du kannst maximal 4 subtasks erstellen!");
+        inputSubtasks.value = "";
+        return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
+    }
 
     newSubtask.innerHTML = `
       <li class="subtask-headline">${subtaskText}</li>
