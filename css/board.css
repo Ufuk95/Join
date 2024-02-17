@@ -661,13 +661,13 @@ body {
 
 
 .card-container {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: #29292963;
   z-index: 10000;
-  top: -96px;
-  left: -232px;
+  top: 0px;
+  left: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -792,6 +792,7 @@ p {
   font-weight: 700;
   line-height: 120%;
 }
+
 .right-end {
   width: 100%;
   display: flex;
@@ -806,6 +807,6 @@ p {
   cursor: pointer;
 }
 
-#date{
+#date {
   color: black;
 }
