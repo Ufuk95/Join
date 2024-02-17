@@ -24,7 +24,7 @@ async function getParsedData() {
   console.log(getFromRemote);
 }
 
-logFromRemote("userData")
+logFromRemote("userData");
 // getParsedData()
 // ! ---------------------------------------------------------
 
@@ -137,8 +137,8 @@ function addInitials(sortedArray) {
  */
 function activeContactTab(i) {
   clearTabStyle();
-  if(document.querySelector(`.no-hover`)){
-    document.querySelector(`.no-hover`).classList.remove("no-hover") 
+  if (document.querySelector(`.no-hover`)) {
+    document.querySelector(`.no-hover`).classList.remove("no-hover");
   }
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
   handleTransition(contactDetailsBox);
@@ -146,7 +146,7 @@ function activeContactTab(i) {
   let contactTabName = document.querySelector(`.name${i}`);
   contactTab.classList.add("active-tab-bg");
   contactTabName.classList.add("active-tab-name");
-  contactTab.classList.add("no-hover")
+  contactTab.classList.add("no-hover");
   showContactDetails(i);
 }
 
@@ -181,8 +181,8 @@ function getContactDetailElements() {
     contactName: document.getElementById(`contact-infos__name`),
     contactMail: document.getElementById(`contact-infos__email`),
     contactPhone: document.getElementById(`contact-infos__phone`),
-    deleteBtn : document.getElementById("contact-infos__delete"),
-    editBtn:  document.getElementById(`contact-infos__edit`)
+    deleteBtn: document.getElementById("contact-infos__delete"),
+    editBtn: document.getElementById(`contact-infos__edit`)
   };
 }
 
@@ -191,7 +191,7 @@ function getContactDetailElements() {
  */
 function showContactDetails(i) {
   finalArray.sort();
-  let {contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn} = getContactDetailElements()
+  let { contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn } = getContactDetailElements();
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
   clearContactDetails(contactDetailsArray);
   contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
@@ -250,10 +250,10 @@ function getContactData() {
   finalArray.push(sortedContactData[0]);
   finalArray.sort();
   setItem("userData", finalArray);
-  let newIndex = getNewIndex(finalArray, contactEmail.value)
+  let newIndex = getNewIndex(finalArray, contactEmail.value);
   renderContacts(finalArray);
   clearContactInputs(contactName, contactEmail, contactPhone);
-  activeContactTab(newIndex)
+  activeContactTab(newIndex);
   navigateBack();
 }
 
@@ -321,7 +321,7 @@ function saveEditedData(i) {
 }
 
 
-/**
+/**Hello darkness my old friend.
  * Gets the new index of a changed contact. 
  *
  */
@@ -333,6 +333,8 @@ function getNewIndex(finalArray, email) {
     }
   }
 }
+
+
 
 
 

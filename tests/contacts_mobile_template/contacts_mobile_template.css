@@ -122,6 +122,15 @@ body {
   cursor: auto;
 }
 
+.input-field__mobile:focus{
+  outline: none;
+  border: solid #29ABE2 1px;
+}
+
 .input-field__mobile::placeholder{
   font-size: 16px;
 }
+
+
+
+
