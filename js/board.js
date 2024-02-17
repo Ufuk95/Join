@@ -382,7 +382,7 @@ async function deleteTaskCard(taskId) {
     }
     await setItem("board_key", tasks);
     closeTaskCard();
-    location.reload()
+    updateHTML();
 }
 
 
