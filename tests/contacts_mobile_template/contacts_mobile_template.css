@@ -122,8 +122,8 @@ body {
   cursor: auto;
 }
 
-outline: none;
 .input-field__mobile:focus{
+  outline: none;  
   border: solid #29ABE2 1px;
 }
 
@@ -156,4 +156,3 @@ outline: none;
   animation-timing-function: ease-out; /* Timing function */
 }
 
- 
