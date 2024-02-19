@@ -9,7 +9,7 @@ function init() {
     includeHTML();
     updateHTML();
     TaskFromStorage();
-    
+
 }
 
 async function TaskFromStorage() {
@@ -57,14 +57,15 @@ function generateTaskHTML(element) {
             <p class="description-font">${element.description}</p>
         </div>
         <div class="progress-task">
-            <div class="progressbar"></div>
-            <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
+            <div class="progressbar" style="width: 128px; background: linear-gradient(90deg, #3498db ${element.progressbar}%, #f4f4f4 ${element.progressbar}%)"></div>
+            <div class="subtask-display">${element.checkedSubtasks}/${element.createdSubtasks} Subtasks</div>
         </div>
         <div>
             <img id="priority" src="${element.priority}" alt="Priority">
         </div> 
     </div>`;
 }
+
 
 function openTaskCard(elementId) {
     let element = tasks.find(task => task.id === elementId);
@@ -147,7 +148,7 @@ function editTaskCard(taskId) {
                 </div>
                 <div class="task-title">
                     <span class="font-line">Title</span>
-                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" placeholder="Enter a title" value="${task.title}">
+                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" autocomplete="off" placeholder="Enter a title" value="${task.title}">
                 </div>
                 <div class="task-title">
                     <span class="font-line">Description</span>
@@ -181,7 +182,7 @@ function editTaskCard(taskId) {
                 <div class="task-title">
                     <span class="font-line">Subtasks</span>
                     <div class="task-contact-input-area" onclick="changeInputImg()">
-                        <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                        <input id="input-subtasks" autocomplete="off" type="text" placeholder="Add new subtasks">
                         <img id="subtask-plus-img" class="Assigned-img"
                             src="./assets/img/board/addTaskAdd.png" alt="plus">
                         <div style="display: flex; align-items: center; gap: 8px;">
@@ -195,15 +196,32 @@ function editTaskCard(taskId) {
                     </div>
                     <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
                 <div class="right-end">
-                    <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
+                    <button class="edit-card-btn">Ok<img src="./assets/img/board/footerCheckBtn.png" onclick=updateTask()></button>
                 </div>
             </div>`;
+        buttonForEditTaskCard(task)
         task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
 
+function buttonForEditTaskCard(task) {
+    switch (task.priority) {
+        case './assets/img/board/prio_red.png':
+            changeBtnColor('red');
+            break;
+        case './assets/img/board/Prio-yellow.png':
+            changeBtnColor('yellow');
+            break;
+        case './assets/img/board/Prio-green.png':
+            changeBtnColor('green');
+            break;
+        default:
+            resetAllButtons();
+            break;
+    }
+}
 
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -217,7 +235,7 @@ function addSubtask() {
         inputSubtasks.value = "";
         return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
     }
-   
+
     // Neues Subtask-Element erstellen
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -264,7 +282,7 @@ function addSubtaskEventListeners(subtaskID) {
 }
 
 
-function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
+async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
     const task = tasks.find((item) => item.id === taskId);
 
     if (task && task.subtasks[subtaskIndex]) {
@@ -281,9 +299,22 @@ function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
             subtask.checked = false;
         }
 
+        // Zähle die Anzahl der überprüften Teilaufgaben
+        const checkedSubtasks = task.subtasks.filter(subtask => subtask.checked).length;
+        // Aktualisiere die Anzahl der überprüften Teilaufgaben im task-Objekt
+        task.checkedSubtasks = checkedSubtasks;
+
         updateProgressBar(taskId);
+
+        // Aktualisierung des Fortschritts im task-Objekt
+        const progressPercentage = task.createdSubtasks > 0 ? (checkedSubtasks / task.createdSubtasks) * 100 : 0;
+        task.progressbar = progressPercentage;
+
+        await setItem("board_key", tasks);
     }
 }
+
+
 
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -397,6 +428,10 @@ function closeEditTask() {
     addNone.classList.add('d-none-card');
 }
 
+function updateTask() {
+
+}
+
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const date = new Date(dateString);
@@ -428,6 +463,7 @@ function updateProgressBar(taskId) {
             subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
         }
     }
+    // await setItem("board_key", tasks);
 }
 
 function startDragging(id) {
@@ -488,6 +524,7 @@ async function createTask(event) {
 
     let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
     let taskId = Date.now();
+    let progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
 
     let task = {
         id: taskId,
@@ -502,6 +539,7 @@ async function createTask(event) {
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
         createdSubtasks: subtasksLength,
+        progressbar: progressPercentage
     };
 
     tasks.push(task);
