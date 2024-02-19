@@ -57,14 +57,15 @@ function generateTaskHTML(element) {
             <p class="description-font">${element.description}</p>
         </div>
         <div class="progress-task">
-            <div class="progressbar"></div>
-            <div class="subtask-display">0/${element.createdSubtasks} Subtasks</div>
+            <div class="progressbar" style="width: 128px; background: linear-gradient(90deg, #3498db ${element.progressbar}%, #f4f4f4 ${element.progressbar}%)"></div>
+            <div class="subtask-display">${element.checkedSubtasks}/${element.createdSubtasks} Subtasks</div>
         </div>
         <div>
             <img id="priority" src="${element.priority}" alt="Priority">
         </div> 
     </div>`;
 }
+
 
 function openTaskCard(elementId) {
     let element = tasks.find(task => task.id === elementId);
@@ -264,7 +265,7 @@ function addSubtaskEventListeners(subtaskID) {
 }
 
 
-function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
+async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
     const task = tasks.find((item) => item.id === taskId);
 
     if (task && task.subtasks[subtaskIndex]) {
@@ -281,9 +282,23 @@ function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
             subtask.checked = false;
         }
 
+        // Zähle die Anzahl der überprüften Teilaufgaben
+        const checkedSubtasks = task.subtasks.filter(subtask => subtask.checked).length;
+        // Aktualisiere die Anzahl der überprüften Teilaufgaben im task-Objekt
+        task.checkedSubtasks = checkedSubtasks;
+
+        // Update der Progressbar
         updateProgressBar(taskId);
+
+        // Aktualisierung des Fortschritts im task-Objekt
+        const progressPercentage = task.createdSubtasks > 0 ? (checkedSubtasks / task.createdSubtasks) * 100 : 0;
+        task.progressbar = progressPercentage;
+
+        await setItem("board_key", tasks); // Speichern der Aktualisierung im lokalen Speicher
     }
 }
+
+
 
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -428,6 +443,7 @@ function updateProgressBar(taskId) {
             subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
         }
     }
+    // await setItem("board_key", tasks);
 }
 
 function startDragging(id) {
@@ -488,6 +504,7 @@ async function createTask(event) {
 
     let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
     let taskId = Date.now();
+    let progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
 
     let task = {
         id: taskId,
@@ -502,6 +519,7 @@ async function createTask(event) {
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
         createdSubtasks: subtasksLength,
+        progressbar: progressPercentage
     };
 
     tasks.push(task);
