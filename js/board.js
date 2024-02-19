@@ -9,7 +9,7 @@ function init() {
     includeHTML();
     updateHTML();
     TaskFromStorage();
-    
+
 }
 
 async function TaskFromStorage() {
@@ -148,7 +148,7 @@ function editTaskCard(taskId) {
                 </div>
                 <div class="task-title">
                     <span class="font-line">Title</span>
-                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" placeholder="Enter a title" value="${task.title}">
+                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" autocomplete="off" placeholder="Enter a title" value="${task.title}">
                 </div>
                 <div class="task-title">
                     <span class="font-line">Description</span>
@@ -182,7 +182,7 @@ function editTaskCard(taskId) {
                 <div class="task-title">
                     <span class="font-line">Subtasks</span>
                     <div class="task-contact-input-area" onclick="changeInputImg()">
-                        <input id="input-subtasks" type="text" placeholder="Add new subtasks">
+                        <input id="input-subtasks" autocomplete="off" type="text" placeholder="Add new subtasks">
                         <img id="subtask-plus-img" class="Assigned-img"
                             src="./assets/img/board/addTaskAdd.png" alt="plus">
                         <div style="display: flex; align-items: center; gap: 8px;">
@@ -196,15 +196,32 @@ function editTaskCard(taskId) {
                     </div>
                     <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
                 <div class="right-end">
-                    <button class="edit-card-btn">Ok<img src="./assets/img/board/check.png"></button>
+                    <button class="edit-card-btn">Ok<img src="./assets/img/board/footerCheckBtn.png" onclick=updateTask()></button>
                 </div>
             </div>`;
+        buttonForEditTaskCard(task)
         task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
 
+function buttonForEditTaskCard(task) {
+    switch (task.priority) {
+        case './assets/img/board/prio_red.png':
+            changeBtnColor('red');
+            break;
+        case './assets/img/board/Prio-yellow.png':
+            changeBtnColor('yellow');
+            break;
+        case './assets/img/board/Prio-green.png':
+            changeBtnColor('green');
+            break;
+        default:
+            resetAllButtons();
+            break;
+    }
+}
 
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -218,7 +235,7 @@ function addSubtask() {
         inputSubtasks.value = "";
         return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
     }
-   
+
     // Neues Subtask-Element erstellen
     let newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -287,14 +304,13 @@ async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
         // Aktualisiere die Anzahl der überprüften Teilaufgaben im task-Objekt
         task.checkedSubtasks = checkedSubtasks;
 
-        // Update der Progressbar
         updateProgressBar(taskId);
 
         // Aktualisierung des Fortschritts im task-Objekt
         const progressPercentage = task.createdSubtasks > 0 ? (checkedSubtasks / task.createdSubtasks) * 100 : 0;
         task.progressbar = progressPercentage;
 
-        await setItem("board_key", tasks); // Speichern der Aktualisierung im lokalen Speicher
+        await setItem("board_key", tasks);
     }
 }
 
@@ -410,6 +426,10 @@ function closeTaskCard() {
 function closeEditTask() {
     let addNone = document.getElementById('edit-container');
     addNone.classList.add('d-none-card');
+}
+
+function updateTask() {
+
 }
 
 function formatDate(dateString) {

@@ -793,6 +793,13 @@ p {
   line-height: 120%;
 }
 
+.edit-card-btn:hover {
+  background-color: var(--Ligth-blue, #29abe2);
+  border: solid var(--Ligth-blue, #29abe2);
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.3), -2px 5px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
 .right-end {
   width: 100%;
   display: flex;
