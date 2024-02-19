@@ -92,8 +92,8 @@ body {
 
 .form-btns-frame__mobile {
   margin-top: 20px;
-  margin: 0 auto;
   display: flex;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -104,16 +104,41 @@ body {
 
 .create-btn__mobile {
   display: flex;
-  margin-top: 36px;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   background: #2A3647;
-  width: 202px;
+  width: 99px;
   height: 51px;
 }
 
- 
+.create-btn__mobile:hover {
+  cursor: pointer;
+  background-color: #29ABE2;
+}
+
+.cancel-btn__mobile {
+  width: 82px;
+  height: 51px;
+  border: 1px solid #2A3647;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* align-self: flex-start; */
+}
+
+.cancel-btn-content__mobile {
+  display: flex;
+  align-items: center;
+}
+
+.cancel-txt__mobile {
+  font-size: 20px;
+  line-height: 120%;
+  font-family: Inter;
+}
+
 .input-field__mobile {
   display: flex;
   position: relative;
@@ -128,22 +153,23 @@ body {
   cursor: auto;
 }
 
-.input-field__mobile:focus{
+
+.input-field__mobile:focus {
   outline: none;
   border: solid #29ABE2 1px;
 }
 
-.input-field__mobile::placeholder{
+.input-field__mobile::placeholder {
   font-size: 16px;
 }
 
-.animation-btn{
+.animation-btn {
   height: 30px;
   width: 100px;
-  border: solid orange;  
+  border: solid orange;
   margin: 0 auto;
   margin-top: 25px;
-} 
+}
 
 
 @keyframes slidein {
@@ -152,13 +178,15 @@ body {
   }
 
   to {
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 }
 
-.transition{
-  animation-name: slidein; /* Name of the keyframe animation */
-  animation-duration: 0.7s; /* Duration of the animation */
-  animation-timing-function: ease-out; /* Timing function */
+.transition {
+  animation-name: slidein;
+  /* Name of the keyframe animation */
+  animation-duration: 0.7s;
+  /* Duration of the animation */
+  animation-timing-function: ease-out;
+  /* Timing function */
 }
-

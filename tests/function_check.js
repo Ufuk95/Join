@@ -1,30 +1,41 @@
-async function saveEditedData(i) {
-  let editedIndex;
-  let { nameField, emailField, phoneField } = getInputFieldElement();
-  finalArray[i][0] = nameField.value;
-  finalArray[i][1] = emailField.value;
-  finalArray[i][3] = phoneField.value;
-  let userDataInitials = addInitials(finalArray).sort();
-  editedIndex = getNewIndex(userDataInitials, emailField.value);
-  renderContacts(userDataInitials);
-  setItem("userData", userDataInitials);
-  activeContactTab(editedIndex);
-  navigateBack();
+let todos = [{
+  'id': 0,
+  'title': 'Putzen',
+  'category': 'open'
+}, {
+  'id': 1,
+  'title': 'Kochen',
+  'category': 'open'
+}, {
+  'id': 2,
+  'title': 'Einkaufen',
+  'category': 'closed'
+}];
+
+function updateHTML() {
+  // Hier wird die methode filter auf das JSON array todos angewendet.
+  // Diese Methode erhält eine arrow function mit einem Parameter. 
+  // Wenn die "category" in einem object "open" ist, wird das object behalten 
+  // Es wird ein neues array gebildet indem nur die items überbleiben die in der 
+  // funktion true ergeben.
+  let open = todos.filter(t => t['category'] == 'open');
+  // open wird erstmal geleert. 
+  document.getElementById('open').innerHTML = '';
+  // Und wieder mit allen items befüllt die open enthalten. 
+  for (let index = 0; index < open.length; index++) {
+    const element = open[index];
+    document.getElementById('open').innerHTML += generateTodoHTML(element);
+  }
+  
+  let closed = todos.filter(t => t['category'] == 'closed');
+  document.getElementById('closed').innerHTML = '';
+  for (let index = 0; index < closed.length; index++) {
+    const element = closed[index];
+    document.getElementById('closed').innerHTML += generateTodoHTML(element);
+  }
 }
 
-
-async function getContactData() {
-  let contactName = document.getElementById(`add-contact__name`);
-  let contactEmail = document.getElementById(`add-contact__email`);
-  let contactPhone = document.getElementById(`add-contact__phone`);
-  let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
-  let sortedContactData = addInitials(contactDataArray);
-  finalArray.push(sortedContactData[0]);
-  finalArray.sort();
-  setItem("userData", finalArray);
-  let newIndex = getNewIndex(finalArray, contactEmail.value)
-  renderContacts(finalArray);
-  clearContactInputs(contactName, contactEmail, contactPhone);
-  activeContactTab(editedIndex)
-  navigateBack();
+// Hier wird ein einzelnes Object übergeben
+function generateTodoHTML(element) {
+  return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
 }
