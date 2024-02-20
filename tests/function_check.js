@@ -26,7 +26,7 @@ function updateHTML() {
     const element = open[index];
     document.getElementById('open').innerHTML += generateTodoHTML(element);
   }
-  
+  // Hier werden alle items befüllt die closed enthalten.
   let closed = todos.filter(t => t['category'] == 'closed');
   document.getElementById('closed').innerHTML = '';
   for (let index = 0; index < closed.length; index++) {
@@ -37,5 +37,7 @@ function updateHTML() {
 
 // Hier wird ein einzelnes Object übergeben
 function generateTodoHTML(element) {
+  // Aus dem Object wird die id gezogen
+  // Auch der title wird herausgezogen
   return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
 }
