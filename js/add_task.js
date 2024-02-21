@@ -412,7 +412,7 @@ function showDateOnInput() {
 function redirectToBoardTask() {
     setTimeout(function () {
         window.location.href = '/board.html';
-    }, 400);
+    }, 300);
 }
 
 

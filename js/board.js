@@ -876,3 +876,36 @@ function setupCancelButton() {
         blueCross.classList.add("d-none");
     });
 }
+
+function toggleContactAreaVisibility() {
+    let contactArea = document.querySelector(".contact-area");
+    let arrowDownContact = document.getElementById("arrow_down_contact");
+    let arrowUpContact = document.getElementById("arrow_up_contact");
+
+    let isVisible = !contactArea.classList.contains("d-none");
+    contactArea.classList.toggle("d-none");
+
+    arrowDownContact.classList.toggle("d-none", !isVisible);
+    arrowUpContact.classList.toggle("d-none", isVisible);
+}
+
+async function showContactsInTasks() {
+    toggleContactAreaVisibility();
+    
+    let chooseContact = document.getElementById('contact-area');
+    chooseContact.innerHTML = "";
+    let contactInformation = JSON.parse(await getItem("userData"));
+
+    for (let i = 0; i < contactInformation.length; i++) {
+        const contact = contactInformation[i];
+        chooseContact.innerHTML += `
+        <div class="completeContactArea">
+            <div class="contact-info">
+                <div class="single-letter">${contact[2]}</div>
+                <div class="contact-name">${contact[0]}</div>
+            </div>
+            <img src="./assets/img/board/checkForCard.png" onclick="chooseContact()">
+        </div>`;
+    }
+}
+
