@@ -268,7 +268,7 @@ body {
 }
 
 #subtask-edit {
-  position: absolute;
+  position: fixed;
   width: 385px;
   height: 40px;
   border-right: none;
