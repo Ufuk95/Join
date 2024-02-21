@@ -1,0 +1,119 @@
+/************************* CONTACTS INFOS  *************************/
+
+.contact-infos-box__mobile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  top: 127px;
+  left: 20px;
+  width: fit-content;
+  height: 364px;
+  z-index: 3;
+}
+
+#contacts-slogan-box__mobile{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  top: -20px;
+  align-items: flex-start;
+}
+
+#contacts-slogan__mobile{
+  font-size: 47px;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+#contacts-slogan-txt__mobile{}
+
+#contact-infos-mobile__name-eclipse {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#contact-infos-mobile__eclipse {
+  width: 80px;
+  height: px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+}
+
+#contact-infos-mobile__eclipse>svg {
+  height: 80px;
+  width: 80px;
+}
+
+#contact-infos-mobile__eclipse>span{
+  font-size: 27px;
+}
+
+
+#contact-infos-mobile__name {
+  color: #000;
+  font-family: Inter;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+#contact-information__mobile {
+  box-sizing: content-box;
+  display: flex;
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#contact-infos-mobile__email-phone-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+#contact-infos-mobile__email-frame,
+#contact-infos-mobile__phone-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+#contact-infos-mobile__email-txt,
+#contact-infos-mobile__phone-txt {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+}
+
+#contact-infos-mobile__email {
+  color: #007CEE;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+#contact-infos-mobile__phone {
+  color: #000;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+}

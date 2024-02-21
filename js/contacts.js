@@ -24,8 +24,9 @@ async function getParsedData() {
   console.log(getFromRemote);
 }
 
-logFromRemote("userData");
+// logFromRemote("userData");
 // getParsedData()
+console.log(window.innerWidth);
 // ! ---------------------------------------------------------
 
 
@@ -140,6 +141,11 @@ function activeContactTab(i) {
   if (document.querySelector(`.no-hover`)) {
     document.querySelector(`.no-hover`).classList.remove("no-hover");
   }
+  let windowWidth = window.innerWidth
+  if(windowWidth <= 1000){
+   let contactsFrame =  document.getElementById(`contacts-frame`)
+   contactsFrame.style.display = "none"
+  } 
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
   handleTransition(contactDetailsBox);
   let contactTab = document.querySelector(`.contact-frame${i}`);
@@ -148,6 +154,7 @@ function activeContactTab(i) {
   contactTabName.classList.add("active-tab-name");
   contactTab.classList.add("no-hover");
   showContactDetails(i);
+  showContactDetailsMobile(i)
 }
 
 
@@ -202,6 +209,23 @@ function showContactDetails(i) {
   editBtn.setAttribute("onclick", `editContact(${i})`);
 }
 
+
+function getContactDetailElementsMobile() {
+  return {
+    contactEclipse: document.getElementById(`contact-infos-mobile__eclipse`),
+    contactName: document.getElementById(`contact-infos-mobile__name`),
+    contactMail: document.getElementById(`contact-infos-mobile__email`),
+    contactPhone: document.getElementById(`contact-infos-mobile__phone`),
+  };
+}
+
+function showContactDetailsMobile(i){
+  let {contactEclipse, contactName, contactMail, contactPhone} = getContactDetailElementsMobile();
+  contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
+  contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
+  contactPhone.innerHTML = finalArray[i][3];
+}
 
 /**
  * Clears the contact detail template.

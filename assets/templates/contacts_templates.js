@@ -170,12 +170,36 @@ function editContactTemplate() {
  `;
 }
 
-function nameEclipse(nameEclipse){
-  return`
+
+function nameEclipse(nameEclipse) {
+  return `
   <div id="contact-infos__eclipse" class="margin-auto">${nameEclipse}</div>
-  `
+  `;
 }
 
+
+function contactInfosMobile() {
+  return `
+  <div class="contact-infos-box__mobile display-none">
+    <div id="contact-infos-mobile__name-eclipse">
+      <div id="contact-infos-mobile__eclipse"></div>
+      <div id="contact-infos-mobile__name"></div>
+    </div>
+    <div id="contact-information__mobile">Contact Information</div>
+    <div id="contact-infos-mobile__email-phone-frame">
+      <div id="contact-infos-mobile__email-frame">
+        <div id="contact-infos-mobile__email-txt">Email</div>
+        <div id="contact-infos-mobile__email"></div>
+      </div>
+      <div id="contact-infos-mobile__phone-frame">
+        <div id="contact-infos-mobile__phone-txt">Phone</div>
+        <div id="contact-infos-mobile__phone"></div>
+      </div>
+    </div>
+  </div>
+  
+  `
+}
 
 // ! all of that has to go into contacts. Whereby single-letter box depends if there are already
 // ! names beginning with that letter. 

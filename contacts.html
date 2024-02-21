@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/fonts.css">
   <link rel="stylesheet" href="./css/header_sidebar.css">
   <link rel="stylesheet" href="./css/contacts.css">
+  <link rel="stylesheet" href="./css/contacts_mobile.css">
   <script src="./script.js" defer></script>
   <script src="./js/data.js" defer></script>
   <script src="./js/storage.js" defer></script>
@@ -16,6 +17,34 @@
 </head>
 
 <body onload="contactsInit()" id="3">
+  <!------------------------- CONTACT INFOS MOBILE ------------------------->
+
+  <div class="contact-infos-box__mobile">
+    <div id="contacts-slogan-box__mobile">
+      <span id="contacts-slogan__mobile">Contacts</span>
+      <img class="blue-stroke__vertical" src="./assets/img/contacts/stroke_vertical_blue.png" alt="">
+      <span id="contacts-slogan-txt__mobile">
+        Better with a team
+      </span>
+      <img class="blue-stroke__horizontal" src="./assets/img/contacts/blue_stroke_horizontal.svg" alt="">
+    </div>
+    <div id="contact-infos-mobile__name-eclipse">
+      <div id="contact-infos-mobile__eclipse"></div>
+      <div id="contact-infos-mobile__name"></div>
+    </div>
+    <div id="contact-information__mobile">Contact Information</div>
+    <div id="contact-infos-mobile__email-phone-frame">
+      <div id="contact-infos-mobile__email-frame">
+        <div id="contact-infos-mobile__email-txt">Email</div>
+        <div id="contact-infos-mobile__email"></div>
+      </div>
+      <div id="contact-infos-mobile__phone-frame">
+        <div id="contact-infos-mobile__phone-txt">Phone</div>
+        <div id="contact-infos-mobile__phone"></div>
+      </div>
+    </div>
+  </div>
+
   <!------------------------- BACKGROUNDS ------------------------->
   <div class="grey-bg"></div>
   <div class="dialog-bg display-none" onclick="navigateBack()"></div>
@@ -104,10 +133,10 @@
   </div>
   <!-------------------------- ADD CONTACT FRAME -------------------------->
   <div class="add-contact-frame display-none"></div>
-    <!-------------- CONTACT FRAME LEFT -------------->
+  <!-------------- CONTACT FRAME LEFT -------------->
 
   <!-------------- MOBILE BUTTONS -------------->
   <img class="mobile-add-contact-btn" src="./assets/img/contacts/mobile_person_add_btn.png" alt="">
-  </body>
+</body>
 
 </html>
