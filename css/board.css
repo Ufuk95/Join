@@ -4,7 +4,7 @@ body {
 }
 
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .start-position {
@@ -268,7 +268,7 @@ body {
 }
 
 #subtask-edit {
-  position: absolute;
+  position: fixed;
   width: 385px;
   height: 40px;
   border-right: none;
@@ -816,4 +816,34 @@ p {
 
 #date {
   color: black;
+}
+
+/* contact area */
+
+.contact-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-top: none;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3), -1px 3px 5px rgba(0, 0, 0, 0.3);
+  margin-top: -8px;
+  border-radius: 10px;
+}
+
+.completeContactArea {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 18px;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 80px;
 }

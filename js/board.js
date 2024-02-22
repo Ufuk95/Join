@@ -164,11 +164,11 @@ function editTaskCard(taskId) {
                     <span class="font-line">Priority</span>
                     <div class="task-button-area">
                         <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
-                            <img id="prio-red" src="./assets/img/board/prio_red.png" alt="Urgent"></button>
+                            <img id="prio-red" src="${task.priority}" alt="Urgent"></button>
                         <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
-                            <img id="prio-yellow" src="./assets/img/board/Prio-yellow.png" alt="Medium"></button>
+                            <img id="prio-yellow" src="${task.priority}" alt="Medium"></button>
                         <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
-                            <img id="prio-green" src="./assets/img/board/Prio-green.png" alt="Low"></button>
+                            <img id="prio-green" src="${task.priority}" alt="Low"></button>
                     </div>
                 </div>  
                 <div class="task-title">
@@ -196,18 +196,19 @@ function editTaskCard(taskId) {
                     </div>
                     <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
                 <div class="right-end">
-                    <button class="edit-card-btn">Ok<img src="./assets/img/board/footerCheckBtn.png" onclick=updateTask()></button>
+                    <button class="edit-card-btn" onclick="saveEditedTask(${taskId})">Ok<img src="./assets/img/board/footerCheckBtn.png"></button>
                 </div>
-            </div>`;
-        buttonForEditTaskCard(task)
+            </div>`; 
+            changeBtnColor(task);
+            buttonForEditTaskCard(task);
         task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
 }
 
-function buttonForEditTaskCard(task) {
-    switch (task.priority) {
+function buttonForEditTaskCard(tasks) {
+    switch (tasks.priority) {
         case './assets/img/board/prio_red.png':
             changeBtnColor('red');
             break;
@@ -428,9 +429,43 @@ function closeEditTask() {
     addNone.classList.add('d-none-card');
 }
 
-function updateTask() {
+// Speichert die veränderten/editierten elemente in tasks und ladet sie gleichzeitig ins remote storage hoch.
+async function saveEditedTask(taskId) {
+    try {
+        const taskIndex = tasks.findIndex(task => task.id === taskId);
+        if (taskIndex !== -1) {
+            const editedTask = { ...tasks[taskIndex] }; // Kopie des vorhandenen Tasks
 
+            editedTask.title = document.getElementById('task-title-input').value;
+            editedTask.description = document.getElementById('description-input').value;
+            editedTask.date = document.getElementById('date').value;
+            editedTask.priority = getPriorityImagePath(currentPriority); // Verwenden Sie den aktuellen Prioritätswert
+
+            // Extrahiere die Subtasks aus dem DOM
+            const createdSubtasks = document.getElementById('unsorted-list');
+            const subtaskElements = createdSubtasks.children;
+            const subtasks = Array.from(subtaskElements).map(subtaskElement => {
+                return {
+                    title: subtaskElement.textContent.trim(),
+                    checked: false, // Sie können die checked-Eigenschaft hier aktualisieren, falls benötigt
+                    id: subtaskElement.id,
+                };
+            });
+
+            editedTask.subtasks = subtasks; // Aktualisieren Sie die Subtasks im bearbeiteten Task
+            editedTask.createdSubtasks = subtasks.length; // Aktualisieren Sie die Anzahl der erstellten Subtasks
+            tasks[taskIndex] = editedTask;
+            updateHTML();
+            await setItem("board_key", tasks); 
+            location.reload();
+        } else {
+            console.error(`Task with ID ${taskId} not found.`);
+        }
+    } catch (error) {
+        console.error(error);
+    }
 }
+//deleteTaskCard()
 
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -841,3 +876,36 @@ function setupCancelButton() {
         blueCross.classList.add("d-none");
     });
 }
+
+function toggleContactAreaVisibility() {
+    let contactArea = document.querySelector(".contact-area");
+    let arrowDownContact = document.getElementById("arrow_down_contact");
+    let arrowUpContact = document.getElementById("arrow_up_contact");
+
+    let isVisible = !contactArea.classList.contains("d-none");
+    contactArea.classList.toggle("d-none");
+
+    arrowDownContact.classList.toggle("d-none", !isVisible);
+    arrowUpContact.classList.toggle("d-none", isVisible);
+}
+
+async function showContactsInTasks() {
+    toggleContactAreaVisibility();
+    
+    let chooseContact = document.getElementById('contact-area');
+    chooseContact.innerHTML = "";
+    let contactInformation = JSON.parse(await getItem("userData"));
+
+    for (let i = 0; i < contactInformation.length; i++) {
+        const contact = contactInformation[i];
+        chooseContact.innerHTML += `
+        <div class="completeContactArea">
+            <div class="contact-info">
+                <div class="single-letter">${contact[2]}</div>
+                <div class="contact-name">${contact[0]}</div>
+            </div>
+            <img src="./assets/img/board/checkForCard.png" onclick="chooseContact()">
+        </div>`;
+    }
+}
+
