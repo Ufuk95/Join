@@ -27,8 +27,8 @@ function blueBackArrowMobile() {
   document.getElementById(`contacts-frame`).classList.remove("d-none");
   document.querySelector(`.contact-infos-box__mobile`).classList.add("d-none");
   document.querySelector(`.blue-arrow-left`).classList.add("d-none");
-  document.querySelector(`.mobile-add-contact-btn`).classList.remove("d-none")
-  document.querySelector(`.more-options-circle`).classList.add("d-none")
+  document.querySelector(`.mobile-add-contact-btn`).classList.remove("d-none");
+  document.querySelector(`.more-options-circle`).classList.add("d-none");
 }
 
 
@@ -41,6 +41,16 @@ function removeUnwantedMobileElements() {
     document.querySelector(`.contact-infos-box__mobile`).classList.add("d-none");
     document.querySelector(`.blue-arrow-left`).classList.add("d-none");
   }
+}
+
+function addContactMobile() {
+  document.querySelector(`.dialog-bg`).classList.remove("display-none");
+  console.log(document.getElementsByTagName("body")[0]);
+  document.getElementsByTagName("body")[0].innerHTML += addContactTemplateMobile();
+}
+
+function moreOptionsMobile() {
+
 }
 
 window.addEventListener('resize', removeUnwantedMobileElements);

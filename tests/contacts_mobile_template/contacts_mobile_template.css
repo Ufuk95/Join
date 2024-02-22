@@ -56,7 +56,9 @@ body {
 
 
 .add-contact-mobile__bottom {
-  height: 54%
+  height: 54%;
+  background-color: lightblue;
+  
 }
 
 .blue-stroke-horizontal {
@@ -93,6 +95,7 @@ body {
 .add-contact__mobile-form {
   width: 90%;
   margin: 0 auto;
+  border: solid transparent
 }
 
 .create-btn__mobile {
