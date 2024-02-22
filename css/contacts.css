@@ -37,6 +37,10 @@ button {
   display: none;
 }
 
+.more-options-circle{
+  display: none;
+}
+
 /************************* LEFT-SECTION-CONTACTS *************************/
 #contacts-frame-wrapper {}
 
@@ -248,7 +252,7 @@ button {
   position: absolute;
   top: 105px;
   left: 0;
-  width: fit-content;
+  width: max-content;
   height: 364px;
   z-index: 3;
 }
@@ -825,6 +829,14 @@ button {
   }
 
   .mobile-add-contact-btn{
+    display:block;
+    position: absolute;
+    right: 11px;
+    bottom: 109px;
+    z-index: 5;
+  }
+
+  .more-options-circle{
     display:block;
     position: absolute;
     right: 11px;

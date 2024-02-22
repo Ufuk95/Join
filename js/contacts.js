@@ -141,11 +141,7 @@ function activeContactTab(i) {
   if (document.querySelector(`.no-hover`)) {
     document.querySelector(`.no-hover`).classList.remove("no-hover");
   }
-  let windowWidth = window.innerWidth
-  if(windowWidth <= 1000){
-   let contactsFrame =  document.getElementById(`contacts-frame`)
-   contactsFrame.style.display = "none"
-  } 
+  mobileElementsToggling()
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
   handleTransition(contactDetailsBox);
   let contactTab = document.querySelector(`.contact-frame${i}`);
@@ -154,9 +150,24 @@ function activeContactTab(i) {
   contactTabName.classList.add("active-tab-name");
   contactTab.classList.add("no-hover");
   showContactDetails(i);
-  showContactDetailsMobile(i)
+  showContactDetailsMobile(i);
 }
 
+
+/**
+ * Removes and adds elements when the screen-size geets < 1000px
+ */
+function mobileElementsToggling(){
+  let windowWidth = window.innerWidth;
+  if (windowWidth <= 1000) {
+    let contactsFrame = document.getElementById(`contacts-frame`);
+    contactsFrame.classList.add("d-none");
+    document.querySelector(`.blue-arrow-left`).classList.remove("d-none") 
+    document.querySelector(`.contact-infos-box__mobile`).classList.remove("d-none");
+    document.querySelector(`.mobile-add-contact-btn`).classList.toggle("d-none")
+    document.querySelector(`.more-options-circle`).classList.toggle("d-none")
+  }
+}
 
 /**
  * Handles the transition for the contact details on the right side. 
@@ -209,23 +220,6 @@ function showContactDetails(i) {
   editBtn.setAttribute("onclick", `editContact(${i})`);
 }
 
-
-function getContactDetailElementsMobile() {
-  return {
-    contactEclipse: document.getElementById(`contact-infos-mobile__eclipse`),
-    contactName: document.getElementById(`contact-infos-mobile__name`),
-    contactMail: document.getElementById(`contact-infos-mobile__email`),
-    contactPhone: document.getElementById(`contact-infos-mobile__phone`),
-  };
-}
-
-function showContactDetailsMobile(i){
-  let {contactEclipse, contactName, contactMail, contactPhone} = getContactDetailElementsMobile();
-  contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
-  contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
-  contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
-  contactPhone.innerHTML = finalArray[i][3];
-}
 
 /**
  * Clears the contact detail template.
@@ -345,9 +339,8 @@ function saveEditedData(i) {
 }
 
 
-/**Hello darkness my old friend.
+/**
  * Gets the new index of a changed contact. 
- *
  */
 function getNewIndex(finalArray, email) {
   for (let j = 0; j < finalArray.length; j++) {
@@ -357,8 +350,4 @@ function getNewIndex(finalArray, email) {
     }
   }
 }
-
-
-
-
 

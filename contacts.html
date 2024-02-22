@@ -14,12 +14,14 @@
   <script src="./js/storage.js" defer></script>
   <script src="./assets/templates/contacts_templates.js" defer></script>
   <script src="./js/contacts.js" defer></script>
+  <script src="./js/contacts_mobile.js"></script>
 </head>
 
 <body onload="contactsInit()" id="3">
-  <!------------------------- CONTACT INFOS MOBILE ------------------------->
+  <!------------------------- CONTACT INFOS FRAME MOBILE ------------------------->
 
-  <div class="contact-infos-box__mobile">
+  <img class="blue-arrow-left d-none" onclick="blueBackArrowMobile()" src="./assets/img/contacts/blue_arrow_left.png" alt="">
+  <div class="contact-infos-box__mobile d-none">
     <div id="contacts-slogan-box__mobile">
       <span id="contacts-slogan__mobile">Contacts</span>
       <img class="blue-stroke__vertical" src="./assets/img/contacts/stroke_vertical_blue.png" alt="">
@@ -136,7 +138,8 @@
   <!-------------- CONTACT FRAME LEFT -------------->
 
   <!-------------- MOBILE BUTTONS -------------->
-  <img class="mobile-add-contact-btn" src="./assets/img/contacts/mobile_person_add_btn.png" alt="">
+  <img class="mobile-add-contact-btn" onclick="addContactMobile()" src="./assets/img/contacts/mobile_person_add_btn.png" alt="">
+  <img class="more-options-circle d-none" onclick="moreOptionsMobile()" src="assets/img/contacts/more_options_circle.png" alt="">
 </body>
 
 </html>

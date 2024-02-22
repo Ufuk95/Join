@@ -6,27 +6,44 @@
   flex-direction: column;
   gap: 21px;
   top: 127px;
-  left: 20px;
+  left: 10%;
   width: fit-content;
   height: 364px;
   z-index: 3;
 }
 
-#contacts-slogan-box__mobile{
+.blue-arrow-left {
+  width: 37px;
+  height: 37px;
+  position: absolute;
+  top: 128px;
+  right: 29px;
+  z-index: 3;
+}
+
+.blue-arrow-left:hover{
+  cursor: pointer;
+}
+
+#contacts-slogan-box__mobile {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   top: -20px;
   align-items: flex-start;
 }
 
-#contacts-slogan__mobile{
+#contacts-slogan__mobile {
   font-size: 47px;
   font-weight: 700;
-  line-height: 120%;
+  height: 47px;
 }
 
-#contacts-slogan-txt__mobile{}
+#contacts-slogan-txt__mobile {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 120%;
+}
 
 #contact-infos-mobile__name-eclipse {
   display: flex;
@@ -50,7 +67,7 @@
   width: 80px;
 }
 
-#contact-infos-mobile__eclipse>span{
+#contact-infos-mobile__eclipse>span {
   font-size: 27px;
 }
 
@@ -116,4 +133,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+}
+
+
+/************************* DISPLAY CLASSES *************************/
+
+.d-none {
+  display: none !important;
 }
