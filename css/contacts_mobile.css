@@ -285,7 +285,22 @@
   animation-timing-function: ease-out;
 }
 
+@keyframes slideAwayToButtom {
+  from {
+    transform: translate(-50%, -50%);
+  }
 
+  to {
+    transform: translate(-50%, 200%);
+  }
+  
+}
+
+.add-contact-transition__remove{
+  animation-name: slideAwayToButtom;
+  animation-duration: 2s; 
+  animation-timing-function: ease-out;
+}
 
 
 /************************* DISPLAY CLASSES *************************/

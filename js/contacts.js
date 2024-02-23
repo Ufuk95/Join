@@ -254,7 +254,8 @@ function navigateBack() {
   document.querySelector(`.add-contact-frame`).classList.add("display-none");
   addContactFrame.classList.remove("transition__add-contact");
   if(addContactFrameMobile){
-    addContactFrameMobile.classList.add("d-none")
+    addContactFrameMobile.classList.add("add-contact-transition__remove")
+    setTimeout(()=>{addContactFrameMobile.classList.add("d-none")}, 2000)
   }
 }
 
