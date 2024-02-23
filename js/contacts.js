@@ -255,7 +255,7 @@ function navigateBack() {
   addContactFrame.classList.remove("transition__add-contact");
   if(addContactFrameMobile){
     addContactFrameMobile.classList.add("add-contact-transition__remove")
-    setTimeout(()=>{addContactFrameMobile.classList.add("d-none")}, 2000)
+    setTimeout(()=>{addContactFrameMobile.classList.add("d-none")}, 1500)
   }
 }
 
