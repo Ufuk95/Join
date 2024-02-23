@@ -899,13 +899,23 @@ async function showContactsInTasks() {
     for (let i = 0; i < contactInformation.length; i++) {
         const contact = contactInformation[i];
         chooseContact.innerHTML += `
-        <div class="completeContactArea">
+        <div class="completeContactArea" onclick="toggleBackgroundColor(this)">
             <div class="contact-info">
                 <div class="single-letter">${contact[2]}</div>
                 <div class="contact-name">${contact[0]}</div>
             </div>
-            <img src="./assets/img/board/checkForCard.png" onclick="chooseContact()">
+            <img id="emptyBox" class="empty-check-box" src="./assets/img/board/checkForCard.png">
         </div>`;
     }
 }
 
+function toggleBackgroundColor(element) {
+    element.classList.toggle("selected");
+
+    let imgBox = element.querySelector(".empty-check-box");
+    if (element.classList.contains("selected")) {
+        imgBox.src = './assets/img/board/checked_for_contact.svg';
+    } else {
+        imgBox.src = './assets/img/board/checkForCard.png';
+    }
+}
