@@ -206,12 +206,6 @@
   margin-left: auto;
 }
 
-#enclosing-circle {
-  width: 30px;
-  height: 30px;
-  background-color: #2A3647;
-  border-radius: 50%;
-}
 
 .input-fields-mobile__add-task {
   margin-top: 100px;
@@ -273,8 +267,9 @@
   margin-top: 25px;
 } 
 
+/************************* TRANSITIONS *************************/
 
-@keyframes slidein {
+@keyframes slideinFromButtom {
   from {
     transform: translate(-50%, 50%);
   }
@@ -282,12 +277,12 @@
   to {
     transform: translate(-50%,-50%);
   }
-}
+} 
 
-.transition{
-  animation-name: slidein; /* Name of the keyframe animation */
-  animation-duration: 0.7s; /* Duration of the animation */
-  animation-timing-function: ease-out; /* Timing function */
+.add-contact-transition__mobile{
+  animation-name: slideinFromButtom;
+  animation-duration: 0.5s; 
+  animation-timing-function: ease-out;
 }
 
 

@@ -63,7 +63,7 @@ function addContactTemplate() {
     <div class="add-contact__img-placeholder">
       <img src="./assets/img/contacts/person_in_circle.svg" class="person-img" alt="">
     </div>
-    <form class="add-contact__form" onsubmit="getContactData(); return false">
+    <form class="add-contact__form" onsubmit="getContactData('add-contact__name', 'add-contact__email', 'add-contact__phone'); return false">
       <div class="input-fields-frame">
         <div class="input-field__box">
           <input id="add-contact__name" type="text" required class="input-field" placeholder="Name" autocomplete="off">
@@ -208,7 +208,7 @@ function addContactTemplateMobile(){
   <div class="add-contact-mobile__top">
     <img class="person-circle" src="./assets/img/contacts/person_in_circle.svg" alt="">
     <div class="close-x__wrapper">
-        <img id="close-x" src="./assets/img/contacts/close_x_white.svg" alt="">
+        <img id="close-x" onclick="navigateBack()" src="./assets/img/contacts/close_x_white.svg" alt="">
     </div>
     <div class="add-contact-mobile__slogan-frame">
       <div class="add-contact-mobile__slogan-header">Add contact</div>
@@ -217,31 +217,31 @@ function addContactTemplateMobile(){
     </div>
   </div>
   <div class="add-contact-mobile__bottom">
-    <form class="add-contact__mobile-form" onsubmit="return false">
+    <form class="add-contact__mobile-form" onsubmit="getContactData('add-contact__name-mobile', 'add-contact__email-mobile', 'add-contact__phone-mobile'); return false">
       <div class="input-fields-mobile__add-task">
         <div class="input-field__box">
-          <input id="add-contact__name" type="text" required class="input-field__mobile edit-name" placeholder="Name"
+          <input id="add-contact__name-mobile" type="text" required class="input-field__mobile edit-name" placeholder="Name"
             autocomplete="off">
           <img src="./assets/img/contacts/icon_person.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__email" type="email" required class="input-field__mobile edit-email" placeholder="Email"
+          <input id="add-contact__email-mobile" type="email" required class="input-field__mobile edit-email" placeholder="Email"
             autocomplete="off">
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="ad-contact__phone" type="tel" required class="input-field__mobile edit-phone" placeholder="Phone"
+          <input id="add-contact__phone-mobile" type="tel" required class="input-field__mobile edit-phone" placeholder="Phone"
             autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
       </div>
-    </form>
-    <button class="create-btn__mobile">
+      <button class="create-btn__mobile">
       <div class="create-btn__content">
         <span class="create-btn__txt">Create Contact</span>
         <img src="./assets/img/contacts/check_mark.svg" alt="">
       </div>
     </button>
+    </form>
   </div>
 </div>
   `

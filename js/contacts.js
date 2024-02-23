@@ -246,12 +246,16 @@ function addNewContactBtn() {
 
 /**
  * Closes the dialog and the add new contact form.
- */
+*/
 function navigateBack() {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
+  let addContactFrameMobile = document.querySelector(`.add-contact-frame-mobile`)
   document.querySelector(`.dialog-bg`).classList.add("display-none");
   document.querySelector(`.add-contact-frame`).classList.add("display-none");
   addContactFrame.classList.remove("transition__add-contact");
+  if(addContactFrameMobile){
+    addContactFrameMobile.classList.add("d-none")
+  }
 }
 
 
@@ -259,10 +263,10 @@ function navigateBack() {
  * Executes on Create button.
  * Adds a new contact to the existing contacts array. Sorts the array in the proccess. 
  */
-function getContactData() {
-  let contactName = document.getElementById(`add-contact__name`);
-  let contactEmail = document.getElementById(`add-contact__email`);
-  let contactPhone = document.getElementById(`add-contact__phone`);
+function getContactData(contactNameElement, contactMailElement, contactPhoneElement) {
+  let contactName = document.getElementById(contactNameElement);
+  let contactEmail = document.getElementById(contactMailElement);
+  let contactPhone = document.getElementById(contactPhoneElement);
   let contactDataArray = [[contactName.value, contactEmail.value, contactPhone.value]];
   let sortedContactData = addInitials(contactDataArray);
   finalArray.push(sortedContactData[0]);

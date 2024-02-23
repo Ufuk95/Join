@@ -45,9 +45,14 @@ function removeUnwantedMobileElements() {
 
 function addContactMobile() {
   document.querySelector(`.dialog-bg`).classList.remove("display-none");
-  console.log(document.getElementsByTagName("body")[0]);
+  let addContactFrameMobile = document.querySelector(`.add-contact-frame-mobile`);
+  if(addContactFrameMobile){
+    addContactFrameMobile.remove()
+  }
   document.getElementsByTagName("body")[0].innerHTML += addContactTemplateMobile();
+  document.querySelector(`.add-contact-frame-mobile`).classList.add("add-contact-transition__mobile")
 }
+
 
 function moreOptionsMobile() {
 
