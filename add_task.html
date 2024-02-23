@@ -39,11 +39,12 @@
                     </div>
                     <div class="task-title">
                         <span class="font-line">Assigned to</span>
-                        <div class="task-contact-input-area">
-                            <input type="text" autocomplete = "off" placeholder="Select contacts to assign">
-                            <img class="Assigned-img" src="./assets/img/board/arrow_down.png" alt="arrow down"
-                                onclick="showContactsInTasks()">
+                        <div class="task-contact-input-area" onclick="showContactsInTasks()">
+                            <input type="none" placeholder="Select contacts to assign">
+                            <img class="Assigned-img" src="./assets/img/board/arrow_down.png" id="arrow_down_contact" alt="arrow down">
+                            <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
                         </div>
+                        <div class="contact-area d-none" id="contact-area"></div>
                     </div>
                 </div>
                 <!-- einfache div für die trennung durch eine vektor linie -->
