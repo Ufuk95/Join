@@ -37,8 +37,17 @@ button {
   display: none;
 }
 
+.mobile-add-contact-btn:hover{
+  cursor: pointer;
+}
+
+
 .more-options-circle{
   display: none;
+}
+
+.more-options-circle:hover{
+cursor: pointer;
 }
 
 /************************* LEFT-SECTION-CONTACTS *************************/
@@ -719,7 +728,6 @@ button {
   animation-name: add-contact;
   animation-duration: 0.4s;
   animation-timing-function: ease;
-
 }
 
 /************************* DISPLAY CLASSES *************************/

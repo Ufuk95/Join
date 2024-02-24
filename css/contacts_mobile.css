@@ -223,6 +223,38 @@
   border: solid transparent
 }
 
+.more-options-mobile{
+  display:block;
+  position: absolute;
+  right: 7px;
+  bottom: 105px;
+  z-index: 5;
+  width: 124px;
+  height: 108px;
+}
+
+.edit-contact{
+  position: absolute;
+  top: 15px;
+  right: 13px;
+  z-index: 10;
+}
+
+.edit-contact:hover{
+  cursor: pointer;
+}
+
+.delete-contact{
+  position: absolute;
+  bottom: 15px;
+  right: 13px;
+  z-index: 10;
+}
+
+.delete-contact:hover{
+  cursor: pointer;
+}
+
 .create-btn__mobile {
   display: flex;
   margin: 0 auto;
@@ -308,3 +340,4 @@
 .d-none {
   display: none !important;
 }
+
