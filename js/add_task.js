@@ -39,11 +39,14 @@ async function createTask(event) {
     let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
         return {
             title: subtaskElement.textContent.trim(),
+            checked: false,
             id: subtaskElement.id,
         };
     });
 
+    let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
     let taskId = Date.now();
+    let progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
 
     let task = {
         id: taskId,
@@ -57,6 +60,8 @@ async function createTask(event) {
         contacts: "?",
         subtasks: subtasks,
         createdSubtasks: subtasksLength,
+        checkedSubtasks: checkedSubtasks,
+        progressbar: progressPercentage,
     };
 
     tasks.push(task);
