@@ -198,9 +198,9 @@ function editTaskCard(taskId) {
                 <div class="right-end">
                     <button class="edit-card-btn" onclick="saveEditedTask(${taskId})">Ok<img src="./assets/img/board/footerCheckBtn.png"></button>
                 </div>
-            </div>`; 
-            changeBtnColor(task);
-            buttonForEditTaskCard(task);
+            </div>`;
+        changeBtnColor(task);
+        buttonForEditTaskCard(task);
         task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
@@ -456,7 +456,7 @@ async function saveEditedTask(taskId) {
             editedTask.createdSubtasks = subtasks.length; // Aktualisieren Sie die Anzahl der erstellten Subtasks
             tasks[taskIndex] = editedTask;
             updateHTML();
-            await setItem("board_key", tasks); 
+            await setItem("board_key", tasks);
             location.reload();
         } else {
             console.error(`Task with ID ${taskId} not found.`);
@@ -891,23 +891,50 @@ function toggleContactAreaVisibility() {
 
 async function showContactsInTasks() {
     toggleContactAreaVisibility();
-    
+
     let chooseContact = document.getElementById('contact-area');
     chooseContact.innerHTML = "";
     let contactInformation = JSON.parse(await getItem("userData"));
 
     for (let i = 0; i < contactInformation.length; i++) {
         const contact = contactInformation[i];
+        let initials = contact[2];
+        let colorIndex = calculateColorMap(i);
         chooseContact.innerHTML += `
         <div class="completeContactArea" onclick="toggleBackgroundColor(this)">
             <div class="contact-info">
-                <div class="single-letter">${contact[2]}</div>
+                <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
                 <div class="contact-name">${contact[0]}</div>
             </div>
             <img id="emptyBox" class="empty-check-box" src="./assets/img/board/checkForCard.png">
         </div>`;
     }
 }
+
+function contactFrameHTML(initials, colorNumber, i) {
+    return `
+    <div class="contact-frame contact-frame${i}">
+        <div class="name-circle-wrapper name-in-circle${i}">
+            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle  cx="21" cy="21" r="20" fill=${colorCarousell[colorNumber]} stroke="white" stroke-width="2" />
+            </svg>
+            <span class="initials initials${i}">${initials}</span>
+        </div>
+    </div>
+    `;
+}
+
+/**
+ * Calculates an index based on the amount of colors in colorCarousell.
+ * @param {Number} index Index number of a contact. 
+ * @return {Number} 
+ */
+function calculateColorMap(index) {
+    let colorMapLen = Object.keys(colorCarousell).length;
+    return index % colorMapLen;
+}
+
+
 
 function toggleBackgroundColor(element) {
     element.classList.toggle("selected");
