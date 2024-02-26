@@ -1,43 +1,20 @@
-let todos = [{
-  'id': 0,
-  'title': 'Putzen',
-  'category': 'open'
-}, {
-  'id': 1,
-  'title': 'Kochen',
-  'category': 'open'
-}, {
-  'id': 2,
-  'title': 'Einkaufen',
-  'category': 'closed'
-}];
-
-function updateHTML() {
-  // Hier wird die methode filter auf das JSON array todos angewendet.
-  // Diese Methode erhält eine arrow function mit einem Parameter. 
-  // Wenn die "category" in einem object "open" ist, wird das object behalten 
-  // Es wird ein neues array gebildet indem nur die items überbleiben die in der 
-  // funktion true ergeben.
-  let open = todos.filter(t => t['category'] == 'open');
-  // open wird erstmal geleert. 
-  document.getElementById('open').innerHTML = '';
-  // Und wieder mit allen items befüllt die open enthalten. 
-  for (let index = 0; index < open.length; index++) {
-    const element = open[index];
-    document.getElementById('open').innerHTML += generateTodoHTML(element);
-  }
-  // Hier werden alle items befüllt die closed enthalten.
-  let closed = todos.filter(t => t['category'] == 'closed');
-  document.getElementById('closed').innerHTML = '';
-  for (let index = 0; index < closed.length; index++) {
-    const element = closed[index];
-    document.getElementById('closed').innerHTML += generateTodoHTML(element);
-  }
-}
-
-// Hier wird ein einzelnes Object übergeben
-function generateTodoHTML(element) {
-  // Aus dem Object wird die id gezogen
-  // Auch der title wird herausgezogen
-  return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
+function editContact(i) {
+  let addContactFrame = document.querySelector(`.add-contact-frame`);
+  // Ranholen von einer Div
+  addContactFrame.innerHTML = editContactTemplate();
+  // Befüllen der Di
+  let saveBtn = document.querySelector(`.save-btn`);
+  // btn element selecten
+  saveBtn.setAttribute("onclick", `saveEditedData(${i})`);
+  // btn Element mit einem zusätzlichen Attribut versehen
+  document.querySelector(`.dialog-bg`).classList.remove("display-none");
+  // 
+  addContactFrame.classList.remove("display-none");
+  addContactFrame.classList.add("transition__add-contact");
+  let nameEclipseValue = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(nameEclipseValue);
+  let { nameField, emailField, phoneField } = getInputFieldElement();
+  nameField.value = finalArray[i][0];
+  emailField.value = finalArray[i][1];
+  phoneField.value = finalArray[i][3];
 }

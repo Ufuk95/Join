@@ -299,6 +299,63 @@
   margin-top: 25px;
 } 
 
+/************************* EDIT CONTACT TEMPLATE *************************/
+.form-btns-frame__mobile {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.create-btn__mobile-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #2A3647;
+  width: 99px;
+  height: 51px;
+}
+
+.create-btn__mobile-edit:hover {
+  cursor: pointer;
+  background-color: #29ABE2;
+}
+
+.cancel-btn__mobile {
+  width: 82px;
+  height: 51px;
+  border: 1px solid #2A3647;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* align-self: flex-start; */
+}
+
+.cancel-btn-content__mobile {
+  display: flex;
+  align-items: center;
+}
+
+/************************* MOBILE ELEMENTES *************************/
+.mobile-add-contact-btn{
+  display: none;
+}
+
+.mobile-add-contact-btn:hover{
+  cursor: pointer;
+}
+
+
+.more-options-circle{
+  display: none;
+}
+
+.more-options-circle:hover{
+cursor: pointer;
+}
+
 /************************* TRANSITIONS *************************/
 
 @keyframes slideinFromButtom {

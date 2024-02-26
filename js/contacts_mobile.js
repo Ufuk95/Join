@@ -17,6 +17,11 @@ function showContactDetailsMobile(i) {
   contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
   contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
   contactPhone.innerHTML = finalArray[i][3];
+  let deleteBtn = document.querySelector(`.delete-contact`)
+  let editBtn = document.querySelector(`.edit-contact`)
+  deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
+  editBtn.setAttribute("onclick", `editContact(${i})`);
+
 }
 
 
@@ -29,6 +34,8 @@ function blueBackArrowMobile() {
   document.querySelector(`.blue-arrow-left`).classList.add("d-none");
   document.querySelector(`.mobile-add-contact-btn`).classList.remove("d-none");
   document.querySelector(`.more-options-circle`).classList.add("d-none");
+  document.querySelector(`.more-options-mobile`).classList.add("d-none")
+  document.querySelector(`.more-options-mobile`).classList.remove("transition")
 }
 
 
@@ -55,12 +62,17 @@ function addContactMobile() {
 
 
 function editContactMobile(){
-  console.log("Edit working");
+  document.querySelector(`.dialog-bg`).classList.remove("display-none");
+  let addContactFrameMobile = document.querySelector(`.add-contact-frame-mobile`);
+  if (addContactFrameMobile) {
+    addContactFrameMobile.remove();
+  }
+  document.getElementsByTagName("body")[0].innerHTML += editContactTemplateMobile();
+  document.querySelector(`.add-contact-frame-mobile`).classList.add("add-contact-transition__mobile");
 }
 
 function deleteContactMobile(){
   console.log("delete working");
-  
 }
 
 function moreOptionsMobile() {

@@ -32,22 +32,30 @@ button {
   z-index: 6;
 }
 
-/************************* MOBILE ELEMENTES *************************/
-.mobile-add-contact-btn{
-  display: none;
+/************************* NAME CIRCLE STYLINGS *************************/
+
+#contact-infos__eclipse {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
 }
 
-.mobile-add-contact-btn:hover{
-  cursor: pointer;
+
+#contact-infos__eclipse>svg {
+  height: 120px;
+  width: 120px;
 }
 
-
-.more-options-circle{
-  display: none;
-}
-
-.more-options-circle:hover{
-cursor: pointer;
+#contact-infos__eclipse>span {
+  font-family: Inter;
+  font-size: 47px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
 }
 
 /************************* LEFT-SECTION-CONTACTS *************************/
@@ -272,29 +280,7 @@ cursor: pointer;
   gap: 54px;
 }
 
-#contact-infos__eclipse {
-  width: 120px;
-  height: 120px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 0;
-}
 
-#contact-infos__eclipse>svg {
-  height: 120px;
-  width: 120px;
-}
-
-#contact-infos__eclipse>span {
-  font-family: Inter;
-  font-size: 47px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-}
 
 #contact-infos__name-edit-delete {
   display: flex;
@@ -437,9 +423,10 @@ cursor: pointer;
   transform: translate(50%, -50%);
 }
 
-#close-x {
-  /* margin-right: 29px */
+#close-x:hover {
+  cursor: pointer;
 }
+
 
 #close-x__wrapper {
   display: flex;

@@ -141,7 +141,7 @@ function activeContactTab(i) {
   if (document.querySelector(`.no-hover`)) {
     document.querySelector(`.no-hover`).classList.remove("no-hover");
   }
-  mobileElementsToggling()
+  mobileElementsToggling();
   let contactDetailsBox = document.querySelector(`.contact-infos-box`);
   handleTransition(contactDetailsBox);
   let contactTab = document.querySelector(`.contact-frame${i}`);
@@ -157,15 +157,15 @@ function activeContactTab(i) {
 /**
  * Removes and adds elements when the screen-size geets < 1000px
  */
-function mobileElementsToggling(){
+function mobileElementsToggling() {
   let windowWidth = window.innerWidth;
   if (windowWidth <= 1000) {
     let contactsFrame = document.getElementById(`contacts-frame`);
     contactsFrame.classList.add("d-none");
-    document.querySelector(`.blue-arrow-left`).classList.remove("d-none") 
+    document.querySelector(`.blue-arrow-left`).classList.remove("d-none");
     document.querySelector(`.contact-infos-box__mobile`).classList.remove("d-none");
-    document.querySelector(`.mobile-add-contact-btn`).classList.toggle("d-none")
-    document.querySelector(`.more-options-circle`).classList.toggle("d-none")
+    document.querySelector(`.mobile-add-contact-btn`).classList.toggle("d-none");
+    document.querySelector(`.more-options-circle`).classList.toggle("d-none");
   }
 }
 
@@ -212,7 +212,9 @@ function showContactDetails(i) {
   let { contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn } = getContactDetailElements();
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
   clearContactDetails(contactDetailsArray);
-  contactEclipse.innerHTML = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  let colorNumber = calculateColorMap(i)
+  let initials = finalArray[i][2];
+  contactEclipse.innerHTML = circleNameTemplate(i, colorNumber, initials);
   contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
   contactMail.innerHTML = document.querySelector(`.mail${i}`).innerHTML;
   contactPhone.innerHTML = finalArray[i][3];
@@ -249,13 +251,13 @@ function addNewContactBtn() {
 */
 function navigateBack() {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
-  let addContactFrameMobile = document.querySelector(`.add-contact-frame-mobile`)
+  let addContactFrameMobile = document.querySelector(`.add-contact-frame-mobile`);
   document.querySelector(`.dialog-bg`).classList.add("display-none");
   document.querySelector(`.add-contact-frame`).classList.add("display-none");
   addContactFrame.classList.remove("transition__add-contact");
-  if(addContactFrameMobile){
-    addContactFrameMobile.classList.add("add-contact-transition__remove")
-    setTimeout(()=>{addContactFrameMobile.classList.add("d-none")}, 1500)
+  if (addContactFrameMobile) {
+    addContactFrameMobile.classList.add("add-contact-transition__remove");
+    setTimeout(() => { addContactFrameMobile.classList.add("d-none"); }, 1500);
   }
 }
 
@@ -287,6 +289,7 @@ function clearContactInputs(contactName, contactEmail, contactPhone) {
   contactPhone.value = "";
 }
 
+
 function deleteContact(i) {
   finalArray.splice(i, 1);
   document.querySelector(`.contact-infos-box`).classList.add("display-none");
@@ -298,6 +301,7 @@ function deleteContact(i) {
 /**
  * Executes on edit button. 
  * Gets the contact details into the input fields. 
+ * Gets the inital eclipse styling and assigns them to a new div. 
  */
 function editContact(i) {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
@@ -307,8 +311,8 @@ function editContact(i) {
   document.querySelector(`.dialog-bg`).classList.remove("display-none");
   addContactFrame.classList.remove("display-none");
   addContactFrame.classList.add("transition__add-contact");
-  let nameEclipseValue = document.querySelector(`.name-in-circle${i}`).innerHTML;
-  document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(nameEclipseValue);
+  let eclipseStyling = document.querySelector(`.name-in-circle${i}`).innerHTML;
+  document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(eclipseStyling);
   let { nameField, emailField, phoneField } = getInputFieldElement();
   nameField.value = finalArray[i][0];
   emailField.value = finalArray[i][1];
