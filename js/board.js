@@ -889,6 +889,8 @@ function toggleContactAreaVisibility() {
     arrowUpContact.classList.toggle("d-none", isVisible);
 }
 
+
+
 async function showContactsInTasks() {
     toggleContactAreaVisibility();
 
@@ -901,7 +903,7 @@ async function showContactsInTasks() {
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
         chooseContact.innerHTML += `
-        <div class="completeContactArea" onclick="toggleBackgroundColor(this)">
+        <div class="completeContactArea" onclick="addContact(this, '${contact[0]}')">
             <div class="contact-info">
                 <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
                 <div class="contact-name">${contact[0]}</div>
@@ -936,13 +938,66 @@ function calculateColorMap(index) {
 
 
 
-function toggleBackgroundColor(element) {
-    element.classList.toggle("selected");
+let contactData = {
+    icons: [],
+    names: []
+};
+
+function addContact(element) {
+    let isSelected = element.classList.contains("selected");
+    let iconArea = document.getElementById('icon-area');
 
     let imgBox = element.querySelector(".empty-check-box");
-    if (element.classList.contains("selected")) {
+    const contactName = element.querySelector('.contact-name').textContent;
+
+    if (!isSelected) {
+        element.classList.add("selected");
         imgBox.src = './assets/img/board/checked_for_contact.svg';
+        iconOfContact(contactName, iconArea); 
     } else {
+        element.classList.remove("selected");
         imgBox.src = './assets/img/board/checkForCard.png';
+        removeContact(contactName);
+    }
+}
+
+function removeContact(contactName) {
+    let index = contactData.names.indexOf(contactName);
+    if (index !== -1) {
+        contactData.names.splice(index, 1);
+        contactData.icons.splice(index, 1);
+        updateIconArea();
+    }
+}
+
+function updateIconArea() {
+    let iconArea = document.getElementById('icon-area');
+    iconArea.innerHTML = ''; // Leere den Inhalt von iconArea
+
+    for (let i = 0; i < contactData.icons.length; i++) {
+        iconArea.innerHTML += contactData.icons[i]; // Füge das Icon hinzu
+    }
+    if (contactData.icons.length === 0) {
+        iconArea.classList.add("d-none");
+    } else {
+        iconArea.classList.remove("d-none");
+    }
+}
+
+async function iconOfContact(contactName, iconArea){
+    iconArea.classList.remove('d-none');
+
+    let contactInformation = JSON.parse(await getItem("userData"));
+    for (let i = 0; i < contactInformation.length; i++) {
+        let contact = contactInformation[i];
+        if (contact[0] === contactName) { // Überprüfen, ob der Name mit dem ausgewählten Kontakt übereinstimmt
+            let initials = contact[2];
+            let colorIndex = calculateColorMap(i);
+            let contactIcon = contactFrameHTML(initials, colorIndex, i); // Erstelle das Icon
+            contactData.icons.push(contactIcon); // Füge das Icon zu den Kontaktdaten hinzu
+            contactData.names.push(contactName); // Füge den Namen zu den Kontaktdaten hinzu
+            updateIconArea();
+            break; // Beende die Schleife, sobald das Icon hinzugefügt wurde
+        }
     }
 }
