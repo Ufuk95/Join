@@ -45,6 +45,9 @@ function updateArea(field) {
 
 
 function generateTaskHTML(element) {
+    // Verwende join(''), um die Icons direkt nebeneinander stehen zu lassen, ohne Komma
+    let iconsHTML = element.contacts.icons.join('');   // frag Peter 
+    
     return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
         <div>
@@ -60,11 +63,13 @@ function generateTaskHTML(element) {
             <div class="progressbar" style="width: 128px; background: linear-gradient(90deg, #3498db ${element.progressbar}%, #f4f4f4 ${element.progressbar}%)"></div>
             <div class="subtask-display">${element.checkedSubtasks}/${element.createdSubtasks} Subtasks</div>
         </div>
-        <div>
-            <img id="priority" src="${element.priority}" alt="Priority">
+        <div class="bottom-task">
+            <div class="d-flex">${iconsHTML}</div> 
+            <img id="priority" src="${element.priority}" alt="Priority" class="prio-position">
         </div> 
     </div>`;
 }
+
 
 
 function openTaskCard(elementId) {
@@ -102,6 +107,10 @@ function openTaskCard(elementId) {
                 </div>
                 <div class="contact-card">
                     <p>Assigned to:</p>
+                    <div class="d-flex">
+                        <div>${element.contacts["icons"]}</div>
+                        <div>${element.contacts["names"]}</div> 
+                    </div>
                 </div>
                 <div>
                     <p>Subtasks: </p>
@@ -570,7 +579,7 @@ async function createTask(event) {
         category: category,
         priority: getPriorityImagePath(currentPriority),
         priorityText: priorityText(currentPriority),
-        contacts: "?",
+        contacts: contactData,
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
         createdSubtasks: subtasksLength,
@@ -877,6 +886,9 @@ function setupCancelButton() {
     });
 }
 
+
+// Contact Area
+
 function toggleContactAreaVisibility() {
     let contactArea = document.querySelector(".contact-area");
     let arrowDownContact = document.getElementById("arrow_down_contact");
@@ -902,16 +914,21 @@ async function showContactsInTasks() {
         const contact = contactInformation[i];
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
+        let isSelected = contactData.names.includes(contact[0]); // Überprüfe, ob der Kontakt ausgewählt ist
+        let selectedClass = isSelected ? "selected" : ""; // Füge die Klasse "selected" hinzu, wenn der Kontakt ausgewählt ist
+        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; // Wähle den richtigen Bildpfad basierend auf isSelected
         chooseContact.innerHTML += `
-        <div class="completeContactArea" onclick="addContact(this, '${contact[0]}')">
+        <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
             <div class="contact-info">
                 <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
                 <div class="contact-name">${contact[0]}</div>
             </div>
-            <img id="emptyBox" class="empty-check-box" src="./assets/img/board/checkForCard.png">
+            <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
         </div>`;
     }
 }
+
+
 
 function contactFrameHTML(initials, colorNumber, i) {
     return `
@@ -922,8 +939,7 @@ function contactFrameHTML(initials, colorNumber, i) {
             </svg>
             <span class="initials initials${i}">${initials}</span>
         </div>
-    </div>
-    `;
+    </div>`;
 }
 
 /**
@@ -940,7 +956,7 @@ function calculateColorMap(index) {
 
 let contactData = {
     icons: [],
-    names: []
+    names: [],
 };
 
 function addContact(element) {
@@ -972,10 +988,10 @@ function removeContact(contactName) {
 
 function updateIconArea() {
     let iconArea = document.getElementById('icon-area');
-    iconArea.innerHTML = ''; // Leere den Inhalt von iconArea
+    iconArea.innerHTML = ''; 
 
     for (let i = 0; i < contactData.icons.length; i++) {
-        iconArea.innerHTML += contactData.icons[i]; // Füge das Icon hinzu
+        iconArea.innerHTML += contactData.icons[i]; 
     }
     if (contactData.icons.length === 0) {
         iconArea.classList.add("d-none");
@@ -990,14 +1006,15 @@ async function iconOfContact(contactName, iconArea){
     let contactInformation = JSON.parse(await getItem("userData"));
     for (let i = 0; i < contactInformation.length; i++) {
         let contact = contactInformation[i];
-        if (contact[0] === contactName) { // Überprüfen, ob der Name mit dem ausgewählten Kontakt übereinstimmt
+        if (contact[0] === contactName) { 
             let initials = contact[2];
             let colorIndex = calculateColorMap(i);
-            let contactIcon = contactFrameHTML(initials, colorIndex, i); // Erstelle das Icon
-            contactData.icons.push(contactIcon); // Füge das Icon zu den Kontaktdaten hinzu
-            contactData.names.push(contactName); // Füge den Namen zu den Kontaktdaten hinzu
+            let contactIcon = contactFrameHTML(initials, colorIndex, i);
+            
+            contactData.icons.push(contactIcon); 
+            contactData.names.push(contactName); 
             updateIconArea();
-            break; // Beende die Schleife, sobald das Icon hinzugefügt wurde
+            break; 
         }
     }
 }
