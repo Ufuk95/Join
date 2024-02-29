@@ -896,6 +896,7 @@ p {
 }
 
 .name-circle-wrapper {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -910,4 +911,12 @@ p {
 .contact-icon-area {
   display: flex;
   align-items: center;
+}
+
+.icon-name-pair {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 32px;
+  padding: 10px;
 }

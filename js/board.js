@@ -45,9 +45,8 @@ function updateArea(field) {
 
 
 function generateTaskHTML(element) {
-    // Verwende join(''), um die Icons direkt nebeneinander stehen zu lassen, ohne Komma
-    let iconsHTML = element.contacts.icons.join('');   // frag Peter 
-    
+    let iconsHTML = element.contacts.icons.join(''); 
+
     return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
         <div>
@@ -76,6 +75,18 @@ function openTaskCard(elementId) {
     let element = tasks.find(task => task.id === elementId);
     let removeNone = document.getElementById('card-container');
     removeNone.classList.remove('d-none-card');
+
+    let combinedHTML = [];
+    for (let i = 0; i < element.contacts.icons.length; i++) {
+        combinedHTML.push(`
+        <div class="icon-name-pair">
+            <div>${element.contacts.icons[i]}</div>
+            <div>${element.contacts.names[i]}</div>
+        </div>
+        `);
+    }
+    let combinedHTMLString = combinedHTML.join('');
+
 
     if (element) {
         const cardContainer = document.getElementById("card-container");
@@ -108,8 +119,7 @@ function openTaskCard(elementId) {
                 <div class="contact-card">
                     <p>Assigned to:</p>
                     <div class="d-flex">
-                        <div>${element.contacts["icons"]}</div>
-                        <div>${element.contacts["names"]}</div> 
+                        <div>${combinedHTMLString}</div>
                     </div>
                 </div>
                 <div>
@@ -137,9 +147,10 @@ function editTaskCard(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
-
+    
 
     if (task) {
+        let iconContact = task.contacts.icons.join("");
         const editCard = document.getElementById('edit-container');
         const subtaskListHTML = task.subtasks.map(subtask => `
             <div id="${subtask.id}" class="full-subtasks-area">
@@ -182,11 +193,13 @@ function editTaskCard(taskId) {
                 </div>  
                 <div class="task-title">
                     <span class="font-line">Assigned to</span>
-                    <div class="task-contact-input-area">
-                        <input type="text" placeholder="Select contacts to assign">
-                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png"
-                        alt="arrow down" onclick="showContactsInTasks()">
+                    <div class="task-contact-input-area" onclick="showContactsInTasks()">
+                        <input type="none" placeholder="Select contacts to assign">
+                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png" id="arrow_down_contact" alt="arrow down">
+                        <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
                     </div>
+                    <div class="contact-area d-none" id="contact-area"></div>
+                    <div class="contact-icon-area " id="icon-area">${iconContact}</div>
                 </div>
                 <div class="task-title">
                     <span class="font-line">Subtasks</span>
@@ -448,7 +461,8 @@ async function saveEditedTask(taskId) {
             editedTask.title = document.getElementById('task-title-input').value;
             editedTask.description = document.getElementById('description-input').value;
             editedTask.date = document.getElementById('date').value;
-            editedTask.priority = getPriorityImagePath(currentPriority); // Verwenden Sie den aktuellen Prioritätswert
+            editedTask.priority = getPriorityImagePath(currentPriority);
+            editedTask.contacts = contactData;
 
             // Extrahiere die Subtasks aus dem DOM
             const createdSubtasks = document.getElementById('unsorted-list');
@@ -928,6 +942,14 @@ async function showContactsInTasks() {
     }
 }
 
+// function renderEditContact(){
+//     return `
+//     <div class="contact-info">
+//         <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
+//         <div class="contact-name">${contact[0]}</div>
+//     </div>`;
+// }
+
 
 
 function contactFrameHTML(initials, colorNumber, i) {
@@ -969,7 +991,7 @@ function addContact(element) {
     if (!isSelected) {
         element.classList.add("selected");
         imgBox.src = './assets/img/board/checked_for_contact.svg';
-        iconOfContact(contactName, iconArea); 
+        iconOfContact(contactName, iconArea);
     } else {
         element.classList.remove("selected");
         imgBox.src = './assets/img/board/checkForCard.png';
@@ -988,10 +1010,10 @@ function removeContact(contactName) {
 
 function updateIconArea() {
     let iconArea = document.getElementById('icon-area');
-    iconArea.innerHTML = ''; 
+    iconArea.innerHTML = '';
 
     for (let i = 0; i < contactData.icons.length; i++) {
-        iconArea.innerHTML += contactData.icons[i]; 
+        iconArea.innerHTML += contactData.icons[i];
     }
     if (contactData.icons.length === 0) {
         iconArea.classList.add("d-none");
@@ -1000,21 +1022,21 @@ function updateIconArea() {
     }
 }
 
-async function iconOfContact(contactName, iconArea){
+async function iconOfContact(contactName, iconArea) {
     iconArea.classList.remove('d-none');
 
     let contactInformation = JSON.parse(await getItem("userData"));
     for (let i = 0; i < contactInformation.length; i++) {
         let contact = contactInformation[i];
-        if (contact[0] === contactName) { 
+        if (contact[0] === contactName) {
             let initials = contact[2];
             let colorIndex = calculateColorMap(i);
             let contactIcon = contactFrameHTML(initials, colorIndex, i);
-            
-            contactData.icons.push(contactIcon); 
-            contactData.names.push(contactName); 
+
+            contactData.icons.push(contactIcon);
+            contactData.names.push(contactName);
             updateIconArea();
-            break; 
+            break;
         }
     }
 }
