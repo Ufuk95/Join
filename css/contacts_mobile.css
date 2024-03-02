@@ -18,7 +18,7 @@
   position: absolute;
   top: 128px;
   right: 29px;
-  z-index: 3;
+  z-index: 4;
 }
 
 .blue-arrow-left:hover{
@@ -233,6 +233,8 @@
   height: 108px;
 }
 
+/************************* EDIT CONTACT TEMPLATE *************************/
+
 .edit-contact{
   position: absolute;
   top: 15px;
@@ -268,6 +270,10 @@
 }
 
 
+.create-btn__mobile:hover{
+  cursor: pointer;
+}
+
 .input-field__mobile {
   display: flex;
   position: relative;
@@ -299,7 +305,6 @@
   margin-top: 25px;
 } 
 
-/************************* EDIT CONTACT TEMPLATE *************************/
 .form-btns-frame__mobile {
   margin-top: 20px;
   display: flex;
@@ -338,6 +343,16 @@
   align-items: center;
 }
 
+/************************* CONTACT CREATED SUCCESSFULLY *************************/
+.contact-created-successfully{
+  position: absolute; 
+  bottom: 30%; 
+  right: 50%; 
+  transform: translateX(50%);
+  z-index: 10;
+}
+
+
 /************************* MOBILE ELEMENTES *************************/
 .mobile-add-contact-btn{
   display: none;
@@ -347,10 +362,6 @@
   cursor: pointer;
 }
 
-
-.more-options-circle{
-  display: none;
-}
 
 .more-options-circle:hover{
 cursor: pointer;
@@ -391,10 +402,67 @@ cursor: pointer;
   animation-timing-function: ease-out;
 }
 
+@keyframes contactAdded{
+  from {
+    transform: translate(50%, 250%);
+  }
+
+  to {
+    transform: translate(50%, 0);
+  }
+}
+
+.succesfully-created-buttom-to-top{
+  animation-name: contactAdded;
+  animation-duration: 0.5s; 
+  animation-timing-function: ease-out;
+}
+
+@keyframes contactAddedToBottom {
+  from {
+    transform: translate(50%, 0);
+  }
+
+  to {
+    transform: translate(50%, 500%);
+  }
+}
+
+.succesfully-created-top-to-bottom{
+  animation-name: contactAddedToBottom;
+  animation-duration: 0.6s; 
+  animation-timing-function: ease-out;
+}
+
+/*! Test Button for animation delete!  */
+.test-button{
+  width: 100px; 
+  height: 50px;
+  border: solid orange; 
+  position: absolute;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+/*! Test Button for animation delete!  */
 
 /************************* DISPLAY CLASSES *************************/
-
 .d-none {
   display: none !important;
 }
 
+/************************* RESPONSINESS *************************/
+
+
+@media (max-width: 1000px) {
+  .mobile-add-contact-btn{
+    display: block;
+  }
+}
+
+@media (max-width: 414px) {
+  .add-contact-frame-mobile{
+    width: 95%;
+  }
+}

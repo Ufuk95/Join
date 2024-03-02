@@ -26,7 +26,7 @@ async function getParsedData() {
 
 // logFromRemote("userData");
 // getParsedData()
-console.log(window.innerWidth);
+// console.log(window.innerWidth);
 // ! ---------------------------------------------------------
 
 
@@ -212,7 +212,7 @@ function showContactDetails(i) {
   let { contactEclipse, contactName, contactMail, contactPhone, deleteBtn, editBtn } = getContactDetailElements();
   let contactDetailsArray = [contactEclipse, contactName, contactMail, contactPhone];
   clearContactDetails(contactDetailsArray);
-  let colorNumber = calculateColorMap(i)
+  let colorNumber = calculateColorMap(i);
   let initials = finalArray[i][2];
   contactEclipse.innerHTML = circleNameTemplate(i, colorNumber, initials);
   contactName.innerHTML = document.querySelector(`.name${i}`).innerHTML;
@@ -221,6 +221,7 @@ function showContactDetails(i) {
   deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
   editBtn.setAttribute("onclick", `editContact(${i})`);
 }
+
 
 
 /**
@@ -274,6 +275,7 @@ function getContactData(contactNameElement, contactMailElement, contactPhoneElem
   let sortedContactData = addInitials(contactDataArray);
   finalArray.push(sortedContactData[0]);
   finalArray.sort();
+  succesfullyCreatedAnimations();
   setItem("userData", finalArray);
   let newIndex = getNewIndex(finalArray, contactEmail.value);
   renderContacts(finalArray);
@@ -281,6 +283,25 @@ function getContactData(contactNameElement, contactMailElement, contactPhoneElem
   activeContactTab(newIndex);
   navigateBack();
 }
+
+
+function succesfullyCreatedAnimations() {
+  let contactSuccessfully = document.querySelector(`.contact-created-successfully`);
+  if (window.innerWidth < 1000) {
+    document.querySelector(`.contact-created-successfully`).classList.remove("d-none");
+    document.querySelector(`.contact-created-successfully`).classList.add("succesfully-created-buttom-to-top");
+    setTimeout(() => { contactSuccessfully.classList.add("succesfully-created-top-to-bottom"); }, 700);
+    setTimeout(() => { contactSuccessfully.classList.add("d-none"); }, 1250);
+    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-buttom-to-top"); }, 1250);
+    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-top-to-bottom"); }, 1250);
+  } else {
+    contactSuccessfully.classList.remove("d-none");
+    setTimeout(() => contactSuccessfully.classList.add("d-none"), 2000);
+  }
+}
+
+
+
 
 
 function clearContactInputs(contactName, contactEmail, contactPhone) {
@@ -295,6 +316,7 @@ function deleteContact(i) {
   document.querySelector(`.contact-infos-box`).classList.add("display-none");
   setItem("userData", finalArray);
   renderContacts(finalArray);
+  blueBackArrowMobile();
 }
 
 
@@ -360,3 +382,21 @@ function getNewIndex(finalArray, email) {
   }
 }
 
+
+// ! Animation test function please delete!!
+function testAnimation() {
+  let contactSuccessfully = document.querySelector(`.contact-created-successfully`);
+  if (window.innerWidth < 1000) {
+    document.querySelector(`.contact-created-successfully`).classList.remove("d-none");
+    document.querySelector(`.contact-created-successfully`).classList.add("succesfully-created-buttom-to-top");
+    setTimeout(() => { contactSuccessfully.classList.add("succesfully-created-top-to-bottom"); }, 700);
+    setTimeout(() => { contactSuccessfully.classList.add("d-none"); }, 1250);
+    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-buttom-to-top"); }, 1250);
+    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-top-to-bottom"); }, 1250);
+  } else {
+    contactSuccessfully.classList.remove("d-none");
+    setTimeout(() => contactSuccessfully.classList.add("d-none"), 2000);
+  }
+}
+
+// ! Animation test function please delete!!

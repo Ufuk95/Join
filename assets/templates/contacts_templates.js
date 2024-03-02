@@ -37,8 +37,8 @@ function circleNameTemplate(i, colorNumber, initials) {
   return `
   <svg width="45" height="45" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle  cx="21" cy="21" r="20" fill=${colorCarousell[colorNumber]} stroke="white" stroke-width="2" />
-  </svg>
-  <span class="initials initials${i}">${initials}</span>
+    </svg>
+    <span class="initials initials${i}">${initials}</span>
   `;
 }
 

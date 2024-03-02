@@ -702,8 +702,28 @@ button {
   to {
     transform: translate(50%, -50%);
   }
-
 }
+
+@keyframes successRightToLeft {
+  from {
+    transform: translateX(500%);
+  }
+
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes successLeftToRight {
+  from {
+    transform: translateX(50%);
+  }
+
+  to {
+    transform: translateX(500%);
+  }
+}
+
 
 .transition {
   animation-name: slidein;
@@ -714,6 +734,18 @@ button {
 .transition__add-contact {
   animation-name: add-contact;
   animation-duration: 0.4s;
+  animation-timing-function: ease;
+}
+
+.success-right-to-left {
+  animation-name: successRightToLeft;
+  animation-duration: 0.6s;
+  animation-timing-function: ease;
+}
+
+.success-left-to-right {
+  animation-name: successLeftToRight;
+  animation-duration: 0.6s;
   animation-timing-function: ease;
 }
 
@@ -732,7 +764,6 @@ button {
 }
 
 /************************* RESPONSIVNESS *************************/
-
 @media(max-width: 1370px) {
   #sidebar {
     display: none;
@@ -811,28 +842,29 @@ button {
     width: 100%;
   }
 
-  #contacts-frame{
+  #contacts-frame {
     margin-top: 29px;
 
-  }  
-  #contacts-button-wrapper{
+  }
+
+  #contacts-button-wrapper {
     display: none;
   }
 
-  #header{
+  #header {
     padding-left: 40px;
   }
 
-  .mobile-add-contact-btn{
-    display:block;
+  .mobile-add-contact-btn {
+    display: block;
     position: absolute;
     right: 11px;
     bottom: 109px;
     z-index: 5;
   }
 
-  .more-options-circle{
-    display:block;
+  .more-options-circle {
+    display: block;
     position: absolute;
     right: 11px;
     bottom: 109px;

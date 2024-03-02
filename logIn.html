@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="/css/log_in.css">
     <script src="/js/login.js" defer></script>
-    <script src="./js/sign_up.js" defer></script>
+    <!-- <script src="./js/sign_up.js" defer></script> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
@@ -27,12 +27,15 @@
 
     <div class="login-body fading-animation">
         <div class="login-headline">
-            <h1>Log In</h1>
+            <h1>Log in</h1>
             <img src="/assets/img/log_in/blue_line.png" alt="vector line">
         </div>
 
         <form onsubmit="login(); return false" class="login-area">
-            <input class="login-input mail-img" placeholder="Email" type="email" required id="email">
+            <div class="email containter">
+                <input class="login-input mail-img" autocomplete="off" placeholder="Email" type="email" required id="email">
+                <img src="/assets/img/log_in/mail.png" id="img-lock" onclick="togglePasswordVisibility()">
+            </div>
             <div class="password-container">
                 <input class="login-input" placeholder="Password" type="password" required id="password">
                 <img src="/assets/img/log_in/lock.png" id="img-lock" onclick="togglePasswordVisibility()">
@@ -44,7 +47,7 @@
             </div>
             <div class="Login-buttons">
                 <button type="submit" class="log-in-btn">Log in</button>
-                <button class="guest-log-in-btn">Guest Log in</button>
+                <div class="guest-log-in-btn" onclick="guestLoginIn()">Guest Log in</div>
             </div>
         </form>
     </div>

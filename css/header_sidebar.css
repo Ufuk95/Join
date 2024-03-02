@@ -12,7 +12,7 @@ body {
   font-family: inter;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -48,7 +48,7 @@ a {
   gap: 16px;
 }
 
-.help-icon-wrapper{
+.help-icon-wrapper {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -60,11 +60,22 @@ a {
 }
 
 #circle {
+  position: relative;
   width: 56px;
   height: 56px;
   background-color: white;
   border-radius: 50%;
-  border: solid #2A3647 2.5px
+  border: solid #2A3647 3px
+}
+
+.user-initials {
+  font-size: 24px;
+  color:#29ABE2;
+  font-weight: 700;  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
 
 /************************* SIDEBAR *************************/
