@@ -27,6 +27,9 @@ async function includeHTML() {
 }
 
 
+/**
+ * Renders the logged in users initials in the top right corner. 
+ */
 function renderUserInitials() {
   let userInitialsElement = document.querySelector(`.user-initials`);
   let currentUser = getArray("loggedInUser")

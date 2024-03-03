@@ -13,6 +13,7 @@ header {
   justify-content: space-between;
 }
 
+
 .join-logo {
   width: 100.03px;
   height: 121.97px;
@@ -115,7 +116,7 @@ h1 {
   gap: 20px;
 }
 
-.Login-buttons {
+.login-buttons {
   display: flex;
   gap: 35px;
   position: relative;
@@ -143,18 +144,11 @@ h1 {
 #img-lock {
   height: 24px;
   width: 24px;
-  position: relative;
-  right: 40px;
+  position: absolute;
+  right: 19px;
   cursor: pointer;
 }
 
-/* .lock-img {
-  background: url(/assets/img/LogIn/lock.png) no-repeat scroll 96%;
-}
-
-.mail-img {
-  background: url(/assets/img/LogIn/mail.png) no-repeat scroll 96%;
-} */
 
 .log-in-btn {
   width: 110px;
@@ -210,8 +204,17 @@ h1 {
 
 .password-container {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: space-between;
+}
+
+.email-containter{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* width: 422px; */
 }
 
 .login-checkbox {
@@ -265,4 +268,17 @@ footer a:hover {
 .footer-div {
   width: 128px;
   height: 35px;
+}
+
+/************************* RESPONSIVNESS *************************/
+
+@media (max-width: 750px) {
+  .login-body{
+    padding: 48px 16px;
+  }
+  .login-buttons{
+    flex-direction: column;
+    margin: 0 auto;
+    left: 0;
+  }
 }

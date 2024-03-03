@@ -70,8 +70,11 @@ function positiveLogin(i) {
 
 
 function guestLoginIn() {
-  let initialsCircle = document.querySelector(`.user-initials`);
-  console.log(initialsCircle);
+  let loggedInUser = {
+    "name": "Guest",
+    "initials": "GU"
+  };
+  setArray("loggedInUser", loggedInUser)
   window.location.href = "./summary.html";
 }
 
@@ -112,10 +115,10 @@ function changeRectangle() {
   let checkedRectangle = document.getElementById("rectangle");
 
   if (checked) {
-    checkedRectangle.src = "/assets/img/login/not-checked.png";
+    checkedRectangle.src = "./assets/img/log_in/not-checked.png";
     checked = false;
   } else {
-    checkedRectangle.src = "/assets/img/login/checked.png";
+    checkedRectangle.src = "./assets/img/log_in/checked.png";
     checked = true;
   }
 }

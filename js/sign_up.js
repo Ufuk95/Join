@@ -1,15 +1,8 @@
-//! Example object needed from Sign Up
-let MySignUpData = {
-  name: "",
-  email: "",
-  password: "",
-  initials: "",
-};
-//! -------- Delete upwards
 
 
-//! Setting an array into remote storage
-// setItem("userNameEmailPassword", signUpData)
+//! Setting empty array into remote storage
+let myArray = []
+// setItem("userNameEmailPassword", myArray)
 //!
 
 
@@ -18,15 +11,15 @@ async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
   console.log(parsedData);
 }
-// logFromRemote("userNameEmailPassword")
+logFromRemote("userNameEmailPassword")
 // ! ---------------------------------------------------------
 
 
+let signUpData = [];
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
 let userCredentialsObject = {};
-let signUpData = [];
 
 
 /**
@@ -40,7 +33,7 @@ async function getSignUpInputs() {
   let passwordRepeat = document.getElementById(`password-repeat`);
   handleRemoteStorage(name.value, email.value, password.value);
   clearFields(name, email, password, passwordRepeat);
-  // transitionHandler();
+  transitionHandler();
   // removeLogInAnimation();
 }
 
@@ -163,7 +156,7 @@ function signUpSuccessNotice() {
   document.getElementById(`sign-up-success`).style.display = "flex";
   setTimeout(() => {
     document.getElementById(`sign-up-success`).style.display = "none";
-  }, 1000);
+  }, 1300 );
 }
 
 
