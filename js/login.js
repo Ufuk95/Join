@@ -3,7 +3,7 @@ async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
   console.log(parsedData);
 }
-// logFromRemote("userNameEmailPassword");
+logFromRemote("userNameEmailPassword");
 //! Delete
 
 let checked = false;

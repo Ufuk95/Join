@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="./css/display_classes.css">
   
   <script src="./script.js" defer></script>
+  <script src="./js/storage.js" defer></script>
   <script src="./js/summary.js" defer></script>
 </head>
 
 <!-------------------------- TEMPLATES -------------------------->
-<body id="0" onload="loadAll()">
+<body id="0" onload="summaryInit()">
   <header id="header" w3-include-html="./assets/templates/header.html"></header>
   <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
   <footer id="nav-footer" w3-include-html="./assets/templates/footer.html"></footer>
@@ -55,7 +56,7 @@
               </g>
             </svg>
             <div class="number-do-box">
-              <span class="do-styling count-n" id="todo-count">1</span>
+              <span class="do-styling count-n" id="todo-count"></span>
               <span id="todo" class="count-text">To-do</span>
             </div>
           </div>
@@ -67,7 +68,7 @@
                 stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <div class="number-do-box">
-              <span class="do-styling count-n" id="done-count">1</span>
+              <span class="do-styling count-n" id="done-count"></span>
               <span id="done" class="count-text">Done</span>
             </div>
           </div>
@@ -80,7 +81,7 @@
               <img class="urgent-arrows" src="assets/img/summary/icon_urgent_arrow.png" alt="Top Icon">
             </div>
             <div id="counter-urgent-box">
-              <span class="urgent-counter count-n">1</span>
+              <span class="urgent-counter count-n"></span>
               <span id="urgent" class="count-text">Urgent</span>
             </div>
           </div>
@@ -95,7 +96,7 @@
         <div id="counters-squares-frame">
           <div class="square-frame square-1">
             <div class="count-text-box">
-              <div class="count-number count-n" id="count-tasks">1</div>
+              <div class="count-number count-n" id="count-tasks"></div>
               <div class="count-text">Tasks in <br> Board</div>
             </div>
           </div>
@@ -107,7 +108,7 @@
           </div>
           <div class="square-frame square-3">
             <div class="count-text-box">
-              <div class="count-number count-n" id="count-await-feedback">3</div>
+              <div class="count-number count-n" id="count-await-feedback"></div>
               <div class="count-text">Awaiting<br>Feedback</div>
             </div>
           </div>
