@@ -12,6 +12,17 @@ let colorCarousell = {
   "7": "#FF4646",
 };
 
+/**
+ * Initialization of contacts.html
+*/
+async function contactsInit() {
+  loadAll();
+  finalArray = await sortAndPrepare("userData");
+  renderContacts(finalArray);
+}
+
+
+
 // ! Test purpose log function
 async function logFromRemote(remoteKey) {
   let parsedData = JSON.parse(await getItem(remoteKey));
@@ -30,15 +41,6 @@ async function getParsedData() {
 // ! ---------------------------------------------------------
 
 
-/**
- * Initialization of contacts.html
-*/
-async function contactsInit() {
-  loadAll();
-  finalArray = await sortAndPrepare("userData");
-  // console.log(finalArray);
-  renderContacts(finalArray);
-}
 
 
 /**

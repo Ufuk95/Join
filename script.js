@@ -3,21 +3,34 @@ async function loadAll() {
   let currentPage = Number(document.body.id);
   clearTabStyles();
   changeClickedTab(currentPage);
+  renderUserInitials();
 }
+
+
+function getArray(key) { return JSON.parse(localStorage.getItem(key)); }
+function setArray(key, array) { localStorage.setItem(key, JSON.stringify(array)); }
+
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll('[w3-include-html]');
   for (let i = 0; i < includeElements.length; i++) {
-      const element = includeElements[i];
-      file = element.getAttribute("w3-include-html");
-      // "includes/header.html"
-      let resp = await fetch(file);
-      if (resp.ok) {
-          element.innerHTML = await resp.text();
-      } else {
-          element.innerHTML = 'Page not found';
-      }
+    const element = includeElements[i];
+    file = element.getAttribute("w3-include-html");
+    // "includes/header.html"
+    let resp = await fetch(file);
+    if (resp.ok) {
+      element.innerHTML = await resp.text();
+    } else {
+      element.innerHTML = 'Page not found';
+    }
   }
+}
+
+
+function renderUserInitials() {
+  let userInitialsElement = document.querySelector(`.user-initials`);
+  let currentUser = getArray("loggedInUser")
+  userInitialsElement.innerHTML = currentUser["initials"]
 }
 
 let whiteImageCorrespondends = {
@@ -49,4 +62,11 @@ function changeClickedTab(tabIndex) {
 
 
 
+
+//! Test Logging function
+async function logFromRemote(remoteKey) {
+  let parsedData = JSON.parse(await getItem(remoteKey));
+  console.log(parsedData);
+}
+//! ............................................................
 

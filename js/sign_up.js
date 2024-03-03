@@ -1,7 +1,32 @@
+//! Example object needed from Sign Up
+let MySignUpData = {
+  name: "",
+  email: "",
+  password: "",
+  initials: "",
+};
+//! -------- Delete upwards
+
+
+//! Setting an array into remote storage
+// setItem("userNameEmailPassword", signUpData)
+//!
+
+
+// ! Test purpose log function
+async function logFromRemote(remoteKey) {
+  let parsedData = JSON.parse(await getItem(remoteKey));
+  console.log(parsedData);
+}
+// logFromRemote("userNameEmailPassword")
+// ! ---------------------------------------------------------
+
+
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
-let emailPwCombo = {};
+let userCredentialsObject = {};
+let signUpData = [];
 
 
 /**
@@ -12,8 +37,9 @@ async function getSignUpInputs() {
   let name = document.getElementById(`name`);
   let email = document.getElementById(`mail`);
   let password = document.getElementById(`password`);
-  handleRemoteStorage(name.value, email.value, password.value)
-  clearFields(name, email, password);
+  let passwordRepeat = document.getElementById(`password-repeat`);
+  handleRemoteStorage(name.value, email.value, password.value);
+  clearFields(name, email, password, passwordRepeat);
   // transitionHandler();
   // removeLogInAnimation();
 }
@@ -22,27 +48,40 @@ async function getSignUpInputs() {
 /**
  * Gets existing data from remote. And adds new sign up data. 
  */
-async function handleRemoteStorage(email, password){
-  signUpNameEmail = await getUserData("userData");
-  emailPwCombo = await getUserData("emailPwCombo");
-  temporaryObject(email, password, emailPwCombo);
-  await setSignUpData("emailPwCombo", emailPwCombo);
+async function handleRemoteStorage(name, email, password) {
+  signUpData = await getUserData("userNameEmailPassword");
+  let initials = getInitials(name);
+  signUpData.push(
+    {
+      "name": name,
+      "initials": initials, 
+      "email": email,
+      "password": password
+    }
+  )
+  console.log(signUpData);
+  await setSignUpData("userNameEmailPassword", signUpData);
 }
 
 
-function temporaryObject(key1, value1, object) {
-  object[key1] = value1;
+function getInitials(nameString) {
+  let initials = "";
+  let trimmedString = nameString.trim();
+  let splittedNameLastName = trimmedString.split(" ");
+  for (let j = 0; j < splittedNameLastName.length; j++) {
+    let name = splittedNameLastName[j];
+    initials += name[0].toUpperCase();
+  }
+  return initials;
 }
 
 
-// ! Test purpose log function
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
+function temporaryObject(name, initials, email, password, object) {
+  object["name"] = name;
+  object["email"] = email;
+  object["password"] = password;
+  object["initials"] = initials;
 }
-
-// logFromRemote("emailPwCombo")
-// ! ---------------------------------------------------------
 
 
 async function setSignUpData(remoteKey, JSONArray) {
