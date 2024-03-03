@@ -119,4 +119,14 @@
     .right-side {
         width: 100%;
     }
+    .task-select-category  {
+        width: 100%;
+    }
+    .Assigned-img-subtask {
+        position: relative;
+        right: 0;
+    }
+    .unsorted-list {
+        width: 100%;
+    }
 }
