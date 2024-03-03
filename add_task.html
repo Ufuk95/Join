@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/header_sidebar.css">
     <link rel="stylesheet" href="./css/add-task.css">
+    <link rel="stylesheet" href="./css/add_task_mobile.css">
 
     <script src="./script.js" defer></script>
     <script src="./js/storage.js" defer></script>
@@ -21,7 +22,7 @@
     <header id="header" w3-include-html="./assets/templates/header.html"></header>
     <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
-    <form onsubmit="createTask(event)">
+    <form class="submit-form" onsubmit="createTask(event)">
         <div class="start-position">
             <header class="add-task-header">
                 <span class="task-card-headline">Add Task</span>
@@ -48,6 +49,7 @@
                             <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
                         </div>
                         <div class="contact-area d-none" id="contact-area"></div>
+                        <div class="contact-icon-area d-none" id="icon-area"></div>
                     </div>
                 </div>
                 <!-- einfache div für die trennung durch eine vektor linie -->
@@ -112,7 +114,7 @@
                 </div>
             </div>
             <div class="add-task-footer">
-                <div>
+                <div class="footer-text">
                     <span class="font-line"><span style="color: #FF8190;">* </span></span>This field is
                     required</span>
                 </div>

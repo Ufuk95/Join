@@ -1,0 +1,122 @@
+@media (min-width: 320px) and (max-width: 975px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 1400px;
+    }
+
+    .middle-task-body {
+        flex-direction: column;
+    }
+
+    .vektor-line {
+        display: none;
+    }
+
+    .start-position {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        flex-direction: column;
+        position: relative;
+        top: 0;
+        width: 100%;
+        left: 0;
+        right: 0;
+    }
+
+    .add-task-footer {
+        position: sticky;
+        background-color: rgb(246, 247, 248);
+        justify-content: space-around;
+        width: 100%;
+        gap: 35px;
+        bottom: 80px;
+    }
+
+    .full-subtasks-area {
+        width: 100%;
+    }
+
+    .clear-btn {
+        display: none;
+    }
+
+    .task-button-area {
+        width: 100%;
+    }
+
+    .create-btn {
+        font-size: 12px;
+        width: 100%;
+    }
+
+    .footer-text {
+        font-size: 14px;
+    }
+
+    .task-title input {
+        width: 100%;
+    }
+
+    .task-title {
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+    }
+
+    .task-date-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .task-contact-input-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .Assigned-img {
+        position: absolute;
+        right: 8px;
+    }
+
+    .date-img {
+        left: 88%;
+        position: absolute;
+        bottom: 12px;
+    }
+
+    #description-input {
+        width: 100%;
+    }
+
+    .prio-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .subtask-main-input {
+        width: 100%;
+    }
+
+    .subtask-complete {
+        width: 100%;
+    }
+
+    #header-text {
+        display: none;
+    }
+
+    #nav-footer {
+        justify-content: space-evenly;
+    }
+
+    .selected-task {
+        width: 100%;
+    }
+
+    .right-side {
+        width: 100%;
+    }
+}

@@ -57,7 +57,7 @@ async function createTask(event) {
         category: category,
         priority: getPriorityImagePath(currentPriority),
         priorityText: priorityText(currentPriority),
-        contacts: "?",
+        contacts: contactData,
         subtasks: subtasks,
         createdSubtasks: subtasksLength,
         checkedSubtasks: checkedSubtasks,
@@ -420,6 +420,8 @@ function redirectToBoardTask() {
     }, 300);
 }
 
+// Contact Area
+
 function toggleContactAreaVisibility() {
     let contactArea = document.querySelector(".contact-area");
     let arrowDownContact = document.getElementById("arrow_down_contact");
@@ -432,6 +434,8 @@ function toggleContactAreaVisibility() {
     arrowUpContact.classList.toggle("d-none", isVisible);
 }
 
+
+
 async function showContactsInTasks() {
     toggleContactAreaVisibility();
 
@@ -443,16 +447,29 @@ async function showContactsInTasks() {
         const contact = contactInformation[i];
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
+        let isSelected = contactData.names.includes(contact[0]); // Überprüfe, ob der Kontakt ausgewählt ist
+        let selectedClass = isSelected ? "selected" : ""; // Füge die Klasse "selected" hinzu, wenn der Kontakt ausgewählt ist
+        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; // Wähle den richtigen Bildpfad basierend auf isSelected
         chooseContact.innerHTML += `
-        <div class="completeContactArea" onclick="toggleBackgroundColor(this)">
+        <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
             <div class="contact-info">
                 <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
                 <div class="contact-name">${contact[0]}</div>
             </div>
-            <img id="emptyBox" class="empty-check-box" src="./assets/img/board/checkForCard.png">
+            <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
         </div>`;
     }
 }
+
+// function renderEditContact(){
+//     return `
+//     <div class="contact-info">
+//         <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
+//         <div class="contact-name">${contact[0]}</div>
+//     </div>`;
+// }
+
+
 
 function contactFrameHTML(initials, colorNumber, i) {
     return `
@@ -463,8 +480,7 @@ function contactFrameHTML(initials, colorNumber, i) {
             </svg>
             <span class="initials initials${i}">${initials}</span>
         </div>
-    </div>
-    `;
+    </div>`;
 }
 
 /**
@@ -479,13 +495,67 @@ function calculateColorMap(index) {
 
 
 
-function toggleBackgroundColor(element) {
-    element.classList.toggle("selected");
+let contactData = {
+    icons: [],
+    names: [],
+};
+
+function addContact(element) {
+    let isSelected = element.classList.contains("selected");
+    let iconArea = document.getElementById('icon-area');
 
     let imgBox = element.querySelector(".empty-check-box");
-    if (element.classList.contains("selected")) {
+    const contactName = element.querySelector('.contact-name').textContent;
+
+    if (!isSelected) {
+        element.classList.add("selected");
         imgBox.src = './assets/img/board/checked_for_contact.svg';
+        iconOfContact(contactName, iconArea);
     } else {
+        element.classList.remove("selected");
         imgBox.src = './assets/img/board/checkForCard.png';
+        removeContact(contactName);
+    }
+}
+
+function removeContact(contactName) {
+    let index = contactData.names.indexOf(contactName);
+    if (index !== -1) {
+        contactData.names.splice(index, 1);
+        contactData.icons.splice(index, 1);
+        updateIconArea();
+    }
+}
+
+function updateIconArea() {
+    let iconArea = document.getElementById('icon-area');
+    iconArea.innerHTML = '';
+
+    for (let i = 0; i < contactData.icons.length; i++) {
+        iconArea.innerHTML += contactData.icons[i];
+    }
+    if (contactData.icons.length === 0) {
+        iconArea.classList.add("d-none");
+    } else {
+        iconArea.classList.remove("d-none");
+    }
+}
+
+async function iconOfContact(contactName, iconArea) {
+    iconArea.classList.remove('d-none');
+
+    let contactInformation = JSON.parse(await getItem("userData"));
+    for (let i = 0; i < contactInformation.length; i++) {
+        let contact = contactInformation[i];
+        if (contact[0] === contactName) {
+            let initials = contact[2];
+            let colorIndex = calculateColorMap(i);
+            let contactIcon = contactFrameHTML(initials, colorIndex, i);
+
+            contactData.icons.push(contactIcon);
+            contactData.names.push(contactName);
+            updateIconArea();
+            break;
+        }
     }
 }
