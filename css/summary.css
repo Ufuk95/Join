@@ -238,11 +238,12 @@ body {
   position: absolute;
   top: 548px;
   left: 968px;
-  width: 365px;
+  width: 396px;
   height: 136px;
 }
 
 #good-morning {
+  width: fit-content;
   color: #2A3647;
   font-family: Inter;
   font-size: 47px;

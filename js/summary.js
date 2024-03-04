@@ -23,17 +23,9 @@ async function summaryInit() {
   dataInfo = JSON.parse(await getItem("board_key"));
   loadAll();
   getCounters();
-  renderUserName()
+  renderGreeting();
+  renderUserName();
   renderCounts();
-}
-
-
-/**
- * Renders the name of the current logged in user.
- */
-function renderUserName(){
-  let myUser = getArray("loggedInUser");
-  document.getElementById(`person-name`).innerHTML = myUser["name"].split(" ")[0];
 }
 
 
@@ -52,6 +44,31 @@ function getCounters() {
     if (taskIfnos["priorityText"] === "Urgent") {
       counter["urgent"] += 1;
     }
+  } counter["total-tasks"] = dataInfo.length;
+}
+
+
+/**
+ * Renders the name of the current logged in user.
+ */
+function renderUserName() {
+  let myUser = getArray("loggedInUser");
+  document.getElementById(`person-name`).innerHTML = myUser["name"].split(" ")[0];
+}
+
+
+/**
+ * Renders a user greeting, dependent on the daytime. 
+ */
+function renderGreeting() {
+  let timeStamp = new Date();
+  let currentHour = timeStamp.getHours();
+  console.log(currentHour);
+  let greetingElement = document.getElementById(`good-morning`);
+  if (currentHour <= 12) {
+    greetingElement.innerHTML = "Good Morning,";
+  } else {
+    greetingElement.innerHTML = "Good Afternoon,";
   }
 }
 

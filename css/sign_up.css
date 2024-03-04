@@ -135,7 +135,6 @@ a:visited {
   font-size: 20px;
   font-weight: 400;
   border: 1px solid #d1d1d1;
-  cursor: auto;
 }
 
 .input-field__img-placing {
@@ -279,6 +278,12 @@ footer a {
 
   #sign-up-button-text {
     font-size: 16px;
+  }
+  
+  footer{
+    position: unset;
+    margin-top: 38px;
+    padding-bottom: 32px;
   }
 }
 
