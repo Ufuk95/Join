@@ -82,13 +82,18 @@ body {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.board-search {
+  position: relative;
+}
+
 .input-img {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
-  position: relative;
-  right: 16%;
+  position: absolute;
+  right: 12px;
+  top: 8px;
 }
 
 .search-img:hover {
@@ -219,6 +224,7 @@ body {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .d-flex {
@@ -430,6 +436,32 @@ body {
   align-items: center;
 }
 
+.subtask-main-input {
+  display: flex;
+  width: 440px;
+  height: 48px;
+  padding: 12px 16px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--Style, #d1d1d1);
+  background: var(--white, #fff);
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--Style, #d1d1d1);
+}
+
+.subtask-comment {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 8px;
+  right: 8px;
+}
+
 .Assigned-img {
   position: relative;
   right: 35px;
@@ -455,6 +487,14 @@ body {
 .px24 {
   width: 24px;
   height: 24px;
+}
+
+.subtask-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 440px;
 }
 
 .right-side {

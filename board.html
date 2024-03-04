@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
 
-    
+
     <link rel="stylesheet" href="./css/header_sidebar.css">
     <link rel="stylesheet" href="./css/board.css">
+    <link rel="stylesheet" href="./css/board_mobile.css">
 
     <script src="./script.js" defer></script>
     <script src="./js/storage.js" defer></script>
     <script src="./js/board.js" defer></script>
     <script src="./js/contacts.js" defer></script>
-    
-    
-    
+
+
+
 
 </head>
 
@@ -30,13 +31,15 @@
             <div class="board-header">
                 <h1>Board</h1>
                 <div class="board-active">
-                    <input placeholder="Find Task" type="text">
-                    <div class="input-img">
-                        <img src="./assets/img/board/vector-subtask.png" alt="">
-                        <img class="search-img" src="./assets/img/board/search.png" alt="" onclick="searchTasks()">
+                    <div class="board-search">
+                        <input placeholder="Find Task" type="text">
+                        <div class="input-img">
+                            <img src="./assets/img/board/vector-subtask.png" alt="">
+                            <img class="search-img" src="./assets/img/board/search.png" alt="" onclick="searchTasks()">
+                        </div>
                     </div>
                     <button onclick="addTask('todo')">
-                        Add task
+                        <p class="header-task-btn">Add task</p>
                         <img src="./assets/img/board/add.png" alt="plus">
                     </button>
                 </div>
@@ -121,8 +124,10 @@
                                     <span class="font-line">Assigned to</span>
                                     <div class="task-contact-input-area" onclick="showContactsInTasks()">
                                         <input type="none" placeholder="Select contacts to assign">
-                                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png" id="arrow_down_contact" alt="arrow down">
-                                        <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
+                                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png"
+                                            id="arrow_down_contact" alt="arrow down">
+                                        <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png"
+                                            id="arrow_up_contact" alt="#">
                                     </div>
                                     <div class="contact-area d-none" id="contact-area"></div>
                                     <div class="contact-icon-area d-none" id="icon-area"></div>
@@ -172,17 +177,18 @@
                                     <div id="task-select-category" class="task-select-category d-none">
                                         <span id="technicalTask" class="selected-task"
                                             onclick="showTaskSelect(this)">Technical Task</span>
-                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User Story</span>
+                                        <span id="userStory" class="selected-task" onclick="showTaskSelect(this)">User
+                                            Story</span>
                                     </div>
                                 </div>
-                                <div class="task-title">
+                                <div class="subtask-complete">
                                     <span class="font-line">Subtasks</span>
                                     <div class="task-contact-input-area" onclick="changeInputImg()">
-                                        <input id="input-subtasks" autocomplete="off" type="text"
+                                        <input class="subtask-main-input" autocomplete = "off" id="input-subtasks" type="text"
                                             placeholder="Add new subtasks">
-                                        <img id="subtask-plus-img" class="Assigned-img"
-                                            src="./assets/img/board/addTaskAdd.png" alt="plus">
-                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                        <img id="subtask-plus-img" class="Assigned-img" src="./assets/img/board/addTaskAdd.png"
+                                            alt="plus">
+                                        <div class="subtask-comment">
                                             <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
                                                 src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
                                             <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
@@ -196,7 +202,7 @@
                             </div>
                         </div>
                         <footer class="add-task-footer">
-                            <div>
+                            <div class="font-size">
                                 <span class="font-line"><span style="color: #FF8190;">* </span></span>This field is
                                 required</span>
                             </div>
