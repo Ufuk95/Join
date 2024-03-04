@@ -1040,3 +1040,8 @@ async function iconOfContact(contactName, iconArea) {
         }
     }
 }
+
+
+function searchTasks(){
+    
+}

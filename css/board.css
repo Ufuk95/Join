@@ -823,13 +823,13 @@ p {
 /***** Ab hier wird die Edit task bereich designt *****/
 
 .edit-container {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 100vh;
   background-color: #29292963;
   z-index: 10001;
-  top: -96px;
-  left: -232px;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
