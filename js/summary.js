@@ -1,23 +1,3 @@
-
-
-
-async function summaryInit() {
-  dataInfo = JSON.parse(await getItem("board_key"));
-  loadAll();
-  getCounters();
-  renderCounts();
-}
-
-let dataInfo;
-function getArray(key) { return JSON.parse(localStorage.getItem(key)); }
-function setArray(key, array) { localStorage.setItem(key, JSON.stringify(array)); }
-
-let myUser = getArray("loggedInUser");
-
-document.getElementById(`person-name`).innerHTML = myUser["name"].split(" ")[0];
-
-
-
 let boardColumns = {
   "0": "todo",
   "1": "in-progress",
@@ -25,10 +5,41 @@ let boardColumns = {
   "3": "done",
 };
 
-let objectMagic = Object.keys(boardColumns);
-console.log(objectMagic);
-console.log(objectMagic.length);
+let counter = {
+  "todo": 0,
+  "done": 0,
+  "urgent": 0,
+  "total-tasks": 0,
+  "in-progress": 0,
+  "await-feedback": 0,
+};
 
+let dataInfo;
+
+/**
+ * summary.html initializer
+ */
+async function summaryInit() {
+  dataInfo = JSON.parse(await getItem("board_key"));
+  loadAll();
+  getCounters();
+  renderUserName()
+  renderCounts();
+}
+
+
+/**
+ * Renders the name of the current logged in user.
+ */
+function renderUserName(){
+  let myUser = getArray("loggedInUser");
+  document.getElementById(`person-name`).innerHTML = myUser["name"].split(" ")[0];
+}
+
+
+/**
+ * Gets counts of the board key metrics. 
+ */
 function getCounters() {
   for (let i = 0; i < dataInfo.length; i++) {
     let taskIfnos = dataInfo[i];
@@ -42,20 +53,12 @@ function getCounters() {
       counter["urgent"] += 1;
     }
   }
-  console.log(counter);
 }
 
 
-let counter = {
-  "todo": 0,
-  "done": 0,
-  "urgent": 0,
-  "total-tasks": 0,
-  "in-progress": 0,
-  "await-feedback": 0,
-};
-
-
+/**
+ * Renders all counts into the related divs. 
+ */
 function renderCounts() {
   document.getElementById(`todo-count`).innerHTML = counter["todo"];
   document.getElementById(`done-count`).innerHTML = counter["done"];
