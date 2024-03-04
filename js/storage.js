@@ -27,12 +27,9 @@ async function getItem(key) {
 }
 
 
-//Upload data example
 
-// setItem("exampleKey", exampleTasks)
-
-// get data and parse to JSON / JS object
-async function giveMeTask(){
-  let myItems = await getItem("tasks")
-  let parsedMyItems = JSON.parse(myItems);
-}
+/**
+ * Local storage functions
+ */
+function getArray(key) { return JSON.parse(localStorage.getItem(key)); }
+function setArray(key, array) { localStorage.setItem(key, JSON.stringify(array)); }

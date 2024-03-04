@@ -1,17 +1,11 @@
-let counter = {
-  "todo": 0,
-  "done": 0,
-  "urgent": 0,
-  "total-tasks": 0,
-  "in-progress": 0,
-  "await-feedback": 0,
-};
+
 
 
 async function summaryInit() {
   dataInfo = JSON.parse(await getItem("board_key"));
   loadAll();
   getCounters();
+  renderCounts();
 }
 
 let dataInfo;
@@ -23,22 +17,12 @@ let myUser = getArray("loggedInUser");
 document.getElementById(`person-name`).innerHTML = myUser["name"].split(" ")[0];
 
 
-/**
- * Names of ids needed to be filled with counters. 
- *
- * urgent-counter --> class
- * id="todo-count"
- * id="done-count"
- * id="count-tasks"
- * id="count-in-progress"
- * id="count-await-feedback"
- */
 
 let boardColumns = {
-  "1": "todo",
-  "2": "in-progress",
-  "3": "await-feedback",
-  "4": "done",
+  "0": "todo",
+  "1": "in-progress",
+  "2": "await-feedback",
+  "3": "done",
 };
 
 let objectMagic = Object.keys(boardColumns);
@@ -59,4 +43,24 @@ function getCounters() {
     }
   }
   console.log(counter);
+}
+
+
+let counter = {
+  "todo": 0,
+  "done": 0,
+  "urgent": 0,
+  "total-tasks": 0,
+  "in-progress": 0,
+  "await-feedback": 0,
+};
+
+
+function renderCounts() {
+  document.getElementById(`todo-count`).innerHTML = counter["todo"];
+  document.getElementById(`done-count`).innerHTML = counter["done"];
+  document.querySelector(`.urgent-counter`).innerHTML = counter["urgent"];
+  document.getElementById(`count-tasks`).innerHTML = counter["total-tasks"];
+  document.getElementById(`count-in-progress`).innerHTML = counter["in-progress"];
+  document.getElementById(`count-await-feedback`).innerHTML = counter["await-feedback"];
 }
