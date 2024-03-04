@@ -3,7 +3,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 1400px;
+        height: 1300px;
     }
 
     .middle-task-body {
@@ -118,5 +118,18 @@
 
     .right-side {
         width: 100%;
+    }
+    .task-select-category  {
+        width: 100%;
+    }
+    .Assigned-img-subtask {
+        position: relative;
+        right: 0;
+    }
+    .unsorted-list {
+        width: 100%;
+    }
+    .subtask-comment {
+        position: absolute;
     }
 }
