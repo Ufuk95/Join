@@ -2,8 +2,11 @@ let tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
 let editedSubtaskText;
-
-
+let currentColor = null;
+let contactData = {
+    icons: [],
+    names: [],
+};
 
 function init() {
     includeHTML();
@@ -245,7 +248,10 @@ function buttonForEditTaskCard(tasks) {
             break;
     }
 }
-
+/**
+ * 
+ * @returns Hier werden die Subtasks erstellt
+ */
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
     let subtaskUL = document.getElementById("unsorted-list");
@@ -277,7 +283,11 @@ function addSubtask() {
     setTimeout(restoreInputImg, 0);
 }
 
-
+/**
+ * This function puts the hover effects from each subtask in place
+ * 
+ * @param {number} subtaskID - This is the ID of every task in tasks
+ */
 function addSubtaskListeners(subtaskID) {
     let currentSubtask = document.getElementById(subtaskID);
 
@@ -285,8 +295,6 @@ function addSubtaskListeners(subtaskID) {
         if (!currentSubtask.dataset.listenerAdded) {
             currentSubtask.addEventListener("mouseenter", mouseEnter.bind(null, subtaskID));
             currentSubtask.addEventListener("mouseleave", mouseLeave.bind(null, subtaskID));
-
-            // Markieren, dass der Eventlistener hinzugefügt wurde
             currentSubtask.dataset.listenerAdded = true;
         }
     } else {
@@ -294,7 +302,11 @@ function addSubtaskListeners(subtaskID) {
     }
 }
 
-// Eine Funktion um sein Task über die Task Card zu bearbeiten 
+/**
+ * this function let you editing your subtask 
+ * 
+ * @param {number} subtaskID - This is the ID of every task in tasks
+ */
 function addSubtaskEventListeners(subtaskID) {
     const subtaskContainer = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     const editImg = subtaskContainer.querySelector(".subtask-img-edit");
@@ -304,47 +316,52 @@ function addSubtaskEventListeners(subtaskID) {
     trashImg.addEventListener("click", () => deleteSubtask(subtaskID));
 }
 
-
+/**
+ * this function is for checking the subtasks and saves in the remote storage 
+ * 
+ * @param {string} subtaskImage - the imgs for checked 
+ * @param {number} taskId - This is the ID of every task in tasks
+ * @param {*} subtaskIndex 
+ */
 async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
     const task = tasks.find((item) => item.id === taskId);
 
     if (task && task.subtasks[subtaskIndex]) {
         const subtask = task.subtasks[subtaskIndex];
-
-        // Überprüfen, ob das Subtask als checked markiert ist
         if (!subtask.checked) {
-            // Wenn nicht geprüft, ändere das Bild und setze das Attribut auf "true"
             subtaskImage.src = "./assets/img/board/checkedForCard.png";
             subtask.checked = true;
         } else {
-            // Wenn geprüft, ändere das Bild zurück und setze das Attribut auf "false"
             subtaskImage.src = "./assets/img/board/checkForCard.png";
             subtask.checked = false;
         }
 
-        // Zähle die Anzahl der überprüften Teilaufgaben
         const checkedSubtasks = task.subtasks.filter(subtask => subtask.checked).length;
-        // Aktualisiere die Anzahl der überprüften Teilaufgaben im task-Objekt
         task.checkedSubtasks = checkedSubtasks;
 
         updateProgressBar(taskId);
 
-        // Aktualisierung des Fortschritts im task-Objekt
         const progressPercentage = task.createdSubtasks > 0 ? (checkedSubtasks / task.createdSubtasks) * 100 : 0;
         task.progressbar = progressPercentage;
-
         await setItem("board_key", tasks);
     }
 }
 
 
-
+/**
+ *  this function delete the input in subtask
+ * 
+ */
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
     inputSubtasks.value = "";
     restoreInputImg();
 }
 
+/**
+ *  this function deletes the subtask
+ * 
+ */
 function deleteSubtask(subtaskId) {
     const subtaskElement = document.getElementById(subtaskId);
 
@@ -356,7 +373,11 @@ function deleteSubtask(subtaskId) {
 }
 
 
-
+/**
+ * this function is for editing the subtask 
+ * 
+ * @param {number} subtaskID - This is the ID of every task in tasks
+ */
 function editSubtask(subtaskID) {
     let subtaskContainer = document.getElementById(subtaskID);
 
@@ -424,9 +445,11 @@ function hoverDeleteInSubtaskcard() {
     });
 }
 
-
-// Eine Funktion um die gesammte Task zu löschen
-
+/**
+ * this function is for deleting the whole task on board
+ * 
+ * @param {number} taskId - This is the ID of every task in tasks
+ */
 async function deleteTaskCard(taskId) {
     for (let i = 0; i < tasks.length; i++) {
         let task = tasks[i];
@@ -440,18 +463,31 @@ async function deleteTaskCard(taskId) {
 }
 
 
-
+/**
+ * this function closes the task in add task area on the board site
+ * 
+ */
 function closeTaskCard() {
     let addNone = document.getElementById('card-container');
     addNone.classList.add('d-none-card');
 }
 
+/**
+ * this function closes the editing task 
+ * 
+ */
 function closeEditTask() {
     let addNone = document.getElementById('edit-container');
     addNone.classList.add('d-none-card');
 }
 
 // Speichert die veränderten/editierten elemente in tasks und ladet sie gleichzeitig ins remote storage hoch.
+
+/**
+ * this function saves all the changes in editing area and saves it in remote storage 
+ * 
+ * @param {number} taskId - This is the ID of every task in tasks
+ */
 async function saveEditedTask(taskId) {
     try {
         const taskIndex = tasks.findIndex(task => task.id === taskId);
@@ -464,19 +500,18 @@ async function saveEditedTask(taskId) {
             editedTask.priority = getPriorityImagePath(currentPriority);
             editedTask.contacts = contactData;
 
-            // Extrahiere die Subtasks aus dem DOM
             const createdSubtasks = document.getElementById('unsorted-list');
             const subtaskElements = createdSubtasks.children;
             const subtasks = Array.from(subtaskElements).map(subtaskElement => {
                 return {
                     title: subtaskElement.textContent.trim(),
-                    checked: false, // Sie können die checked-Eigenschaft hier aktualisieren, falls benötigt
+                    checked: false,
                     id: subtaskElement.id,
                 };
             });
 
-            editedTask.subtasks = subtasks; // Aktualisieren Sie die Subtasks im bearbeiteten Task
-            editedTask.createdSubtasks = subtasks.length; // Aktualisieren Sie die Anzahl der erstellten Subtasks
+            editedTask.subtasks = subtasks; 
+            editedTask.createdSubtasks = subtasks.length; 
             tasks[taskIndex] = editedTask;
             updateHTML();
             await setItem("board_key", tasks);
@@ -488,7 +523,6 @@ async function saveEditedTask(taskId) {
         console.error(error);
     }
 }
-//deleteTaskCard()
 
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -496,6 +530,11 @@ function formatDate(dateString) {
     return date.toLocaleDateString('de-DE', options);
 }
 
+/**
+ * this function is for the subtasks if they are checked then the progressbar is filling the bar
+ * 
+ * @param {number} taskId  - This is the ID of every task in tasks
+ */
 function updateProgressBar(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     const progressBar = document.querySelector(`.task[data-id="${taskId}"] .progressbar`);
@@ -552,6 +591,12 @@ function removeHighlight(id) {
     document.getElementById(id).classList.remove("drag-area-highlight");
 }
 
+
+/**
+ * this huge function creates the whole task and puts it on the remote storage
+ * 
+ * @param {string} event 
+ */
 async function createTask(event) {
     event.preventDefault();
 
@@ -648,21 +693,25 @@ function getPriorityImagePath(priority) {
 }
 // Funktion für addTask um Category auszuwählen
 
+/**
+ * this function is for choosing the the task option  Technical Task or User Story
+ * 
+ * @param {string} selectedOption 
+ */
 function showTaskSelect(selectedOption) {
     let taskSelectCategory = document.getElementById("task-select-category");
     let arrowDownImg = document.getElementById("arrow_down");
     let arrowUpImg = document.getElementById("arrow_up");
     let taskCategoryInput = document.getElementById("task-category-input");
 
-    let isVisible = !taskSelectCategory.classList.contains("d-none"); // Überprüfe, ob der Container bereits sichtbar ist
-    taskSelectCategory.classList.toggle("d-none"); // Füge oder entferne die 'd-none'-Klasse basierend auf dem aktuellen Zustand
+    let isVisible = !taskSelectCategory.classList.contains("d-none"); 
+    taskSelectCategory.classList.toggle("d-none");
 
-    // Füge oder entferne die 'd-none'-Klasse für die Pfeilbilder
     arrowDownImg.classList.toggle("d-none", !isVisible);
     arrowUpImg.classList.toggle("d-none", isVisible);
 
-    let selectedText = selectedOption ? selectedOption.innerText : ""; // Extrahiere den ausgewählten Text aus dem angeklickten Element
-    taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
+    let selectedText = selectedOption ? selectedOption.innerText : ""; 
+    taskCategoryInput.value = selectedText; 
 }
 
 
@@ -678,72 +727,17 @@ function mouseLeave(subtaskID) {
     console.log("Maus verlassen!");
 }
 
-
-function deleteSubtaskInput() {
-    let inputSubtasks = document.getElementById("input-subtasks");
-    inputSubtasks.value = "";
-    restoreInputImg();
-}
-
-function deleteSubtask(subtaskId) {
-    const subtaskElement = document.getElementById(subtaskId);
-
-    if (subtaskElement) {
-        subtaskElement.remove();
-    } else {
-        console.error(`Subtask mit der ID ${subtaskId} wurde nicht gefunden!`);
-    }
-}
-
-
-
-function editSubtask(subtaskID) {
-    let subtaskContainer = document.getElementById(subtaskID);
-
-    if (subtaskContainer) {
-
-        let subtaskTextElement = subtaskContainer.querySelector("li");
-
-        // Bilder für Bearbeiten und Löschen ausblenden
-        let editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
-        editImgsContainer.classList.add("d-none");
-
-        // Einen neuen Input für die Bearbeitung erstellen
-        let inputElement = document.createElement("input");
-        inputElement.id = "subtask-edit";
-        inputElement.type = "text";
-        inputElement.value = subtaskTextElement.textContent;
-
-        // Einen Button zum Akzeptieren der Bearbeitung erstellen
-        let acceptImg = document.createElement("img");
-        acceptImg.id = "subtask-done-img";
-        acceptImg.src = "./assets/img/board/done.png";
-        acceptImg.classList.add("accept-button");
-        acceptImg.onclick = function () {
-            // Den bearbeiteten Text übernehmen
-            subtaskTextElement.textContent = inputElement.value;
-
-            // Das Eingabefeld und den "Done"-Button entfernen
-            subtaskContainer.removeChild(inputElement);
-            subtaskContainer.removeChild(acceptImg);
-        };
-
-        // Das Eingabefeld, das "Done"-Button und das Bestätigen-Bild dem Subtask-Element hinzufügen
-        subtaskContainer.appendChild(inputElement);
-        subtaskContainer.appendChild(acceptImg);
-    } else {
-        console.error("Das Subtask-Element wurde nicht gefunden!");
-    }
-}
-
+/**
+ * The function ensures that the created tasks are used where they belong
+ * 
+ * @param {string} field - fields for the kanban  todo/in-progress etc.
+ */
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("d-none");
     setTimeout(function () {
         taskcard.classList.add("open");
     }, 0);
-
-    // Setze das gewünschte Feld
     document.getElementById("task-field").value = field;
 }
 
@@ -755,10 +749,10 @@ function closeTask() {
     }, 500);
 }
 
-// farben für die prio Buttons ändern
-
-let currentColor = null;
-
+/**
+ * 
+ * this function sets all the buttons back after their use
+ */
 function resetAllButtons() {
     // Reset red button
     const redImg = document.getElementById("prio-red");
@@ -785,11 +779,16 @@ function resetAllButtons() {
     greenBtn.style.borderColor = "white";
 }
 
+/**
+ * this function is for the buttons 
+ * they let you changing the colors of the buttons and set them back when you click another button
+ * 
+ * @param {string} color - the color of the tasks 
+ */
 function changeBtnColor(color) {
     resetAllButtons();
     if (currentColor !== color) {
         currentColor = color;
-        // Speichern Sie die ausgewählte Priorität
         currentPriority = color;
         if (color === "red") {
             colorChangeToRed();
@@ -804,6 +803,11 @@ function changeBtnColor(color) {
     }
 }
 
+/**
+ * 
+ * if you use the urgent button it changes to red 
+ * if not it stays white
+ */
 function colorChangeToRed() {
     redImg = document.getElementById("prio-red");
     redBtn = document.getElementById("prio-btn-red");
@@ -821,6 +825,11 @@ function colorChangeToRed() {
     }
 }
 
+/**
+ * if you use the medium button it changes to yellow 
+ * if not it stays white
+ * 
+ */
 function colorChangeToYellow() {
     yellowImg = document.getElementById("prio-yellow");
     yellowBtn = document.getElementById("prio-btn-yellow");
@@ -838,6 +847,11 @@ function colorChangeToYellow() {
     }
 }
 
+/**
+ * 
+ * if you use the low button it changes to green 
+ * if not it stays white
+ */
 function colorChangeToGreen() {
     greenImg = document.getElementById("prio-green");
     greenBtn = document.getElementById("prio-btn-green");
@@ -884,6 +898,7 @@ function showDateOnInput() {
         event.target.showPicker();
     });
 }
+
 function setupCancelButton() {
     const cancelButton = document.getElementById("cancel-button");
     const blackCross = document.getElementById("black-cross");
@@ -901,8 +916,11 @@ function setupCancelButton() {
 }
 
 
-// Contact Area
 
+/**
+ * 
+ * this function is for showing the contacts in creating subtask area with a toggle function
+ */
 function toggleContactAreaVisibility() {
     let contactArea = document.querySelector(".contact-area");
     let arrowDownContact = document.getElementById("arrow_down_contact");
@@ -916,7 +934,11 @@ function toggleContactAreaVisibility() {
 }
 
 
-
+/**
+ * 
+ * this function is for the rendering the contacts 
+ * 
+ */
 async function showContactsInTasks() {
     toggleContactAreaVisibility();
 
@@ -928,9 +950,9 @@ async function showContactsInTasks() {
         const contact = contactInformation[i];
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
-        let isSelected = contactData.names.includes(contact[0]); // Überprüfe, ob der Kontakt ausgewählt ist
-        let selectedClass = isSelected ? "selected" : ""; // Füge die Klasse "selected" hinzu, wenn der Kontakt ausgewählt ist
-        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; // Wähle den richtigen Bildpfad basierend auf isSelected
+        let isSelected = contactData.names.includes(contact[0]); 
+        let selectedClass = isSelected ? "selected" : ""; 
+        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; 
         chooseContact.innerHTML += `
         <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
             <div class="contact-info">
@@ -941,17 +963,15 @@ async function showContactsInTasks() {
         </div>`;
     }
 }
-
-// function renderEditContact(){
-//     return `
-//     <div class="contact-info">
-//         <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
-//         <div class="contact-name">${contact[0]}</div>
-//     </div>`;
-// }
-
-
-
+/**
+ * 
+ * this is only for rendering the icon svg 
+ * 
+ * @param {string} initials - the initials of the contacts 
+ * @param {string} colorNumber - the color number from the icons
+ * @param {string} i - each contact data
+ * @returns 
+ */
 function contactFrameHTML(initials, colorNumber, i) {
     return `
     <div class="contact-frame contact-frame${i}">
@@ -966,21 +986,19 @@ function contactFrameHTML(initials, colorNumber, i) {
 
 /**
  * Calculates an index based on the amount of colors in colorCarousell.
- * @param {Number} index Index number of a contact. 
- * @return {Number} 
+ * @param {number} index - Index number of a contact. 
+ * 
  */
 function calculateColorMap(index) {
     let colorMapLen = Object.keys(colorCarousell).length;
     return index % colorMapLen;
 }
 
-
-
-let contactData = {
-    icons: [],
-    names: [],
-};
-
+/**
+ * this function is for you be able to choose the contacts
+ * 
+ * @param {string} element - tasks
+ */
 function addContact(element) {
     let isSelected = element.classList.contains("selected");
     let iconArea = document.getElementById('icon-area');
@@ -999,6 +1017,11 @@ function addContact(element) {
     }
 }
 
+/**
+ * this function is for removing the contact
+ * 
+ * @param {string} contactName - the name of the contact
+ */
 function removeContact(contactName) {
     let index = contactData.names.indexOf(contactName);
     if (index !== -1) {
@@ -1041,7 +1064,10 @@ async function iconOfContact(contactName, iconArea) {
     }
 }
 
-// Suchfunktion
+/**
+ * 
+ * this function is for the search input on the board site to find tasks with their title or description
+ */
 function searchTasks() {
     let searchText = document.querySelector('.board-search input').value.toLowerCase();
     let tasksContainer = document.querySelector('.drag-drop-headline');
