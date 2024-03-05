@@ -8,8 +8,8 @@ let editedSubtaskText;
 function init() {
     includeHTML();
     updateHTML();
+    loadAll()
     TaskFromStorage();
-
 }
 
 async function TaskFromStorage() {

@@ -68,6 +68,10 @@ a {
   border: solid #2A3647 3px
 }
 
+#circle:hover{
+  cursor: pointer;
+}
+
 .user-initials {
   font-size: 24px;
   color:#29ABE2;
@@ -78,6 +82,36 @@ a {
   transform: translate(-50%, -50%)
 }
 
+/************************* LEGAL NOTICE BUBBLE *************************/
+.legal-notice-bubble {
+  position: absolute;
+  top: -23px;
+  right: -29px;
+  box-sizing: border-box;
+  padding: 20px 0;
+  padding-left: 20px;
+  width: 150px;
+  height: 158px;
+  background-color: #2A3D59;
+  border-radius: 20px 0 20px 20px;
+  margin: 0 auto;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.legal-notice-bubble a:hover{
+  color: #CDCDCD
+}
+
+.legal-notice-bubble a{
+  font-size: 16px;
+  color: #FFFFFF;
+  font-family: inter;
+  font-weight: 500;
+}
 /************************* SIDEBAR *************************/
 
 #sidebar {

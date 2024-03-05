@@ -1,5 +1,12 @@
-a = new Date();
 
-console.log(a);
+const title = 'The Great Sync';
 
-console.log(a.getHours());
+const data = {
+	page: 100
+};
+
+const finalCount = 10;
+
+for (const count = 0; count < 10; count++){ // ERROR!
+	console.log(count); 
+}

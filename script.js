@@ -1,3 +1,10 @@
+let whiteImageCorrespondends = {
+  0: "./assets/img/header_sidebar/icon_summary_white.png",
+  1: "./assets/img/header_sidebar/icon_add_task_white.png",
+  2: "./assets/img/header_sidebar/icon_board_white.png",
+  3: "./assets/img/header_sidebar/icon_contacts_white.png"
+};
+
 async function loadAll() {
   await includeHTML();
   let currentPage = Number(document.body.id);
@@ -32,16 +39,24 @@ async function includeHTML() {
  */
 function renderUserInitials() {
   let userInitialsElement = document.querySelector(`.user-initials`);
-  let currentUser = getArray("loggedInUser")
-  userInitialsElement.innerHTML = currentUser["initials"]
+  let currentUser = getArray("loggedInUser");
+  userInitialsElement.innerHTML = currentUser["initials"];
 }
 
-let whiteImageCorrespondends = {
-  0: "./assets/img/header_sidebar/icon_summary_white.png",
-  1: "./assets/img/header_sidebar/icon_add_task_white.png",
-  2: "./assets/img/header_sidebar/icon_board_white.png",
-  3: "./assets/img/header_sidebar/icon_contacts_white.png"
-};
+
+function showLegalNoticeBubble() {
+  document.querySelector(`.legal-notice-bubble`).classList.toggle("display-none");
+}
+
+
+function logOutUser() {
+  let userLogInObject = getArray("loggedInUser");
+  userLogInObject["name"] = "";
+  userLogInObject["initials"] = "";
+  setArray("loggedInUser", userLogInObject)
+  location.reload()
+}
+
 
 /**
  * Resets the tab styling for the sidebar-tabs and the footer-tabs
