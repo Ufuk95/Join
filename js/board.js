@@ -1040,3 +1040,20 @@ async function iconOfContact(contactName, iconArea) {
         }
     }
 }
+
+// Suchfunktion
+function searchTasks() {
+    let searchText = document.querySelector('.board-search input').value.toLowerCase();
+    let tasksContainer = document.querySelector('.drag-drop-headline');
+
+    tasksContainer.querySelectorAll('.task').forEach(task => {
+        let title = task.querySelector('b').textContent.toLowerCase();
+        let description = task.querySelector('.description-font').textContent.toLowerCase();
+
+        if (title.includes(searchText) || description.includes(searchText)) {
+            task.style.display = 'flex';
+        } else {
+            task.style.display = 'none';
+        }
+    });
+}
