@@ -110,10 +110,6 @@
         display: none;
     }
 
-    #nav-footer {
-        justify-content: space-evenly;
-    }
-
     .selected-task {
         width: 100%;
     }
@@ -121,16 +117,20 @@
     .right-side {
         width: 100%;
     }
-    .task-select-category  {
+
+    .task-select-category {
         width: 100%;
     }
+
     .Assigned-img-subtask {
         position: relative;
         right: 0;
     }
+
     .unsorted-list {
         width: 100%;
     }
+
     .subtask-comment {
         position: absolute;
     }

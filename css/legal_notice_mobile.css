@@ -1,0 +1,9 @@
+@media (min-width: 320px) and (max-width: 975px) {
+    .main-text-body {
+        width: 100%;
+        left: 0;
+        top: 15%;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
