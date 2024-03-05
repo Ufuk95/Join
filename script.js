@@ -54,7 +54,7 @@ function logOutUser() {
   userLogInObject["name"] = "";
   userLogInObject["initials"] = "";
   setArray("loggedInUser", userLogInObject)
-  location.reload()
+  window.location.href = "./logIn.html";
 }
 
 
