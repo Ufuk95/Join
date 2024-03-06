@@ -250,7 +250,7 @@ function buttonForEditTaskCard(tasks) {
 }
 /**
  * 
- * @returns Hier werden die Subtasks erstellt
+ *  Hier werden die Subtasks erstellt
  */
 function addSubtask() {
     let inputSubtasks = document.getElementById("input-subtasks");
@@ -484,7 +484,7 @@ function closeEditTask() {
 // Speichert die veränderten/editierten elemente in tasks und ladet sie gleichzeitig ins remote storage hoch.
 
 /**
- * this function saves all the changes in editing area and saves it in remote storage 
+ * this function saves all the changes in editing area and saves it on remote storage 
  * 
  * @param {number} taskId - This is the ID of every task in tasks
  */
