@@ -93,14 +93,17 @@ function renderCounts() {
 async function getLatestUrgentDate() {
   let urgentDates = [];
   dataInfo = JSON.parse(await getItem("board_key"));
+  console.log(dataInfo);
   for (let i = 0; i < dataInfo.length; i++) {
     let task = dataInfo[i];
     if (task["priorityText"] === "Urgent") {
       urgentDates.push(task["date"]);
     }
   }
+  console.log(urgentDates);
   let sortedDates = urgentDates.sort();
   let latestDate = sortedDates[sortedDates.length -1]
+  console.log(latestDate);
   document.getElementById(`deadline-date`).innerHTML = latestDate;
 }
 
