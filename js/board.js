@@ -638,7 +638,10 @@ async function createTask(event) {
         category: category,
         priority: getPriorityImagePath(currentPriority),
         priorityText: priorityText(currentPriority),
-        contacts: contactData,
+        contacts: { 
+            names: contactData.names.slice(), 
+            icons: contactData.icons.slice() 
+        },
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
         createdSubtasks: subtasksLength,
@@ -660,6 +663,11 @@ async function createTask(event) {
 
     resetAllButtons();
     currentPriority = null;
+}
+
+function emptyContact(){
+    contactData.icons = "";
+    contactData.names = "";
 }
 
 
