@@ -26,6 +26,7 @@ async function summaryInit() {
   renderGreeting();
   renderUserName();
   renderCounts();
+  getLatestUrgentDate()
 }
 
 
@@ -84,3 +85,23 @@ function renderCounts() {
   document.getElementById(`count-in-progress`).innerHTML = counter["in-progress"];
   document.getElementById(`count-await-feedback`).innerHTML = counter["await-feedback"];
 }
+
+
+/**
+ * Gets the latest urgent date and renders it into the appropriate div. 
+ */
+async function getLatestUrgentDate() {
+  let urgentDates = [];
+  dataInfo = JSON.parse(await getItem("board_key"));
+  for (let i = 0; i < dataInfo.length; i++) {
+    let task = dataInfo[i];
+    if (task["priorityText"] === "Urgent") {
+      urgentDates.push(task["date"]);
+    }
+  }
+  let sortedDates = urgentDates.sort();
+  let latestDate = sortedDates[sortedDates.length -1]
+  document.getElementById(`deadline-date`).innerHTML = latestDate;
+}
+
+

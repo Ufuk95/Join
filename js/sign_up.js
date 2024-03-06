@@ -1,20 +1,3 @@
-
-
-//! Setting empty array into remote storage
-let myArray = []
-// setItem("userNameEmailPassword", myArray)
-//!
-
-
-// ! Test purpose log function
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
-}
-logFromRemote("userNameEmailPassword")
-// ! ---------------------------------------------------------
-
-
 let signUpData = [];
 let pwInputVisible = false;
 let pwInput = document.getElementById('password');
@@ -38,6 +21,11 @@ async function getSignUpInputs() {
 }
 
 
+async function setSignUpData(remoteKey, JSONArray) {
+  await setItem(remoteKey, JSON.stringify(JSONArray));
+}
+
+
 /**
  * Gets existing data from remote. And adds new sign up data. 
  */
@@ -57,6 +45,12 @@ async function handleRemoteStorage(name, email, password) {
 }
 
 
+/**
+ * Takes a string and takes and isolates the first letters. 
+ * Creating initials.
+ * @param {String} nameString 
+ * @returns {String} 
+ */
 function getInitials(nameString) {
   let initials = "";
   let trimmedString = nameString.trim();
@@ -68,18 +62,6 @@ function getInitials(nameString) {
   return initials;
 }
 
-
-function temporaryObject(name, initials, email, password, object) {
-  object["name"] = name;
-  object["email"] = email;
-  object["password"] = password;
-  object["initials"] = initials;
-}
-
-
-async function setSignUpData(remoteKey, JSONArray) {
-  await setItem(remoteKey, JSON.stringify(JSONArray));
-}
 
 /**
  * Gets user data from remote
@@ -96,6 +78,7 @@ function clearFields(name, email, password, passwordRepeat) {
   password.value = "";
   passwordRepeat.value = "";
 }
+
 
 /**  
  * Changes the password field icon from lock to invisible based on pwInput length. 
@@ -206,13 +189,3 @@ pwInputRepeat.addEventListener("input", () => {
   pwCheck();
 });
 
-
-
-
-// ! Will be removed Exist for clearing purpuse
-let emptyArray = [];
-async function clearTestData(remoteKey) {
-  await setItem(remoteKey, JSON.stringify(emptyArray));
-}
-// ! fire this function to clear remote storage!
-// clearTestData("remoteKey")

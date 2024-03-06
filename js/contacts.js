@@ -1,5 +1,5 @@
-
 let finalArray;
+
 
 let colorCarousell = {
   "0": "#FF7A00",
@@ -12,6 +12,7 @@ let colorCarousell = {
   "7": "#FF4646",
 };
 
+
 /**
  * Initialization of contacts.html
 */
@@ -20,27 +21,6 @@ async function contactsInit() {
   finalArray = await sortAndPrepare("userData");
   renderContacts(finalArray);
 }
-
-
-
-// ! Test purpose log function
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
-  return parsedData;
-}
-
-async function getParsedData() {
-  let getFromRemote = logFromRemote("userData");
-  console.log(getFromRemote);
-}
-
-// logFromRemote("userData");
-// getParsedData()
-// console.log(window.innerWidth);
-// ! ---------------------------------------------------------
-
-
 
 
 /**
@@ -55,7 +35,6 @@ async function sortAndPrepare(remoteKey) {
   let finalArray = addInitials(sortedArray);
   return finalArray;
 }
-
 
 
 /**
@@ -225,7 +204,6 @@ function showContactDetails(i) {
 }
 
 
-
 /**
  * Clears the contact detail template.
  */
@@ -287,6 +265,9 @@ function getContactData(contactNameElement, contactMailElement, contactPhoneElem
 }
 
 
+/**
+ * Animations appearing after a contact was created successfully.
+ */
 function succesfullyCreatedAnimations() {
   let contactSuccessfully = document.querySelector(`.contact-created-successfully`);
   if (window.innerWidth < 1000) {
@@ -301,9 +282,6 @@ function succesfullyCreatedAnimations() {
     setTimeout(() => contactSuccessfully.classList.add("d-none"), 2000);
   }
 }
-
-
-
 
 
 function clearContactInputs(contactName, contactEmail, contactPhone) {
@@ -325,7 +303,7 @@ function deleteContact(i) {
 /**
  * Executes on edit button. 
  * Gets the contact details into the input fields. 
- * Gets the inital eclipse styling and assigns them to a new div. 
+ * Gets the inital eclipse styling and assigns it to a new div. 
  */
 function editContact(i) {
   let addContactFrame = document.querySelector(`.add-contact-frame`);
@@ -384,21 +362,3 @@ function getNewIndex(finalArray, email) {
   }
 }
 
-
-// ! Animation test function please delete!!
-function testAnimation() {
-  let contactSuccessfully = document.querySelector(`.contact-created-successfully`);
-  if (window.innerWidth < 1000) {
-    document.querySelector(`.contact-created-successfully`).classList.remove("d-none");
-    document.querySelector(`.contact-created-successfully`).classList.add("succesfully-created-buttom-to-top");
-    setTimeout(() => { contactSuccessfully.classList.add("succesfully-created-top-to-bottom"); }, 700);
-    setTimeout(() => { contactSuccessfully.classList.add("d-none"); }, 1250);
-    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-buttom-to-top"); }, 1250);
-    setTimeout(() => { contactSuccessfully.classList.remove("succesfully-created-top-to-bottom"); }, 1250);
-  } else {
-    contactSuccessfully.classList.remove("d-none");
-    setTimeout(() => contactSuccessfully.classList.add("d-none"), 2000);
-  }
-}
-
-// ! Animation test function please delete!!

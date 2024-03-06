@@ -1,11 +1,3 @@
-//! Delete
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
-}
-logFromRemote("userNameEmailPassword");
-//! Delete
-
 let checked = false;
 let isVisible = false; // Variable, um den Sichtbarkeitsstatus des Passwortes zu speichern
 let userData;
@@ -18,25 +10,21 @@ async function logInInit() {
   userData = JSON.parse(await getItem("userNameEmailPassword"));
 }
 
-//!
-let loggedUser = null;
-function getArray(key) { return JSON.parse(localStorage.getItem(key)); }
-function setArray(key, array) { localStorage.setItem(key, JSON.stringify(array)); }
 
-// setArray("loggedInUser", loggedUser);
-let userNameInitials = getArray("loggedInUser");
-console.log(userNameInitials);
-//!
-
-
+/**
+ * Executes on clicking the login button.
+ */
 function login() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  console.log(userData);
   emailCheck(email, password);
 }
 
 
+/**
+ * Checks the rightness of  email password combination. 
+ * Logs in the user. 
+ */
 function emailCheck(email, password) {
   let emailFound = false;
   let emailFoundIndex = 0;
@@ -48,15 +36,16 @@ function emailCheck(email, password) {
     }
   }
   if (!emailFound) {
-    console.log("email not found");
   } else if (userData[emailFoundIndex]["password"] === password.value) {
     positiveLogin(emailFoundIndex);
-  } else {
-    console.log("Wrong password");
-  }
+  } 
 }
 
 
+/**
+ * Gets the name and the initlas of a user that have been logged in. 
+ * Redirects to summary.html 
+ */
 function positiveLogin(i) {
   userName = userData[i]["name"];
   userInitals = userData[i]["initials"];
@@ -68,7 +57,9 @@ function positiveLogin(i) {
   window.location.href = "./summary.html";
 }
 
-
+/**
+ * Handles the log in of a guest user.
+ */
 function guestLoginIn() {
   let loggedInUser = {
     "name": "Guest",
@@ -85,32 +76,31 @@ function togglePasswordVisibility() {
 
   if (!isVisible) {
     passwordInput.type = "text";
-    lockImg.src = "/assets/img/log_in/visibility.png"; // Pfad zum Bild der Sichtbarkeit
+    lockImg.src = "/assets/img/log_in/visibility.png"; 
     isVisible = true;
   } else {
     passwordInput.type = "password";
-    lockImg.src = "/assets/img/log_in/visibility_off.png"; // Pfad zum Bild des geschlossenen Auges
     isVisible = false;
   }
 }
 
-// Wenn Text im Passwortfeld eingetragen wird, ändert sich das Bild
+
 document.getElementById("password").addEventListener("input", function () {
   const passwordInput = document.getElementById("password");
   const lockImg = document.getElementById("img-lock");
 
   if (passwordInput.value.length > 0) {
     if (!isVisible) {
-      lockImg.src = "/assets/img/log_in/visibility_off.png"; // Pfad zum Bild des geschlossenen Auges
+      lockImg.src = "/assets/img/log_in/visibility_off.png"; 
     } else {
       lockImg.src = "/assets/img/log_in/visibility.png";
     }
   } else {
-    lockImg.src = "/assets/img/log_in/lock.png"; // Pfad zum Bild des Schlosses
+    lockImg.src = "/assets/img/log_in/lock.png"; 
   }
 });
 
-// Funktion die den Haken setzt bei Remember me
+
 function changeRectangle() {
   let checkedRectangle = document.getElementById("rectangle");
 
