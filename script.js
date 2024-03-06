@@ -5,6 +5,9 @@ let whiteImageCorrespondends = {
   3: "./assets/img/header_sidebar/icon_contacts_white.png"
 };
 
+/**
+ * Loads the templates and user Initials. 
+ */
 async function loadAll() {
   await includeHTML();
   let currentPage = Number(document.body.id);
@@ -23,7 +26,6 @@ async function includeHTML() {
   for (let i = 0; i < includeElements.length; i++) {
     const element = includeElements[i];
     file = element.getAttribute("w3-include-html");
-    // "includes/header.html"
     let resp = await fetch(file);
     if (resp.ok) {
       element.innerHTML = await resp.text();
@@ -48,7 +50,9 @@ function showLegalNoticeBubble() {
   document.querySelector(`.legal-notice-bubble`).classList.toggle("display-none");
 }
 
-
+/**
+ * Simulates a user log out. Clears the name and initials
+ */
 function logOutUser() {
   let userLogInObject = getArray("loggedInUser");
   userLogInObject["name"] = "";
@@ -81,10 +85,4 @@ function changeClickedTab(tabIndex) {
 
 
 
-//! Test Logging function
-async function logFromRemote(remoteKey) {
-  let parsedData = JSON.parse(await getItem(remoteKey));
-  console.log(parsedData);
-}
-//! ............................................................
 
