@@ -292,7 +292,7 @@ body {
 }
 
 #subtask-edit {
-  position: fixed;
+  position: absolute;
   width: 385px;
   height: 40px;
   border-right: none;
@@ -576,6 +576,7 @@ body {
   height: 36px;
   padding: 6px 8px;
   padding-left: 19.375px;
+  position: relative;
 }
 
 .full-subtasks-area:hover {

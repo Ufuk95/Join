@@ -49,7 +49,6 @@ function updateArea(field) {
 
 function generateTaskHTML(element) {
     let iconsHTML = element.contacts.icons.join(''); 
-
     return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
         <div>
@@ -75,75 +74,84 @@ function generateTaskHTML(element) {
 
 
 function openTaskCard(elementId) {
-    let element = tasks.find(task => task.id === elementId);
-    let removeNone = document.getElementById('card-container');
+    const element = tasks.find(task => task.id === elementId);
+    if (!element) {
+        console.error(`Element with ID ${elementId} not found.`);
+        return;
+    }
+
+    const removeNone = document.getElementById('card-container');
     removeNone.classList.remove('d-none-card');
 
-    let combinedHTML = [];
-    for (let i = 0; i < element.contacts.icons.length; i++) {
-        combinedHTML.push(`
+    const combinedHTMLString = generateCombinedHTML(element);
+    const cardContainer = document.getElementById("card-container");
+    const subtaskHTML = element.subtasks.map((subtask, subtaskIndex) => renderCheckIMG(subtask, subtaskIndex, element)).join("");
+
+    cardContainer.innerHTML = renderTaskCard(element, combinedHTMLString, subtaskHTML);
+    hoverDeleteInSubtaskcard();
+}
+
+function generateCombinedHTML(element) {
+    const combinedHTML = element.contacts.icons.map((icon, index) => `
         <div class="icon-name-pair">
-            <div>${element.contacts.icons[i]}</div>
-            <div>${element.contacts.names[i]}</div>
+            <div>${icon}</div>
+            <div>${element.contacts.names[index]}</div>
         </div>
-        `);
-    }
-    let combinedHTMLString = combinedHTML.join('');
+    `).join("");
+    return combinedHTML;
+}
 
 
-    if (element) {
-        const cardContainer = document.getElementById("card-container");
-        const subtaskHTML = element.subtasks.map((subtask, subtaskIndex) => `
-            <div class="subtask-card">
-                <img id="subtask-checkbox" class="subtask-image" src="${subtask.checked ? './assets/img/board/checkedForCard.png' : './assets/img/board/checkForCard.png'}" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
-                <p>${subtask.title}</p>
-            </div>`).join("");
+function renderCheckIMG(subtask, subtaskIndex, element){
+    return `
+    <div class="subtask-card">
+        <img id="subtask-checkbox" class="subtask-image" src="${subtask.checked ? './assets/img/board/checkedForCard.png' : './assets/img/board/checkForCard.png'}" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
+        <p>${subtask.title}</p>
+    </div>`
+}
 
-        cardContainer.innerHTML = `
-            <div class="completeCard">
-                <div class="taskcard-head">
-                    <img class="card-category-img" src="${element.category}">
-                    <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeTaskCard()">
-                </div>
-                <div class="title-card">
-                    <p>${element.title}</p>
-                </div>
-                <div class="description-card">
-                    <p>${element.description}</p>
-                </div>
-                <div class="date-card">
-                    <p>Due Date: ${formatDate(element.date)}</p>
-                </div>
-                <div class="priority-card">
-                    <p>Priority:</p>
-                    <p>${element.priorityText}</p>
-                    <img id="priority" src="${element.priority}" alt="Priority">
-                </div>
-                <div class="contact-card">
-                    <p>Assigned to:</p>
-                    <div class="d-flex">
-                        <div>${combinedHTMLString}</div>
-                    </div>
-                </div>
-                <div>
-                    <p>Subtasks: </p>
-                    ${subtaskHTML}
-                </div>
-                <div class="subtaskcard-bottom-footer">
-                    <div class="subtaskcard-footer-delete" onclick="deleteTaskCard(${element.id})">
-                        <img id="black-trash" src="./assets/img/board/trashforsubtasks.png">
-                        <p>Delete</p>
-                    </div>
-                    <div class="subtaskcard-footer-edit" onclick="editTaskCard(${element.id})">
-                        <img id="black-edit" src="./assets/img/board/editforSubtask.png">
-                        <p>Edit</p>
-                    </div>
-                </div>
-            </div>`;
-        hoverDeleteInSubtaskcard();
-    } else {
-        console.error(`Element with ID ${elementId} not found.`);
-    }
+function renderTaskCard(element, combinedHTMLString, subtaskHTML){
+    return `
+    <div class="completeCard">
+        <div class="taskcard-head">
+            <img class="card-category-img" src="${element.category}">
+            <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeTaskCard()">
+        </div>
+        <div class="title-card">
+            <p>${element.title}</p>
+        </div>
+        <div class="description-card">
+            <p>${element.description}</p>
+        </div>
+        <div class="date-card">
+            <p>Due Date: ${formatDate(element.date)}</p>
+        </div>
+        <div class="priority-card">
+            <p>Priority:</p>
+            <p>${element.priorityText}</p>
+            <img id="priority" src="${element.priority}" alt="Priority">
+        </div>
+        <div class="contact-card">
+            <p>Assigned to:</p>
+            <div class="d-flex">
+                <div>${combinedHTMLString}</div>
+            </div>
+        </div>
+        <div>
+            <p>Subtasks: </p>
+            ${subtaskHTML}
+        </div>
+        <div class="subtaskcard-bottom-footer">
+            <div class="subtaskcard-footer-delete" onclick="deleteTaskCard(${element.id})">
+                <img id="black-trash" src="./assets/img/board/trashforsubtasks.png">
+                <p>Delete</p>
+            </div>
+            <div class="subtaskcard-footer-edit" onclick="editTaskCard(${element.id})">
+                <img id="black-edit" src="./assets/img/board/editforSubtask.png">
+                <p>Edit</p>
+            </div>
+        </div>
+    </div>`
 }
 
 function editTaskCard(taskId) {
@@ -151,85 +159,92 @@ function editTaskCard(taskId) {
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
     
-
     if (task) {
         let iconContact = task.contacts.icons.join("");
         const editCard = document.getElementById('edit-container');
-        const subtaskListHTML = task.subtasks.map(subtask => `
-            <div id="${subtask.id}" class="full-subtasks-area">
-                <li>${subtask.title}</li>
-                <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs d-none">
-                    <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtask.id}')">
-                    <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtask.id}')">
-                </div>
-            </div>`).join('');
+        const subtaskListHTML = task.subtasks.map(subtask => renderEditSubtasks(subtask)).join('');
 
-        editCard.innerHTML = `
-            <div class="completeCard">
-                <div class="right-end">
-                    <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeEditTask()">
-                </div>
-                <div class="task-title">
-                    <span class="font-line">Title</span>
-                    <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" autocomplete="off" placeholder="Enter a title" value="${task.title}">
-                </div>
-                <div class="task-title">
-                    <span class="font-line">Description</span>
-                    <textarea id="description-input" cols="30" rows="10" placeholder="Enter a Description">${task.description}</textarea>
-                </div>
-                <div class="task-title">
-                    <span class="font-line">Due Date</span>
-                    <div class="task-date-area">
-                        <input required type="date" id="date" name="taskDate" placeholder="dd/mm/yyyy" value="${task.date}">
-                    </div>
-                </div>
-                <div class="task-title">
-                    <span class="font-line">Priority</span>
-                    <div class="task-button-area">
-                        <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
-                            <img id="prio-red" src="${task.priority}" alt="Urgent"></button>
-                        <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
-                            <img id="prio-yellow" src="${task.priority}" alt="Medium"></button>
-                        <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
-                            <img id="prio-green" src="${task.priority}" alt="Low"></button>
-                    </div>
-                </div>  
-                <div class="task-title">
-                    <span class="font-line">Assigned to</span>
-                    <div class="task-contact-input-area" onclick="showContactsInTasks()">
-                        <input type="none" placeholder="Select contacts to assign">
-                        <img class="Assigned-img" src="./assets/img/board/arrow_down.png" id="arrow_down_contact" alt="arrow down">
-                        <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
-                    </div>
-                    <div class="contact-area d-none" id="contact-area"></div>
-                    <div class="contact-icon-area " id="icon-area">${iconContact}</div>
-                </div>
-                <div class="task-title">
-                    <span class="font-line">Subtasks</span>
-                    <div class="task-contact-input-area" onclick="changeInputImg()">
-                        <input id="input-subtasks" autocomplete="off" type="text" placeholder="Add new subtasks">
-                        <img id="subtask-plus-img" class="Assigned-img"
-                            src="./assets/img/board/addTaskAdd.png" alt="plus">
-                        <div style="display: flex; align-items: center; gap: 8px;">
-                            <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
-                                src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
-                            <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
-                                src="./assets/img/board/vector-subtask.png">
-                            <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
-                                src="./assets/img/board/checked.png" onclick="addSubtask()">
-                        </div>
-                    </div>
-                    <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
-                <div class="right-end">
-                    <button class="edit-card-btn" onclick="saveEditedTask(${taskId})">Ok<img src="./assets/img/board/footerCheckBtn.png"></button>
-                </div>
-            </div>`;
+        editCard.innerHTML = renderEditCard(task, taskId, iconContact, subtaskListHTML);
         changeBtnColor(task);
         buttonForEditTaskCard(task);
         task.subtasks.forEach(subtask => addSubtaskListeners(`${subtask.id}`));
     } else {
         console.error(`Task with ID ${taskId} not found.`);
     }
+}
+
+function renderEditSubtasks(subtask){
+    return `
+    <div id="${subtask.id}" class="full-subtasks-area">
+        <li>${subtask.title}</li>
+        <div id="subtasksGreyImgs-${subtask.id}" class="subtask-edit-imgs d-none">
+            <img src="./assets/img/board/editforSubtask.png" class="subtask-img" onclick="editSubtask('${subtask.id}')">
+            <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtask.id}')">
+        </div>
+    </div>`
+}
+
+function renderEditCard(task, taskId, iconContact, subtaskListHTML){
+    return `
+    <div class="completeCard">
+        <div class="right-end">
+            <img class="task-close-X" src="./assets/img/board/close.png" onclick="closeEditTask()">
+        </div>
+        <div class="task-title">
+            <span class="font-line">Title</span>
+            <input required type="text" class="task-title-input" id="task-title-input" name="taskTitle" autocomplete="off" placeholder="Enter a title" value="${task.title}">
+        </div>
+        <div class="task-title">
+            <span class="font-line">Description</span>
+            <textarea id="description-input" cols="30" rows="10" placeholder="Enter a Description">${task.description}</textarea>
+        </div>
+        <div class="task-title">
+            <span class="font-line">Due Date</span>
+            <div class="task-date-area">
+                <input required type="date" id="date" name="taskDate" placeholder="dd/mm/yyyy" value="${task.date}">
+            </div>
+        </div>
+        <div class="task-title">
+            <span class="font-line">Priority</span>
+            <div class="task-button-area">
+                <button type="button" id="prio-btn-red" class="prio-btn" onclick="changeBtnColor('red')">Urgent
+                    <img id="prio-red" src="${task.priority}" alt="Urgent"></button>
+                <button type="button" id="prio-btn-yellow" class="prio-btn" onclick="changeBtnColor('yellow')">Medium
+                    <img id="prio-yellow" src="${task.priority}" alt="Medium"></button>
+                <button type="button" id="prio-btn-green" class="prio-btn" onclick="changeBtnColor('green')">Low
+                    <img id="prio-green" src="${task.priority}" alt="Low"></button>
+            </div>
+        </div>  
+        <div class="task-title">
+            <span class="font-line">Assigned to</span>
+            <div class="task-contact-input-area" onclick="showContactsInTasks()">
+                <input type="none" placeholder="Select contacts to assign">
+                <img class="Assigned-img" src="./assets/img/board/arrow_down.png" id="arrow_down_contact" alt="arrow down">
+                <img class="Assigned-img d-none" src="./assets/img/board/arrow_up.png" id="arrow_up_contact" alt="#">
+            </div>
+            <div class="contact-area d-none" id="contact-area"></div>
+            <div class="contact-icon-area " id="icon-area">${iconContact}</div>
+        </div>
+        <div class="task-title">
+            <span class="font-line">Subtasks</span>
+            <div class="task-contact-input-area" onclick="changeInputImg()">
+                <input id="input-subtasks" autocomplete="off" type="text" placeholder="Add new subtasks">
+                <img id="subtask-plus-img" class="Assigned-img"
+                    src="./assets/img/board/addTaskAdd.png" alt="plus">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <img id="subtask-close-img" class="Assigned-img-subtask px24 d-none"
+                        src="./assets/img/board/close.png" onclick="deleteSubtaskInput()">
+                    <img id="subtask-vector-img" class="Assigned-img-subtask d-none"
+                        src="./assets/img/board/vector-subtask.png">
+                    <img id="subtask-checked-img" class="Assigned-img-subtask px24 d-none"
+                        src="./assets/img/board/checked.png" onclick="addSubtask()">
+                </div>
+            </div>
+            <ul class="unsorted-list" id="unsorted-list">${subtaskListHTML}</ul>
+        <div class="right-end">
+            <button class="edit-card-btn" onclick="saveEditedTask(${taskId})">Ok<img src="./assets/img/board/footerCheckBtn.png"></button>
+        </div>
+    </div>`
 }
 
 function buttonForEditTaskCard(tasks) {
@@ -253,20 +268,27 @@ function buttonForEditTaskCard(tasks) {
  *  Hier werden die Subtasks erstellt
  */
 function addSubtask() {
-    let inputSubtasks = document.getElementById("input-subtasks");
-    let subtaskUL = document.getElementById("unsorted-list");
-    let subtaskText = inputSubtasks.value;
-    let subtaskID = `subtask-${Date.now()}`;
+    const inputSubtasks = document.getElementById("input-subtasks");
+    const subtaskUL = document.getElementById("unsorted-list");
+    const subtaskText = inputSubtasks.value;
 
-    // Überprüfen, ob bereits vier Subtasks vorhanden sind
     if (subtaskUL.children.length >= 4) {
         alert("Du kannst maximal 4 subtasks erstellen!");
         inputSubtasks.value = "";
-        return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
+        return;
     }
 
-    // Neues Subtask-Element erstellen
-    let newSubtask = document.createElement("div");
+    const subtaskID = `subtask-${Date.now()}`;
+    const newSubtask = createSubtaskElement(subtaskText, subtaskID);
+
+    subtaskUL.appendChild(newSubtask);
+    addSubtaskListeners(subtaskID);
+    inputSubtasks.value = "";
+    setTimeout(restoreInputImg, 0);
+}
+
+function createSubtaskElement(subtaskText, subtaskID) {
+    const newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
     newSubtask.className = "full-subtasks-area";
     newSubtask.innerHTML = `
@@ -276,12 +298,9 @@ function addSubtask() {
             <img src="./assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
         </div>
     `;
-
-    subtaskUL.appendChild(newSubtask);
-    addSubtaskListeners(subtaskID);
-    inputSubtasks.value = "";
-    setTimeout(restoreInputImg, 0);
+    return newSubtask;
 }
+
 
 /**
  * This function puts the hover effects from each subtask in place
@@ -325,7 +344,6 @@ function addSubtaskEventListeners(subtaskID) {
  */
 async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
     const task = tasks.find((item) => item.id === taskId);
-
     if (task && task.subtasks[subtaskIndex]) {
         const subtask = task.subtasks[subtaskIndex];
         if (!subtask.checked) {
@@ -338,9 +356,7 @@ async function toggleSubtask(subtaskImage, taskId, subtaskIndex) {
 
         const checkedSubtasks = task.subtasks.filter(subtask => subtask.checked).length;
         task.checkedSubtasks = checkedSubtasks;
-
         updateProgressBar(taskId);
-
         const progressPercentage = task.createdSubtasks > 0 ? (checkedSubtasks / task.createdSubtasks) * 100 : 0;
         task.progressbar = progressPercentage;
         await setItem("board_key", tasks);
@@ -379,43 +395,43 @@ function deleteSubtask(subtaskId) {
  * @param {number} subtaskID - This is the ID of every task in tasks
  */
 function editSubtask(subtaskID) {
-    let subtaskContainer = document.getElementById(subtaskID);
+    const subtaskContainer = document.getElementById(subtaskID);
+    if (!subtaskContainer) return console.error("Das Subtask-Element wurde nicht gefunden!");
 
-    if (subtaskContainer) {
+    const subtaskTextElement = subtaskContainer.querySelector("li");
+    if (!subtaskTextElement) return console.error("Das Textelement des Subtasks wurde nicht gefunden!");
 
-        let subtaskTextElement = subtaskContainer.querySelector("li");
+    const editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
+    if (editImgsContainer) editImgsContainer.classList.add("d-none");
 
-        // Bilder für Bearbeiten und Löschen ausblenden
-        let editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
-        editImgsContainer.classList.add("d-none");
+    const inputElement = createInputElement(subtaskTextElement.textContent);
+    const acceptImg = createAcceptButton(subtaskTextElement, inputElement, subtaskContainer);
 
-        // Einen neuen Input für die Bearbeitung erstellen
-        let inputElement = document.createElement("input");
-        inputElement.id = "subtask-edit";
-        inputElement.type = "text";
-        inputElement.value = subtaskTextElement.textContent;
-
-        // Einen Button zum Akzeptieren der Bearbeitung erstellen
-        let acceptImg = document.createElement("img");
-        acceptImg.id = "subtask-done-img";
-        acceptImg.src = "./assets/img/board/done.png";
-        acceptImg.classList.add("accept-button");
-        acceptImg.onclick = function () {
-            // Den bearbeiteten Text übernehmen
-            subtaskTextElement.textContent = inputElement.value;
-
-            // Das Eingabefeld und den "Done"-Button entfernen
-            subtaskContainer.removeChild(inputElement);
-            subtaskContainer.removeChild(acceptImg);
-        };
-
-        // Das Eingabefeld, das "Done"-Button und das Bestätigen-Bild dem Subtask-Element hinzufügen
-        subtaskContainer.appendChild(inputElement);
-        subtaskContainer.appendChild(acceptImg);
-    } else {
-        console.error("Das Subtask-Element wurde nicht gefunden!");
-    }
+    subtaskContainer.appendChild(inputElement);
+    subtaskContainer.appendChild(acceptImg);
 }
+
+function createInputElement(value) {
+    const inputElement = document.createElement("input");
+    inputElement.id = "subtask-edit";
+    inputElement.type = "text";
+    inputElement.value = value;
+    return inputElement;
+}
+
+function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) {
+    const acceptImg = document.createElement("img");
+    acceptImg.id = "subtask-done-img";
+    acceptImg.src = "./assets/img/board/done.png";
+    acceptImg.classList.add("accept-button");
+    acceptImg.onclick = function () {
+        subtaskTextElement.textContent = inputElement.value;
+        subtaskContainer.removeChild(inputElement);
+        subtaskContainer.removeChild(acceptImg);
+    };
+    return acceptImg;
+}
+
 
 
 function hoverDeleteInSubtaskcard() {
@@ -424,6 +440,11 @@ function hoverDeleteInSubtaskcard() {
     let blackTrash = document.getElementById("black-trash");
     let blackEdit = document.getElementById("black-edit");
 
+    subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash)
+    subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit)
+}
+
+function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash){
     subtaskFooterDelete.addEventListener("mouseenter", function () {
         blackTrash.src = "./assets/img/board/blue-trash.svg";
         blackTrash.style = "background-color: white;";
@@ -434,7 +455,9 @@ function hoverDeleteInSubtaskcard() {
         blackTrash.src = "./assets/img/board/trashforsubtasks.png";
         subtaskFooterDelete.style.color = "black";
     });
+}
 
+function subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit){
     subtaskFooterEdit.addEventListener("mouseenter", function () {
         blackEdit.src = "./assets/img/board/blue-edit.svg";
         subtaskFooterEdit.style.color = "rgb(40,171,226)";
@@ -480,8 +503,6 @@ function closeEditTask() {
     let addNone = document.getElementById('edit-container');
     addNone.classList.add('d-none-card');
 }
-
-// Speichert die veränderten/editierten elemente in tasks und ladet sie gleichzeitig ins remote storage hoch.
 
 /**
  * this function saves all the changes in editing area and saves it on remote storage 
@@ -600,36 +621,64 @@ function removeHighlight(id) {
 async function createTask(event) {
     event.preventDefault();
 
-    let title = document.getElementById("task-title-input");
-    let description = document.getElementById("description-input");
-    let date = document.getElementById("date");
-    let createdSubtasks = document.getElementById("unsorted-list");
-    let field = document.getElementById("task-field");
-    let categoryInput = document.getElementById("task-category-input");
+    const { title, description, date, createdSubtasks, field, categoryInput } = extractElements();
+    let { category, subtasks, checkedSubtasks, taskId, progressPercentage } = prepareData(categoryInput, createdSubtasks);
 
+    const task = createTaskObject(title, description, date, field, category, subtasks, checkedSubtasks, taskId, progressPercentage);
+
+    await updateTaskAndHTML(task, createdSubtasks, categoryInput);
+    resetFieldsAndButtons(title, description, date, categoryInput, createdSubtasks);
+}
+
+function extractElements() {
+    const title = document.getElementById("task-title-input");
+    const description = document.getElementById("description-input");
+    const date = document.getElementById("date");
+    const createdSubtasks = document.getElementById("unsorted-list");
+    const field = document.getElementById("task-field");
+    const categoryInput = document.getElementById("task-category-input");
+    return { title, description, date, createdSubtasks, field, categoryInput };
+}
+
+function prepareData(categoryInput, createdSubtasks) {
+    let category = getCategory(categoryInput);
+    const subtasks = getSubtasks(createdSubtasks);
+    const checkedSubtasks = countCheckedSubtasks(subtasks);
+    const taskId = Date.now();
+    const progressPercentage = calculateProgress(subtasks, checkedSubtasks);
+    return { category, subtasks, checkedSubtasks, taskId, progressPercentage };
+}
+
+function getCategory(categoryInput) {
     let category = categoryInput.value;
-    let subtasksLength = createdSubtasks.children.length;
-
     if (category === "Technical Task") {
         category = "./assets/img/board/technical-task.png";
     } else if (category === "User Story") {
         category = "./assets/img/board/user-story.png";
     }
+    return category;
+}
 
-    let subtaskElements = createdSubtasks.children;
-    let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
-        return {
-            title: subtaskElement.textContent.trim(),
-            checked: false,
-            id: subtaskElement.id,
-        };
-    });
+function getSubtasks(createdSubtasks) {
+    const subtaskElements = Array.from(createdSubtasks.children);
+    return subtaskElements.map(subtaskElement => ({
+        title: subtaskElement.textContent.trim(),
+        checked: false,
+        id: subtaskElement.id
+    }));
+}
 
-    let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
-    let taskId = Date.now();
-    let progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
+function countCheckedSubtasks(subtasks) {
+    return subtasks.filter(subtask => subtask.checked).length;
+}
 
-    let task = {
+function calculateProgress(subtasks, checkedSubtasks) {
+    const subtasksLength = subtasks.length;
+    return subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
+}
+
+function createTaskObject(title, description, date, field, category, subtasks, checkedSubtasks, taskId, progressPercentage) {
+    return {
         id: taskId,
         field: field.value,
         title: title.value,
@@ -644,26 +693,31 @@ async function createTask(event) {
         },
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
-        createdSubtasks: subtasksLength,
+        createdSubtasks: subtasks.length,
         progressbar: progressPercentage
     };
+}
 
+async function updateTaskAndHTML(task, createdSubtasks, categoryInput) {
     tasks.push(task);
     await setItem("board_key", tasks);
-    updateHTML()
+    updateHTML();
+}
 
+function resetFieldsAndButtons(title, description, date, categoryInput, createdSubtasks) {
     title.value = "";
     description.value = "";
     date.value = "";
     categoryInput.value = "";
     createdSubtasks.innerHTML = "";
 
-    let closeTask = document.getElementById("full-task-card");
+    const closeTask = document.getElementById("full-task-card");
     closeTask.classList.add("d-none");
 
     resetAllButtons();
     currentPriority = null;
 }
+
 
 
 function priorityText(priority) {
@@ -755,23 +809,30 @@ function closeTask() {
  * this function sets all the buttons back after their use
  */
 function resetAllButtons() {
-    // Reset red button
+    resetRedButton()
+    resetYellowButton()
+    resetGreenButton()
+}
+
+function resetRedButton(){
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
     redImg.src = "./assets/img/board/prio_red.png";
     redBtn.style.backgroundColor = "white";
     redBtn.style.color = "black";
     redBtn.style.borderColor = "white";
+}
 
-    // Reset yellow button
+function resetYellowButton(){
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
     yellowImg.src = "./assets/img/board/Prio-yellow.png";
     yellowBtn.style.backgroundColor = "white";
     yellowBtn.style.color = "black";
     yellowBtn.style.borderColor = "white";
+}
 
-    // Reset green button
+function resetGreenButton(){
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
     greenImg.src = "./assets/img/board/Prio-green.png";
@@ -954,15 +1015,19 @@ async function showContactsInTasks() {
         let isSelected = contactData.names.includes(contact[0]); 
         let selectedClass = isSelected ? "selected" : ""; 
         let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; 
-        chooseContact.innerHTML += `
-        <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
-            <div class="contact-info">
-                <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
-                <div class="contact-name">${contact[0]}</div>
-            </div>
-            <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
-        </div>`;
+        chooseContact.innerHTML += renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i);
     }
+}
+
+function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i){
+    return `
+    <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
+        <div class="contact-info">
+            <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
+            <div class="contact-name">${contact[0]}</div>
+        </div>
+        <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
+    </div>`
 }
 /**
  * 
@@ -1003,7 +1068,6 @@ function calculateColorMap(index) {
 function addContact(element) {
     let isSelected = element.classList.contains("selected");
     let iconArea = document.getElementById('icon-area');
-
     let imgBox = element.querySelector(".empty-check-box");
     const contactName = element.querySelector('.contact-name').textContent;
 
