@@ -162,13 +162,11 @@ function subtaskEventlistener(subtaskID) {
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.remove("d-none");
-    console.log("Maus betreten!");
 }
 
 function mouseLeave(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.add("d-none");
-    console.log("Maus verlassen!");
 }
 
 function deleteSubtaskInput() {

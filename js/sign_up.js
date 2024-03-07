@@ -40,7 +40,6 @@ async function handleRemoteStorage(name, email, password) {
       "password": password
     }
   )
-  console.log(signUpData);
   await setSignUpData("userNameEmailPassword", signUpData);
 }
 
@@ -170,7 +169,6 @@ function removeLogInAnimation() {
  * Validates the password and the password repeat. 
  */
 function pwCheck() {
-  console.log("change recognized");
   if (pwInput.value != pwInputRepeat.value) {
     pwInput.setCustomValidity('Password Must be Matching.');
   } else {

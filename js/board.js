@@ -665,11 +665,6 @@ async function createTask(event) {
     currentPriority = null;
 }
 
-function emptyContact(){
-    contactData.icons = "";
-    contactData.names = "";
-}
-
 
 function priorityText(priority) {
     let low = document.getElementById('prio-btn-green').innerText;
@@ -726,13 +721,11 @@ function showTaskSelect(selectedOption) {
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.remove("d-none");
-    console.log("Maus betreten!");
 }
 
 function mouseLeave(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.add("d-none");
-    console.log("Maus verlassen!");
 }
 
 /**
