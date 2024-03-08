@@ -48,7 +48,7 @@ function updateArea(field) {
 
 
 function generateTaskHTML(element) {
-    let iconsHTML = element.contacts.icons.join(''); 
+    let iconsHTML = element.contacts.icons.join('');
     return `
     <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
         <div>
@@ -102,7 +102,7 @@ function generateCombinedHTML(element) {
 }
 
 
-function renderCheckIMG(subtask, subtaskIndex, element){
+function renderCheckIMG(subtask, subtaskIndex, element) {
     return `
     <div class="subtask-card">
         <img id="subtask-checkbox" class="subtask-image" src="${subtask.checked ? './assets/img/board/checkedForCard.png' : './assets/img/board/checkForCard.png'}" onclick="toggleSubtask(this, ${element.id}, ${subtaskIndex})">
@@ -110,7 +110,7 @@ function renderCheckIMG(subtask, subtaskIndex, element){
     </div>`
 }
 
-function renderTaskCard(element, combinedHTMLString, subtaskHTML){
+function renderTaskCard(element, combinedHTMLString, subtaskHTML) {
     return `
     <div class="completeCard">
         <div class="taskcard-head">
@@ -158,7 +158,7 @@ function editTaskCard(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
     removeNone.classList.remove('d-none-card');
-    
+
     if (task) {
         let iconContact = task.contacts.icons.join("");
         const editCard = document.getElementById('edit-container');
@@ -173,7 +173,7 @@ function editTaskCard(taskId) {
     }
 }
 
-function renderEditSubtasks(subtask){
+function renderEditSubtasks(subtask) {
     return `
     <div id="${subtask.id}" class="full-subtasks-area">
         <li>${subtask.title}</li>
@@ -184,7 +184,7 @@ function renderEditSubtasks(subtask){
     </div>`
 }
 
-function renderEditCard(task, taskId, iconContact, subtaskListHTML){
+function renderEditCard(task, taskId, iconContact, subtaskListHTML) {
     return `
     <div class="completeCard">
         <div class="right-end">
@@ -444,7 +444,7 @@ function hoverDeleteInSubtaskcard() {
     subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit)
 }
 
-function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash){
+function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash) {
     subtaskFooterDelete.addEventListener("mouseenter", function () {
         blackTrash.src = "./assets/img/board/blue-trash.svg";
         blackTrash.style = "background-color: white;";
@@ -457,7 +457,7 @@ function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash){
     });
 }
 
-function subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit){
+function subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit) {
     subtaskFooterEdit.addEventListener("mouseenter", function () {
         blackEdit.src = "./assets/img/board/blue-edit.svg";
         subtaskFooterEdit.style.color = "rgb(40,171,226)";
@@ -512,38 +512,46 @@ function closeEditTask() {
 async function saveEditedTask(taskId) {
     try {
         const taskIndex = tasks.findIndex(task => task.id === taskId);
-        if (taskIndex !== -1) {
-            const editedTask = { ...tasks[taskIndex] }; // Kopie des vorhandenen Tasks
-
-            editedTask.title = document.getElementById('task-title-input').value;
-            editedTask.description = document.getElementById('description-input').value;
-            editedTask.date = document.getElementById('date').value;
-            editedTask.priority = getPriorityImagePath(currentPriority);
-            editedTask.contacts = contactData;
-
-            const createdSubtasks = document.getElementById('unsorted-list');
-            const subtaskElements = createdSubtasks.children;
-            const subtasks = Array.from(subtaskElements).map(subtaskElement => {
-                return {
-                    title: subtaskElement.textContent.trim(),
-                    checked: false,
-                    id: subtaskElement.id,
-                };
-            });
-
-            editedTask.subtasks = subtasks; 
-            editedTask.createdSubtasks = subtasks.length; 
-            tasks[taskIndex] = editedTask;
-            updateHTML();
-            await setItem("board_key", tasks);
-            location.reload();
-        } else {
+        if (taskIndex === -1) {
             console.error(`Task with ID ${taskId} not found.`);
+            return;
         }
+
+        const editedTask = createEditedTask(taskIndex);
+
+        tasks[taskIndex] = editedTask;
+        updateAndReload();
     } catch (error) {
         console.error(error);
     }
 }
+
+function createEditedTask(taskIndex) {
+    const editedTask = { ...tasks[taskIndex] };
+
+    editedTask.title = document.getElementById('task-title-input').value;
+    editedTask.description = document.getElementById('description-input').value;
+    editedTask.date = document.getElementById('date').value;
+    editedTask.priority = getPriorityImagePath(currentPriority);
+    editedTask.contacts = contactData;
+
+    const subtasks = Array.from(document.getElementById('unsorted-list').children).map(subtaskElement => ({
+        title: subtaskElement.textContent.trim(),
+        checked: false,
+        id: subtaskElement.id,
+    }));
+
+    editedTask.subtasks = subtasks;
+    editedTask.createdSubtasks = subtasks.length;
+    return editedTask;
+}
+
+async function updateAndReload() {
+    updateHTML();
+    await setItem("board_key", tasks);
+    location.reload();
+}
+
 
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
@@ -687,9 +695,9 @@ function createTaskObject(title, description, date, field, category, subtasks, c
         category: category,
         priority: getPriorityImagePath(currentPriority),
         priorityText: priorityText(currentPriority),
-        contacts: { 
-            names: contactData.names.slice(), 
-            icons: contactData.icons.slice() 
+        contacts: {
+            names: contactData.names.slice(),
+            icons: contactData.icons.slice()
         },
         subtasks: subtasks,
         checkedSubtasks: checkedSubtasks,
@@ -761,14 +769,14 @@ function showTaskSelect(selectedOption) {
     let arrowUpImg = document.getElementById("arrow_up");
     let taskCategoryInput = document.getElementById("task-category-input");
 
-    let isVisible = !taskSelectCategory.classList.contains("d-none"); 
+    let isVisible = !taskSelectCategory.classList.contains("d-none");
     taskSelectCategory.classList.toggle("d-none");
 
     arrowDownImg.classList.toggle("d-none", !isVisible);
     arrowUpImg.classList.toggle("d-none", isVisible);
 
-    let selectedText = selectedOption ? selectedOption.innerText : ""; 
-    taskCategoryInput.value = selectedText; 
+    let selectedText = selectedOption ? selectedOption.innerText : "";
+    taskCategoryInput.value = selectedText;
 }
 
 
@@ -814,7 +822,7 @@ function resetAllButtons() {
     resetGreenButton()
 }
 
-function resetRedButton(){
+function resetRedButton() {
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
     redImg.src = "./assets/img/board/prio_red.png";
@@ -823,7 +831,7 @@ function resetRedButton(){
     redBtn.style.borderColor = "white";
 }
 
-function resetYellowButton(){
+function resetYellowButton() {
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
     yellowImg.src = "./assets/img/board/Prio-yellow.png";
@@ -832,7 +840,7 @@ function resetYellowButton(){
     yellowBtn.style.borderColor = "white";
 }
 
-function resetGreenButton(){
+function resetGreenButton() {
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
     greenImg.src = "./assets/img/board/Prio-green.png";
@@ -978,7 +986,6 @@ function setupCancelButton() {
 }
 
 
-
 /**
  * 
  * this function is for showing the contacts in creating subtask area with a toggle function
@@ -1012,14 +1019,14 @@ async function showContactsInTasks() {
         const contact = contactInformation[i];
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
-        let isSelected = contactData.names.includes(contact[0]); 
-        let selectedClass = isSelected ? "selected" : ""; 
-        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; 
+        let isSelected = contactData.names.includes(contact[0]);
+        let selectedClass = isSelected ? "selected" : "";
+        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png';
         chooseContact.innerHTML += renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i);
     }
 }
 
-function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i){
+function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i) {
     return `
     <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
         <div class="contact-info">

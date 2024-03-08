@@ -8,7 +8,7 @@ async function init() {
     includeHTML();
     updateHTML();
     loadAll();
-    tasks =  JSON.parse(await getItem("board_key")) 
+    tasks = JSON.parse(await getItem("board_key"))
 }
 
 function updateHTML() {
@@ -19,36 +19,59 @@ function updateHTML() {
 async function createTask(event) {
     event.preventDefault();
 
-    let title = document.getElementById("task-title-input");
-    let description = document.getElementById("description-input");
-    let date = document.getElementById("date");
-    let createdSubtasks = document.getElementById("unsorted-list");
-    let categoryInput = document.getElementById("task-category-input");
+    const { title, description, date, createdSubtasks, categoryInput } = getElements();
 
+    let category = getCategory(categoryInput);
+
+    let subtasks = createSubtasks(createdSubtasks);
+
+    let { checkedSubtasks, taskId, progressPercentage } = calculateTaskStats(subtasks, createdSubtasks);
+
+    let task = createTaskObject(title, description, date, category, subtasks, checkedSubtasks, taskId, progressPercentage);
+
+    tasks.push(task);
+    await updateAndReset(task);
+    redirectToBoardTask();
+}
+
+function getElements() {
+    const title = document.getElementById("task-title-input");
+    const description = document.getElementById("description-input");
+    const date = document.getElementById("date");
+    const createdSubtasks = document.getElementById("unsorted-list");
+    const categoryInput = document.getElementById("task-category-input");
+    return { title, description, date, createdSubtasks, categoryInput };
+}
+
+function getCategory(categoryInput) {
     let category = categoryInput.value;
-
-    let subtasksLength = createdSubtasks.children.length;
-
     if (category === "Technical Task") {
-        category = "/assets/img/board/technical-task.png";
+        return "/assets/img/board/technical-task.png";
     } else if (category === "User Story") {
-        category = "/assets/img/board/user-story.png";
+        return "/assets/img/board/user-story.png";
     }
+    return category;
+}
 
-    let subtaskElements = createdSubtasks.children;
-    let subtasks = Array.from(subtaskElements).map((subtaskElement) => {
-        return {
-            title: subtaskElement.textContent.trim(),
-            checked: false,
-            id: subtaskElement.id,
-        };
-    });
+function createSubtasks(createdSubtasks) {
+    const subtaskElements = Array.from(createdSubtasks.children);
+    return subtaskElements.map(subtaskElement => ({
+        title: subtaskElement.textContent.trim(),
+        checked: false,
+        id: subtaskElement.id,
+    }));
+}
 
-    let checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
-    let taskId = Date.now();
-    let progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
+function calculateTaskStats(subtasks, createdSubtasks) {
+    const subtasksLength = createdSubtasks.children.length;
+    const checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
+    const taskId = Date.now();
+    const progressPercentage = subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
+    return { checkedSubtasks, taskId, progressPercentage };
+}
 
-    let task = {
+function createTaskObject(title, description, date, category, subtasks, checkedSubtasks, taskId, progressPercentage) {
+    return {
         id: taskId,
         field: "todo",
         title: title.value,
@@ -59,24 +82,29 @@ async function createTask(event) {
         priorityText: priorityText(currentPriority),
         contacts: contactData,
         subtasks: subtasks,
-        createdSubtasks: subtasksLength,
+        createdSubtasks: subtasks.length,
         checkedSubtasks: checkedSubtasks,
         progressbar: progressPercentage,
     };
+}
 
-    tasks.push(task);
+async function updateAndReset(task) {
     await setItem("board_key", tasks);
     updateHTML();
+    resetForm();
+}
 
+function resetForm() {
+    const { title, description, date, categoryInput, createdSubtasks } = getElements();
     title.value = "";
     description.value = "";
     date.value = "";
-    category.value = "";
+    categoryInput.value = "";
     createdSubtasks.innerHTML = "";
-
     resetAllButtons();
     currentPriority = null;
 }
+
 
 function priorityText(priority) {
     let low = document.getElementById('prio-btn-green').innerText;
@@ -115,21 +143,30 @@ function showTaskSelect(selectedOption) {
 
 // Funtion damit man einzelne subtasks eingeben und anzeigen kann
 function addSubtask() {
-    let inputSubtasks = document.getElementById("input-subtasks");
-    let subtaskUL = document.getElementById("unsorted-list");
-    let subtaskText = inputSubtasks.value;
-    let subtaskID = `subtask-${Date.now()}`;
-    let newSubtask = document.createElement("div");
-    newSubtask.id = subtaskID;
-    newSubtask.className = "full-subtasks-area";
+    const inputSubtasks = document.getElementById("input-subtasks");
+    const subtaskUL = document.getElementById("unsorted-list");
+    const subtaskText = inputSubtasks.value;
+    const subtaskID = `subtask-${Date.now()}`;
 
-    // Überprüfen, ob bereits vier Subtasks vorhanden sind
     if (subtaskUL.children.length >= 4) {
-        alert("Du kannst maximal 4 subtasks erstellen!");
+        alert("Du kannst maximal 4 Subtasks erstellen!");
         inputSubtasks.value = "";
-        return; // Abbruch der Funktion, wenn bereits 4 Subtasks vorhanden sind
+        return;
     }
 
+    const newSubtask = createSubtaskElement(subtaskID, subtaskText);
+
+    subtaskUL.appendChild(newSubtask);
+
+    inputSubtasks.value = "";
+    setTimeout(restoreInputImg, 0);
+    subtaskEventlistener(subtaskID);
+}
+
+function createSubtaskElement(subtaskID, subtaskText) {
+    const newSubtask = document.createElement("div");
+    newSubtask.id = subtaskID;
+    newSubtask.className = "full-subtasks-area";
     newSubtask.innerHTML = `
       <li class="subtask-headline">${subtaskText}</li>
       <div id="subtasksGreyImgs-${subtaskID}" class="subtask-edit-imgs d-none">
@@ -137,14 +174,9 @@ function addSubtask() {
         <img src="/assets/img/board/trashforsubtasks.png" class="subtask-img" onclick="deleteSubtask('${subtaskID}')">
       </div>
     `;
-
-    // Neues Subtask-Element dem Subtask-OL hinzufügen
-    subtaskUL.appendChild(newSubtask);
-
-    inputSubtasks.value = "";
-    setTimeout(restoreInputImg, 0);
-    subtaskEventlistener(subtaskID);
+    return newSubtask;
 }
+
 
 
 function subtaskEventlistener(subtaskID) {
@@ -185,45 +217,45 @@ function deleteSubtask(subtaskID) {
 }
 
 function editSubtask(subtaskID) {
-    let subtaskContainer = document.getElementById(subtaskID);
+    const subtaskContainer = document.getElementById(subtaskID);
+    if (!subtaskContainer) return console.error("Das Subtask-Element wurde nicht gefunden!");
 
-    if (subtaskContainer) {
-        let subtaskTextElement = subtaskContainer.querySelector("li");
+    const subtaskTextElement = subtaskContainer.querySelector("li");
+    if (!subtaskTextElement) return console.error("Das Textelement des Subtasks wurde nicht gefunden!");
 
-        // Bilder für Bearbeiten und Löschen ausblenden
-        let editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
-        editImgsContainer.classList.add("d-none");
+    const editImgsContainer = subtaskContainer.querySelector(".subtask-edit-imgs");
+    if (editImgsContainer) editImgsContainer.classList.add("d-none");
 
+    const inputElement = createInputElement(subtaskTextElement.textContent);
+    const acceptImg = createAcceptButton(subtaskTextElement, inputElement, subtaskContainer);
 
-        // Einen neuen Input für die Bearbeitung erstellen
-        let inputElement = document.createElement("input");
-        inputElement.classList = "subtask-edit";
-        inputElement.classList.remove("task-title");
-        inputElement.id = "subtask-edit";
-        inputElement.type = "text";
-        inputElement.value = subtaskTextElement.textContent;
-
-        // Einen Button zum Akzeptieren der Bearbeitung erstellen
-        let acceptImg = document.createElement("img");
-        acceptImg.id = "subtask-done-img";
-        acceptImg.src = "/assets/img/board/done.png";
-        acceptImg.classList.add("accept-button");
-        acceptImg.onclick = function () {
-            // Den bearbeiteten Text übernehmen
-            subtaskTextElement.textContent = inputElement.value;
-
-            // Das Eingabefeld und den "Done"-Button entfernen
-            subtaskContainer.removeChild(inputElement);
-            subtaskContainer.removeChild(acceptImg);
-        };
-
-        // Das Eingabefeld, das "Done"-Button und das Bestätigen-Bild dem Subtask-Element hinzufügen
-        subtaskContainer.appendChild(inputElement);
-        subtaskContainer.appendChild(acceptImg);
-    } else {
-        console.error("Das Subtask-Element wurde nicht gefunden!");
-    }
+    subtaskContainer.appendChild(inputElement);
+    subtaskContainer.appendChild(acceptImg);
 }
+
+function createInputElement(value) {
+    const inputElement = document.createElement("input");
+    inputElement.classList = "subtask-edit";
+    inputElement.classList.remove("task-title");
+    inputElement.id = "subtask-edit";
+    inputElement.type = "text";
+    inputElement.value = value;
+    return inputElement;
+}
+
+function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) {
+    const acceptImg = document.createElement("img");
+    acceptImg.id = "subtask-done-img";
+    acceptImg.src = "/assets/img/board/done.png";
+    acceptImg.classList.add("accept-button");
+    acceptImg.onclick = function () {
+        subtaskTextElement.textContent = inputElement.value;
+        subtaskContainer.removeChild(inputElement);
+        subtaskContainer.removeChild(acceptImg);
+    };
+    return acceptImg;
+}
+
 
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
@@ -253,26 +285,33 @@ function getPriorityImagePath(priority) {
 // farben für die prio Buttons ändern
 
 function resetAllButtons() {
-    // Reset red button
+    resetRedButton()
+    resetYellowButton()
+    resetGreenButton()
+}
+
+function resetRedButton() {
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
-    redImg.src = "/assets/img/board/prio_red.png";
+    redImg.src = "./assets/img/board/prio_red.png";
     redBtn.style.backgroundColor = "white";
     redBtn.style.color = "black";
     redBtn.style.borderColor = "white";
+}
 
-    // Reset yellow button
+function resetYellowButton() {
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
-    yellowImg.src = "/assets/img/board/Prio-yellow.png";
+    yellowImg.src = "./assets/img/board/Prio-yellow.png";
     yellowBtn.style.backgroundColor = "white";
     yellowBtn.style.color = "black";
     yellowBtn.style.borderColor = "white";
+}
 
-    // Reset green button
+function resetGreenButton() {
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
-    greenImg.src = "/assets/img/board/Prio-green.png";
+    greenImg.src = "./assets/img/board/Prio-green.png";
     greenBtn.style.backgroundColor = "white";
     greenBtn.style.color = "black";
     greenBtn.style.borderColor = "white";
@@ -445,28 +484,23 @@ async function showContactsInTasks() {
         const contact = contactInformation[i];
         let initials = contact[2];
         let colorIndex = calculateColorMap(i);
-        let isSelected = contactData.names.includes(contact[0]); // Überprüfe, ob der Kontakt ausgewählt ist
-        let selectedClass = isSelected ? "selected" : ""; // Füge die Klasse "selected" hinzu, wenn der Kontakt ausgewählt ist
-        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png'; // Wähle den richtigen Bildpfad basierend auf isSelected
-        chooseContact.innerHTML += `
-        <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
-            <div class="contact-info">
-                <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
-                <div class="contact-name">${contact[0]}</div>
-            </div>
-            <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
-        </div>`;
+        let isSelected = contactData.names.includes(contact[0]);
+        let selectedClass = isSelected ? "selected" : "";
+        let imgSrc = isSelected ? './assets/img/board/checked_for_contact.svg' : './assets/img/board/checkForCard.png';
+        chooseContact.innerHTML += renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i);
     }
 }
 
-// function renderEditContact(){
-//     return `
-//     <div class="contact-info">
-//         <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
-//         <div class="contact-name">${contact[0]}</div>
-//     </div>`;
-// }
-
+function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i) {
+    return `
+    <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
+        <div class="contact-info">
+            <div class="single-letter">${contactFrameHTML(initials, colorIndex, i)}</div>
+            <div class="contact-name">${contact[0]}</div>
+        </div>
+        <img id="emptyBox" class="empty-check-box" src="${imgSrc}">
+    </div>`
+}
 
 
 function contactFrameHTML(initials, colorNumber, i) {
