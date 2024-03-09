@@ -1,5 +1,5 @@
 let checked = false;
-let isVisible = false; // Variable, um den Sichtbarkeitsstatus des Passwortes zu speichern
+let isVisible = false;
 let userData;
 let emailInputField = document.getElementById(`email`);
 let passwordInputField = document.getElementById(`password`);
@@ -16,16 +16,20 @@ async function logInInit() {
  */
 function login() {
   let email = document.getElementById("email");
-  let password = document.getElementById("password");
   emailCheck(email, password);
 }
 
+
+function checkMailPw(email, password) {
+
+}
 
 /**
  * Checks the rightness of  email password combination. 
  * Logs in the user. 
  */
 function emailCheck(email, password) {
+  // password.setCustomValidity("Wrong email password combination.");
   let emailFound = false;
   let emailFoundIndex = 0;
   for (let i = 0; i < userData.length; i++) {
@@ -35,10 +39,9 @@ function emailCheck(email, password) {
       emailFoundIndex = i;
     }
   }
-  if (!emailFound) {
-  } else if (userData[emailFoundIndex]["password"] === password.value) {
-    positiveLogin(emailFoundIndex);
-  } 
+  if (emailFound && userData[emailFoundIndex]["password"] === password.value) {
+    positiveLogin(emailFoundIndex)
+  }
 }
 
 
@@ -53,7 +56,7 @@ function positiveLogin(i) {
     "name": userName,
     "initials": userInitals
   };
-  setArray("loggedInUser", loggedInUser)
+  setArray("loggedInUser", loggedInUser);
   window.location.href = "./summary.html";
 }
 
@@ -65,7 +68,7 @@ function guestLoginIn() {
     "name": "Guest",
     "initials": "GU"
   };
-  setArray("loggedInUser", loggedInUser)
+  setArray("loggedInUser", loggedInUser);
   window.location.href = "./summary.html";
 }
 
@@ -76,7 +79,7 @@ function togglePasswordVisibility() {
 
   if (!isVisible) {
     passwordInput.type = "text";
-    lockImg.src = "/assets/img/log_in/visibility.png"; 
+    lockImg.src = "/assets/img/log_in/visibility.png";
     isVisible = true;
   } else {
     passwordInput.type = "password";
@@ -91,12 +94,12 @@ document.getElementById("password").addEventListener("input", function () {
 
   if (passwordInput.value.length > 0) {
     if (!isVisible) {
-      lockImg.src = "/assets/img/log_in/visibility_off.png"; 
+      lockImg.src = "/assets/img/log_in/visibility_off.png";
     } else {
       lockImg.src = "/assets/img/log_in/visibility.png";
     }
   } else {
-    lockImg.src = "/assets/img/log_in/lock.png"; 
+    lockImg.src = "/assets/img/log_in/lock.png";
   }
 });
 
@@ -110,5 +113,16 @@ function changeRectangle() {
   } else {
     checkedRectangle.src = "./assets/img/log_in/checked.png";
     checked = true;
+  }
+}
+
+let pwInput = document.getElementById('password');
+
+function pwCheck() {
+
+  if (pwInput.value != pwInputRepeat.value) {
+    pwInput.setCustomValidity('Password Must be Matching.');
+  } else {
+    pwInput.setCustomValidity('');
   }
 }

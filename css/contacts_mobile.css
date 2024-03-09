@@ -1,5 +1,4 @@
 /************************* CONTACTS INFOS  *************************/
-
 .contact-infos-box__mobile {
   position: absolute;
   display: flex;
@@ -162,7 +161,7 @@
   align-items: flex-start;
   gap: 8px;
   padding-left: 31px;
-  padding-top: 90px;
+  padding-top: 11px;
 }
 
 .add-contact-mobile__slogan-header {
@@ -179,14 +178,14 @@
 
 .add-contact-mobile__top {
   position: relative;
-  height: 46%;
+  height: 38%;
   background-color: #2A3647;
   border-radius: 20px 20px 0 0;
 }
 
 
 .add-contact-mobile__bottom {
-  height: 54%;
+  height: 60%;
   background-color: #FFFFFF;
   border-radius:0 0 20px 20px;
 
@@ -260,12 +259,12 @@
 .create-btn__mobile {
   display: flex;
   margin: 0 auto;
-  margin-top: 36px;
+  margin-top: 16px;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
   background: #2A3647;
-  width: 202px;
+  width: fit-content;
   height: 51px;
 }
 
@@ -306,7 +305,7 @@
 } 
 
 .form-btns-frame__mobile {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -434,18 +433,7 @@ cursor: pointer;
   animation-timing-function: ease-out;
 }
 
-/*! Test Button for animation delete!  */
-.test-button{
-  width: 100px; 
-  height: 50px;
-  border: solid orange; 
-  position: absolute;
-  bottom: 150px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-/*! Test Button for animation delete!  */
+
 
 /************************* DISPLAY CLASSES *************************/
 .d-none {
@@ -453,8 +441,6 @@ cursor: pointer;
 }
 
 /************************* RESPONSINESS *************************/
-
-
 @media (max-width: 1000px) {
   .mobile-add-contact-btn{
     display: block;
@@ -464,5 +450,7 @@ cursor: pointer;
 @media (max-width: 414px) {
   .add-contact-frame-mobile{
     width: 95%;
+    height: 98%;
+    z-index: 999;
   }
 }
