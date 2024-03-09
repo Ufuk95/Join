@@ -29,7 +29,7 @@ function checkMailPw(email, password) {
  * Logs in the user. 
  */
 function emailCheck(email, password) {
-  // password.setCustomValidity("Wrong email password combination.");
+  customValidityPassword()
   let emailFound = false;
   let emailFoundIndex = 0;
   for (let i = 0; i < userData.length; i++) {
@@ -40,9 +40,20 @@ function emailCheck(email, password) {
     }
   }
   if (emailFound && userData[emailFoundIndex]["password"] === password.value) {
-    positiveLogin(emailFoundIndex)
+    positiveLogin(emailFoundIndex);
+    clearPasswordValidity()
   }
 }
+
+//! Test Validation functions
+function customValidityPassword() {
+  document.getElementById(`password`).setCustomValidity("Wrong password");
+}
+
+function clearPasswordValidity(){
+  document.getElementById(`password`).setCustomValidity("")
+}
+//! Test Validation functions
 
 
 /**
