@@ -24,7 +24,7 @@
     <header id="header" w3-include-html="./assets/templates/header.html"></header>
     <div id="sidebar" w3-include-html="./assets/templates/sidebar.html"></div>
 
-    <form class="submit-form" onsubmit="createTask(event)">
+    <form onsubmit="createTask(event)">
         <div class="start-position">
             <header class="add-task-header">
                 <span class="task-card-headline">Add Task</span>
@@ -128,7 +128,7 @@
                         <img id="blue-cross" class="blue-cross d-none" style="width: 24px; height: 23px;"
                             src="./assets/img/board/blue_cancel.svg">
                     </button>
-                    <button type="submit" class="task-button create-btn" onclick="redirectToBoardTask()">
+                    <button type="submit" class="task-button create-btn">
                         Create Task <img src="./assets/img/board/footerCheckBtn.png">
                     </button>
                 </div>

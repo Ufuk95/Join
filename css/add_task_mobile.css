@@ -135,3 +135,50 @@
         position: absolute;
     }
 }
+
+@media (min-width: 1250px) and (max-width: 1330px) {
+    .right-side {
+        padding-left: 12px;
+        width: 100%;
+    }
+
+    .left-side {
+        width: 100%;
+    }
+
+    .vektor-line {
+        display: none;
+    }
+}
+
+@media (min-width: 975px) and (max-width: 1250px) {
+    .middle-task-body {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .add-task-footer {
+        position: relative;
+        left: 0;
+        bottom: 6px;
+        width: 440px;
+    }
+
+    .start-position {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vektor-line {
+        display: none;
+    }
+
+    .task-button {
+        font-size: 16px;
+    }
+
+    .footer-text {
+        font-size: 14px;
+    }
+}
