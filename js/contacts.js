@@ -238,7 +238,8 @@ function navigateBack() {
   addContactFrame.classList.remove("transition__add-contact");
   if (addContactFrameMobile) {
     addContactFrameMobile.classList.add("add-contact-transition__remove");
-    setTimeout(() => { addContactFrameMobile.classList.add("d-none"); }, 1500);
+    // document.querySelector(`.add-contact-frame-mobile`).classList.add("display-none")
+    setTimeout(() => { addContactFrameMobile.classList.add("display-none"); }, 1500);
   }
 }
 
@@ -315,14 +316,14 @@ function editContact(i) {
   addContactFrame.classList.add("transition__add-contact");
   let eclipseStyling = document.querySelector(`.name-in-circle${i}`).innerHTML;
   document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(eclipseStyling);
-  let { nameField, emailField, phoneField } = getInputFieldElement();
+  let { nameField, emailField, phoneField } = getInputFieldElements();
   nameField.value = finalArray[i][0];
   emailField.value = finalArray[i][1];
   phoneField.value = finalArray[i][3];
 }
 
 
-function getInputFieldElement() {
+function getInputFieldElements() {
   return {
     nameField: document.querySelector(`.edit-name`),
     emailField: document.querySelector(`.edit-email`),

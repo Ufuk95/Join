@@ -29,7 +29,6 @@ function checkMailPw(email, password) {
  * Logs in the user. 
  */
 function emailCheck(email, password) {
-  customValidityPassword()
   let emailFound = false;
   let emailFoundIndex = 0;
   for (let i = 0; i < userData.length; i++) {
@@ -127,13 +126,23 @@ function changeRectangle() {
   }
 }
 
-let pwInput = document.getElementById('password');
 
-function pwCheck() {
-
-  if (pwInput.value != pwInputRepeat.value) {
-    pwInput.setCustomValidity('Password Must be Matching.');
-  } else {
-    pwInput.setCustomValidity('');
+function pwCheck(){
+  let emailFound = false;
+  let emailFoundIndex = 0;
+  for (let i = 0; i < userData.length; i++) {
+    let user = userData[i];
+    if (user["email"] === email.value) {
+      emailFound = true;
+      emailFoundIndex = i;
+    }
+  }
+  if (emailFound && userData[emailFoundIndex]["password"] === password.value) {
+    document.getElementById(`password`).setCustomValidity("")
+  }else{
+    document.getElementById(`password`).setCustomValidity("wrong email password combination")
   }
 }
+
+//! Test functions
+passwordInputField.addEventListener("input", pwCheck);

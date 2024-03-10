@@ -89,6 +89,9 @@ function editContactMobile(i) {
   editName.value = finalArray[i][0];
   editEmail.value = finalArray[i][1];
   editPhone.value = finalArray[i][3];
+  console.log(editName.value);
+  console.log(editEmail.value);
+  console.log(editPhone.value);
   deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
   saveBtn.setAttribute("onclick", `saveEditedData(${i})`);
   document.querySelector(`.add-contact-frame-mobile`).classList.add("add-contact-transition__mobile");

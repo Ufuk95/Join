@@ -273,6 +273,14 @@
   cursor: pointer;
 }
 
+.input-field__box-mobile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .input-field__mobile {
   display: flex;
   position: relative;
