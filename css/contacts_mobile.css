@@ -458,7 +458,7 @@ cursor: pointer;
 @media (max-width: 414px) {
   .add-contact-frame-mobile{
     width: 95%;
-    height: 98%;
+    height: 600px;
     z-index: 999;
   }
 }
