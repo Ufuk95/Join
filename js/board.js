@@ -14,7 +14,9 @@ function init() {
     loadAll()
     TaskFromStorage();
 }
-
+/**
+ * this function is for getting the data information from the remote storage
+ */
 async function TaskFromStorage() {
     tasks = JSON.parse(await getItem("board_key"));
     updateHTML();
@@ -34,7 +36,11 @@ async function updateHTML() {
     setupCancelButton();
 }
 
-
+/**
+ * 
+ * this function is for the place for the task  
+ * @param {string} field - the place where the task supposed to be
+ */
 function updateArea(field) {
     const areaElement = document.getElementById(field);
     areaElement.innerHTML = "";
@@ -46,7 +52,13 @@ function updateArea(field) {
     }
 }
 
-
+/**
+ * 
+ * this render function show the small task 
+ * 
+ * @param {string} element - element === tasks
+ * @returns 
+ */
 function generateTaskHTML(element) {
     let iconsHTML = element.contacts.icons.join('');
     return `
@@ -72,7 +84,12 @@ function generateTaskHTML(element) {
 }
 
 
-
+/**
+ * if you click on the task the taskcard opens
+ * 
+ * @param {number} elementId - individual id for every task
+ * @returns 
+ */
 function openTaskCard(elementId) {
     const element = tasks.find(task => task.id === elementId);
     if (!element) {
@@ -90,7 +107,12 @@ function openTaskCard(elementId) {
     cardContainer.innerHTML = renderTaskCard(element, combinedHTMLString, subtaskHTML);
     hoverDeleteInSubtaskcard();
 }
-
+/**
+ * 
+ * this function renders the optic of the contact data information
+ * @param {string} element - element === tasks
+ * @returns 
+ */
 function generateCombinedHTML(element) {
     const combinedHTML = element.contacts.icons.map((icon, index) => `
         <div class="icon-name-pair">
@@ -101,7 +123,15 @@ function generateCombinedHTML(element) {
     return combinedHTML;
 }
 
-
+/**
+ * 
+ * this function renders the subtask check img 
+ * task card area
+ * @param {string} subtask - each created subtask
+ * @param {number} subtaskIndex - each subtasks individual ID
+ * @param {string} element - element === tasks
+ * @returns 
+ */
 function renderCheckIMG(subtask, subtaskIndex, element) {
     return `
     <div class="subtask-card">
@@ -109,7 +139,13 @@ function renderCheckIMG(subtask, subtaskIndex, element) {
         <p>${subtask.title}</p>
     </div>`
 }
-
+/**
+ * 
+ * @param {string} element - element === tasks
+ * @param {string} combinedHTMLString - contact information
+ * @param {string} subtaskHTML - subtask information
+ * @returns 
+ */
 function renderTaskCard(element, combinedHTMLString, subtaskHTML) {
     return `
     <div class="completeCard">
@@ -153,7 +189,10 @@ function renderTaskCard(element, combinedHTMLString, subtaskHTML) {
         </div>
     </div>`
 }
-
+/**
+ * 
+ * @param {number} taskId - every tasks individuall id 
+ */
 function editTaskCard(taskId) {
     const task = tasks.find((item) => item.id === taskId);
     let removeNone = document.getElementById('edit-container');
@@ -173,6 +212,11 @@ function editTaskCard(taskId) {
     }
 }
 
+/**
+ * 
+ * @param {string} subtask - subtask information 
+ * @returns 
+ */
 function renderEditSubtasks(subtask) {
     return `
     <div id="${subtask.id}" class="full-subtasks-area">
@@ -184,6 +228,15 @@ function renderEditSubtasks(subtask) {
     </div>`
 }
 
+/**
+ * this function renders the edit area for the tasks
+ * 
+ * @param {string} task - task
+ * @param {number} taskId - every tasks individuall id 
+ * @param {string} iconContact - contacts icon design
+ * @param {string} subtaskListHTML - subtasks
+ * @returns 
+ */
 function renderEditCard(task, taskId, iconContact, subtaskListHTML) {
     return `
     <div class="completeCard">
@@ -247,6 +300,12 @@ function renderEditCard(task, taskId, iconContact, subtaskListHTML) {
     </div>`
 }
 
+/**
+ * 
+ * this function changes the button function in the edit area
+ * 
+ * @param {string} tasks 
+ */
 function buttonForEditTaskCard(tasks) {
     switch (tasks.priority) {
         case './assets/img/board/prio_red.png':
@@ -287,6 +346,13 @@ function addSubtask() {
     setTimeout(restoreInputImg, 0);
 }
 
+/**
+ * this function creates the subtasks for tasks
+ * 
+ * @param {string} subtaskText 
+ * @param {string} subtaskID 
+ * @returns 
+ */
 function createSubtaskElement(subtaskText, subtaskID) {
     const newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -411,6 +477,10 @@ function editSubtask(subtaskID) {
     subtaskContainer.appendChild(acceptImg);
 }
 
+/**
+ * 
+ * this function creates the input element for the subtasks where you can edit the subtask again
+ */
 function createInputElement(value) {
     const inputElement = document.createElement("input");
     inputElement.id = "subtask-edit";
@@ -419,6 +489,13 @@ function createInputElement(value) {
     return inputElement;
 }
 
+/**
+ * this function creates the accept button if you changed a subtask 
+ * 
+ * @param {string} subtaskTextElement - input value
+ * @param {string} subtaskContainer - subtask container
+ * @returns 
+ */
 function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) {
     const acceptImg = document.createElement("img");
     acceptImg.id = "subtask-done-img";
@@ -433,7 +510,10 @@ function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) 
 }
 
 
-
+/**
+ * if you hover over a subtask there is a trash img 
+ * with that you can delete a subtask
+ */
 function hoverDeleteInSubtaskcard() {
     let subtaskFooterDelete = document.querySelector(".subtaskcard-footer-delete");
     let subtaskFooterEdit = document.querySelector(".subtaskcard-footer-edit");
@@ -444,6 +524,12 @@ function hoverDeleteInSubtaskcard() {
     subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit)
 }
 
+/**
+ * a eventlistener for the subtask
+ * 
+ * @param {*} subtaskFooterDelete - subtaskFooterDelete function
+ * @param {string} blackTrash - the id of the trash img
+ */
 function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash) {
     subtaskFooterDelete.addEventListener("mouseenter", function () {
         blackTrash.src = "./assets/img/board/blue-trash.svg";
@@ -457,6 +543,12 @@ function subtaskTrashImgEventlistener(subtaskFooterDelete, blackTrash) {
     });
 }
 
+/**
+ * this funcion interacts with the eventlistener to show the imgs
+ * 
+ * @param {string} subtaskFooterEdit - querySelector of the class subtaskcard-footer-edit
+ * @param {*} blackEdit - id of the edit img
+ */
 function subtaskEditImgEventlistener(subtaskFooterEdit, blackEdit) {
     subtaskFooterEdit.addEventListener("mouseenter", function () {
         blackEdit.src = "./assets/img/board/blue-edit.svg";
@@ -526,6 +618,12 @@ async function saveEditedTask(taskId) {
     }
 }
 
+/**
+ * this function saves the changes in edit task to the normal task area
+ * 
+ * @param {number} taskIndex 
+ * @returns 
+ */
 function createEditedTask(taskIndex) {
     const editedTask = { ...tasks[taskIndex] };
 
@@ -546,13 +644,21 @@ function createEditedTask(taskIndex) {
     return editedTask;
 }
 
+/**
+ * this function updates and saves the task in the remote storage
+ */
 async function updateAndReload() {
     updateHTML();
     await setItem("board_key", tasks);
     location.reload();
 }
 
-
+/**
+ * this function creates the numeric design of the date
+ * 
+ * @param {number} dateString - dd/mm/yyyy
+ * @returns 
+ */
 function formatDate(dateString) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const date = new Date(dateString);
@@ -589,13 +695,20 @@ function updateProgressBar(taskId) {
             subtaskDisplay.textContent = `${subtasksDone}/${subtasksTotal} Subtasks`;
         }
     }
-    // await setItem("board_key", tasks);
 }
-
+/**
+ * this function gives an empty parameter an id
+ * 
+ * @param {number} id 
+ */
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
+/**
+ * 
+ * @param {string} field - field area in tasks
+ */
 async function moveTo(field) {
     const selectedTask = tasks.find(task => task.id === currentDraggedElement);
 
@@ -608,6 +721,11 @@ async function moveTo(field) {
     }
 }
 
+/**
+ * this function let you drop the task to another area
+ * 
+ * @param {string} ev - ev === event
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -622,7 +740,7 @@ function removeHighlight(id) {
 
 
 /**
- * this huge function creates the whole task and puts it on the remote storage
+ * this function creates the whole task and puts it on the remote storage
  * 
  * @param {string} event 
  */
@@ -634,10 +752,13 @@ async function createTask(event) {
 
     const task = createTaskObject(title, description, date, field, category, subtasks, checkedSubtasks, taskId, progressPercentage);
 
-    await updateTaskAndHTML(task, createdSubtasks, categoryInput);
+    await updateTaskAndHTML(task);
     resetFieldsAndButtons(title, description, date, categoryInput, createdSubtasks);
 }
 
+/**
+ * this function extracts each data information from html
+ */
 function extractElements() {
     const title = document.getElementById("task-title-input");
     const description = document.getElementById("description-input");
@@ -648,6 +769,13 @@ function extractElements() {
     return { title, description, date, createdSubtasks, field, categoryInput };
 }
 
+/**
+ * this function is just for collecting data fpr the subtasks
+ * 
+ * @param {string} categoryInput - User Story / Technical Task
+ * @param {string} createdSubtasks - each created subtask
+ * @returns 
+ */
 function prepareData(categoryInput, createdSubtasks) {
     let category = getCategory(categoryInput);
     const subtasks = getSubtasks(createdSubtasks);
@@ -657,6 +785,12 @@ function prepareData(categoryInput, createdSubtasks) {
     return { category, subtasks, checkedSubtasks, taskId, progressPercentage };
 }
 
+/**
+ * this function changes the imgs of the category
+ * 
+ * @param {string} categoryInput - User Story / Technical Task
+ * @returns 
+ */
 function getCategory(categoryInput) {
     let category = categoryInput.value;
     if (category === "Technical Task") {
@@ -667,6 +801,12 @@ function getCategory(categoryInput) {
     return category;
 }
 
+/**
+ * this function gets the created subtasks and puts it in their places for the remote storage
+ * 
+ * @param {string} createdSubtasks - each created subtask
+ * @returns 
+ */
 function getSubtasks(createdSubtasks) {
     const subtaskElements = Array.from(createdSubtasks.children);
     return subtaskElements.map(subtaskElement => ({
@@ -676,15 +816,42 @@ function getSubtasks(createdSubtasks) {
     }));
 }
 
+/**
+ * this small function filters the length of the checked subtasks
+ * 
+ * @param {string} subtasks - just the subtasks
+ * @returns 
+ */
 function countCheckedSubtasks(subtasks) {
     return subtasks.filter(subtask => subtask.checked).length;
 }
 
+/**
+ * this function calculates the progress of the subtasks 
+ * 
+ * @param {string} subtasks - just the subtasks
+ * @param {string} checkedSubtasks - parameter for the checked subtask
+ * @returns 
+ */
 function calculateProgress(subtasks, checkedSubtasks) {
     const subtasksLength = subtasks.length;
     return subtasksLength > 0 ? (checkedSubtasks / subtasksLength) * 100 : 0;
 }
 
+/**
+ * this function collects all the data for the json array of tasks
+ * 
+ * @param {string} title - the title of the task
+ * @param {string} description - description of the task
+ * @param {number} date - the date of the task
+ * @param {string} field - the field of the task
+ * @param {string} category - category of the task
+ * @param {string} subtasks - subtask of the task
+ * @param {string} checkedSubtasks - checked subtask from the task
+ * @param {number} taskId - every tasks individuall id
+ * @param {number} progressPercentage - every checked subtasks calculated procentage
+ * @returns 
+ */
 function createTaskObject(title, description, date, field, category, subtasks, checkedSubtasks, taskId, progressPercentage) {
     return {
         id: taskId,
@@ -706,12 +873,26 @@ function createTaskObject(title, description, date, field, category, subtasks, c
     };
 }
 
-async function updateTaskAndHTML(task, createdSubtasks, categoryInput) {
+/**
+ * this function pushes all the data in the json array of tasks
+ * 
+ * @param {string} task - 
+ */
+async function updateTaskAndHTML(task) {
     tasks.push(task);
     await setItem("board_key", tasks);
     updateHTML();
 }
 
+/**
+ * this function sets all the choosen data back to normal after the task was created
+ * 
+ * @param {string} title - the title of the task
+ * @param {string} description - description of the task
+ * @param {number} date - the date of the task
+ * @param {string} categoryInput - category imgs for the tasks
+ * @param {string} createdSubtasks - all the created subtasks
+ */
 function resetFieldsAndButtons(title, description, date, categoryInput, createdSubtasks) {
     title.value = "";
     description.value = "";
@@ -727,7 +908,12 @@ function resetFieldsAndButtons(title, description, date, categoryInput, createdS
 }
 
 
-
+/**
+ * if you open a task you will see the button imgs and their designation
+ * 
+ * @param {string} priority - prioritybuttons
+ * @returns 
+ */
 function priorityText(priority) {
     let low = document.getElementById('prio-btn-green').innerText;
     let medium = document.getElementById('prio-btn-yellow').innerText;
@@ -744,7 +930,15 @@ function priorityText(priority) {
     }
 }
 
-
+/**
+ * this function sets the button imgs 
+ * urgent is red 
+ * medium is yellow
+ * low is green
+ * 
+ * @param {string} priority - prioritybuttons
+ * @returns 
+ */
 function getPriorityImagePath(priority) {
     if (priority === "red") {
         return "./assets/img/board/prio_red.png";
@@ -779,12 +973,21 @@ function showTaskSelect(selectedOption) {
     taskCategoryInput.value = selectedText;
 }
 
-
+/**
+ * this function is for the eventlistener for the subtasks 
+ * 
+ * @param {number} subtaskID - every tasks individuall id
+ */
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.remove("d-none");
 }
 
+/**
+ * this function is for the eventlistener for the subtasks 
+ * 
+ * @param {number} subtaskID - every tasks individuall id
+ */
 function mouseLeave(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.add("d-none");
@@ -804,6 +1007,9 @@ function addTask(field) {
     document.getElementById("task-field").value = field;
 }
 
+/**
+ * a function to close the task
+ */
 function closeTask() {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("open");
@@ -822,6 +1028,9 @@ function resetAllButtons() {
     resetGreenButton()
 }
 
+/**
+ * resets the red button
+ */
 function resetRedButton() {
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
@@ -831,6 +1040,9 @@ function resetRedButton() {
     redBtn.style.borderColor = "white";
 }
 
+/**
+ * resetes the yellow button
+ */
 function resetYellowButton() {
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
@@ -840,6 +1052,9 @@ function resetYellowButton() {
     yellowBtn.style.borderColor = "white";
 }
 
+/**
+ * resets the green button
+ */
 function resetGreenButton() {
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
@@ -939,6 +1154,9 @@ function colorChangeToGreen() {
     }
 }
 
+/**
+ * if you click on the input area on subtasks the imgs are changing
+ */
 function changeInputImg() {
     let plusIcon = document.getElementById("subtask-plus-img");
     plusIcon.classList.add("d-none");
@@ -951,6 +1169,9 @@ function changeInputImg() {
 
 }
 
+/**
+ * this function restores the imgs after creating a task
+ */
 function restoreInputImg() {
     let plusIcon = document.getElementById("subtask-plus-img");
     let closeIcon = document.getElementById("subtask-close-img");
@@ -963,12 +1184,18 @@ function restoreInputImg() {
     checkedIcon.classList.add("d-none");
 }
 
+/**
+ * this function puts the choosen date on the input area
+ */
 function showDateOnInput() {
     document.getElementById("date").addEventListener('focus', function (event) {
         event.target.showPicker();
     });
 }
 
+/**
+ * this is the function for the cancel button at the bottom of the create task area
+ */
 function setupCancelButton() {
     const cancelButton = document.getElementById("cancel-button");
     const blackCross = document.getElementById("black-cross");
@@ -1026,6 +1253,16 @@ async function showContactsInTasks() {
     }
 }
 
+/**
+ * this function renders the contact data with an icon
+ * 
+ * @param {string} selectedClass - selected class
+ * @param {string} contact - contact data
+ * @param {string} imgSrc - img source
+ * @param {string} initials - initials of the contact names
+ * @param {string} colorIndex - hex code of the colors for the icons
+ * @returns 
+ */
 function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i) {
     return `
     <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
@@ -1103,6 +1340,9 @@ function removeContact(contactName) {
     }
 }
 
+/**
+ * this function updates the icons if the amount is under 0
+ */
 function updateIconArea() {
     let iconArea = document.getElementById('icon-area');
     iconArea.innerHTML = '';
@@ -1117,6 +1357,12 @@ function updateIconArea() {
     }
 }
 
+/**
+ * this function gets all the contact information and renders it
+ * 
+ * @param {string} contactName - the names of the contacts
+ * @param {string} iconArea - the place where the icons supposed to be
+ */
 async function iconOfContact(contactName, iconArea) {
     iconArea.classList.remove('d-none');
 
