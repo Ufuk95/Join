@@ -27,6 +27,8 @@ function showContactDetailsMobile(i) {
 }
 
 
+
+
 /**
  * Executes on clicking the blue back arrow. Handles visibility of some elements. 
  */
@@ -98,11 +100,29 @@ function editContactMobile(i) {
   editEmail.value = finalArray[i][1];
   editPhone.value = finalArray[i][3];
   deleteBtn.setAttribute("onclick", `deleteContact(${i})`);
-  saveBtn.setAttribute("onclick", `saveEditedData(${i})`);
+  saveBtn.setAttribute("onclick", `saveEditedDataMobile(${i})`);
   document.querySelector(`.add-contact-frame-mobile`).classList.add("add-contact-transition__mobile");
   document.querySelector(`.mobile-add-contact-btn`).classList.add("d-none");
 }
 
+
+/**
+ * Executes on the save button. 
+ * Edited contact details getting saved in the finalArry. 
+ */
+function saveEditedDataMobile(i) {
+  let editedIndex;
+  let { editName, editEmail, editPhone } = getEditInputFieldsMobile();
+  finalArray[i][0] = editName.value;
+  finalArray[i][1] = editEmail.value;
+  finalArray[i][3] = editPhone.value;
+  let userDataInitials = addInitials(finalArray).sort();
+  editedIndex = getNewIndex(userDataInitials, editEmail.value);
+  renderContacts(userDataInitials);
+  setItem("userData", userDataInitials);
+  activeContactTab(editedIndex);
+  navigateBack();
+}
 
 /**
  * Shows the more options bubble.

@@ -338,7 +338,7 @@ function getInputFieldElements() {
  */
 function saveEditedData(i) {
   let editedIndex;
-  let { nameField, emailField, phoneField } = getInputFieldElement();
+  let { nameField, emailField, phoneField } = getInputFieldElements();
   finalArray[i][0] = nameField.value;
   finalArray[i][1] = emailField.value;
   finalArray[i][3] = phoneField.value;

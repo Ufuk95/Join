@@ -150,7 +150,7 @@ function editContactTemplate() {
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input type="tel" required class="input-field edit-phone" placeholder="Phone" autocomplete="off">
+          <input type="number" required class="input-field edit-phone" placeholder="Phone" autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
 
@@ -210,7 +210,7 @@ function editContactTemplateMobile() {
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box-mobile">
-          <input id="ad-contact__phone" type="tel" required class="input-field__mobile" placeholder="Phone"
+          <input id="ad-contact__phone" type="number" required class="input-field__mobile" placeholder="Phone"
             autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
@@ -222,7 +222,7 @@ function editContactTemplateMobile() {
           <span class="cancel-txt__mobile">Delete</span>
         </div>
       </div>
-      <button class="create-btn__mobile-edit" onclick = "saveEditedData(i)">
+      <button class="create-btn__mobile-edit")">
         <div class="create-btn__content">
           <span class="create-btn__txt">Save</span>
           <img src="./assets/img/contacts/check_mark.svg" alt="">
