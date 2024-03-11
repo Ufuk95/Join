@@ -1,9 +1,47 @@
-
 /************************* DISPLAY CLASSES *************************/
-.d-none{
+.d-none {
   display: none;
 }
 
-.display-none{
+.display-none {
   display: none;
+}
+
+/************************* RESPONSIVNESS *************************/
+
+@media (max-width: 717px) {
+
+  #help-icon-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #summary-header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #join-360 {
+    font-size: 41px;
+    line-height: normal;
+  }
+
+  #circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  #icon-help {
+    display: none;
+  }
+
+  #header-text {
+    display: none;
+  }
+
+  .user-initials{
+    font-size: 20px;
+  }
 }

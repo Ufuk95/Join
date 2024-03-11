@@ -59,7 +59,6 @@ button {
 }
 
 /************************* LEFT-SECTION-CONTACTS *************************/
-#contacts-frame-wrapper {}
 
 #contacts-frame {
   box-sizing: border-box;
@@ -78,7 +77,6 @@ button {
   height: 95vh;
   overflow-y: auto;
   max-height: 100vh;
-  /* scrollbar-width: thin; */
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.10);
 }
 
