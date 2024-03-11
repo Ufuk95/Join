@@ -20,10 +20,6 @@ function login() {
 }
 
 
-function checkMailPw(email, password) {
-
-}
-
 /**
  * Checks the rightness of  email password combination. 
  * Logs in the user. 
@@ -43,16 +39,6 @@ function emailCheck(email, password) {
     clearPasswordValidity()
   }
 }
-
-//! Test Validation functions
-function customValidityPassword() {
-  document.getElementById(`password`).setCustomValidity("Wrong password");
-}
-
-function clearPasswordValidity(){
-  document.getElementById(`password`).setCustomValidity("")
-}
-//! Test Validation functions
 
 
 /**
@@ -86,7 +72,6 @@ function guestLoginIn() {
 function togglePasswordVisibility() {
   const passwordInput = document.getElementById("password");
   const lockImg = document.getElementById("img-lock");
-
   if (!isVisible) {
     passwordInput.type = "text";
     lockImg.src = "/assets/img/log_in/visibility.png";
@@ -127,6 +112,10 @@ function changeRectangle() {
 }
 
 
+/**
+ * Checks the rightness of the email password combination. 
+ * Sets a or removes a validation message. 
+ */
 function pwCheck(){
   let emailFound = false;
   let emailFoundIndex = 0;
@@ -144,5 +133,8 @@ function pwCheck(){
   }
 }
 
-//! Test functions
+
+/**
+ * Listener for the password field
+ */
 passwordInputField.addEventListener("input", pwCheck);

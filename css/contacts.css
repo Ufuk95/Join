@@ -70,12 +70,13 @@ button {
   display: inline-flex;
   padding: 32px 24px;
   padding-left: 71px;
+  padding-bottom: 150px;
   flex-direction: column;
   z-index: 2;
   align-items: center;
   width: 500px;
   height: 95vh;
-  overflow-y: auto;
+  overflow-y: scroll;
   max-height: 100vh;
   scrollbar-width: thin;
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.10);
@@ -890,15 +891,10 @@ button {
 
 
 @media (max-width: 430px) {
-  /* #contacts-btn {
-    display: none;
-  } */
-
-  /* #contacts-button-wrapper {
-    display: none;
-  } */
-
-  /* .letter0 {
-    margin-top: 10px
-  } */
+  .single-letter-box{
+    width: 300px;
+  }
+  .contact-frame{
+    width: 300px;
+  }
 }

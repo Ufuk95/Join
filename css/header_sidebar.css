@@ -217,7 +217,7 @@ a {
 
 .footer-square-text {
   color: var(--white, #FFF);
-  font-family: Open Sans;
+  font-family: "inter";
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

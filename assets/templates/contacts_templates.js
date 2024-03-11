@@ -86,7 +86,7 @@ function addContactTemplate() {
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box">
-          <input id="add-contact__phone" type="tel" required class="input-field" placeholder="Phone" autocomplete="off">
+          <input id="add-contact__phone" type="number" required class="input-field" placeholder="Phone" autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
 
@@ -292,7 +292,7 @@ function addContactTemplateMobile() {
           <img src="./assets/img/contacts/icon_mail.png" class="input-field__img-placing" alt="">
         </div>
         <div class="input-field__box-mobile">
-          <input id="add-contact__phone-mobile" type="tel" required class="input-field__mobile edit-phone" placeholder="Phone"
+          <input id="add-contact__phone-mobile" type="number" required class="input-field__mobile edit-phone" placeholder="Phone"
             autocomplete="off">
           <img src="./assets/img/contacts/icon_phone.svg" class="input-field__img-placing" alt="">
         </div>
