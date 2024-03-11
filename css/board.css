@@ -651,6 +651,12 @@ body {
   line-height: 120%;
 }
 
+.subtask-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .cancel-btn:hover {
   border: 1px solid var(--Ligth-blue, #29abe2);
   color: var(--Ligth-blue, #29abe2);
