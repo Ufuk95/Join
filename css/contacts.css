@@ -76,12 +76,26 @@ button {
   align-items: center;
   width: 500px;
   height: 95vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 100vh;
-  scrollbar-width: thin;
+  /* scrollbar-width: thin; */
   box-shadow: 4px 3px 4px 0px rgba(0, 0, 0, 0.10);
+}
 
-  &::-webkit-scrollbar {
+#contacts-frame::-webkit-scrollbar {
+  width: 5px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+#contacts-frame::-webkit-scrollbar-thumb {
+  background-color: rgba(40, 171, 226, 0.7);
+
+  border-radius: 6px;
+}
+
+
+  /* &::-webkit-scrollbar {
     width: 6px;
   }
 
@@ -90,7 +104,7 @@ button {
     height: 50%;
     border-radius: 8px;
   }
-}
+} */
 
 #contacts-button-wrapper {
   width: 352px;
