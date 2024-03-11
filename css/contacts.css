@@ -92,18 +92,6 @@ button {
   border-radius: 6px;
 }
 
-
-  /* &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #A8A8A8;
-    height: 50%;
-    border-radius: 8px;
-  }
-} */
-
 #contacts-button-wrapper {
   width: 352px;
   z-index: 2;
