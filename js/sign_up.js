@@ -4,7 +4,6 @@ let pwInput = document.getElementById('password');
 let pwInputRepeat = document.getElementById('password-repeat');
 let userCredentialsObject = {};
 
-
 /**
  * Executes after a successful sign-up / form validation. 
  * Gets the data from the input fields, puts the data in an JSON array.
@@ -17,7 +16,6 @@ async function getSignUpInputs() {
   handleRemoteStorage(name.value, email.value, password.value);
   clearFields(name, email, password, passwordRepeat);
   transitionHandler();
-  // removeLogInAnimation();
 }
 
 
