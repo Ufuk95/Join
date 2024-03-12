@@ -2,6 +2,10 @@ let tasks = [];
 let currentDraggedElement;
 let currentPriority = null;
 let currentColor = null;
+let contactData = {
+    icons: [],
+    names: [],
+};
 
 
 async function init() {
@@ -16,6 +20,12 @@ function updateHTML() {
     showDateOnInput()
 }
 
+
+/**
+ * this function creates the whole task and puts it on the remote storage
+ * 
+ * @param {string} event 
+ */
 async function createTask(event) {
     event.preventDefault();
 
@@ -34,6 +44,10 @@ async function createTask(event) {
     redirectToBoardTask();
 }
 
+
+/**
+ * this function gets each data information from html
+ */
 function getElements() {
     const title = document.getElementById("task-title-input");
     const description = document.getElementById("description-input");
@@ -43,6 +57,13 @@ function getElements() {
     return { title, description, date, createdSubtasks, categoryInput };
 }
 
+
+/**
+ * this function changes the imgs of the category
+ * 
+ * @param {string} categoryInput - User Story / Technical Task
+ * @returns 
+ */
 function getCategory(categoryInput) {
     let category = categoryInput.value;
     if (category === "Technical Task") {
@@ -53,6 +74,13 @@ function getCategory(categoryInput) {
     return category;
 }
 
+
+/**
+ * this function gets the created subtasks and puts it in their places for the remote storage
+ * 
+ * @param {string} createdSubtasks - each created subtask
+ * @returns 
+ */
 function createSubtasks(createdSubtasks) {
     const subtaskElements = Array.from(createdSubtasks.children);
     return subtaskElements.map(subtaskElement => ({
@@ -62,6 +90,14 @@ function createSubtasks(createdSubtasks) {
     }));
 }
 
+
+/**
+ * this function calculates the progress of the subtasks 
+ * 
+ * @param {string} subtasks - just the subtasks
+ * @param {string} createdSubtasks - created subtask
+ * @returns 
+ */
 function calculateTaskStats(subtasks, createdSubtasks) {
     const subtasksLength = createdSubtasks.children.length;
     const checkedSubtasks = subtasks.filter(subtask => subtask.checked).length;
@@ -70,6 +106,19 @@ function calculateTaskStats(subtasks, createdSubtasks) {
     return { checkedSubtasks, taskId, progressPercentage };
 }
 
+
+/**
+ * 
+ * @param {string} title - the title of the task
+ * @param {string} description - description of the task
+ * @param {number} date - the date of the task
+ * @param {string} category - category of the task
+ * @param {string} subtasks - subtask of the task
+ * @param {string} checkedSubtasks - checked subtask from the task
+ * @param {number} taskId - every tasks individuall id
+ * @param {number} progressPercentage - every checked subtasks calculated procentage
+ * @returns 
+ */
 function createTaskObject(title, description, date, category, subtasks, checkedSubtasks, taskId, progressPercentage) {
     return {
         id: taskId,
@@ -88,12 +137,23 @@ function createTaskObject(title, description, date, category, subtasks, checkedS
     };
 }
 
+
+/**
+ * this function pushes all the data in the json array of tasks
+ * 
+ * @param {string} task - created task which gets pushed in tasks
+ */
 async function updateAndReset(task) {
+    tasks.push(task);
     await setItem("board_key", tasks);
     updateHTML();
     resetForm();
 }
 
+
+/**
+ * a function who resets everything back after a task was created
+ */
 function resetForm() {
     const { title, description, date, categoryInput, createdSubtasks } = getElements();
     title.value = "";
@@ -106,6 +166,12 @@ function resetForm() {
 }
 
 
+/**
+ * if you open a task you will see the button imgs and their designation
+ * 
+ * @param {string} priority - prioritybuttons
+ * @returns 
+ */
 function priorityText(priority) {
     let low = document.getElementById('prio-btn-green').innerText;
     let medium = document.getElementById('prio-btn-yellow').innerText;
@@ -123,7 +189,11 @@ function priorityText(priority) {
 }
 
 
-// Funktion für addTask um Category auszuwählen
+/**
+ * this function is for choosing the the task option  Technical Task or User Story
+ * 
+ * @param {string} selectedOption 
+ */
 function showTaskSelect(selectedOption) {
     let taskSelectCategory = document.getElementById("task-select-category");
     let arrowDownImg = document.getElementById("arrow_down");
@@ -141,7 +211,12 @@ function showTaskSelect(selectedOption) {
     taskCategoryInput.value = selectedText; // Setze den ausgewählten Text in die Input-Fläche
 }
 
-// Funtion damit man einzelne subtasks eingeben und anzeigen kann
+
+
+/**
+ * 
+ *  a function where the subtasks gets created
+ */
 function addSubtask() {
     const inputSubtasks = document.getElementById("input-subtasks");
     const subtaskUL = document.getElementById("unsorted-list");
@@ -163,6 +238,14 @@ function addSubtask() {
     subtaskEventlistener(subtaskID);
 }
 
+
+/**
+ * this function creates the subtasks for tasks
+ * 
+ * @param {string} subtaskText - the text of the subgtask
+ * @param {number} subtaskID  - every subtasks individuall id
+ * @returns 
+ */
 function createSubtaskElement(subtaskID, subtaskText) {
     const newSubtask = document.createElement("div");
     newSubtask.id = subtaskID;
@@ -178,7 +261,11 @@ function createSubtaskElement(subtaskID, subtaskText) {
 }
 
 
-
+/**
+ * in this function the subtasks gets an eventlistener
+ * 
+ * @param {number} subtaskID - every subtasks individuall id
+ */
 function subtaskEventlistener(subtaskID) {
     let currentSubtask = document.getElementById(subtaskID);
 
@@ -191,22 +278,43 @@ function subtaskEventlistener(subtaskID) {
 }
 
 
+/**
+ * this function is for the eventlistener for the subtasks 
+ * 
+ * @param {number} subtaskID - every tasks individuall id
+ */
 function mouseEnter(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.remove("d-none");
 }
 
+
+/**
+ * this function is for the eventlistener for the subtasks 
+ * 
+ * @param {number} subtaskID - every tasks individuall id
+ */
 function mouseLeave(subtaskID) {
     let greyImgs = document.getElementById(`subtasksGreyImgs-${subtaskID}`);
     greyImgs.classList.add("d-none");
 }
 
+
+/**
+ *  this function delete the input in subtask
+ * 
+ */
 function deleteSubtaskInput() {
     let inputSubtasks = document.getElementById("input-subtasks");
     inputSubtasks.value = "";
     restoreInputImg();
 }
 
+
+/**
+ *  this function deletes the subtask
+ * @param {number} subtaskId - subtasks individuall id
+ */
 function deleteSubtask(subtaskID) {
     let subtaskElement = document.getElementById(subtaskID);
     if (subtaskElement) {
@@ -216,6 +324,12 @@ function deleteSubtask(subtaskID) {
     }
 }
 
+
+/**
+ * this function is for editing the subtask 
+ * 
+ * @param {number} subtaskID - This is the ID of every task in tasks
+ */
 function editSubtask(subtaskID) {
     const subtaskContainer = document.getElementById(subtaskID);
     if (!subtaskContainer) return console.error("Das Subtask-Element wurde nicht gefunden!");
@@ -233,6 +347,11 @@ function editSubtask(subtaskID) {
     subtaskContainer.appendChild(acceptImg);
 }
 
+
+/**
+ * 
+ * this function creates the input element for the subtasks where you can edit the subtask again
+ */
 function createInputElement(value) {
     const inputElement = document.createElement("input");
     inputElement.classList = "subtask-edit";
@@ -243,6 +362,14 @@ function createInputElement(value) {
     return inputElement;
 }
 
+
+/**
+ * this function creates the accept button if you changed a subtask 
+ * 
+ * @param {string} subtaskTextElement - input value
+ * @param {string} subtaskContainer - subtask container
+ * @returns 
+ */
 function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) {
     const acceptImg = document.createElement("img");
     acceptImg.id = "subtask-done-img";
@@ -257,6 +384,11 @@ function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) 
 }
 
 
+/**
+ * The function ensures that the created tasks are used where they belong
+ * 
+ * @param {string} field - fields for the kanban  todo/in-progress etc.
+ */
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("d-none");
@@ -268,7 +400,17 @@ function addTask(field) {
     document.getElementById("task-field").value = field;
 }
 
-// Diese Funktion ändert per knopfdruck die Farben der Buttons
+
+
+/**
+ * this function sets the button imgs 
+ * urgent is red 
+ * medium is yellow
+ * low is green
+ * 
+ * @param {string} priority - prioritybuttons
+ * @returns 
+ */
 function getPriorityImagePath(priority) {
     if (priority === "red") {
         return "/assets/img/board/prio_red.png";
@@ -282,14 +424,20 @@ function getPriorityImagePath(priority) {
 }
 
 
-// farben für die prio Buttons ändern
-
+/**
+ * 
+ * this function sets all the buttons back after their use
+ */
 function resetAllButtons() {
     resetRedButton()
     resetYellowButton()
     resetGreenButton()
 }
 
+
+/**
+ * resets the red button
+ */
 function resetRedButton() {
     const redImg = document.getElementById("prio-red");
     const redBtn = document.getElementById("prio-btn-red");
@@ -299,6 +447,10 @@ function resetRedButton() {
     redBtn.style.borderColor = "white";
 }
 
+
+/**
+ * resets the yellow button
+ */
 function resetYellowButton() {
     const yellowImg = document.getElementById("prio-yellow");
     const yellowBtn = document.getElementById("prio-btn-yellow");
@@ -308,6 +460,10 @@ function resetYellowButton() {
     yellowBtn.style.borderColor = "white";
 }
 
+
+/**
+ * resets the green button
+ */
 function resetGreenButton() {
     const greenImg = document.getElementById("prio-green");
     const greenBtn = document.getElementById("prio-btn-green");
@@ -317,6 +473,13 @@ function resetGreenButton() {
     greenBtn.style.borderColor = "white";
 }
 
+
+/**
+ * this function is for the buttons 
+ * they let you changing the colors of the buttons and set them back when you click another button
+ * 
+ * @param {string} color - the color of the tasks 
+ */
 function changeBtnColor(color) {
     resetAllButtons();
     if (currentColor !== color) {
@@ -335,6 +498,12 @@ function changeBtnColor(color) {
     }
 }
 
+
+/**
+ * 
+ * if you use the urgent button it changes to red 
+ * if not it stays white
+ */
 function colorChangeToRed() {
     redImg = document.getElementById("prio-red");
     redBtn = document.getElementById("prio-btn-red");
@@ -352,6 +521,12 @@ function colorChangeToRed() {
     }
 }
 
+
+/**
+ * if you use the medium button it changes to yellow 
+ * if not it stays white
+ * 
+ */
 function colorChangeToYellow() {
     yellowImg = document.getElementById("prio-yellow");
     yellowBtn = document.getElementById("prio-btn-yellow");
@@ -369,6 +544,12 @@ function colorChangeToYellow() {
     }
 }
 
+
+/**
+ * 
+ * if you use the low button it changes to green 
+ * if not it stays white
+ */
 function colorChangeToGreen() {
     greenImg = document.getElementById("prio-green");
     greenBtn = document.getElementById("prio-btn-green");
@@ -387,6 +568,9 @@ function colorChangeToGreen() {
 }
 
 
+/**
+ * if you click on the input area on subtasks the imgs are changing
+ */
 function changeInputImg() {
     let plusIcon = document.getElementById("subtask-plus-img");
     plusIcon.classList.add("d-none");
@@ -399,6 +583,10 @@ function changeInputImg() {
 
 }
 
+
+/**
+ * this function restores the imgs after creating a task
+ */
 function restoreInputImg() {
     let plusIcon = document.getElementById("subtask-plus-img");
     let closeIcon = document.getElementById("subtask-close-img");
@@ -412,6 +600,10 @@ function restoreInputImg() {
 }
 
 
+/**
+ * this was may first time learning eventlistener 
+ * if you hover over the clear button the colors of the imgs changes from black to blue 
+ */
 function setupClearButton() {
     const clearButton = document.getElementById("clear-button");
     const blackCross = document.getElementById("black-cross");
@@ -429,6 +621,9 @@ function setupClearButton() {
 }
 
 
+/**
+ * after you created a task this function sets everythin back
+ */
 function clearTask() {
     document.getElementById("task-title-input").value = "";
     document.getElementById("description-input").value = "";
@@ -444,6 +639,9 @@ function clearTask() {
 }
 
 
+/**
+ * this function puts the choosen date on the input area
+ */
 function showDateOnInput() {
     document.getElementById("date").addEventListener('focus', function (event) {
         event.target.showPicker();
@@ -451,14 +649,20 @@ function showDateOnInput() {
 }
 
 
+/**
+ * after you created a task this function sends you to the board site
+ */
 function redirectToBoardTask() {
     setTimeout(function () {
         window.location.href = '/board.html';
     }, 300);
 }
 
-// Contact Area
 
+/**
+ * 
+ * this function is for showing the contacts in creating subtask area with a toggle function
+ */
 function toggleContactAreaVisibility() {
     let contactArea = document.querySelector(".contact-area");
     let arrowDownContact = document.getElementById("arrow_down_contact");
@@ -472,7 +676,11 @@ function toggleContactAreaVisibility() {
 }
 
 
-
+/**
+ * 
+ * this function is for the rendering the contacts 
+ * 
+ */
 async function showContactsInTasks() {
     toggleContactAreaVisibility();
 
@@ -491,6 +699,17 @@ async function showContactsInTasks() {
     }
 }
 
+
+/**
+ * this function renders the contact data with an icon
+ * 
+ * @param {string} selectedClass - selected class
+ * @param {string} contact - contact data
+ * @param {string} imgSrc - img source
+ * @param {string} initials - initials of the contact names
+ * @param {string} colorIndex - hex code of the colors for the icons
+ * @returns 
+ */
 function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex, i) {
     return `
     <div class="completeContactArea ${selectedClass}" onclick="addContact(this)">
@@ -503,6 +722,15 @@ function renderContactData(selectedClass, contact, imgSrc, initials, colorIndex,
 }
 
 
+/**
+ * 
+ * this is only for rendering the icon svg 
+ * 
+ * @param {string} initials - the initials of the contacts 
+ * @param {string} colorNumber - the color number from the icons
+ * @param {string} i - each contact data
+ * @returns 
+ */
 function contactFrameHTML(initials, colorNumber, i) {
     return `
     <div class="contact-frame contact-frame${i}">
@@ -515,6 +743,7 @@ function contactFrameHTML(initials, colorNumber, i) {
     </div>`;
 }
 
+
 /**
  * Calculates an index based on the amount of colors in colorCarousell.
  * @param {Number} index Index number of a contact. 
@@ -526,12 +755,11 @@ function calculateColorMap(index) {
 }
 
 
-
-let contactData = {
-    icons: [],
-    names: [],
-};
-
+/**
+ * this function is for you be able to choose the contacts
+ * 
+ * @param {string} element - tasks
+ */
 function addContact(element) {
     let isSelected = element.classList.contains("selected");
     let iconArea = document.getElementById('icon-area');
@@ -550,6 +778,12 @@ function addContact(element) {
     }
 }
 
+
+/**
+ * this function is for removing the contact
+ * 
+ * @param {string} contactName - the name of the contact
+ */
 function removeContact(contactName) {
     let index = contactData.names.indexOf(contactName);
     if (index !== -1) {
@@ -559,6 +793,10 @@ function removeContact(contactName) {
     }
 }
 
+
+/**
+ * this function updates the icons if the amount is under 0
+ */
 function updateIconArea() {
     let iconArea = document.getElementById('icon-area');
     iconArea.innerHTML = '';
@@ -573,6 +811,13 @@ function updateIconArea() {
     }
 }
 
+
+/**
+ * this function gets all the contact information and renders it
+ * 
+ * @param {string} contactName - the names of the contacts
+ * @param {string} iconArea - the place where the icons supposed to be
+ */
 async function iconOfContact(contactName, iconArea) {
     iconArea.classList.remove('d-none');
 

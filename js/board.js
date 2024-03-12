@@ -25,6 +25,7 @@ async function TaskFromStorage() {
     updateHTML();
 }
 
+
 /**
  * this is the main function to update the board site
  */
@@ -153,6 +154,7 @@ function renderCheckIMG(subtask, subtaskIndex, element) {
 
 
 /**
+ * this function renders the task card when you click on a task
  * 
  * @param {string} element - element === tasks
  * @param {string} combinedHTMLString - contact information
@@ -344,7 +346,7 @@ function buttonForEditTaskCard(tasks) {
 
 /**
  * 
- *  Hier werden die Subtasks erstellt
+ *  a function where the subtasks gets created
  */
 function addSubtask() {
     const inputSubtasks = document.getElementById("input-subtasks");
@@ -370,8 +372,8 @@ function addSubtask() {
 /**
  * this function creates the subtasks for tasks
  * 
- * @param {string} subtaskText 
- * @param {string} subtaskID 
+ * @param {string} subtaskText - the text of the subgtask
+ * @param {string} subtaskID  - every subtasks individuall id
  * @returns 
  */
 function createSubtaskElement(subtaskText, subtaskID) {
@@ -466,7 +468,7 @@ function deleteSubtaskInput() {
 
 /**
  *  this function deletes the subtask
- * 
+ * @param {number} subtaskId - subtasks individuall id
  */
 function deleteSubtask(subtaskId) {
     const subtaskElement = document.getElementById(subtaskId);
@@ -935,7 +937,7 @@ function createTaskObject(title, description, date, field, category, subtasks, c
 /**
  * this function pushes all the data in the json array of tasks
  * 
- * @param {string} task - 
+ * @param {string} task - created task which gets pushed in tasks
  */
 async function updateTaskAndHTML(task) {
     tasks.push(task);
@@ -965,6 +967,7 @@ function resetFieldsAndButtons(title, description, date, categoryInput, createdS
 
     resetAllButtons();
     currentPriority = null;
+    resetContacts();
 }
 
 
@@ -1012,8 +1015,6 @@ function getPriorityImagePath(priority) {
     }
 }
 
-
-// Funktion für addTask um Category auszuwählen
 
 /**
  * this function is for choosing the the task option  Technical Task or User Story
@@ -1467,6 +1468,25 @@ async function iconOfContact(contactName, iconArea) {
             break;
         }
     }
+}
+
+
+function resetContacts() {
+    const emptyIconBlock = document.getElementById('icon-area');
+    emptyIconBlock.innerHTML = "";
+
+    let chooseContact = document.getElementById('contact-area');
+    let contacts = chooseContact.querySelectorAll('.selected');
+    for(let i = 0 ; i < contacts.length ; i++) {
+        const contact = contacts[i];
+        contact.classList.remove('selected');
+        let img = contact.querySelector('img');
+        img.src = './assets/img/board/checkForCard.png';
+    }
+    contactData = {
+        icons: [],
+        names: [],
+    };
 }
 
 

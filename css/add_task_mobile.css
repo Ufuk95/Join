@@ -24,6 +24,8 @@
         width: 100%;
         left: 0;
         right: 0;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     .add-task-footer {

@@ -1,4 +1,16 @@
 @media (min-width: 320px) and (max-width: 450px) {
+    .task-card::-webkit-scrollbar {
+        width: 10px;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 6px;
+        width: 4px;
+    }
+
+    .task-card::-webkit-scrollbar-thumb {
+        background-color: rgb(40, 171, 226);
+        border-radius: 6px;
+    }
+
     .board-header {
         position: relative;
         padding-left: 0;
@@ -55,7 +67,6 @@
     .drag-area {
         flex-direction: row;
         overflow-x: auto;
-        white-space: nowrap;
         justify-content: flex-start;
         width: 95%;
     }
@@ -206,23 +217,165 @@
     }
 }
 
-@media (min-width: 320px) and (max-width: 1385px) {
-    .drag-area {
-        min-width: 200px;
-    }
-
-    .task {
-        width: auto;
-        gap: 18px;
-    }
-
+@media (min-width: 450px) and (max-width: 1385px) {
     .start-position {
         left: 200px;
         width: calc(100% - 200px);
     }
 }
 
-@media (min-width: 320px) and (max-width: 1240px) {
+@media (min-width: 450px) and (max-width: 1350px) {
+    .start-position {
+        left: 175px;
+        width: calc(100% - 175px);
+    }
+}
+
+@media (min-width: 450px) and (max-width: 1130px) {
+
+    .task-card::-webkit-scrollbar {
+        width: 10px;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 6px;
+        width: 4px;
+    }
+
+    .task-card::-webkit-scrollbar-thumb {
+        background-color: rgb(40, 171, 226);
+        border-radius: 6px;
+    }
+
+    .task-card {
+        width: 90%;
+        overflow-y: auto;
+    }
+
+    .vektor-line {
+        display: none;
+    }
+
+    .middle-task-body {
+        flex-direction: column;
+        align-items: center;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .left-side {
+        width: 90%;
+    }
+
+    .right-side {
+        width: 90%;
+    }
+
+    .task-title {
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+    }
+
+    .task-title input {
+        width: 100%;
+    }
+
+    #description-input {
+        width: 100%;
+    }
+
+    .task-contact-input-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .task-title input {
+        width: 100%;
+    }
+
+    .Assigned-img {
+        position: absolute;
+        right: 8px;
+    }
+
+    .task-title {
+        margin-bottom: 20px;
+        width: 100%;
+        position: relative;
+    }
+
+    .task-date-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .task-button-area {
+        width: 100%;
+    }
+
+    .prio-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .task-contact-input-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .task-title input {
+        width: 100%;
+    }
+
+    .subtask-complete {
+        width: 100%;
+    }
+
+    .task-contact-input-area {
+        position: relative;
+        width: 100%;
+    }
+
+    .subtask-main-input {
+        width: 100%;
+    }
+
+    .subtask-comment {
+        position: absolute;
+    }
+
+    .Assigned-img-subtask {
+        position: relative;
+        right: 0;
+    }
+
+    .add-task-footer {
+        bottom: auto;
+        padding-bottom: 12px;
+        left: 12px;
+        width: 90%;
+    }
+
+    .font-size {
+        font-size: 16px;
+        padding-left: 24px;
+    }
+
+    .task-button {
+        font-size: 12px;
+    }
+
+    .task-button {
+        font-size: 12px;
+    }
+
+    .date-img {
+        left: 96%;
+        position: absolute;
+        bottom: 12px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 1350px) {
     .drag-drop-headline {
         flex-direction: row;
         flex-wrap: wrap;
