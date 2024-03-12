@@ -220,7 +220,7 @@
 @media (min-width: 450px) and (max-width: 1385px) {
     .start-position {
         left: 200px;
-        width: calc(100% - 200px);
+        width: calc(100% - 170px);
     }
 }
 
@@ -379,6 +379,7 @@
     .drag-drop-headline {
         flex-direction: row;
         flex-wrap: wrap;
+        gap: 40px;
     }
 }
 

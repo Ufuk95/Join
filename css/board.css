@@ -105,7 +105,7 @@ body {
 .drag-drop-headline {
   display: flex;
   padding: 0px 64px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
 }
 
