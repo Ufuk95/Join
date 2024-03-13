@@ -9,6 +9,15 @@
 
 /************************* RESPONSIVNESS *************************/
 
+@media (max-width: 976px) {
+  #header{
+    padding-left: 40px;
+  }
+  #header-text{
+    display: block
+  }
+}
+
 @media (max-width: 717px) {
 
   #help-icon-box {
