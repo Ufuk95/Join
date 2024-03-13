@@ -105,7 +105,7 @@ body {
 .drag-drop-headline {
   display: flex;
   padding: 0px 64px;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
 }
 
@@ -649,6 +649,12 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
+}
+
+.subtask-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .cancel-btn:hover {
