@@ -136,6 +136,10 @@
     .subtask-comment {
         position: absolute;
     }
+
+    #subtask-edit {
+        width: 80%;
+    }
 }
 
 @media (min-width: 1250px) and (max-width: 1330px) {

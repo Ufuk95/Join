@@ -24,6 +24,14 @@
         width: 100%;
     }
 
+    .full-subtasks-area {
+        width: 100%;
+    }
+
+    .unsorted-list {
+        width: 100%;
+    }
+    
     .board-active input {
         width: 100%;
     }
@@ -327,6 +335,14 @@
     }
 
     .subtask-complete {
+        width: 100%;
+    }
+
+    .full-subtasks-area {
+        width: 100%;
+    }
+
+    .unsorted-list {
         width: 100%;
     }
 

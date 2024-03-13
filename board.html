@@ -17,6 +17,7 @@
 
     <script src="./script.js" defer></script>
     <script src="./js/storage.js" defer></script>
+    <script src="./js/task_template.js" defer></script>
     <script src="./js/board.js" defer></script>
     <script src="./js/contacts.js" defer></script>
 
@@ -39,7 +40,7 @@
                         <input placeholder="Find Task" type="text">
                         <div class="input-img">
                             <img src="./assets/img/board/vector-subtask.png" alt="">
-                            <img class="search-img" src="./assets/img/board/search.png" alt="" onclick="searchTasks()">
+                            <img class="search-img" src="./assets/img/board/search.png">
                         </div>
                     </div>
                     <button onclick="addTask('todo')">
@@ -149,7 +150,6 @@
                                     <div class="task-date-area">
                                         <input required type="text" id="date" name="taskDate" placeholder="dd/mm/yyyy"
                                             onfocus="(this.type='date')">
-                                        <img class="date-img" src="/assets/img/board/date.png">
                                     </div>
                                 </div>
                                 <div class="task-title">
