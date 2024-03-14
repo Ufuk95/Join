@@ -59,26 +59,46 @@ function updateArea(field) {
  */
 function generateTaskHTML(element) {
     let iconsHTML = element.contacts.icons.join('');
-    return `
-    <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
-        <div>
-            <img src="${element.category}">
-        </div>
-        <div>
-            <b style="word-break: break-word;">${element.title}</b>
-        </div>
-        <div>
-            <p class="description-font">${element.description}</p>
-        </div>
-        <div class="progress-task">
-            <div class="progressbar" style="width: 128px; background: linear-gradient(90deg, #3498db ${element.progressbar}%, #f4f4f4 ${element.progressbar}%)"></div>
-            <div class="subtask-display">${element.checkedSubtasks}/${element.createdSubtasks} Subtasks</div>
-        </div>
-        <div class="bottom-task">
-            <div class="d-flex">${iconsHTML}</div> 
-            <img id="priority" src="${element.priority}" alt="Priority" class="prio-position">
-        </div> 
-    </div>`;
+
+    if (element.subtasks.length === 0) {
+        return `
+            <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
+                <div>
+                    <img src="${element.category}">
+                </div>
+                <div>
+                    <b style="word-break: break-word;">${element.title}</b>
+                </div>
+                <div>
+                    <p class="description-font">${element.description}</p>
+                </div>
+                <div class="bottom-task">
+                    <div class="d-flex">${iconsHTML}</div> 
+                    <img id="priority" src="${element.priority}" alt="Priority" class="prio-position">
+                </div> 
+            </div>`;
+    } else {
+        return `
+            <div data-id="${element.id}" draggable="true" ondragstart="startDragging(${element.id})" class="task" onclick="openTaskCard(${element.id})">
+                <div>
+                    <img src="${element.category}">
+                </div>
+                <div>
+                    <b style="word-break: break-word;">${element.title}</b>
+                </div>
+                <div>
+                    <p class="description-font">${element.description}</p>
+                </div>
+                <div id="progressbar-task" class="progress-task">
+                    <div class="progressbar" style="width: 128px; background: linear-gradient(90deg, #3498db ${element.progressbar}%, #f4f4f4 ${element.progressbar}%)"></div>
+                    <div class="subtask-display">${element.checkedSubtasks}/${element.createdSubtasks} Subtasks</div>
+                </div>
+                <div class="bottom-task">
+                    <div class="d-flex">${iconsHTML}</div> 
+                    <img id="priority" src="${element.priority}" alt="Priority" class="prio-position">
+                </div> 
+            </div>`;
+    }
 }
 
 
@@ -193,7 +213,7 @@ function renderTaskCard(element, combinedHTMLString, subtaskHTML) {
         </div>
     </div>`
 }
-// deleteTaskCard();
+//deleteTaskCard();
 
 /**
  * 
@@ -748,6 +768,7 @@ function prepareData(categoryInput, createdSubtasks) {
 }
 
 
+
 /**
  * this function gets the created subtasks and puts it in their places for the remote storage
  * 
@@ -899,7 +920,7 @@ function resetContacts() {
 
     let chooseContact = document.getElementById('contact-area');
     let contacts = chooseContact.querySelectorAll('.selected');
-    for(let i = 0 ; i < contacts.length ; i++) {
+    for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         contact.classList.remove('selected');
         let img = contact.querySelector('img');
@@ -936,7 +957,7 @@ function searchTasks() {
 /**
  * this function searches for every wort in title and description by just tipping in the input field
  */
-function searchTaskWithoutClick(){
+function searchTaskWithoutClick() {
     document.querySelector('.board-search input').addEventListener('input', searchTasks);
 }
 searchTaskWithoutClick();

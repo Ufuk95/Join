@@ -346,6 +346,7 @@ body {
     position: absolute;
     width: 385px;  
     height: 40px;
+    border-radius: 12px;
     border-right: none;
     border-top: none;
     border-left: none;
@@ -353,17 +354,6 @@ body {
     color: black;
 }
 
-/* .subtask-edit {
-    position: absolute;
-    width: 420px;
-    height: 36px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: blue 1.5px solid;
-    border-radius: 8px;
-    font-size: 16px;
-} */
 .subtask-comment {
     display: flex;
     align-items: center;
