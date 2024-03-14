@@ -537,6 +537,7 @@ body {
   background: var(--white, #fff);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   border-color: white;
+  border: none;
   cursor: pointer;
   font-family: Inter;
   font-size: 20px;
