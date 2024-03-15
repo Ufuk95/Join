@@ -11,7 +11,7 @@ body {
     position: absolute;
     left: 328px;
     top: 124px;
-    width: calc(85% - 232px);
+    width: calc(75% - 232px);
 }
 
 .add-task-header {

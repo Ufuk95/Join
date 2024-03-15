@@ -9,22 +9,6 @@ let contactData = {
 };
 
 /**
- * this function changes the imgs of the category
- * 
- * @param {string} categoryInput - User Story / Technical Task
- * @returns 
- */
-function getCategory(categoryInput) {
-    let category = categoryInput.value;
-    if (category === "Technical Task") {
-        category = "./assets/img/board/technical-task.png";
-    } else if (category === "User Story") {
-        category = "./assets/img/board/user-story.png";
-    }
-    return category;
-}
-
-/**
  * if you open a task you will see the button imgs and their designation
  * 
  * @param {string} priority - prioritybuttons
@@ -42,7 +26,7 @@ function priorityText(priority) {
     } else if (priority === "green") {
         return low;
     } else {
-        return "-empty-" || priority == "";
+        return "Medium" || priority == "";
     }
 }
 
@@ -64,7 +48,7 @@ function getPriorityImagePath(priority) {
     } else if (priority === "green") {
         return "./assets/img/board/Prio-green.png";
     } else {
-        return "./assets/img/board/prio_red.png";
+        return "./assets/img/board/Prio-yellow.png";
     }
 }
 
@@ -333,6 +317,11 @@ function colorChangeToGreen() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    colorChangeToYellow();
+});
+
+
 
 /**
  * if you click on the input area on subtasks the imgs are changing
@@ -373,21 +362,3 @@ function restoreInputImg() {
     vectorIcon.classList.add("d-none");
     checkedIcon.classList.add("d-none");
 }
-
-
-/**
- * 
- * this function is for showing the contacts in creating subtask area with a toggle function
- */
-function toggleContactAreaVisibility() {
-    let contactArea = document.querySelector(".contact-area");
-    let arrowDownContact = document.getElementById("arrow_down_contact");
-    let arrowUpContact = document.getElementById("arrow_up_contact");
-
-    let isVisible = !contactArea.classList.contains("d-none");
-    const inputField = document.querySelector(".task-contact-input-area input");
-
-    showContactWithInputClick(isVisible, contactArea, inputField, arrowDownContact, arrowUpContact);
-    closeContactWithEmptyClick(arrowDownContact, arrowUpContact, inputField, contactArea)
-}
-

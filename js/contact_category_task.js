@@ -1,48 +1,3 @@
-
-/**
- * this function show you the contact area after you clicked on the input field 
- * 
- * @param {string} isVisible - if the contact area is visible
- * @param {string} contactArea - contactarea
- * @param {inputField} inputField - input field of contact
- * @param {imgBox} arrowDownContact - img of arrow down
- * @param {imgBox} arrowUpContact - img of arrow up
- */
-function showContactWithInputClick(isVisible, contactArea, inputField, arrowDownContact, arrowUpContact){
-    if (!isVisible && event.target === inputField) {
-        contactArea.classList.remove("d-none");
-        arrowDownContact.classList.add("d-none");
-        arrowUpContact.classList.remove("d-none");
-    } else {
-        contactArea.classList.toggle("d-none");
-
-        arrowDownContact.classList.toggle("d-none", !isVisible);
-        arrowUpContact.classList.toggle("d-none", isVisible);
-    }
-}
-
-
-/**
- * this function closes the contact area after you clicked on a empty space
- * 
- * @param {imgBox} arrowDownContact - img of arrow down
- * @param {imgBox} arrowUpContact - img of arrow up
- * @param {string} contactArea - contactarea
- * @param {inputField} inputField - input field of contact
- */
-function closeContactWithEmptyClick(arrowDownContact, arrowUpContact, inputField, contactArea){
-    document.addEventListener('click', function(event) {
-        const isClickInsideContactArea = contactArea.contains(event.target);
-        const isClickOnArrow = event.target.classList.contains("Assigned-img");
-        if (!isClickInsideContactArea && !isClickOnArrow && event.target !== inputField) {
-            contactArea.classList.add("d-none");
-            arrowDownContact.classList.remove("d-none");
-            arrowUpContact.classList.add("d-none");
-        }
-    });
-}
-
-
 /**
  * 
  * this function is for the rendering the contacts 
@@ -182,6 +137,23 @@ function showTaskSelect(selectedOption) {
     closeCategorySelectOnEmptyClick(categorySelect, arrowDownImg, arrowUpImg, taskCategoryInput);
 }
 
+/**
+ * this function changes the imgs of the category
+ * 
+ * @param {string} categoryInput - User Story / Technical Task
+ * @returns 
+ */
+function getCategory(categoryInput) {
+    let category = categoryInput.value;
+    if (category === "Technical Task") {
+        category = "./assets/img/board/technical-task.png";
+    } else if (category === "User Story") {
+        category = "./assets/img/board/user-story.png";
+    }
+    return category;
+}
+
+
 
 /**
  * Displays the category selection field and updates the arrow icons accordingly.
@@ -226,6 +198,65 @@ function closeCategorySelectOnEmptyClick(categorySelect, arrowDownImg, arrowUpIm
             categorySelect.classList.add("d-none");
             arrowDownImg.classList.remove("d-none");
             arrowUpImg.classList.add("d-none");
+        }
+    });
+}
+
+/**
+ * 
+ * this function is for showing the contacts in creating subtask area with a toggle function
+ */
+function toggleContactAreaVisibility() {
+    let contactArea = document.querySelector(".contact-area");
+    let arrowDownContact = document.getElementById("arrow_down_contact");
+    let arrowUpContact = document.getElementById("arrow_up_contact");
+
+    let isVisible = !contactArea.classList.contains("d-none");
+    const inputField = document.querySelector(".task-contact-input-area input");
+
+    showContactWithInputClick(isVisible, contactArea, inputField, arrowDownContact, arrowUpContact);
+    closeContactWithEmptyClick(arrowDownContact, arrowUpContact, inputField, contactArea)
+}
+
+/**
+ * this function show you the contact area after you clicked on the input field 
+ * 
+ * @param {string} isVisible - if the contact area is visible
+ * @param {string} contactArea - contactarea
+ * @param {inputField} inputField - input field of contact
+ * @param {imgBox} arrowDownContact - img of arrow down
+ * @param {imgBox} arrowUpContact - img of arrow up
+ */
+function showContactWithInputClick(isVisible, contactArea, inputField, arrowDownContact, arrowUpContact){
+    if (!isVisible && event.target === inputField) {
+        contactArea.classList.remove("d-none");
+        arrowDownContact.classList.add("d-none");
+        arrowUpContact.classList.remove("d-none");
+    } else {
+        contactArea.classList.toggle("d-none");
+
+        arrowDownContact.classList.toggle("d-none", !isVisible);
+        arrowUpContact.classList.toggle("d-none", isVisible);
+    }
+}
+
+
+/**
+ * this function closes the contact area after you clicked on a empty space
+ * 
+ * @param {imgBox} arrowDownContact - img of arrow down
+ * @param {imgBox} arrowUpContact - img of arrow up
+ * @param {string} contactArea - contactarea
+ * @param {inputField} inputField - input field of contact
+ */
+function closeContactWithEmptyClick(arrowDownContact, arrowUpContact, inputField, contactArea){
+    document.addEventListener('click', function(event) {
+        const isClickInsideContactArea = contactArea.contains(event.target);
+        const isClickOnArrow = event.target.classList.contains("Assigned-img");
+        if (!isClickInsideContactArea && !isClickOnArrow && event.target !== inputField) {
+            contactArea.classList.add("d-none");
+            arrowDownContact.classList.remove("d-none");
+            arrowUpContact.classList.add("d-none");
         }
     });
 }

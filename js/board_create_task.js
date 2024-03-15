@@ -2,10 +2,10 @@
  * this function updates and saves the task in the remote storage
  */
 async function updateAndReload() {
-    updateHTML();
     await setItem("board_key", tasks);
     closeEditTask();
     closeTaskCard();
+    updateHTML();
 }
 
 
