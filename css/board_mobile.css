@@ -31,7 +31,7 @@
     .unsorted-list {
         width: 100%;
     }
-    
+
     .board-active input {
         width: 100%;
     }
@@ -77,6 +77,12 @@
         overflow-x: auto;
         justify-content: flex-start;
         width: 95%;
+        min-height: 25vh;
+        min-width: auto;
+    }
+
+    #subtask-edit {
+        width: 83%;
     }
 
     .flex span {
@@ -229,6 +235,35 @@
     .start-position {
         left: 200px;
         width: calc(100% - 170px);
+    }
+
+    #subtask-edit {
+        width: 82%;
+        position: fixed;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 900px) {
+    #subtask-edit {
+        width: 78%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 750px) {
+    #subtask-edit {
+        width: 76%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 600px) {
+    #subtask-edit {
+        width: 74%;
+    }
+}
+
+@media (min-width: 450px) and (max-width: 550px) {
+    #subtask-edit {
+        width: 72%;
     }
 }
 
