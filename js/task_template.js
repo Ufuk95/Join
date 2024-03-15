@@ -229,11 +229,15 @@ function createAcceptButton(subtaskTextElement, inputElement, subtaskContainer) 
 function addTask(field) {
     let taskcard = document.getElementById("full-task-card");
     taskcard.classList.remove("d-none");
+    let taskCardElement = document.querySelector('.task-card');
+    taskCardElement.style.transition = 'none';
     setTimeout(function () {
         taskcard.classList.add("open");
+        taskCardElement.style.transition = '';
     }, 0);
     document.getElementById("task-field").value = field;
 }
+
 
 
 /**
@@ -595,36 +599,70 @@ async function iconOfContact(contactName, iconArea) {
 /**
  * this function is for choosing the the task option  Technical Task or User Story
  * 
- * @param {string} selectedOption 
  */
-function showTaskSelect(selectedOption) {
-    let taskSelectCategory = document.getElementById("task-select-category");
+function showTaskSelect() {
+    let categorySelect = document.getElementById("task-select-category");
     let arrowDownImg = document.getElementById("arrow_down");
     let arrowUpImg = document.getElementById("arrow_up");
     let taskCategoryInput = document.getElementById("task-category-input");
+    let isVisible = !categorySelect.classList.contains("d-none");
 
-    let isVisible = !taskSelectCategory.classList.contains("d-none");
-
-    if (isVisible) {
-        taskSelectCategory.classList.add("d-none");
-        arrowDownImg.classList.remove("d-none");
-        arrowUpImg.classList.add("d-none");
+    if (!isVisible && event.target === taskCategoryInput) {
+        showCategorySelect(categorySelect, arrowDownImg, arrowUpImg);
     } else {
-        taskSelectCategory.classList.remove("d-none");
-        arrowDownImg.classList.add("d-none");
-        arrowUpImg.classList.remove("d-none");
+        toggleCategorySelect(categorySelect, arrowDownImg, arrowUpImg, isVisible);
     }
+    
+    closeCategorySelectOnEmptyClick(categorySelect, arrowDownImg, arrowUpImg, taskCategoryInput);
+}
 
-    let selectedText = selectedOption ? selectedOption.innerText : "";
-    taskCategoryInput.value = selectedText;
 
+/**
+ * Displays the category selection field and updates the arrow icons accordingly.
+ * 
+ * @param {HTMLElement} categorySelect - The HTML element of the category selection field.
+ * @param {HTMLElement} arrowDownImg - The HTML element for the downward arrow icon.
+ * @param {HTMLElement} arrowUpImg - The HTML element for the upward arrow icon.
+ */
+function showCategorySelect(categorySelect, arrowDownImg, arrowUpImg) {
+    categorySelect.classList.remove("d-none");
+    arrowDownImg.classList.add("d-none");
+    arrowUpImg.classList.remove("d-none");
+}
+
+/**
+ * Toggles the visibility of the category selection field and updates the arrow icons accordingly.
+ * 
+ * @param {HTMLElement} categorySelect - The HTML element of the category selection field.
+ * @param {HTMLElement} arrowDownImg - The HTML element for the downward arrow icon.
+ * @param {HTMLElement} arrowUpImg - The HTML element for the upward arrow icon.
+ * @param {boolean} isVisible - Indicates whether the category selection field is visible.
+ */
+function toggleCategorySelect(categorySelect, arrowDownImg, arrowUpImg, isVisible) {
+    categorySelect.classList.toggle("d-none");
+    arrowDownImg.classList.toggle("d-none", !isVisible);
+    arrowUpImg.classList.toggle("d-none", isVisible);
+}
+
+/**
+ * Closes the category selection field when clicked outside of the field and updates the arrow icons accordingly.
+ * 
+ * @param {HTMLElement} categorySelect - The HTML element of the category selection field.
+ * @param {HTMLElement} arrowDownImg - The HTML element for the downward arrow icon.
+ * @param {HTMLElement} arrowUpImg - The HTML element for the upward arrow icon.
+ * @param {HTMLElement} taskCategoryInput - The HTML element for the category input.
+ */
+function closeCategorySelectOnEmptyClick(categorySelect, arrowDownImg, arrowUpImg, taskCategoryInput) {
     document.addEventListener('click', function(event) {
-        if (!taskSelectCategory.contains(event.target) && event.target !== taskCategoryInput) {
-            taskSelectCategory.classList.add("d-none");
+        const isClickInsideCategorySelect = categorySelect.contains(event.target);
+        const isClickOnArrow = event.target.classList.contains("Assigned-img");
+        if (!isClickInsideCategorySelect && !isClickOnArrow && event.target !== taskCategoryInput) {
+            categorySelect.classList.add("d-none");
             arrowDownImg.classList.remove("d-none");
             arrowUpImg.classList.add("d-none");
         }
     });
 }
+
 
 

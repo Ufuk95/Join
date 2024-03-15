@@ -641,17 +641,10 @@ function updateProgressBar(taskId) {
     if (task && progressBar) {
         const subtasksDone = task.subtasks.filter((subtask) => subtask.checked).length;
         const subtasksTotal = task.subtasks.length;
-
-        // Berechne den prozentualen Fortschritt
         const progressPercentage = subtasksTotal > 0 ? (subtasksDone / subtasksTotal) * 100 : 0;
 
-        // Setze die Breite auf 128px, um die leere Fortschrittsleiste darzustellen
         progressBar.style.width = '128px';
-
-        // Setze die Hintergrundfarbe auf Blau entsprechend dem Fortschritt
         progressBar.style.background = `linear-gradient(90deg, #3498db ${progressPercentage}%, #f4f4f4 ${progressPercentage}%)`;
-
-        // Aktualisiere die Anzeige für Subtasks
         const subtaskDisplay = document.querySelector(
             `.task[data-id="${taskId}"] .subtask-display`
         );
