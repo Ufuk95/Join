@@ -728,6 +728,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   max-width: 1200px;
+  max-height: 800px;
 }
 
 .full-task-body.open .task-card {
