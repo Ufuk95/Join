@@ -710,6 +710,10 @@ body {
   opacity: 1; 
 }
 
+:focus-visible {
+  outline: rgb(40,171,226) auto 1px;
+}
+
 .task-card {
   width: 90%;
   height: 90%;
