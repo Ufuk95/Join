@@ -7,11 +7,17 @@ body {
     display: none !important;
 }
 
+:focus-visible {
+    outline: rgb(40,171,226) auto 1px;
+}
+
+
 .start-position {
     position: absolute;
-    left: 328px;
+    left: 280px;
     top: 124px;
-    width: calc(75% - 232px);
+    width: -webkit-fill-available;
+    max-width: 1200px;
 }
 
 .add-task-header {
@@ -236,6 +242,11 @@ body {
 
 #task-category-input {
     color: black;
+    cursor: pointer;
+}
+
+#contact-input-area {
+    cursor: pointer;
 }
 
 .selected-task {
