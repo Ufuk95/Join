@@ -14,10 +14,25 @@ let colorCarousell = {
 
 
 /**
+ * Checks if the "userData" key holds data. 
+ * If not, initializes an empty array for "userData"
+ */
+async function initArray(){
+  try {
+    JSON.parse(await getItem("userData"))
+  }
+  catch(err) {
+    setItem("userData", [])
+  }
+  }
+
+
+/**
  * Initialization of contacts.html
 */
 async function contactsInit() {
   loadAll();
+  await initArray()
   finalArray = await sortAndPrepare("userData");
   renderContacts(finalArray);
 }
