@@ -14,25 +14,10 @@ let colorCarousell = {
 
 
 /**
- * Checks if the "userData" key holds data. 
- * If not, initializes an empty array for "userData"
- */
-async function initArray(){
-  try {
-    JSON.parse(await getItem("userData"))
-  }
-  catch(err) {
-    setItem("userData", [])
-  }
-  }
-
-
-/**
  * Initialization of contacts.html
 */
 async function contactsInit() {
   loadAll();
-  await initArray()
   finalArray = await sortAndPrepare("userData");
   renderContacts(finalArray);
 }
@@ -253,8 +238,7 @@ function navigateBack() {
   addContactFrame.classList.remove("transition__add-contact");
   if (addContactFrameMobile) {
     addContactFrameMobile.classList.add("add-contact-transition__remove");
-    // document.querySelector(`.add-contact-frame-mobile`).classList.add("display-none")
-    setTimeout(() => { addContactFrameMobile.classList.add("display-none"); }, 1500);
+    setTimeout(() => { addContactFrameMobile.classList.add("d-none"); }, 1500);
   }
 }
 
@@ -331,14 +315,14 @@ function editContact(i) {
   addContactFrame.classList.add("transition__add-contact");
   let eclipseStyling = document.querySelector(`.name-in-circle${i}`).innerHTML;
   document.querySelector(`.add-contact__img-placeholder`).innerHTML = nameEclipse(eclipseStyling);
-  let { nameField, emailField, phoneField } = getInputFieldElements();
+  let { nameField, emailField, phoneField } = getInputFieldElement();
   nameField.value = finalArray[i][0];
   emailField.value = finalArray[i][1];
   phoneField.value = finalArray[i][3];
 }
 
 
-function getInputFieldElements() {
+function getInputFieldElement() {
   return {
     nameField: document.querySelector(`.edit-name`),
     emailField: document.querySelector(`.edit-email`),
@@ -353,7 +337,7 @@ function getInputFieldElements() {
  */
 function saveEditedData(i) {
   let editedIndex;
-  let { nameField, emailField, phoneField } = getInputFieldElements();
+  let { nameField, emailField, phoneField } = getInputFieldElement();
   finalArray[i][0] = nameField.value;
   finalArray[i][1] = emailField.value;
   finalArray[i][3] = phoneField.value;

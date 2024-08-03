@@ -273,14 +273,6 @@
   cursor: pointer;
 }
 
-.input-field__box-mobile {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .input-field__mobile {
   display: flex;
   position: relative;
@@ -458,7 +450,7 @@ cursor: pointer;
 @media (max-width: 414px) {
   .add-contact-frame-mobile{
     width: 95%;
-    height: 600px;
+    height: 98%;
     z-index: 999;
   }
 }

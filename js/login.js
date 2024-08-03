@@ -20,11 +20,16 @@ function login() {
 }
 
 
+function checkMailPw(email, password) {
+
+}
+
 /**
  * Checks the rightness of  email password combination. 
  * Logs in the user. 
  */
 function emailCheck(email, password) {
+  // password.setCustomValidity("Wrong email password combination.");
   let emailFound = false;
   let emailFoundIndex = 0;
   for (let i = 0; i < userData.length; i++) {
@@ -35,8 +40,8 @@ function emailCheck(email, password) {
     }
   }
   if (emailFound && userData[emailFoundIndex]["password"] === password.value) {
-    positiveLogin(emailFoundIndex);
-    clearPasswordValidity()
+    document.querySelector(`.login-area`).reset()
+    positiveLogin(emailFoundIndex)
   }
 }
 
@@ -72,6 +77,7 @@ function guestLoginIn() {
 function togglePasswordVisibility() {
   const passwordInput = document.getElementById("password");
   const lockImg = document.getElementById("img-lock");
+
   if (!isVisible) {
     passwordInput.type = "text";
     lockImg.src = "/assets/img/log_in/visibility.png";
@@ -111,30 +117,13 @@ function changeRectangle() {
   }
 }
 
+let pwInput = document.getElementById('password');
 
-/**
- * Checks the rightness of the email password combination. 
- * Sets a or removes a validation message. 
- */
-function pwCheck(){
-  let emailFound = false;
-  let emailFoundIndex = 0;
-  for (let i = 0; i < userData.length; i++) {
-    let user = userData[i];
-    if (user["email"] === email.value) {
-      emailFound = true;
-      emailFoundIndex = i;
-    }
-  }
-  if (emailFound && userData[emailFoundIndex]["password"] === password.value) {
-    document.getElementById(`password`).setCustomValidity("")
-  }else{
-    document.getElementById(`password`).setCustomValidity("wrong email password combination")
+function pwCheck() {
+
+  if (pwInput.value != pwInputRepeat.value) {
+    pwInput.setCustomValidity('Password Must be Matching.');
+  } else {
+    pwInput.setCustomValidity('');
   }
 }
-
-
-/**
- * Listener for the password field
- */
-passwordInputField.addEventListener("input", pwCheck);

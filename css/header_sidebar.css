@@ -3,7 +3,7 @@
 @font-face {
   font-family: "inter";
   /* Gewünschter Name */
-  src: url("/assets/fonts/inter-font.ttf");
+  src: url("../assets/fonts/inter-font.ttf");
 }
 
 body {
@@ -217,7 +217,6 @@ a {
 
 .footer-square-text {
   color: var(--white, #FFF);
-  font-family: "inter";
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

@@ -2,7 +2,7 @@
 @font-face {
   font-family: "Inter";
   /* Gewünschter Name */
-  src: url("/assets/fonts/inter-font.ttf");
+  src: url("../assets/fonts/inter-font.ttf");
 }
 
 body {
@@ -76,7 +76,6 @@ a:visited {
   padding: 48px 88px;
   flex-direction: column;
   align-items: center;
-
   border-radius: 30px;
   box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
 }
@@ -159,6 +158,9 @@ input[type="checkbox"] {
   width: 16px;
   height: 16px;
 }
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
 
 /************************* SEND BUTTON *************************/
 #privacy-policy-checkmark-frame {
@@ -197,6 +199,11 @@ input[type="checkbox"] {
   border-radius: 8px;
   background: #2A3647;
 }
+#button-sign-up:hover {
+  background-color: #29ABE2;
+  border-color: #29ABE2;
+  cursor: pointer;
+}
 
 #sign-up-button-text {
   color: #FFF;
@@ -214,8 +221,6 @@ footer {
   align-items: flex-start;
   gap: 16px;
   width: 100%;
-  position: absolute;
-  bottom: unset;
 }
 
 footer a {
