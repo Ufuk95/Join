@@ -10,7 +10,7 @@ body {
 .start-position {
     position: absolute;
     left: 328px;
-    top: 206px;
+    top: 120px;
     width: calc(85% - 232px);
 }
 
@@ -304,10 +304,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    left: calc(232px + 74px);
-    bottom: 64px;
-    width: calc(85% - 232px);
+    width: 100%;
 }
 
 .add-task-footer-btn {

@@ -1,7 +1,7 @@
 // Tests for remote storage
 
 // generate tokens at  https://remote-storage.developerakademie.org/token-generator
-const STORAGE_TOKEN = '6OT5NHLEZTIV1ASE5C02UCNNGQZH7TEB6HQPFP5F';
+const STORAGE_TOKEN = '8DHJQSZQF965QFW74I7VYYKYDNLFNVLZVIOGXDGP';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
 
 /**
