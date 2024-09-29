@@ -76,7 +76,7 @@ header {
   padding: 15px;
   background-color: rgb(43, 54, 71);
   color: white;
-  border:none
+  border: none
 }
 
 .sign-up button:hover {
@@ -276,8 +276,7 @@ footer {
   align-items: flex-start;
   gap: 16px;
   width: 98%;
-  position: absolute;
-  bottom: 35px;
+  margin-top: 20px;
 }
 
 footer a {
@@ -360,44 +359,45 @@ footer a:hover {
     position: unset;
     margin: 0 auto;
     margin-top: 40px;
-    width:fit-content;
-    height:fit-content;
+    width: fit-content;
+    height: fit-content;
     border: none;
   }
-  
-  .sign-up-mobile span{
+
+  .sign-up-mobile span {
     font-size: 20px;
   }
 
-  footer{
+  footer {
     position: unset;
     margin-top: 38px;
     padding-bottom: 32px;
     gap: 10px;
   }
 
-  .log-in-btn{
-    font-size: 16px;
-    font-weight: 700;
-  }
-  
-  .guest-log-in-btn{
+  .log-in-btn {
     font-size: 16px;
     font-weight: 700;
   }
 
-  .vector-line{
+  .guest-log-in-btn {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .vector-line {
     width: 77px;
     height: 4px;
   }
 
-  .remember-container{
+  .remember-container {
     margin: 16px 0;
   }
 }
 
 @media (max-width: 580px) {
-  .login-body{width: 85%
+  .login-body {
+    width: 85%
   }
 }
 
