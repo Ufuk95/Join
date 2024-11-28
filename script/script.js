@@ -1,7 +1,7 @@
 
-const USERS_URL = "https://ufuks-join-users-default-rtdb.europe-west1.firebasedatabase.app/";
-const TASKS_URL = "https://ufuks-join-tasks-default-rtdb.europe-west1.firebasedatabase.app/";
-const CONTACTS_URL = "https://ufuks-join-contacts-default-rtdb.europe-west1.firebasedatabase.app/";
+const USERS_URL = "https://ufuks-new-join-user-default-rtdb.europe-west1.firebasedatabase.app/";
+const TASKS_URL = "https://ufuk-new-join-task-default-rtdb.europe-west1.firebasedatabase.app/";
+const CONTACTS_URL = "https://ufuk-new-join-contact-7c920-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
 let backgroundColors = [
